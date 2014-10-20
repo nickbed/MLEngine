@@ -1,3 +1,4 @@
 Debug/**/*
 MLEngine/Debug/**/*
 *.sdf
+*.opensdf
