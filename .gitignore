@@ -1,4 +1,6 @@
 Debug/**/*
+Debug
 MLEngine/Debug/**/*
+MLEngine/Debug
 *.sdf
 *.opensdf
