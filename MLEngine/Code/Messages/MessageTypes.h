@@ -1,5 +1,7 @@
-//Enum for types of messages here
-enum class MessageTypes
+//types of messages here
+namespace mauvemessage
 {
-	GeneralMessage //0
-};
+	#define MSG_GENERAL "msg_general"
+	#define MSG_GRAPHICS "msg_graphics"
+	#define MSG_MOVEMENT "msg_movement"
+}

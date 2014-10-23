@@ -3,13 +3,18 @@
 #include "MessageTypes.h"
 #include <string>
 //Class for defining the message base class
-class BaseMessage
+namespace mauvemessage
 {
-public:
-	BaseMessage(MessageTypes messageType);
-	virtual ~BaseMessage();
-	MessageTypes id;
-	std::string messageString;
-};
+	class BaseMessage
+	{
+	public:
+		BaseMessage(const char* messageType);
+		virtual ~BaseMessage();
+
+	private:
+		std::string id;
+		std::string messageString;
+	};
+}
 
 #endif

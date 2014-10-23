@@ -1,12 +1,13 @@
 #include "../Messages/BaseMessage.h"
-
-BaseMessage::BaseMessage(MessageTypes messageType)
+namespace mauvemessage
 {
-	this->messageString = "";
-	this->id = messageType;
-}
+	BaseMessage::BaseMessage(const char* messageType)
+	{
+		this->messageString = "";
+		this->id = messageType;
+	}
 
-BaseMessage::~BaseMessage()
-{
+	BaseMessage::~BaseMessage()
+	{
+	}
 }
-
