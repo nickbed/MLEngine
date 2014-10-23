@@ -10,9 +10,9 @@ void IComponent::Update(float dt)
 {
 }
 
-void IComponent::SendMessage(BaseMessage message)
-{
-}
+//void IComponent::SendMessage(BaseMessage message)
+//{
+//}
 
 void IComponent::Destroy()
 {

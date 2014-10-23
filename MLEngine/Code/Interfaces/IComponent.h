@@ -15,9 +15,6 @@ public:
 	//Update method
 	virtual void Update(float dt) = 0;
 
-	//When something needs to send a message to the component
-	virtual void SendMessage(BaseMessage message) = 0;
-
 	//Gets called to bin us
 	virtual void Destroy() = 0;
 

@@ -1,6 +1,7 @@
 #ifndef DebugComponent_H
 #define DebugComponent_H
 #include "../Interfaces/IComponent.h"
+#include "../Messages/BaseMessage.h"
 #include <iostream>
 
 //Debugging component that will cout a lot of stuff
@@ -16,7 +17,7 @@ public:
 	void Update(float dt);
 
 	//We'll print any messages we receive
-	void SendMessage(BaseMessage message);
+	void SendMessage(mauvemessage::BaseMessage message);
 
 	//Gets called to bin us
 	void Destroy();

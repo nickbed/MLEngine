@@ -62,6 +62,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Code\Assert\Assert.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
     <ClCompile Include="Code\Interfaces\IComponent.cpp" />
@@ -70,10 +71,12 @@
     <ClCompile Include="Code\Interfaces\ISystem.cpp" />
     <ClCompile Include="Code\main.cpp" />
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
+    <ClCompile Include="Code\Messages\MessageManager.cpp" />
     <ClCompile Include="Code\States\TestState.cpp" />
     <ClCompile Include="Code\Systems\LogicSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\Assert\Assert.h" />
     <ClInclude Include="Code\Components\DebugComponent.h" />
     <ClInclude Include="Code\Core\Engine.h" />
     <ClInclude Include="Code\Interfaces\IComponent.h" />
@@ -81,6 +84,7 @@
     <ClInclude Include="Code\Interfaces\IState.h" />
     <ClInclude Include="Code\Interfaces\ISystem.h" />
     <ClInclude Include="Code\Messages\BaseMessage.h" />
+    <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
     <ClInclude Include="Code\States\TestState.h" />
     <ClInclude Include="Code\Systems\LogicSystem.h" />

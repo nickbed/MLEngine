@@ -49,6 +49,9 @@
     <Filter Include="Header Files\Systems">
       <UniqueIdentifier>{e8627fea-ff15-4e24-bcca-b9b9cd4ca9c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Assert">
+      <UniqueIdentifier>{45ddfe7e-9e81-4e22-a9ff-99b8e2fb33b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\main.cpp">
@@ -81,6 +84,12 @@
     <ClCompile Include="Code\States\TestState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Messages\MessageManager.cpp">
+      <Filter>Header Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Assert\Assert.cpp">
+      <Filter>Header Files\Assert</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -112,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="Code\States\TestState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Messages\MessageManager.h">
+      <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Assert\Assert.h">
+      <Filter>Header Files\Assert</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

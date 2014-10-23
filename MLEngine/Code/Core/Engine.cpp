@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "../States/TestState.h"
+#include "../Messages/MessageManager.h"
 
 Engine::Engine(const EngineConfig conf) : currentConfig(conf)
 {
@@ -16,6 +17,7 @@ void Engine::Init()
 	//Load the config in
 	std::unique_ptr<TestState> firstState = std::unique_ptr<TestState>(new TestState());
 	this->currentState = std::move(firstState);
+	mauvemessage::MessageManager::ClearMessageListner(nullptr); //EXCEPTION TEST!
 }
 
 bool Engine::Update(float dt)
