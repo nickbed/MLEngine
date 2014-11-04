@@ -81,7 +81,7 @@ namespace mauveassert
 
 		static void AssertTrue(const char* name, bool valueToAssert, ENUM_severity sev)
 		{
-			if(valueToAssert)
+			if(!valueToAssert)
 			{
 				std::stringstream result;
 				result << "ASSERT FAILED: " << name;
@@ -92,13 +92,8 @@ namespace mauveassert
 
 		static void AssertFalse(const char* name, bool valueToAssert, ENUM_severity sev)
 		{
-			if(valueToAssert)
-			{
-				std::stringstream result;
-				result << "ASSERT FAILED: " << name;
-				std::string temp = result.str();
-				HandleAssert(sev, const_cast<char*>(temp.c_str()));
-			}
+			//Invert assert value
+			AssertTrue(name, !valueToAssert, sev); 
 		}
 
 	private:

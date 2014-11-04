@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "../States/TestState.h"
 #include "../Messages/MessageManager.h"
+#include "../Assert/Assert.h"
 
 Engine::Engine(const EngineConfig conf) : currentConfig(conf)
 {

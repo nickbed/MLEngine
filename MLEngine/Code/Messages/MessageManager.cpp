@@ -36,7 +36,7 @@ namespace mauvemessage
 
 	void MessageManager::AddMessageListner(const char* typeToListen, RecieverInfo& reciever)
 	{
-		mauveassert::Assert::AssertTrue("Calling add message listner with null type", typeToListen == "" ,mauveassert::ENUM_severity::SEV_FATAL);
+		mauveassert::Assert::AssertFalse("Calling add message listner with null type", typeToListen == "" ,mauveassert::ENUM_severity::SEV_FATAL);
 
 		listnerMap->insert(std::make_pair(typeToListen, reciever));
 	}

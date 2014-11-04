@@ -13,10 +13,11 @@ namespace mauvemessage
 	//Must be created through the constructor, then passed through to anything that needs it.
 	struct RecieverInfo
 	{
-		RecieverInfo(const char* listentype, const void* objectptr, const void (*func)(BaseMessage message)) : typeToListen(listentype), listenobjectptr(objectptr), listnerFunction(func) {}
+		RecieverInfo() {}
+		RecieverInfo(const char* listentype, void* objectptr, void (*func)(BaseMessage message)) : typeToListen(listentype), listenobjectptr(objectptr), listnerFunction(func) {}
 		const char* typeToListen;
-		const void* listenobjectptr;
-		const void (*listnerFunction)(BaseMessage message);
+		void* listenobjectptr;
+		void (*listnerFunction)(BaseMessage message);
 	};
 
 	class MessageManager

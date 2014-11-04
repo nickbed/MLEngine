@@ -1,6 +1,14 @@
 Debug/**/*
 Debug
+Release
+Test
 MLEngine/Debug/**/*
 MLEngine/Debug
+MLEngine/Test/**/*
+MLEngine/Test
+MLTest/Debug
+MLTest/Release
+TestResults
+ipch
 *.sdf
 *.opensdf
