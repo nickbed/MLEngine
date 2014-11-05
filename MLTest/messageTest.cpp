@@ -49,7 +49,28 @@ namespace MLTEST
 
 		TEST_METHOD(Listner_Should_Recieve_Message_Sent_To_A_Type_It_Is_Listening_To)
 		{
-			Assert::Fail(TEXT("Test Not Implemented"));
+			//Listner setup
+			const char* typeToListen = "testType";
+			mauvemessage::RecieverInfo messageReciever;
+			messageReciever.listenobjectptr = this;
+			messageReciever.listnerFunction = &MLTEST::MessageTest::MessageHandler;
+			messageReciever.typeToListen = typeToListen;
+
+			//Create map and message handler instance
+			std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listners = new std::unordered_multimap<const char*,mauvemessage::RecieverInfo>();
+			mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
+
+			//Add listner into map
+			messageHandler.AddMessageListner(typeToListen, messageReciever);
+
+			//Create message
+			mauvemessage::BaseMessage messageToSend = mauvemessage::BaseMessage("testMessage");
+
+			//Send message
+			messageHandler.SendListnerMessage(messageToSend, "testType");
+
+			Assert::IsTrue(messageRecieved, TEXT("Message has been recieved by the test handler function"));
+
 		}
 
 		TEST_METHOD(Adding_A_Message_Listner_Adds_It_To_The_Listner_List)
@@ -76,9 +97,62 @@ namespace MLTEST
 
 		}
 
-		TEST_METHOD(Clearing_A_Message_Listner_Removes_It_From_The_Listner_List)
+		TEST_METHOD(Clearing_A_Message_Listner_Removes_It_From_The_Listner_List_Using_Void_Pointer)
 		{
-			Assert::Fail(TEXT("Test Not Implemented"));
+			//Listner setup
+			const char* typeToListen = "testType";
+			mauvemessage::RecieverInfo messageReciever;
+			messageReciever.listenobjectptr = this;
+			messageReciever.listnerFunction = &MLTEST::MessageTest::MessageHandler;
+			messageReciever.typeToListen = typeToListen;
+
+			//Create map and message handler instance
+			std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listners = new std::unordered_multimap<const char*,mauvemessage::RecieverInfo>();
+			mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
+
+			//Add listner into map
+			messageHandler.AddMessageListner(typeToListen, messageReciever);
+
+			//Check to see if it's in the map
+			mauvemessage::RecieverInfo gotReciever = listners->find(typeToListen)->second;
+
+			//Should both point to the same object (this)
+			Assert::AreEqual((int)gotReciever.listenobjectptr, (int)messageReciever.listenobjectptr, TEXT("Both listners point to the same object address"));
+
+			//Remove the listner using void pointer
+			messageHandler.ClearMessageListner(this);
+
+			//Map should be empty now
+			Assert::AreEqual(0, (int)listners->size(), TEXT("Map is empty"));
+		}
+
+		TEST_METHOD(Clearing_A_Message_Listner_Removes_It_From_The_Listner_List_Using_Reciever_Type)
+		{
+			//Listner setup
+			const char* typeToListen = "testType";
+			mauvemessage::RecieverInfo messageReciever;
+			messageReciever.listenobjectptr = this;
+			messageReciever.listnerFunction = &MLTEST::MessageTest::MessageHandler;
+			messageReciever.typeToListen = typeToListen;
+
+			//Create map and message handler instance
+			std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listners = new std::unordered_multimap<const char*,mauvemessage::RecieverInfo>();
+			mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
+
+			//Add listner into map
+			messageHandler.AddMessageListner(typeToListen, messageReciever);
+
+			//Check to see if it's in the map
+			mauvemessage::RecieverInfo gotReciever = listners->find(typeToListen)->second;
+
+			//Should both point to the same object (this)
+			Assert::AreEqual((int)gotReciever.listenobjectptr, (int)messageReciever.listenobjectptr, TEXT("Both listners point to the same object address"));
+
+			//Remove the listner using void pointer
+			messageHandler.ClearMessageListner(gotReciever);
+
+			//Map should be empty now
+			Assert::AreEqual(0, (int)listners->size(), TEXT("Map is empty"));
 		}
 	
 	};

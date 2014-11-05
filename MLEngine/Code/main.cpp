@@ -3,6 +3,7 @@
 #include "Core/Engine.h"
 #include "Assert\Assert.h"
 #include "Messages\MessageManager.h"
+#include "Graphics\GraphicsManager.h"
 
 void ExceptionHandler(const char* message);
 int guardedMain();
@@ -37,7 +38,7 @@ int guardedMain()
 	currentEngine.Init();
 	while(true)
 	{
-		if(!currentEngine.Update(10.0f))
+		if(!currentEngine.Update())
 		{
 			break;
 		}

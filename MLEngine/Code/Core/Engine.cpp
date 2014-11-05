@@ -21,7 +21,7 @@ void Engine::Init()
 	mauvemessage::MessageManager::ClearMessageListner(nullptr); //EXCEPTION TEST!
 }
 
-bool Engine::Update(float dt)
+bool Engine::Update()
 {
 	++loops;
 	if(loops > 10)

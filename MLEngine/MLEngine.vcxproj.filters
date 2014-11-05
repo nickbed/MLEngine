@@ -52,6 +52,12 @@
     <Filter Include="Header Files\Assert">
       <UniqueIdentifier>{45ddfe7e-9e81-4e22-a9ff-99b8e2fb33b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{4e3dba51-c806-492f-be55-2b1b25c3895e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\File">
+      <UniqueIdentifier>{4c432341-7b54-4502-af70-105f895aec45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\main.cpp">
@@ -90,6 +96,12 @@
     <ClCompile Include="Code\Messages\MessageManager.cpp">
       <Filter>Source Files\Messages</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Graphics\GraphicsManager.cpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\File\FIleManager.cpp">
+      <Filter>Header Files\File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -127,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="Code\Assert\Assert.h">
       <Filter>Header Files\Assert</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Graphics\GraphicsManager.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\File\FileManager.h">
+      <Filter>Header Files\File</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

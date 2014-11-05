@@ -79,7 +79,7 @@ namespace mauveassert
 			fatalExceptionHandler(message);
 		}
 
-		static void AssertTrue(const char* name, bool valueToAssert, ENUM_severity sev)
+		static bool AssertTrue(const char* name, bool valueToAssert, ENUM_severity sev)
 		{
 			if(!valueToAssert)
 			{
@@ -87,13 +87,15 @@ namespace mauveassert
 				result << "ASSERT FAILED: " << name;
 				std::string temp = result.str();
 				HandleAssert(sev, const_cast<char*>(temp.c_str()));
+				return false;
 			}
+			return true;
 		}
 
-		static void AssertFalse(const char* name, bool valueToAssert, ENUM_severity sev)
+		static bool AssertFalse(const char* name, bool valueToAssert, ENUM_severity sev)
 		{
 			//Invert assert value
-			AssertTrue(name, !valueToAssert, sev); 
+			return AssertTrue(name, !valueToAssert, sev); 
 		}
 
 	private:

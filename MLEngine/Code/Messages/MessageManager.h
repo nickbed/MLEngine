@@ -30,7 +30,7 @@ namespace mauvemessage
 		//Send Messages, Add listners and remove them.
 		static void SendListnerMessage(const BaseMessage& message, const char* typeToSend);
 		static void AddMessageListner(const char* typeToListen, RecieverInfo& reciever);
-		static void ClearMessageListner(const void* listnerObject);
+		static void ClearMessageListner(void* listnerObject);
 		static void ClearMessageListner(RecieverInfo& recieverToRemove);
 
 	private:

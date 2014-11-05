@@ -18,8 +18,9 @@ public:
 	//Init the engine with config
 	void Init();
 
-	//Update the engine with delta t
-	bool Update(float dt);
+	//Update the engine
+	bool Update();
+	void Draw();
 
 private:
 	//State stuff

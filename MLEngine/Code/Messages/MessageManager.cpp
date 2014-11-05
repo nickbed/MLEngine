@@ -41,7 +41,7 @@ namespace mauvemessage
 		listnerMap->insert(std::make_pair(typeToListen, reciever));
 	}
 
-	void MessageManager::ClearMessageListner(const void* listnerObject)
+	void MessageManager::ClearMessageListner(void* listnerObject)
 	{
 		mauveassert::Assert::AssertTrue("Passing a null pointer to clear message listner", listnerObject == nullptr,mauveassert::ENUM_severity::SEV_FATAL);
 		
