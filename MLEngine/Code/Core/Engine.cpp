@@ -39,26 +39,47 @@ void Engine::Init()
 		0.327f, 0.483f, 0.844f,
 		0.822f, 0.569f, 0.201f,
 		0.435f, 0.602f, 0.223f,
-		0.310f, 0.747f, 0.185f,
-		0.597f, 0.770f, 0.761f,
-		0.559f, 0.436f, 0.730f,
-		0.359f, 0.583f, 0.152f,
-		0.483f, 0.596f, 0.789f,
-		0.559f, 0.861f, 0.639f,
-		0.195f, 0.548f, 0.859f,
-		0.014f, 0.184f, 0.576f,
-		0.771f, 0.328f, 0.970f,
+		0.310f, 0.747f, 0.185f
+	};
+
+	GLfloat floatvert3[]  = 
+	{
+		-10.0f, -1.0f, -10.0f,
+		-10.0f, -1.0f, 10.0f,
+		10.0f, -1.0f, -10.0f,
+		10.0f, -1.0f, -10.0f,
+		-10.0f, -1.0f, 10.0f,
+		10.0f, -1.0f, 10.0f
+	};
+
+	GLfloat floatvert4[] =
+	{
+		0.9f, 0.0f, 0.0f,
+		0.0f, 0.9f, 0.0f,
+		0.0f, 0.0f, 0.9f,
+		0.9f, 0.0f, 0.0f,
+		0.0f, 0.9f, 0.0f,
+		0.0f, 0.0f, 0.9f
 	};
 
 	std::vector<GLfloat> testVertices(floatvert, floatvert + sizeof(floatvert) / sizeof(GLfloat));
 	std::vector<GLfloat> testVertices2(floatvert2, floatvert2 + sizeof(floatvert2) / sizeof(GLfloat));
+	std::vector<GLfloat> testVertices3(floatvert3, floatvert3 + sizeof(floatvert3) / sizeof(GLfloat));
+	std::vector<GLfloat> testVertices4(floatvert4, floatvert4 + sizeof(floatvert4) / sizeof(GLfloat));
 
 	graphics->UploadVertices(testVertices);
 	graphics->UploadColours(testVertices2);
-	//graphics2->UploadVertices(testVertices2);
+	
+	graphics2->UploadVertices(testVertices3);
+	graphics2->UploadColours(testVertices4);
+
 	testEntity = new GeneralEntity();
-	testEntity->Components->AddComponent("testGraphics",graphics);
-	//testEntity->Components->AddComponent("testGraphics", graphics2);
+
+
+
+		testEntity->Components->AddComponent("testGraphics", graphics2);
+			testEntity->Components->AddComponent("testGraphics",graphics);
+	
 
 	//testEntity->Transform->SetScale(glm::vec3(0.5f, 0.5f, 1.0f));
 }

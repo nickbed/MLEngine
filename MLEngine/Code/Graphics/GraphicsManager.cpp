@@ -43,8 +43,8 @@ bool GraphicsManager::Init()
 
 	//Add a camera
 	currentCamera = new CameraEntity();
-	glm::vec3 newCameraPos = glm::vec3(0.0, 0.0, 5.0);
-	currentCamera->SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+	glm::vec3 newCameraPos = glm::vec3(0.0, 5.0, 50.0);
+	currentCamera->SetPosition(glm::vec3(0.0f, 3.0f, 3.0f));
 
 	return true;
 }
@@ -129,6 +129,8 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	// Create and set-up the vertex array object
 	//glGenVertexArrays(1, &vertarray);
 
+	//TODO - get colours working properly
+
 	glEnableVertexAttribArray(0);  // Vertex position
 
 	glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetVerticesID());
@@ -142,8 +144,8 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetColoursID());
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
 
-
 	glDisableVertexAttribArray(0);
+
 }
 
 GLFWwindow* GraphicsManager::GetCurrentWindow()
