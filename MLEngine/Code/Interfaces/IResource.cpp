@@ -6,15 +6,15 @@ IResource::IResource()
 	this->filename = "";
 }
 
+IResource::IResource(std::string file) : filename(file)
+{
+}
+
 IResource::~IResource()
 {
 
 }
 
-bool IResource::LoadFromFile(std::string filename)
-{
-	return false;
-}
 
 std::string IResource::GetFilename()
 {

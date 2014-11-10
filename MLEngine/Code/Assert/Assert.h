@@ -7,7 +7,6 @@
 #include <Windows.h>
 
 
-
 namespace mauveassert
 {
 	typedef void (*FEP)(const char* message);
@@ -22,6 +21,7 @@ namespace mauveassert
 
 	class Assert
 	{
+
 	public:
 		Assert();
 
@@ -35,13 +35,14 @@ namespace mauveassert
 		{
 			switch(sev)
 			{
-			case 0: //error - red
+			case ENUM_severity::SEV_ERROR: //error - red
 				SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0xC );
+
 				break;
-			case 1: //warning - yellow
+			case ENUM_severity::SEV_WARNING: //warning - yellow
 				SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0xE );
 				break;
-			case 2: //info - green
+			case ENUM_severity::SEV_INFO: //info - green
 				SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0xA );
 				break;
 			}
@@ -56,6 +57,15 @@ namespace mauveassert
 			std::stringstream result;
 
 			result << DebugText << " " << number;
+
+			WriteDebug(result.str(), sev);
+		}
+
+		static void WriteDebug(std::string DebugText, std::string MoreDebugText, ENUM_severity sev)
+		{
+			std::stringstream result;
+
+			result << DebugText << " " << MoreDebugText;
 
 			WriteDebug(result.str(), sev);
 		}
@@ -102,6 +112,11 @@ namespace mauveassert
 		static FEP fatalExceptionHandler;
 		
 	};
+
 }
+
+//Assert Macros
+#define NULLPTRCHECK(ptr, msg) ptr == nullptr?mauveassert::Assert::HandleException(msg):0;
+#define DEBUGWRITEINFO(info, value) mauveassert::Assert::WriteDebug(info, value, mauveassert::ENUM_severity::SEV_INFO);
 
 #endif

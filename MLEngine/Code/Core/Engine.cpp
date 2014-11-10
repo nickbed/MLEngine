@@ -1,7 +1,9 @@
 #include "Engine.h"
 #include "../States/TestState.h"
 #include "../Messages/MessageManager.h"
-#include "../Assert/Assert.h"
+
+
+#include "..\Components\threeDGraphics.h"
 
 Engine::Engine(const EngineConfig conf) : currentConfig(conf)
 {
@@ -14,30 +16,58 @@ Engine::~Engine()
 
 void Engine::Init()
 {
-	loops = 0;
-	//Load the config in
-	std::unique_ptr<TestState> firstState = std::unique_ptr<TestState>(new TestState());
-	this->currentState = std::move(firstState);
-	mauvemessage::MessageManager::ClearMessageListner(nullptr); //EXCEPTION TEST!
+	graphicsManager = std::unique_ptr<GraphicsManager>(new GraphicsManager);
+	graphicsManager->Init();
+	graphicsManager->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Test window");
+	ThreeDGraphics* graphics = new ThreeDGraphics("threeDGraphics");
+	ThreeDGraphics* graphics2 = new ThreeDGraphics("threeDGraphics2");
+
+	GLfloat floatvert[]  = 
+	{
+		-1.0f, 1.0f, 0.0f,
+		-1.0f, -1.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f
+	};
+
+	GLfloat floatvert2[] =
+	{
+		0.583f, 0.771f, 0.014f,
+		0.609f, 0.115f, 0.436f,
+		0.327f, 0.483f, 0.844f,
+		0.822f, 0.569f, 0.201f,
+		0.435f, 0.602f, 0.223f,
+		0.310f, 0.747f, 0.185f,
+		0.597f, 0.770f, 0.761f,
+		0.559f, 0.436f, 0.730f,
+		0.359f, 0.583f, 0.152f,
+		0.483f, 0.596f, 0.789f,
+		0.559f, 0.861f, 0.639f,
+		0.195f, 0.548f, 0.859f,
+		0.014f, 0.184f, 0.576f,
+		0.771f, 0.328f, 0.970f,
+	};
+
+	std::vector<GLfloat> testVertices(floatvert, floatvert + sizeof(floatvert) / sizeof(GLfloat));
+	std::vector<GLfloat> testVertices2(floatvert2, floatvert2 + sizeof(floatvert2) / sizeof(GLfloat));
+
+	graphics->UploadVertices(testVertices);
+	graphics->UploadColours(testVertices2);
+	//graphics2->UploadVertices(testVertices2);
+	testEntity = new GeneralEntity();
+	testEntity->Components->AddComponent("testGraphics",graphics);
+	//testEntity->Components->AddComponent("testGraphics", graphics2);
+
+	//testEntity->Transform->SetScale(glm::vec3(0.5f, 0.5f, 1.0f));
 }
 
 bool Engine::Update()
 {
-	++loops;
-	if(loops > 10)
-	{
-		return false;
-	}
-
-	if(!this->currentState->Update(10.0f))
-	{
-		if(!LoadNextState())
-		{
-			//do something else
-			return false;
-		}
-	}
-
+	std::vector<IEntity*> testEnts;
+	testEnts.push_back(testEntity);
+	graphicsManager->DrawAndUpdateWindow(testEnts, 0.0f);
 	return true;
 }
 

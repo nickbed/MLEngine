@@ -6,8 +6,9 @@ class IResource
 {
 public:
 	IResource();
+	IResource(std::string file);
 	virtual ~IResource();
-	virtual bool LoadFromFile(std::string filename);
+	virtual bool LoadFromFile(std::string filename) = 0;
 	std::string GetFilename();
 
 private:

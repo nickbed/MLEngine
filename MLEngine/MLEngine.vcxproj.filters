@@ -58,6 +58,27 @@
     <Filter Include="Header Files\File">
       <UniqueIdentifier>{4c432341-7b54-4502-af70-105f895aec45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Assert">
+      <UniqueIdentifier>{0ab54da2-341e-4a9a-bfae-29f8b2cc5e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\File">
+      <UniqueIdentifier>{741793a8-be1b-4422-926f-0dfee779561a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resources">
+      <UniqueIdentifier>{21f6e12a-4ef7-4095-966b-992c85db14fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{49b42d46-a422-47cf-9cd0-b598dbe49f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{27268743-02a7-4248-8b4a-2924a1273a96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{cba24ab4-4bc5-4560-a07c-41358fbeca09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{9cfb4b6d-24f6-47c2-b088-39fba1ae8681}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\main.cpp">
@@ -78,29 +99,47 @@
     <ClCompile Include="Code\Interfaces\IState.cpp">
       <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Interfaces\ISystem.cpp">
-      <Filter>Source Files\Interfaces</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Messages\BaseMessage.cpp">
       <Filter>Source Files\Messages</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\LogicSystem.cpp">
-      <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="Code\States\TestState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Assert\Assert.cpp">
-      <Filter>Header Files\Assert</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Messages\MessageManager.cpp">
       <Filter>Source Files\Messages</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Graphics\GraphicsManager.cpp">
-      <Filter>Header Files\Graphics</Filter>
+    <ClCompile Include="Code\Assert\Assert.cpp">
+      <Filter>Source Files\Assert</Filter>
     </ClCompile>
     <ClCompile Include="Code\File\FIleManager.cpp">
-      <Filter>Header Files\File</Filter>
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\ComponentManager.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\Transform.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\threeDGraphics.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Resources\Shader.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Graphics\GraphicsManager.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Resources\ResourceManager.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Entities\GeneralEntity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Interfaces\IEntity.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Entities\Camera.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,17 +158,11 @@
     <ClInclude Include="Code\Interfaces\IState.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Interfaces\ISystem.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Messages\BaseMessage.h">
       <Filter>Header Files\Messages</Filter>
     </ClInclude>
     <ClInclude Include="Code\Messages\MessageTypes.h">
       <Filter>Header Files\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\LogicSystem.h">
-      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Code\States\TestState.h">
       <Filter>Header Files\States</Filter>
@@ -145,6 +178,30 @@
     </ClInclude>
     <ClInclude Include="Code\File\FileManager.h">
       <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\ComponentManager.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Interfaces\IEntity.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\Transform.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\threeDGraphics.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Resources\Shader.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Resources\ResourceManager.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Entities\GeneralEntity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Entities\Camera.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,14 @@
 #ifndef GRAPHICSMANAGER_H
 #define GRAPHICSMANAGER_H
-
-#include "include\gl_core_4_3.hpp"
+#include "../Assert/Assert.h"
+#include "GL\glew.h"
 #include "GLFW\glfw3.h"
+#include "..\Interfaces\IEntity.h"
+#include "GLM\glm.hpp"
+#include "GLM\gtx\transform.hpp"
+#include "..\Components\threeDGraphics.h"
+#include "..\Resources\ResourceManager.h"
+#include "..\Entities\Camera.h"
 #include <map>
 
 class GraphicsManager
@@ -19,18 +25,20 @@ public:
 	bool CreateGraphicsWindow(const int xSize, const int ySize, const char* windowTitle);
 
 	//Draw window, poll events and swap buffers. Returns false if window should be closing
-	bool DrawAndUpdateWindow();
+	bool DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt);
 
-	bool LoadShader(const char* shaderName, const char* shaderPath);
-	const int GetShaderID(const char* shaderName);
+	void DrawEntity(IEntity* ent);
+
+	void RenderComponents(ThreeDGraphics* componentToRender, TransformComponent* modelTransform);
 
 	//Getters
 	GLFWwindow* GetCurrentWindow();
 	const int GetXSize();
 	const int GetYSize();
+	CameraEntity* GetCurrentCamera();
 
 	//Setters
-
+	void SetCurrentCamera(CameraEntity* camera);
 
 private:
 
@@ -41,8 +49,9 @@ private:
 	int xSize;
 	int ySize;
 
-	//Map to store shaders and their locations
-	std::map<char*, int> shaderMap;
+	Shader* currentShader;
+	CameraEntity* currentCamera;
+
 };
 
 

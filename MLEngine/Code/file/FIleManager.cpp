@@ -23,8 +23,8 @@ namespace mauvefile
 			{
 				if(shaderFormatting) output += "\n"; 
 				output += Line;
-				fileStream.close();
 			}
+			fileStream.close();
 		}
 		return output;
 	}

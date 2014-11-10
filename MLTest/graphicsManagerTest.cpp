@@ -1,13 +1,15 @@
+
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "Assert\Assert.h"
-#include "Graphics\GraphicsManager.h"
+
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
+#include "Graphics\GraphicsManager.h"
 namespace MLTEST
 {
 
+	
 	TEST_CLASS(GraphicsManagerTest)
 	{
 	public:
@@ -100,29 +102,9 @@ namespace MLTEST
 
 			bool result = testGraphics.CreateGraphicsWindow(640, 480, nullptr);
 
-			Assert::IsFalse(result, TEXT("Create window should return fail"));
+			Assert::IsTrue(testHasPassed, TEXT("Null pointer exception should be handled"));
 
 			glfwTerminate();
-		}
-
-		TEST_METHOD(Loading_A_Shader_From_File_Puts_It_Into_The_map)
-		{
-			Assert::Fail(TEXT("Not Implemented"));
-		}
-
-		TEST_METHOD(Loading_An_Invalid_Shader_Returns_False)
-		{
-			Assert::Fail(TEXT("Not Implemented"));
-		}
-
-		TEST_METHOD(Getting_A_Valid_Shader_Returns_Its_ID)
-		{
-			Assert::Fail(TEXT("Not Implemented"));
-		}
-
-		TEST_METHOD(Getting_A_Shader_That_Doesnt_Exist_Returns_minus_1)
-		{
-			Assert::Fail(TEXT("Not Implemented"));
 		}
 
 	};

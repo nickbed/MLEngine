@@ -1,9 +1,8 @@
 #include <memory>
 #include <thread>
-#include "Core/Engine.h"
 #include "Assert\Assert.h"
+#include "Core/Engine.h"
 #include "Messages\MessageManager.h"
-#include "Graphics\GraphicsManager.h"
 
 void ExceptionHandler(const char* message);
 int guardedMain();
@@ -22,16 +21,17 @@ int main()
 		mauveassert::Assert::HandleException(e.what());
 	}
 
+
 	system("pause");
 	return 0;
 }
 
 int guardedMain()
 {
-		//Do our config
+	//Do our config
 	EngineConfig currentConf;
-	currentConf.resX = 0;
-	currentConf.resY = 0;
+	currentConf.resX = 640;
+	currentConf.resY = 480;
 
 	//Make our engine
 	Engine currentEngine = Engine(currentConf);
@@ -42,7 +42,7 @@ int guardedMain()
 		{
 			break;
 		}
-		std::this_thread::sleep_for(std::chrono::seconds(10));
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
 	return 0;
 }
@@ -50,7 +50,7 @@ int guardedMain()
 void ExceptionHandler(const char* message)
 {
 	//Just close it
-	std::cout << "Handling an exception :-)" << std::endl;
+	std::cout << "Handling an exception :-)" << message << std::endl;
 	system("pause");
 	std::exit(1);
 }
