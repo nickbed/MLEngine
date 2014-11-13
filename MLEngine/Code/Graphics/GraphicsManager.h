@@ -19,7 +19,7 @@ public:
 	//TODO - Add another constructor here
 
 	//Init OpenGL Windowing engine
-	bool Init();
+	bool Init(int GLVersionMajor, int GLVersionMinor);
 
 	//Create window to render stuff in and make it current
 	bool CreateGraphicsWindow(const int xSize, const int ySize, const char* windowTitle);

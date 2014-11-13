@@ -136,6 +136,7 @@
     <ClCompile Include="Code\main.cpp" />
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
     <ClCompile Include="Code\Messages\MessageManager.cpp" />
+    <ClCompile Include="Code\Messages\PositionMessage.cpp" />
     <ClCompile Include="Code\Resources\ResourceManager.cpp" />
     <ClCompile Include="Code\Resources\Shader.cpp" />
     <ClCompile Include="Code\States\TestState.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Code\Messages\BaseMessage.h" />
     <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
+    <ClInclude Include="Code\Messages\PositionMessage.h" />
     <ClInclude Include="Code\Resources\ResourceManager.h" />
     <ClInclude Include="Code\Resources\Shader.h" />
     <ClInclude Include="Code\States\TestState.h" />

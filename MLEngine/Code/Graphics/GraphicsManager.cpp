@@ -12,22 +12,21 @@ GraphicsManager::~GraphicsManager()
 	glfwTerminate();
 }
 
-bool GraphicsManager::Init()
+bool GraphicsManager::Init(int GLVersionMajor, int GLVersionMinor)
 {
 	
 	int result = glfwInit();
 	if(result != GL_TRUE)
 	{
 		glfwTerminate();
-		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Failed to init GLFW");
+		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Failed to init GLFW");
 		return false;
 	}
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMajor);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMinor);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GL_DOUBLEBUFFER, GL_TRUE);
 
 	// Enable depth test
@@ -46,6 +45,9 @@ bool GraphicsManager::Init()
 	glm::vec3 newCameraPos = glm::vec3(0.0, 5.0, 50.0);
 	currentCamera->SetPosition(glm::vec3(0.0f, 3.0f, 3.0f));
 
+	char GLVersionString[10]; 
+	sprintf_s(GLVersionString, "v%i.%i", GLVersionMajor, GLVersionMinor);
+	DEBUGWRITEINFO("Inited Graphics Manager with GL Version:",GLVersionString);
 	return true;
 }
 
@@ -64,7 +66,7 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	
 	//Create window
 	currentWindow = glfwCreateWindow(xSize, ySize, windowTitle, NULL, NULL);
-	success &= mauveassert::Assert::AssertTrue("Window creation failed",(currentWindow != nullptr), mauveassert::ENUM_severity::SEV_ERROR);
+	success &= mauveassert::Assert::AssertTrue("Window creation failed",(currentWindow != nullptr), mauveassert::ENUM_severity::SEV_FATAL);
 	
 	//Set up the context
 	glfwMakeContextCurrent(currentWindow);

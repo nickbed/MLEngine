@@ -17,7 +17,7 @@ Engine::~Engine()
 void Engine::Init()
 {
 	graphicsManager = std::unique_ptr<GraphicsManager>(new GraphicsManager);
-	graphicsManager->Init();
+	graphicsManager->Init(3,3);
 	graphicsManager->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Test window");
 	ThreeDGraphics* graphics = new ThreeDGraphics("threeDGraphics");
 	ThreeDGraphics* graphics2 = new ThreeDGraphics("threeDGraphics2");
@@ -77,8 +77,8 @@ void Engine::Init()
 
 
 
-		testEntity->Components->AddComponent("testGraphics", graphics2);
-			testEntity->Components->AddComponent("testGraphics",graphics);
+	testEntity->Components->AddComponent("testGraphics", graphics2);
+	testEntity->Components->AddComponent("testGraphics",graphics);
 	
 
 	//testEntity->Transform->SetScale(glm::vec3(0.5f, 0.5f, 1.0f));

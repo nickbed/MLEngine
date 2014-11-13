@@ -14,10 +14,10 @@ namespace mauvemessage
 	struct RecieverInfo
 	{
 		RecieverInfo() {}
-		RecieverInfo(const char* listentype, void* objectptr, void (*func)(BaseMessage message)) : typeToListen(listentype), listenobjectptr(objectptr), listnerFunction(func) {}
+		RecieverInfo(const char* listentype, void* objectptr, void* func) : typeToListen(listentype), listenobjectptr(objectptr), listnerFunction(func) {}
 		const char* typeToListen;
 		void* listenobjectptr;
-		void (*listnerFunction)(BaseMessage message);
+		void* listnerFunction;
 	};
 
 	class MessageManager
@@ -28,7 +28,7 @@ namespace mauvemessage
 		virtual ~MessageManager();
 
 		//Send Messages, Add listners and remove them.
-		static void SendListnerMessage(const BaseMessage& message, const char* typeToSend);
+		static void SendListnerMessage(BaseMessage& message, const char* typeToSend);
 		static void AddMessageListner(const char* typeToListen, RecieverInfo& reciever);
 		static void ClearMessageListner(void* listnerObject);
 		static void ClearMessageListner(RecieverInfo& recieverToRemove);

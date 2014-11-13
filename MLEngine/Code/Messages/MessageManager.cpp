@@ -21,7 +21,7 @@ namespace mauvemessage
 	{
 	}
 
-	void MessageManager::SendListnerMessage(const BaseMessage& message, const char* typeToSend)
+	void MessageManager::SendListnerMessage(BaseMessage& message, const char* typeToSend)
 	{
 		listnerIterator startIt, endIt;
 		std::pair<listnerIterator, listnerIterator> keyRange = listnerMap->equal_range(typeToSend);
@@ -30,7 +30,8 @@ namespace mauvemessage
 		
 		for(startIt = keyRange.first; startIt != keyRange.second; ++ startIt)
 		{
-			(*startIt).second.listnerFunction(message);
+			//Send our data into the void* in the function
+			reinterpret_cast< void(*)(void*) > ((*startIt).second.listnerFunction) (&message);
 		}
 	}
 
