@@ -15,6 +15,7 @@ void CameraEntity::Init()
 
 bool CameraEntity::Update(float dt)
 {
+	IEntity::Update(dt);
 	return true;
 }
 
@@ -53,6 +54,27 @@ void CameraEntity::SetLookPosition(glm::vec3 pos)
 {
 	cameraLookPosition = pos;
 	RegenerateCameraMatrix();
+}
+
+void CameraEntity::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
+{
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	glm::vec3 currentPos = GetCameraPosition();
+	currentPos += messagePos;
+	SetPosition(currentPos);
+	glm::vec3 lookPos = currentPos;
+	lookPos.z += 3.0f;
+	SetLookPosition(lookPos);
+}
+
+void CameraEntity::msg_SetLookPosition(mauvemessage::BaseMessage* msg)
+{
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	glm::vec3 lookPos = GetLookPosition();
+	lookPos += messagePos;
+	SetLookPosition(lookPos);
 }
 
 const glm::mat4 CameraEntity::GetCameraMatrix()

@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "Assert\Assert.h"
+#include "Messages\Messagemanager.h"
 #include "Components\ComponentManager.h"
 #include "Components\DebugComponent.h"
+#include "Components\BasicKeyMovement.h"
+#include "GLFW\glfw3.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -18,6 +21,14 @@ namespace MLTEST
 		static void ExceptionHandler(const char* message)
 		{
 			testHasPassed = true;
+		}
+
+		static void MessageHandler(mauvemessage::BaseMessage* msg)
+		{
+			if (static_cast<glm::vec3>(*(mauvemessage::PositionMessage*)msg) == glm::vec3(1.0f, 1.0f, 1.0f))
+			{
+				testHasPassed = true;
+			}
 		}
 
 
@@ -46,6 +57,40 @@ namespace MLTEST
 			IComponent* gotComponent = testComponents.GetComponentList()->find("testComponent")->second;
 
 			Assert::AreEqual((int)testComponent, (int)gotComponent, TEXT("Test component and component in map are same"));
+
+		}
+
+		TEST_METHOD(Basic_Key_Movement_Sends_Test_Message)
+		{
+			std::unique_ptr<componentMapType> testMap(new componentMapType());
+			ComponentManager testComponents(std::move(testMap));
+			const char* componentID = "I am a test component!";
+			int result = glfwInit();
+			GLFWwindow* win = glfwCreateWindow(640, 480, "Test", NULL, NULL);
+
+			BasicKeyMovement* testComponent = new BasicKeyMovement(componentID, win);
+
+			testComponents.AddComponent("testComponent", testComponent);
+
+			IComponent* gotComponent = testComponents.GetComponentList()->find("testComponent")->second;
+
+			Assert::AreEqual((int)testComponent, (int)gotComponent, TEXT("Test component and component in map are same"));
+
+			mauvemessage::RecieverInfo rec;
+			rec.listenobjectptr = this;
+			rec.listnerFunction = &MLTEST::ComponentTest::MessageHandler;
+			rec.typeToListen = "keyboardMovement";
+			std::unordered_multimap<const char*, mauvemessage::RecieverInfo>* listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
+			mauvemessage::MessageManager::MessageManager(listners);
+			mauvemessage::MessageManager::AddMessageListner("keyboardMovement", rec);
+
+			testComponent->TestMessage();
+
+			//Handler should be called now
+			testComponent->Update(1.0f);
+
+			Assert::IsTrue(testHasPassed, TEXT("Message handler hasn't been called correctly"));
+
 
 		}
 

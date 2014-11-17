@@ -11,7 +11,8 @@ void GeneralEntity::Init()
 
 bool GeneralEntity::Update(float dt)
 {
-	return false;
+	Components->UpdateAllComponents(dt);
+	return true;
 }
 
 void GeneralEntity::Destroy()

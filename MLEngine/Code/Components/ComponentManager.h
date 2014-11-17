@@ -23,6 +23,8 @@ public:
 
 	const std::unique_ptr<componentMapType>& GetComponentList();
 
+	void UpdateAllComponents(float dt);
+
 private:
 	std::unique_ptr<componentMapType> componentList;
 };

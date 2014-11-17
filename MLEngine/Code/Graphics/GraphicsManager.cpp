@@ -87,6 +87,7 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 
 bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt)
 {
+	currentCamera->Update(dt);
 	glfwSwapBuffers(currentWindow);
 	glfwPollEvents();
 	

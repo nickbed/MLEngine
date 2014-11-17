@@ -4,6 +4,12 @@
 #include "../States/TestState.h"
 #include "..\Graphics\GraphicsManager.h"
 #include "..\Entities\GeneralEntity.h"
+#include "../States/TestState.h"
+#include "../Messages/MessageManager.h"
+
+
+#include "..\Components\threeDGraphics.h"
+#include "..\Components\BasicKeyMovement.h"
 
 struct EngineConfig
 {
@@ -22,12 +28,13 @@ public:
 	void Init();
 
 	//Update the engine
-	bool Update();
+	bool Update(float dt);
 	void Draw();
 
 private:
 	//State stuff
 	//States will be a collection of systems that all have their own Init/Update/Finish
+	std::unordered_multimap<const char*, mauvemessage::RecieverInfo>* listners;
 	std::unique_ptr<IState> currentState;
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	GeneralEntity* testEntity;

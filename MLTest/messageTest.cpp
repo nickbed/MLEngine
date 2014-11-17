@@ -21,15 +21,10 @@ namespace MLTEST
 			testHasPassed = true;
 		}
 
-		static void MessageHandler(mauvemessage::BaseMessage msg) //BaseMessage
+		static void MessageHandler(mauvemessage::BaseMessage* msg) //BaseMessage
 		{
 			//Gets passed a base message so let's cast to that
 			//mauvemessage::BaseMessage* result = reinterpret_cast<mauvemessage::BaseMessage*>(msg);
-			messageRecieved = true;
-		}
-
-		static void Vec3Handler(mauvemessage::BaseMessage msg)
-		{
 			messageRecieved = true;
 		}
 
@@ -75,7 +70,7 @@ namespace MLTEST
 			mauvemessage::BaseMessage messageToSend = mauvemessage::BaseMessage("testMessage");
 
 			//Send message
-			messageHandler.SendListnerMessage(messageToSend, "testType");
+			messageHandler.SendListnerMessage(&messageToSend, "testType");
 
 			Assert::IsTrue(messageRecieved, TEXT("Message has been recieved by the test handler function"));
 
@@ -161,34 +156,7 @@ namespace MLTEST
 
 			//Map should be empty now
 			Assert::AreEqual(0, (int)listners->size(), TEXT("Map is empty"));
-		}
-
-		TEST_METHOD(Position_Message_Can_Be_Cast_To_Vec3_In_Listner)
-		{
-			//Listner setup
-			const char* typeToListen = "testType";
-			mauvemessage::RecieverInfo messageReciever;
-			messageReciever.listenobjectptr = this;
-			messageReciever.listnerFunction = &MLTEST::MessageTest::Vec3Handler;
-			messageReciever.typeToListen = typeToListen;
-
-			//Create map and message handler instance
-			std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listners = new std::unordered_multimap<const char*,mauvemessage::RecieverInfo>();
-			mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
-
-			//Add listner into map
-			messageHandler.AddMessageListner(typeToListen, messageReciever);
-
-			//Create message
-			glm::vec3 thing = glm::vec3(1.0,1.0,1.0);
-			mauvemessage::PositionMessage messageToSend = mauvemessage::PositionMessage("testMessage", thing);
-
-			//Send message
-			messageHandler.SendListnerMessage(messageToSend, "testType");
-
-			Assert::IsTrue(messageRecieved, TEXT("Message has been recieved by the test handler function"));
-		}
-	
+		}	
 	};
 
 	//Init for static class

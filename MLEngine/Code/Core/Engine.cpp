@@ -1,9 +1,5 @@
 #include "Engine.h"
-#include "../States/TestState.h"
-#include "../Messages/MessageManager.h"
 
-
-#include "..\Components\threeDGraphics.h"
 
 Engine::Engine(const EngineConfig conf) : currentConfig(conf)
 {
@@ -16,6 +12,10 @@ Engine::~Engine()
 
 void Engine::Init()
 {
+	//Init message manager
+	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
+	mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
+
 	graphicsManager = std::unique_ptr<GraphicsManager>(new GraphicsManager);
 	graphicsManager->Init(3,3);
 	graphicsManager->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Test window");
@@ -76,19 +76,37 @@ void Engine::Init()
 	testEntity = new GeneralEntity();
 
 
-
 	testEntity->Components->AddComponent("testGraphics", graphics2);
 	testEntity->Components->AddComponent("testGraphics",graphics);
+
+	//Add a camera
+	CameraEntity* currentCamera = new CameraEntity();
+	glm::vec3 newCameraPos = glm::vec3(0.0, 5.0, 50.0);
+	currentCamera->SetPosition(glm::vec3(0.0f, 3.0f, 3.0f));
+
+	BasicKeyMovement* movement = new BasicKeyMovement("keyboardMovement", graphicsManager->GetCurrentWindow());
+	movement->Init();
+
+	currentCamera->Components->AddComponent("keyboardMovement", movement);
+
+	mauvemessage::RecieverInfo rec;
+	rec.listenobjectptr = currentCamera;
+	using namespace std::placeholders;
+	rec.listnerFunction = std::bind(&CameraEntity::msg_SetMovePosition, currentCamera, _1);
+	rec.typeToListen = "keyboardMovement";
+	mauvemessage::MessageManager::AddMessageListner("keyboardMovement", rec);
+
+	graphicsManager->SetCurrentCamera(currentCamera);
 	
 
 	//testEntity->Transform->SetScale(glm::vec3(0.5f, 0.5f, 1.0f));
 }
 
-bool Engine::Update()
+bool Engine::Update(float dt)
 {
 	std::vector<IEntity*> testEnts;
 	testEnts.push_back(testEntity);
-	graphicsManager->DrawAndUpdateWindow(testEnts, 0.0f);
+	graphicsManager->DrawAndUpdateWindow(testEnts, dt);
 	return true;
 }
 

@@ -20,7 +20,7 @@ public:
 	virtual void Init() = 0;
 
 	//Update method - updates Entity and all components
-	virtual bool Update(float dt) = 0;
+	virtual bool Update(float dt);
 
 	//Gets called to bin us
 	virtual void Destroy() = 0;

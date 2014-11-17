@@ -21,7 +21,7 @@ namespace mauvemessage
 	{
 	}
 
-	void MessageManager::SendListnerMessage(BaseMessage& message, const char* typeToSend)
+	void MessageManager::SendListnerMessage(BaseMessage* message, const char* typeToSend)
 	{
 		listnerIterator startIt, endIt;
 		std::pair<listnerIterator, listnerIterator> keyRange = listnerMap->equal_range(typeToSend);
@@ -31,12 +31,13 @@ namespace mauvemessage
 		for(startIt = keyRange.first; startIt != keyRange.second; ++ startIt)
 		{
 			//Send our data into the void* in the function
-			reinterpret_cast< void(*)(void*) > ((*startIt).second.listnerFunction) (&message);
+			(*startIt).second.listnerFunction(message);
 		}
 	}
 
 	void MessageManager::AddMessageListner(const char* typeToListen, RecieverInfo& reciever)
 	{
+		mauveassert::Assert::AssertFalse("Message listner list is not initialized", listnerMap == NULL, mauveassert::ENUM_severity::SEV_FATAL);
 		mauveassert::Assert::AssertFalse("Calling add message listner with null type", typeToListen == "" ,mauveassert::ENUM_severity::SEV_FATAL);
 
 		listnerMap->insert(std::make_pair(typeToListen, reciever));

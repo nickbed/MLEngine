@@ -144,6 +144,9 @@
     <ClCompile Include="Code\Messages\PositionMessage.cpp">
       <Filter>Source Files\Messages</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Components\BasicKeyMovement.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="Code\Messages\PositionMessage.h">
       <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BasicKeyMovement.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

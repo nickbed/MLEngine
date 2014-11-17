@@ -3,6 +3,7 @@
 #include "..\Interfaces\IEntity.h"
 #include "GLM\glm.hpp"
 #include "GLM\gtx\transform.hpp"
+#include "..\Messages\PositionMessage.h"
 
 class CameraEntity : public IEntity
 {
@@ -19,6 +20,10 @@ public:
 	void SetPosition(glm::vec3 pos);
 	void SetFov(float fov);
 	void SetLookPosition(glm::vec3 pos);
+
+	//Message processors
+	void msg_SetMovePosition(mauvemessage::BaseMessage* msg);
+	void msg_SetLookPosition(mauvemessage::BaseMessage* msg);
 
 	const glm::mat4 GetCameraMatrix();
 	const glm::vec3 GetCameraPosition();

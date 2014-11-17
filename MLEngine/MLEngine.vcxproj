@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Code\Assert\Assert.cpp" />
+    <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
     <ClCompile Include="Code\Components\threeDGraphics.cpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Assert\Assert.h" />
+    <ClInclude Include="Code\Components\BasicKeyMovement.h" />
     <ClInclude Include="Code\Components\threeDGraphics.h" />
     <ClInclude Include="Code\Components\ComponentManager.h" />
     <ClInclude Include="Code\Components\DebugComponent.h" />

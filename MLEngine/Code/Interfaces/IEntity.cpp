@@ -17,6 +17,13 @@ IEntity::IEntity(std::unique_ptr<componentMapType> componentList)
 	Transform = new TransformComponent("defaultTransform");
 }
 
+bool IEntity::Update(float dt)
+{
+	Components->UpdateAllComponents(dt);
+	Transform->Update(dt);
+	return true;
+}
+
 IEntity::~IEntity()
 {
 	if(Components != nullptr) delete Components;
