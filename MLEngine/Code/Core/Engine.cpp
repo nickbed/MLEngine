@@ -87,16 +87,36 @@ void Engine::Init()
 	BasicKeyMovement* movement = new BasicKeyMovement("keyboardMovement", graphicsManager->GetCurrentWindow());
 	movement->Init();
 
-	currentCamera->Components->AddComponent("keyboardMovement", movement);
+	MousePoller* mouseReader = new MousePoller("mouseMovement", graphicsManager->GetCurrentWindow());
+	mouseReader->Init();
 
+
+
+	//Set keyboard listner events
 	mauvemessage::RecieverInfo rec;
 	rec.listenobjectptr = currentCamera;
+
 	using namespace std::placeholders;
 	rec.listnerFunction = std::bind(&CameraEntity::msg_SetMovePosition, currentCamera, _1);
+
+
 	rec.typeToListen = "keyboardMovement";
 	mauvemessage::MessageManager::AddMessageListner("keyboardMovement", rec);
 
+	//Set mouse listner events
+	mauvemessage::RecieverInfo rec2;
+	rec.listenobjectptr = currentCamera;
+
+	using namespace std::placeholders;
+	rec2.listnerFunction = std::bind(&CameraEntity::msg_SetLookPosition, currentCamera, _1);
+
+	rec2.typeToListen = "mouseMovement";
+	mauvemessage::MessageManager::AddMessageListner("mouseMovement", rec2);
+
 	graphicsManager->SetCurrentCamera(currentCamera);
+
+	currentCamera->Components->AddComponent("keyboardMovement", movement);
+	currentCamera->Components->AddComponent("mouseMovement", mouseReader);
 	
 
 	//testEntity->Transform->SetScale(glm::vec3(0.5f, 0.5f, 1.0f));

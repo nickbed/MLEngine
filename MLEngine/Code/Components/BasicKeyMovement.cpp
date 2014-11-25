@@ -24,7 +24,7 @@ void BasicKeyMovement::Update(float dt)
 	//A == 65
 	//S == 83
 	//D == 68
-	float movementConst = 1.0f;
+	float movementConst = 2.0f;
 
 	//Up
 	if (keyBuffer[GLFW_KEY_W])
@@ -44,14 +44,14 @@ void BasicKeyMovement::Update(float dt)
 	if (keyBuffer[GLFW_KEY_A])
 	{
 		//Left in X
-		SendMovementMessage(glm::vec3(-movementConst * dt, 0.0f, 0.0f));
+		SendMovementMessage(glm::vec3(movementConst * dt, 0.0f, 0.0f));
 	}
 
 	//Right
 	if (keyBuffer[GLFW_KEY_D])
 	{
 		//Right in X
-		SendMovementMessage(glm::vec3(movementConst * dt, 0.0f, 0.0f));
+		SendMovementMessage(glm::vec3(-movementConst * dt, 0.0f, 0.0f));
 	}
 
 	//Test message!
@@ -89,7 +89,7 @@ void BasicKeyMovement::keyFunc(GLFWwindow* win, int key, int scanCode, int actio
 	if (key == GLFW_KEY_UNKNOWN || key > 399)
 	{
 		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_WARNING, "Key handler has rejected an invalid key");
-		//return;
+		return;
 	}
 	keyBuffer[key] = ((action == GLFW_PRESS || action == GLFW_REPEAT));
 }

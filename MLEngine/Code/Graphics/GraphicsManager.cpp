@@ -81,6 +81,8 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
+	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
 	if(!success) return false;
 	return true;
 }

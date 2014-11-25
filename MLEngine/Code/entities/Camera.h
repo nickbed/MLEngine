@@ -20,6 +20,8 @@ public:
 	void SetPosition(glm::vec3 pos);
 	void SetFov(float fov);
 	void SetLookPosition(glm::vec3 pos);
+	void SetPitch(float pitch);
+	void SetYaw(float yaw);
 
 	//Message processors
 	void msg_SetMovePosition(mauvemessage::BaseMessage* msg);
@@ -31,6 +33,8 @@ public:
 	const glm::vec3 GetLookPosition();
 	const glm::mat4 GetViewMatrix();
 	const glm::mat4 GetViewProjMatrix();
+	const float GetPitch();
+	const float GetYaw();
 
 private:
 	void RegenerateCameraMatrix();
@@ -39,6 +43,11 @@ private:
 	glm::mat4 viewMatrix;
 	glm::mat4 viewProjMatrix;
 	glm::vec3 cameraLookPosition;
+	glm::vec3 upVector;
+	glm::vec3 rightVector;
+	glm::vec3 cameraDirection;
+	float pitch;
+	float yaw;
 	float cameraFOV;
 
 };

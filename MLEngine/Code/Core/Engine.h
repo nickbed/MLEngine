@@ -10,6 +10,7 @@
 
 #include "..\Components\threeDGraphics.h"
 #include "..\Components\BasicKeyMovement.h"
+#include "..\Components\MousePoller.h"
 
 struct EngineConfig
 {
