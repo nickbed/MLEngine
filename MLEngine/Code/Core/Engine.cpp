@@ -32,7 +32,17 @@ void Engine::Init()
 		1.0f, -1.0f, 0.0f
 	};
 
-	GLfloat floatvert2[] =
+	GLfloat floatNorm[]  = 
+	{
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, -1.0f,
+		0.0f, 0.0f, -1.0f,
+		0.0f, 0.0f, -1.0f
+	};
+
+	GLfloat floatcol[] =
 	{
 		0.583f, 0.771f, 0.014f,
 		0.609f, 0.115f, 0.436f,
@@ -42,17 +52,17 @@ void Engine::Init()
 		0.310f, 0.747f, 0.185f
 	};
 
-	GLfloat floatvert3[]  = 
+	GLfloat floatvert2[]  = 
 	{
-		-10.0f, -1.0f, -10.0f,
-		-10.0f, -1.0f, 10.0f,
-		10.0f, -1.0f, -10.0f,
-		10.0f, -1.0f, -10.0f,
-		-10.0f, -1.0f, 10.0f,
-		10.0f, -1.0f, 10.0f
+		-10.0f, -5.0f, -10.0f,
+		-10.0f, -5.0f, 10.0f,
+		10.0f, -5.0f, -10.0f,
+		10.0f, -5.0f, -10.0f,
+		-10.0f, -5.0f, 10.0f,
+		10.0f, -5.0f, 10.0f
 	};
 
-	GLfloat floatvert4[] =
+	GLfloat floatcol2[] =
 	{
 		0.9f, 0.0f, 0.0f,
 		0.0f, 0.9f, 0.0f,
@@ -62,22 +72,38 @@ void Engine::Init()
 		0.0f, 0.0f, 0.9f
 	};
 
+	GLfloat floatNorm2[]  = 
+	{
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f
+	};
+
 	std::vector<GLfloat> testVertices(floatvert, floatvert + sizeof(floatvert) / sizeof(GLfloat));
 	std::vector<GLfloat> testVertices2(floatvert2, floatvert2 + sizeof(floatvert2) / sizeof(GLfloat));
-	std::vector<GLfloat> testVertices3(floatvert3, floatvert3 + sizeof(floatvert3) / sizeof(GLfloat));
-	std::vector<GLfloat> testVertices4(floatvert4, floatvert4 + sizeof(floatvert4) / sizeof(GLfloat));
+
+	std::vector<GLfloat> testColours(floatcol, floatcol + sizeof(floatcol) / sizeof(GLfloat));
+	std::vector<GLfloat> testColours2(floatcol2, floatcol2 + sizeof(floatcol2) / sizeof(GLfloat));
+
+	std::vector<GLfloat> testNormals(floatNorm, floatNorm + sizeof(floatNorm) / sizeof(GLfloat));
+	std::vector<GLfloat> testNormals2(floatNorm2, floatNorm2 + sizeof(floatNorm2) / sizeof(GLfloat));
 
 	graphics->UploadVertices(testVertices);
-	graphics->UploadColours(testVertices2);
+	graphics->UploadColours(testColours);
+	graphics->UploadNormals(testNormals);
 	
-	graphics2->UploadVertices(testVertices3);
-	graphics2->UploadColours(testVertices4);
+	graphics2->UploadVertices(testVertices2);
+	graphics2->UploadColours(testColours2);
+	graphics2->UploadNormals(testNormals2);
 
 	testEntity = new GeneralEntity();
 
-
+				testEntity->Components->AddComponent("testGraphics",graphics);
 	testEntity->Components->AddComponent("testGraphics", graphics2);
-	testEntity->Components->AddComponent("testGraphics",graphics);
+
 
 	//Add a camera
 	CameraEntity* currentCamera = new CameraEntity();

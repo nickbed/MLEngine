@@ -29,14 +29,8 @@ bool GraphicsManager::Init(int GLVersionMajor, int GLVersionMinor)
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	glfwWindowHint(GL_DOUBLEBUFFER, GL_TRUE);
 
-	// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
-
-	//// Cull triangles which normal is not towards the camera
-	//glEnable(GL_CULL_FACE);
 	
+
 	//Initialize clear color
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -48,6 +42,7 @@ bool GraphicsManager::Init(int GLVersionMajor, int GLVersionMinor)
 	char GLVersionString[10]; 
 	sprintf_s(GLVersionString, "v%i.%i", GLVersionMajor, GLVersionMinor);
 	DEBUGWRITEINFO("Inited Graphics Manager with GL Version:",GLVersionString);
+
 	return true;
 }
 
@@ -76,12 +71,7 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	//Use default frag and vert shader
 	currentShader = mauveresource::ResourceManager::GetResource<Shader>("data\\shaders\\default");
 
-	//TODO - do something with this
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-
-	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if(!success) return false;
 	return true;
@@ -89,11 +79,25 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 
 bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt)
 {
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LEQUAL);
+
+	glDepthMask(GL_TRUE);
+
+	//// Cull triangles which normal is not towards the camera
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+
 	currentCamera->Update(dt);
 	glfwSwapBuffers(currentWindow);
 	glfwPollEvents();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.79f, 0.96f, 0.99f, 0.0f);
+	glClearDepth(1.0f);
 	
-	glClear(GL_COLOR_BUFFER_BIT);
 	for (auto& x: entities)
 	{
 		DrawEntity(x);
@@ -117,6 +121,9 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	//Set up model matrix
 	glm::mat4 modelMat(1.0f);
 	modelMat *= glm::translate(glm::mat4(1.0f), modelTransform->GetPosition());
+	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().x, glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().y, glm::vec3(0.0f, 1.0f, 0.0f));
+	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
 	modelMat *= glm::scale(glm::mat4(1.0f), modelTransform->GetScale());
 	//TODO - ROTATE MATRIX IMPLEMENTATION
 	
@@ -125,6 +132,16 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	//Upload matrix to the shader
 	currentShader->SendUniformMat4("modelmatrix", modelMat);
 	currentShader->SendUniformMat4("viewprojmatrix", currentCamera->GetViewProjMatrix());
+	currentShader->SendUniformMat4("viewmatrix", currentCamera->GetViewMatrix());
+
+	//Lighting stuff - TODO put it in the threeDgraphics component
+	currentShader->SendUniformVec3("lightposition", currentCamera->GetCameraPosition());
+
+	//Reflectivity
+	currentShader->SendUniformVec3("Kd", glm::vec3(0.9f, 1.0f, 0.9f));
+
+	//Light intensity
+	currentShader->SendUniformVec3("Ld", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	currentShader->UseShader();
 
@@ -136,20 +153,33 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 
 	//TODO - get colours working properly
 
-	glEnableVertexAttribArray(0);  // Vertex position
+	
+	//Vertices
+		glEnableVertexAttribArray(0);  // Vertex position
+	//glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetVerticesID());
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
 
-	glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetVerticesID());
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
+
+
+	
+	//Colours
+	//glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetColoursID());
+	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
+	glEnableVertexAttribArray(1);  // Vertex colour
+
+	//Normals
+	//glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetNormalsID());
+	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
+	glEnableVertexAttribArray(2);  // Vertex colour
+	glBindVertexArray(componentToRender->GetVAO());
 
 	glDrawArrays(GL_TRIANGLES, 0, componentToRender->GetVertices().size());
 
-
-	glEnableVertexAttribArray(1);  // Vertex colour
-
-	glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetColoursID());
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
-
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+
+
 
 }
 

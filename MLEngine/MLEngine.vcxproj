@@ -123,6 +123,7 @@
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
+    <ClCompile Include="Code\Components\MousePoller.cpp" />
     <ClCompile Include="Code\Components\threeDGraphics.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
@@ -141,10 +142,12 @@
     <ClCompile Include="Code\Resources\ResourceManager.cpp" />
     <ClCompile Include="Code\Resources\Shader.cpp" />
     <ClCompile Include="Code\States\TestState.cpp" />
+    <ClCompile Include="Code\Systems\InputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Assert\Assert.h" />
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
+    <ClInclude Include="Code\Components\MousePoller.h" />
     <ClInclude Include="Code\Components\threeDGraphics.h" />
     <ClInclude Include="Code\Components\ComponentManager.h" />
     <ClInclude Include="Code\Components\DebugComponent.h" />
@@ -165,6 +168,7 @@
     <ClInclude Include="Code\Resources\ResourceManager.h" />
     <ClInclude Include="Code\Resources\Shader.h" />
     <ClInclude Include="Code\States\TestState.h" />
+    <ClInclude Include="Code\Systems\InputSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

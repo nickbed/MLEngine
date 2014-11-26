@@ -147,6 +147,12 @@
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Systems\InputSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\MousePoller.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -213,6 +219,12 @@
       <Filter>Header Files\Messages</Filter>
     </ClInclude>
     <ClInclude Include="Code\Components\BasicKeyMovement.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Systems\InputSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\MousePoller.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

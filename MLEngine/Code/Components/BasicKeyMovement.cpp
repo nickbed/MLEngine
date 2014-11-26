@@ -44,14 +44,14 @@ void BasicKeyMovement::Update(float dt)
 	if (keyBuffer[GLFW_KEY_A])
 	{
 		//Left in X
-		SendMovementMessage(glm::vec3(movementConst * dt, 0.0f, 0.0f));
+		SendMovementMessage(glm::vec3(-movementConst * dt, 0.0f, 0.0f));
 	}
 
 	//Right
 	if (keyBuffer[GLFW_KEY_D])
 	{
 		//Right in X
-		SendMovementMessage(glm::vec3(-movementConst * dt, 0.0f, 0.0f));
+		SendMovementMessage(glm::vec3(movementConst * dt, 0.0f, 0.0f));
 	}
 
 	//Test message!

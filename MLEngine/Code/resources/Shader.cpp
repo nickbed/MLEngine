@@ -61,6 +61,14 @@ bool Shader::SendUniformVec4(const char* uniformName, const glm::vec4 vec)
 	return true;
 }
 
+bool Shader::SendUniformVec3(const char* uniformName, const glm::vec3 vec)
+{
+	GLint uniformLocation = GetUniformLocation(uniformName);
+	if(!mauveassert::Assert::AssertTrue("Got -1 from getting uniform location. Unable to send data to shader.", uniformLocation != -1, mauveassert::ENUM_severity::SEV_ERROR)) return false;
+	glUniform3f(uniformLocation, vec.x, vec.y, vec.z);
+	return true;
+}
+
 void Shader::UseShader()
 {
 	glUseProgram(loadedShaderProgramID);
