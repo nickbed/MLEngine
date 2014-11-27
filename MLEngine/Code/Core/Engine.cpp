@@ -16,133 +16,17 @@ void Engine::Init()
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
 	mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
 
-	graphicsManager = std::unique_ptr<GraphicsManager>(new GraphicsManager);
-	graphicsManager->Init(3,3);
-	graphicsManager->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Test window");
-	ThreeDGraphics* graphics = new ThreeDGraphics("threeDGraphics");
-	ThreeDGraphics* graphics2 = new ThreeDGraphics("threeDGraphics2");
+	//Init graphics here
+	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
+	graphicsMan->Init(3,3);
+	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Test window");
 
-	GLfloat floatvert[]  = 
-	{
-		-1.0f, 1.0f, 0.0f,
-		-1.0f, -1.0f, 0.0f,
-		1.0f, 1.0f, 0.0f,
-		1.0f, 1.0f, 0.0f,
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f
-	};
-
-	GLfloat floatNorm[]  = 
-	{
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, -1.0f
-	};
-
-	GLfloat floatcol[] =
-	{
-		0.583f, 0.771f, 0.014f,
-		0.609f, 0.115f, 0.436f,
-		0.327f, 0.483f, 0.844f,
-		0.822f, 0.569f, 0.201f,
-		0.435f, 0.602f, 0.223f,
-		0.310f, 0.747f, 0.185f
-	};
-
-	GLfloat floatvert2[]  = 
-	{
-		-10.0f, -5.0f, -10.0f,
-		-10.0f, -5.0f, 10.0f,
-		10.0f, -5.0f, -10.0f,
-		10.0f, -5.0f, -10.0f,
-		-10.0f, -5.0f, 10.0f,
-		10.0f, -5.0f, 10.0f
-	};
-
-	GLfloat floatcol2[] =
-	{
-		0.9f, 0.0f, 0.0f,
-		0.0f, 0.9f, 0.0f,
-		0.0f, 0.0f, 0.9f,
-		0.9f, 0.0f, 0.0f,
-		0.0f, 0.9f, 0.0f,
-		0.0f, 0.0f, 0.9f
-	};
-
-	GLfloat floatNorm2[]  = 
-	{
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
-	};
-
-	std::vector<GLfloat> testVertices(floatvert, floatvert + sizeof(floatvert) / sizeof(GLfloat));
-	std::vector<GLfloat> testVertices2(floatvert2, floatvert2 + sizeof(floatvert2) / sizeof(GLfloat));
-
-	std::vector<GLfloat> testColours(floatcol, floatcol + sizeof(floatcol) / sizeof(GLfloat));
-	std::vector<GLfloat> testColours2(floatcol2, floatcol2 + sizeof(floatcol2) / sizeof(GLfloat));
-
-	std::vector<GLfloat> testNormals(floatNorm, floatNorm + sizeof(floatNorm) / sizeof(GLfloat));
-	std::vector<GLfloat> testNormals2(floatNorm2, floatNorm2 + sizeof(floatNorm2) / sizeof(GLfloat));
-
-	graphics->UploadVertices(testVertices);
-	graphics->UploadColours(testColours);
-	graphics->UploadNormals(testNormals);
+	//Init scene manager here
+	sceneManager = new SceneManager(std::move(graphicsMan));
+	sceneManager->InitSceneManager();
+	SceneConfig newScene = sceneManager->CreateTestScene();
+	sceneManager->LoadScene(newScene);
 	
-	graphics2->UploadVertices(testVertices2);
-	graphics2->UploadColours(testColours2);
-	graphics2->UploadNormals(testNormals2);
-
-	testEntity = new GeneralEntity();
-
-				testEntity->Components->AddComponent("testGraphics",graphics);
-	testEntity->Components->AddComponent("testGraphics", graphics2);
-
-
-	//Add a camera
-	CameraEntity* currentCamera = new CameraEntity();
-	glm::vec3 newCameraPos = glm::vec3(0.0, 5.0, 50.0);
-	currentCamera->SetPosition(glm::vec3(0.0f, 3.0f, 3.0f));
-
-	BasicKeyMovement* movement = new BasicKeyMovement("keyboardMovement", graphicsManager->GetCurrentWindow());
-	movement->Init();
-
-	MousePoller* mouseReader = new MousePoller("mouseMovement", graphicsManager->GetCurrentWindow());
-	mouseReader->Init();
-
-
-
-	//Set keyboard listner events
-	mauvemessage::RecieverInfo rec;
-	rec.listenobjectptr = currentCamera;
-
-	using namespace std::placeholders;
-	rec.listnerFunction = std::bind(&CameraEntity::msg_SetMovePosition, currentCamera, _1);
-
-
-	rec.typeToListen = "keyboardMovement";
-	mauvemessage::MessageManager::AddMessageListner("keyboardMovement", rec);
-
-	//Set mouse listner events
-	mauvemessage::RecieverInfo rec2;
-	rec.listenobjectptr = currentCamera;
-
-	using namespace std::placeholders;
-	rec2.listnerFunction = std::bind(&CameraEntity::msg_SetLookPosition, currentCamera, _1);
-
-	rec2.typeToListen = "mouseMovement";
-	mauvemessage::MessageManager::AddMessageListner("mouseMovement", rec2);
-
-	graphicsManager->SetCurrentCamera(currentCamera);
-
-	currentCamera->Components->AddComponent("keyboardMovement", movement);
-	currentCamera->Components->AddComponent("mouseMovement", mouseReader);
 	
 
 	//testEntity->Transform->SetScale(glm::vec3(0.5f, 0.5f, 1.0f));
@@ -150,9 +34,7 @@ void Engine::Init()
 
 bool Engine::Update(float dt)
 {
-	std::vector<IEntity*> testEnts;
-	testEnts.push_back(testEntity);
-	graphicsManager->DrawAndUpdateWindow(testEnts, dt);
+	sceneManager->UpdateCurrentSceneEntities(dt);
 	return true;
 }
 

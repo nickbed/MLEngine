@@ -1,4 +1,5 @@
 #include "IEntity.h"
+#include "..\Messages\MessageManager.h"
 #include "..\Assert\Assert.h"
 
 IEntity::IEntity()
@@ -22,6 +23,20 @@ bool IEntity::Update(float dt)
 	Components->UpdateAllComponents(dt);
 	Transform->Update(dt);
 	return true;
+}
+
+void IEntity::Init()
+{
+	Components->InitAllComponents();
+	Transform->Init();
+}
+
+void IEntity::Destroy()
+{
+	Components->DestroyAllComponents();
+	Transform->Destroy();
+	//Remove us as a listner for any messages we might be listening to.
+	mauvemessage::MessageManager::ClearMessageListner(this);
 }
 
 IEntity::~IEntity()

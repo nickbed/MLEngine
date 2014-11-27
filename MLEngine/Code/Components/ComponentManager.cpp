@@ -76,3 +76,24 @@ void ComponentManager::UpdateAllComponents(float dt)
 		(*startIt).second->Update(dt);
 	}
 }
+
+void ComponentManager::InitAllComponents()
+{
+	componentMapIterator startIt;
+	for (startIt = componentList->begin(); startIt != componentList->end(); ++startIt)
+	{
+		(*startIt).second->Init();
+	}
+}
+
+void ComponentManager::DestroyAllComponents()
+{
+	//Call destroy on the component, and delete them all. Left with an empty unique ptr, that can delete itsself if needed.
+	componentMapIterator startIt;
+	for (startIt = componentList->begin(); startIt != componentList->end(); ++startIt)
+	{
+		(*startIt).second->Destroy();
+		delete (*startIt).second;
+	}
+	componentList->clear();
+}

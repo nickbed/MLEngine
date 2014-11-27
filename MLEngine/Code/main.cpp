@@ -32,20 +32,25 @@ int guardedMain()
 	EngineConfig currentConf;
 	currentConf.resX = 1024;
 	currentConf.resY = 768;
-	float sixtyFPS = 1.0f / 60.0f;
+	float sixtyFPS = (1.0f / 60.0f) * 1000;
 
 	//Make our engine
 	Engine currentEngine = Engine(currentConf);
 	currentEngine.Init();
 	while(true)
 	{
-		if (glfwGetTime() > sixtyFPS)
+		long timeToWait = sixtyFPS - (glfwGetTime() * 1000);
+		if (timeToWait <= 0)
 		{
 			if (!currentEngine.Update(glfwGetTime()))
 			{
 				break;
 			}
 			glfwSetTime(0.0f);
+		}
+		else
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(timeToWait));
 		}
 	}
 	return 0;

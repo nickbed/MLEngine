@@ -79,6 +79,12 @@
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{9cfb4b6d-24f6-47c2-b088-39fba1ae8681}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{ee31f593-31da-44c2-b831-30b8b924bc51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{8e95219e-05ea-4f92-bb90-b66d6ed93d56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\main.cpp">
@@ -153,6 +159,9 @@
     <ClCompile Include="Code\Components\MousePoller.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Scenes\SceneManager.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -226,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="Code\Components\MousePoller.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Scenes\SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Scenes\SceneTypes.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

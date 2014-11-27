@@ -2,6 +2,7 @@
 #define DebugComponent_H
 #include "../Interfaces/IComponent.h"
 #include "../Messages/BaseMessage.h"
+#include "../Messages/PositionMessage.h"
 #include "GLM\glm.hpp"
 #include <iostream>
 
@@ -34,6 +35,9 @@ public:
 
 	//Destructor
 	virtual ~TransformComponent();
+
+	//Stuff for listening to messages
+	void msg_MoveToPosition(mauvemessage::BaseMessage* msg);
 
 private:
 	glm::vec3 position;

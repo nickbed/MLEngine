@@ -69,7 +69,7 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	int glewresult = glewInit();
 
 	//Use default frag and vert shader
-	currentShader = mauveresource::ResourceManager::GetResource<Shader>("data\\shaders\\default");
+	
 
 	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -135,13 +135,13 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	currentShader->SendUniformMat4("viewmatrix", currentCamera->GetViewMatrix());
 
 	//Lighting stuff - TODO put it in the threeDgraphics component
-	currentShader->SendUniformVec3("lightposition", currentCamera->GetCameraPosition());
+	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
 
 	//Reflectivity
-	currentShader->SendUniformVec3("Kd", glm::vec3(0.9f, 1.0f, 0.9f));
+	currentShader->SendUniformVec3("Kd", currentSceneLight->surfaceReflectivity);
 
 	//Light intensity
-	currentShader->SendUniformVec3("Ld", glm::vec3(1.0f, 1.0f, 1.0f));
+	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
 
 	currentShader->UseShader();
 
@@ -203,8 +203,28 @@ CameraEntity* GraphicsManager::GetCurrentCamera()
 	return currentCamera;
 }
 
+SceneLight* GraphicsManager::GetCurrentSceneLight()
+{
+	return currentSceneLight;
+}
+
+//TODO - maybe more than one shader?
+Shader* GraphicsManager::GetCurrentShader()
+{
+	return currentShader;
+}
+
 void GraphicsManager::SetCurrentCamera(CameraEntity* cam)
 {
 	currentCamera = cam;
 }
 
+void GraphicsManager::SetCurrentSceneLight(SceneLight* light)
+{
+	currentSceneLight = light;
+}
+
+void GraphicsManager::SetCurrentShader(Shader* shader)
+{
+	currentShader = shader;
+}

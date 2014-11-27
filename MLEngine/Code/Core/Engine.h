@@ -6,6 +6,7 @@
 #include "..\Entities\GeneralEntity.h"
 #include "../States/TestState.h"
 #include "../Messages/MessageManager.h"
+#include "..\Scenes\SceneManager.h"
 
 
 #include "..\Components\threeDGraphics.h"
@@ -41,6 +42,8 @@ private:
 	GeneralEntity* testEntity;
 
 	EngineConfig currentConfig;
+
+	SceneManager* sceneManager;
 
 	//Load the next state into current state from the current state 
 	//(ie - put the next state into the current state and release the pointer for the old state)

@@ -141,6 +141,7 @@
     <ClCompile Include="Code\Messages\PositionMessage.cpp" />
     <ClCompile Include="Code\Resources\ResourceManager.cpp" />
     <ClCompile Include="Code\Resources\Shader.cpp" />
+    <ClCompile Include="Code\Scenes\SceneManager.cpp" />
     <ClCompile Include="Code\States\TestState.cpp" />
     <ClCompile Include="Code\Systems\InputSystem.cpp" />
   </ItemGroup>
@@ -167,6 +168,8 @@
     <ClInclude Include="Code\Messages\PositionMessage.h" />
     <ClInclude Include="Code\Resources\ResourceManager.h" />
     <ClInclude Include="Code\Resources\Shader.h" />
+    <ClInclude Include="Code\Scenes\SceneManager.h" />
+    <ClInclude Include="Code\Scenes\SceneTypes.h" />
     <ClInclude Include="Code\States\TestState.h" />
     <ClInclude Include="Code\Systems\InputSystem.h" />
   </ItemGroup>

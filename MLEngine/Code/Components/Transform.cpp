@@ -74,4 +74,11 @@ void TransformComponent::Destroy()
 {
 }
 
+void TransformComponent::msg_MoveToPosition(mauvemessage::BaseMessage* msg)
+{
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	position = messagePos;
+}
+
 

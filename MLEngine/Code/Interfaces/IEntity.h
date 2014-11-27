@@ -17,13 +17,13 @@ public:
 	IEntity(std::unique_ptr<componentMapType> componentList);
 	virtual ~IEntity();
 
-	virtual void Init() = 0;
+	virtual void Init();
 
 	//Update method - updates Entity and all components
 	virtual bool Update(float dt);
 
 	//Gets called to bin us
-	virtual void Destroy() = 0;
+	virtual void Destroy();
 
 
 

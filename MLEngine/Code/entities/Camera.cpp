@@ -26,6 +26,7 @@ bool CameraEntity::Update(float dt)
 
 void CameraEntity::Destroy()
 {
+	IEntity::Destroy();
 	return;
 }
 
@@ -45,6 +46,8 @@ void CameraEntity::SetViewMatrix(glm::mat4 matrix)
 void CameraEntity::SetPosition(glm::vec3 pos)
 {
 	Transform->SetPosition(pos);
+	mauvemessage::PositionMessage msg_cameraMove("cameraPositionMove", pos);
+	mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "cameraPositionMove");
 	RegenerateCameraMatrix();
 }
 

@@ -9,6 +9,7 @@
 #include "..\Components\threeDGraphics.h"
 #include "..\Resources\ResourceManager.h"
 #include "..\Entities\Camera.h"
+#include "..\Scenes\SceneTypes.h"
 #include <map>
 
 class GraphicsManager
@@ -36,9 +37,13 @@ public:
 	const int GetXSize();
 	const int GetYSize();
 	CameraEntity* GetCurrentCamera();
+	SceneLight* GetCurrentSceneLight();
+	Shader* GetCurrentShader();
 
 	//Setters
 	void SetCurrentCamera(CameraEntity* camera);
+	void SetCurrentSceneLight(SceneLight* light);
+	void SetCurrentShader(Shader* shader);
 
 private:
 
@@ -51,6 +56,8 @@ private:
 
 	Shader* currentShader;
 	CameraEntity* currentCamera;
+	SceneLight* currentSceneLight;
+	
 
 };
 

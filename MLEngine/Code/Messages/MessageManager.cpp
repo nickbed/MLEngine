@@ -45,33 +45,44 @@ namespace mauvemessage
 
 	void MessageManager::ClearMessageListner(void* listnerObject)
 	{
-		mauveassert::Assert::AssertTrue("Passing a null pointer to clear message listner", listnerObject == nullptr,mauveassert::ENUM_severity::SEV_FATAL);
-		
-		for(listnerIterator startIt = listnerMap->begin(); startIt != listnerMap->end(); ++ startIt)
+		//TODO - fix this...can't seem to null check a void pointer?
+		//mauveassert::Assert::AssertTrue("Passing a null pointer to clear message listner", (int)listnerObject == (int)nullptr,mauveassert::ENUM_severity::SEV_FATAL);
+		bool erased = false;
+		listnerIterator startIt = listnerMap->begin();
+		while(startIt != listnerMap->end())
 		{
 			if((*startIt).second.listenobjectptr == listnerObject)
 			{
-				//Bin it
-				listnerMap->erase(startIt);
-				return;
+				//Bin it - (bug fix)there might be more than one thing this object is listening to!
+				mauveassert::Assert::WriteDebug("Clearing listner listening to:", (*startIt).second.typeToListen, mauveassert::ENUM_severity::SEV_INFO);
+				startIt = listnerMap->erase(startIt);
+				erased = true;
+			}
+			else
+			{
+				++startIt;
 			}
 		}
-
-		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_WARNING, "Unable to clear an object from the message listner list!");
+		//Bit spammy tbh
+		//if(!erased)mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_INFO, "Not clearing any listners for this object. Probably not listening to anything.");
 	}
 
 	void MessageManager::ClearMessageListner(RecieverInfo& recieverToRemove)
 	{
-		for(listnerIterator startIt = listnerMap->begin(); startIt != listnerMap->end(); ++ startIt)
+		listnerIterator startIt = listnerMap->begin();
+		while(startIt != listnerMap->end())
 		{
 			if(((*startIt).second.listenobjectptr == recieverToRemove.listenobjectptr) && ((*startIt).second.typeToListen == recieverToRemove.typeToListen))
 			{
+				mauveassert::Assert::WriteDebug("Clearing listner listening to:", (*startIt).second.typeToListen, mauveassert::ENUM_severity::SEV_INFO);
 				//Bin it
 				listnerMap->erase(startIt);
 				return;
 			}
+			else
+			{
+				++startIt;
+			}
 		}
-
-		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_WARNING, "Unable to clear an object from the message listner list!");
 	}
 }

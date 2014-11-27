@@ -7,6 +7,7 @@ GeneralEntity::~GeneralEntity()
 
 void GeneralEntity::Init()
 {
+	IEntity::Init();
 }
 
 bool GeneralEntity::Update(float dt)
@@ -17,5 +18,6 @@ bool GeneralEntity::Update(float dt)
 
 void GeneralEntity::Destroy()
 {
+	IEntity::Destroy();
 }
 

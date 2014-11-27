@@ -4,6 +4,7 @@
 #include "GLM\glm.hpp"
 #include "GLM\gtx\transform.hpp"
 #include "..\Messages\PositionMessage.h"
+#include "..\Messages\MessageManager.h"
 
 class CameraEntity : public IEntity
 {
