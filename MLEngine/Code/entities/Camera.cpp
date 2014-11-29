@@ -61,6 +61,7 @@ void CameraEntity::SetFov(float fov)
 void CameraEntity::SetLookPosition(glm::vec3 pos)
 {
 	cameraLookPosition = pos;
+
 	RegenerateCameraMatrix();
 }
 

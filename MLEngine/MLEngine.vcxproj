@@ -173,6 +173,10 @@
     <ClInclude Include="Code\States\TestState.h" />
     <ClInclude Include="Code\Systems\InputSystem.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Shaders\default.frag" />
+    <None Include="Data\Shaders\default.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

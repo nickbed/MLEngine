@@ -53,6 +53,14 @@ bool Shader::SendUniformMat4(const char* uniformName, const glm::mat4 matrix)
 	return true;
 }
 
+bool Shader::SendUniformMat3(const char* uniformName, const glm::mat3 matrix)
+{
+	GLint uniformLocation = GetUniformLocation(uniformName);
+	if (!mauveassert::Assert::AssertTrue("Got -1 from getting uniform location. Unable to send data to shader.", uniformLocation != -1, mauveassert::ENUM_severity::SEV_ERROR)) return false;
+	glUniformMatrix3fv(uniformLocation, 1, false, &matrix[0][0]);
+	return true;
+}
+
 bool Shader::SendUniformVec4(const char* uniformName, const glm::vec4 vec)
 {
 	GLint uniformLocation = GetUniformLocation(uniformName);

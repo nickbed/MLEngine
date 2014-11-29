@@ -55,6 +55,8 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	{
 		result &= (*it)->Update(dt);
 	}
+
+	currentScene.currentSceneCamera->Update(dt);
 	DrawCurrentSceneEntities(dt);
 	return result;
 }
@@ -122,12 +124,12 @@ SceneConfig SceneManager::CreateTestScene()
 
 	GLfloat floatvert2[]  = 
 	{
-		-10.0f, -5.0f, -10.0f,
-		-10.0f, -5.0f, 10.0f,
-		10.0f, -5.0f, -10.0f,
-		10.0f, -5.0f, -10.0f,
-		-10.0f, -5.0f, 10.0f,
-		10.0f, -5.0f, 10.0f
+		-50.0f, -5.0f, -50.0f,
+		-50.0f, -5.0f, 50.0f,
+		50.0f, -5.0f, -50.0f,
+		50.0f, -5.0f, -50.0f,
+		-50.0f, -5.0f, 50.0f,
+		50.0f, -5.0f, 50.0f
 	};
 
 	GLfloat floatcol2[] =

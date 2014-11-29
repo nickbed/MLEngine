@@ -91,7 +91,6 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	//glEnable(GL_CULL_FACE);
 	//glCullFace(GL_BACK);
 
-	currentCamera->Update(dt);
 	glfwSwapBuffers(currentWindow);
 	glfwPollEvents();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -118,6 +117,8 @@ void GraphicsManager::DrawEntity(IEntity* ent)
 
 void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, TransformComponent* modelTransform)
 {
+	currentShader->UseShader();
+
 	//Set up model matrix
 	glm::mat4 modelMat(1.0f);
 	modelMat *= glm::translate(glm::mat4(1.0f), modelTransform->GetPosition());
@@ -126,13 +127,16 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
 	modelMat *= glm::scale(glm::mat4(1.0f), modelTransform->GetScale());
 	//TODO - ROTATE MATRIX IMPLEMENTATION
+	glm::mat4 modelViewCalc = currentCamera->GetViewMatrix() * modelMat;
 	
+	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMat)));
 	
 
 	//Upload matrix to the shader
 	currentShader->SendUniformMat4("modelmatrix", modelMat);
 	currentShader->SendUniformMat4("viewprojmatrix", currentCamera->GetViewProjMatrix());
 	currentShader->SendUniformMat4("viewmatrix", currentCamera->GetViewMatrix());
+	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
 
 	//Lighting stuff - TODO put it in the threeDgraphics component
 	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
@@ -143,7 +147,7 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	//Light intensity
 	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
 
-	currentShader->UseShader();
+
 
 	GLuint vertarray;
 	GLuint colourarray;

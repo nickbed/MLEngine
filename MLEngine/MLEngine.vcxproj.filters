@@ -243,4 +243,8 @@
       <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Shaders\default.frag" />
+    <None Include="Data\Shaders\default.vert" />
+  </ItemGroup>
 </Project>
