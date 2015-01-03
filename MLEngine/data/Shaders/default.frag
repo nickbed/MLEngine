@@ -13,7 +13,16 @@ layout (location=0) out vec4 FragColour;
 
 void main()
 {
-	float linearAttenuation = 0.5;
+	vec3 actualFragment;
+	if(fragmentColor.x < 0.1)
+	{
+		actualFragment = vec3(0.8,0.3,0.3);
+	}
+	else
+	{
+		actualFragment = fragmentColor;
+	}
+	float linearAttenuation = 0.01;
 	vec3 intensity = vec3(0.5, 0.5, 0.5);
 	vec4 ambientLight = vec4(0.0, 0.0, 0.0, 1.0);
 	vec4 ambient = ambientLight;
@@ -23,13 +32,16 @@ void main()
    
    //Attenuation
    float attenuation = 1.0/ (linearAttenuation * vertToLDistance); 
+   //float attenuation = 1.0; 
      
    //calculate Diffuse Light Intensity making sure it is not negative 
    //and is clamped 0 to 1  
    vec4 Id = vec4(Ld,1.0) * max(dot(N,L), 0.0);
    Id = clamp(Id, 0.0, 1.0);
    
-   vec4 diffuseLight = vec4(attenuation) * vec4(fragmentColor, 1.0) + vec4(Kd,1.0) * Id;
+   //vec4 diffuseLight = vec4(actualFragment, 1.0) + vec4(Kd,1.0) * Id;
+   vec4 diffuseLight = vec4(attenuation) * vec4(actualFragment, 1.0) + vec4(Kd,1.0) * Id;
+   //vec4 diffuseLight = vec4(attenuation) * vec4(1.0,0.5,0.5, 1.0) + vec4(Kd,1.0) * Id;
    vec4 specularReflection;
    if(dot(N,L) < 0.0)
 	{

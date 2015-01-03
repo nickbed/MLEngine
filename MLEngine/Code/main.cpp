@@ -21,7 +21,7 @@ int main()
 		mauveassert::Assert::HandleException(e.what());
 	}
 
-
+	DEBUGWRITEINFO("Closed with no errors", "");
 	system("pause");
 	return 0;
 }
@@ -32,11 +32,12 @@ int guardedMain()
 	EngineConfig currentConf;
 	currentConf.resX = 1024;
 	currentConf.resY = 768;
-	float sixtyFPS = (1.0f / 60.0f) * 1000;
+	float sixtyFPS = (1.0f / 90.0f) * 1000;
 
 	//Make our engine
-	Engine currentEngine = Engine(currentConf);
-	currentEngine.Init();
+	Engine currentEngine = Engine();
+	currentConf = currentEngine.ReadConfigFile("data\\config\\EngineConfig.json");
+	currentEngine.Init(currentConf);
 	while(true)
 	{
 		long timeToWait = sixtyFPS - (glfwGetTime() * 1000);

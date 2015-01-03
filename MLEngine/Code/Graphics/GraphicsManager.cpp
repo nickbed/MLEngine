@@ -1,10 +1,70 @@
 #include "GraphicsManager.h"
 
+bool GraphicsManager::windowShouldBeClosed = false;
 
+//Templates need to be at the top -_-
+template<>
+void GraphicsManager::RenderComponents<StaticMeshNoIndices>(StaticMeshNoIndices* componentToRender, TransformComponent* modelTransform)
+{
+
+	UploadShaderDataForDraw(modelTransform);
+
+	//Vertices
+	glEnableVertexAttribArray(0);  // Vertex position
+	glEnableVertexAttribArray(1);  // Vertex colour
+	glEnableVertexAttribArray(2);  // Vertex colour
+
+	//Bind to the VAO
+	glBindVertexArray(componentToRender->GetVAO());
+
+	//Draw them
+	glDrawArrays(GL_TRIANGLES, 0, componentToRender->GetVertices().size());
+
+	glBindVertexArray(0);
+
+
+	//Reset the state
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+
+
+}
+
+template<>
+void GraphicsManager::RenderComponents<StaticMesh>(StaticMesh* componentToRender, TransformComponent* modelTransform)
+{
+
+	UploadShaderDataForDraw(modelTransform);
+
+	//Vertices
+	glEnableVertexAttribArray(0);  // Vertex position
+	glEnableVertexAttribArray(1);  // Vertex colour
+	glEnableVertexAttribArray(2);  // Vertex colour
+	glEnableVertexAttribArray(3);  // Vertex colour
+
+	//Bind to the VAO
+	glBindVertexArray(componentToRender->GetVAO());
+
+	//Draw them
+	glDrawElements(GL_TRIANGLES, componentToRender->GetIndices().size(), GL_UNSIGNED_INT, 0);
+
+	glBindVertexArray(0);
+
+	//Reset the state
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3);  // Vertex colour
+
+
+
+}
 
 GraphicsManager::GraphicsManager()
 {
 	currentWindow = nullptr;
+	windowShouldBeClosed = false;
 }
 
 GraphicsManager::~GraphicsManager()
@@ -56,21 +116,18 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	success &= mauveassert::Assert::AssertTrue("Null window title specified",(windowTitle != nullptr), mauveassert::ENUM_severity::SEV_ERROR);
 	if(!success) return false;
 
-
-
 	
 	//Create window
 	currentWindow = glfwCreateWindow(xSize, ySize, windowTitle, NULL, NULL);
 	success &= mauveassert::Assert::AssertTrue("Window creation failed",(currentWindow != nullptr), mauveassert::ENUM_severity::SEV_FATAL);
-	
+	glfwSetWindowCloseCallback(currentWindow, WindowCloseCallback);
+
 	//Set up the context
 	glfwMakeContextCurrent(currentWindow);
 	glewExperimental = GL_TRUE;
 	int glewresult = glewInit();
 
-	//Use default frag and vert shader
-	
-
+	//Make camera controls work nicely
 	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if(!success) return false;
@@ -79,10 +136,23 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 
 bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt)
 {
+	//Hook into the esc here to close the window - probably temp
+	if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE))
+	{
+		windowShouldBeClosed = true;
+	}
+
+	//Close and cleanup
+	if (windowShouldBeClosed)
+	{
+		glfwDestroyWindow(currentWindow);
+		return false;
+	}
+
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 
-	// Accept fragment if it closer to the camera than the former one
+	// Less or equal depth appears to work best.
 	glDepthFunc(GL_LEQUAL);
 
 	glDepthMask(GL_TRUE);
@@ -94,9 +164,10 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	glfwSwapBuffers(currentWindow);
 	glfwPollEvents();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.79f, 0.96f, 0.99f, 0.0f);
+	glClearColor(0.79f, 0.96f, 0.99f, 0.0f); //Background colour, should be replaced by skybox if there
 	glClearDepth(1.0f);
 	
+	//Draw stuff
 	for (auto& x: entities)
 	{
 		DrawEntity(x);
@@ -105,17 +176,29 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	return true;
 }
 
+void GraphicsManager::WindowCloseCallback(GLFWwindow* window)
+{
+	windowShouldBeClosed = true;
+}
+
 void GraphicsManager::DrawEntity(IEntity* ent)
 {
 	//Get all instances of graphics components
-	std::vector<IComponent*> graphicsComponents = ent->Components->GetComponentsOfType("testGraphics");
-	for(auto& y: graphicsComponents)
+	std::vector<IComponent*> arrayComponents = ent->Components->GetComponentsOfType("testGraphics");
+	std::vector<IComponent*> meshComponents = ent->Components->GetComponentsOfType("staticmesh");
+
+	for (auto& y : arrayComponents)
 	{
-		RenderComponents((ThreeDGraphics*)y, ent->Transform);
+		RenderComponents<StaticMeshNoIndices>((StaticMeshNoIndices*)y, ent->Transform);
+	}
+
+	for (auto& y : meshComponents)
+	{
+		RenderComponents<StaticMesh>((StaticMesh*)y, ent->Transform);
 	}
 }
 
-void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, TransformComponent* modelTransform)
+bool GraphicsManager::UploadShaderDataForDraw(TransformComponent* modelTransform)
 {
 	currentShader->UseShader();
 
@@ -128,9 +211,9 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	modelMat *= glm::scale(glm::mat4(1.0f), modelTransform->GetScale());
 	//TODO - ROTATE MATRIX IMPLEMENTATION
 	glm::mat4 modelViewCalc = currentCamera->GetViewMatrix() * modelMat;
-	
+
 	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMat)));
-	
+
 
 	//Upload matrix to the shader
 	currentShader->SendUniformMat4("modelmatrix", modelMat);
@@ -138,7 +221,7 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 	currentShader->SendUniformMat4("viewmatrix", currentCamera->GetViewMatrix());
 	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
 
-	//Lighting stuff - TODO put it in the threeDgraphics component
+	//Lighting stuff - TODO make some kind of material out of this
 	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
 
 	//Reflectivity
@@ -146,46 +229,10 @@ void GraphicsManager::RenderComponents(ThreeDGraphics* componentToRender, Transf
 
 	//Light intensity
 	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
-
-
-
-	GLuint vertarray;
-	GLuint colourarray;
-
-	// Create and set-up the vertex array object
-	//glGenVertexArrays(1, &vertarray);
-
-	//TODO - get colours working properly
-
-	
-	//Vertices
-		glEnableVertexAttribArray(0);  // Vertex position
-	//glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetVerticesID());
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
-
-
-
-	
-	//Colours
-	//glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetColoursID());
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
-	glEnableVertexAttribArray(1);  // Vertex colour
-
-	//Normals
-	//glBindBuffer(GL_ARRAY_BUFFER, componentToRender->GetNormalsID());
-	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
-	glEnableVertexAttribArray(2);  // Vertex colour
-	glBindVertexArray(componentToRender->GetVAO());
-
-	glDrawArrays(GL_TRIANGLES, 0, componentToRender->GetVertices().size());
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
-
-
-
+	return true;
 }
+
+
 
 GLFWwindow* GraphicsManager::GetCurrentWindow()
 {

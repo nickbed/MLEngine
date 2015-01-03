@@ -1,17 +1,19 @@
 #include "Engine.h"
 
 
-Engine::Engine(const EngineConfig conf) : currentConfig(conf)
+Engine::Engine()
 {
 }
 
 Engine::~Engine()
 {
 	currentState.release();
+	sceneManager->DestroyCurrentSceneEntities();
 }
 
-void Engine::Init()
+void Engine::Init(EngineConfig conf)
 {
+	currentConfig = conf;
 	//Init message manager
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
 	mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
@@ -24,18 +26,14 @@ void Engine::Init()
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
 	sceneManager->InitSceneManager();
+	sceneManager->LoadSceneFromFile("data\\scenes\\testscene.scn");
 	SceneConfig newScene = sceneManager->CreateTestScene();
 	sceneManager->LoadScene(newScene);
-	
-	
-
-	//testEntity->Transform->SetScale(glm::vec3(0.5f, 0.5f, 1.0f));
 }
 
 bool Engine::Update(float dt)
 {
-	sceneManager->UpdateCurrentSceneEntities(dt);
-	return true;
+	return sceneManager->UpdateCurrentSceneEntities(dt);
 }
 
 bool Engine::LoadNextState()
@@ -62,5 +60,54 @@ bool Engine::LoadNextState()
 
 	//Success
 	return true;
+}
+
+EngineConfig Engine::ReadConfigFile(const char* configFile)
+{
+		//Fallback if we can't read the config
+		EngineConfig defaultConfig;
+		defaultConfig.openglMajVersion = 3;
+		defaultConfig.openglMinVersion = 3;
+		defaultConfig.resX = 1024;
+		defaultConfig.resY = 768;
+		defaultConfig.antiAliasing = false;
+		defaultConfig.asserts = false;
+		defaultConfig.defaultShader = "\\data\\shaders\\default";
+
+		bool success = true;
+		EngineConfig jsonConfig;
+		JSONFile* configJson = mauveresource::ResourceManager::GetResource<JSONFile>(configFile);
+		if (configJson == nullptr)
+		{
+			success = false;
+		}
+		else
+		{
+			const Json::Value& configValues = configJson->GetJsonKeyValue("engineconfig");
+			if (configValues == 0) success = false;
+			if (!configValues.isNull() && success)
+			{
+				try
+				{
+					jsonConfig.openglMajVersion = configValues["openglmaj"].asInt();
+					jsonConfig.openglMinVersion = configValues["openglmin"].asInt();
+					jsonConfig.resX = configValues["resX"].asInt();
+					jsonConfig.resY = configValues["resY"].asInt();
+					jsonConfig.antiAliasing = configValues["antialiasing"].asBool();
+					jsonConfig.asserts = configValues["asserts"].asBool();
+					jsonConfig.defaultShader = configValues["defaultshader"].asCString();
+				}
+				catch (std::exception)
+				{
+					success = false;
+				}
+			}
+		}
+		if (!success)
+		{
+			mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Error reading engine config json file, using default.");
+			return defaultConfig;
+		}
+		return jsonConfig;
 }
 

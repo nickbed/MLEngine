@@ -9,7 +9,7 @@ OBJModel::OBJModel(std::string path)
 {
 	bool result = LoadFromFile(path);
 	result &= mauveassert::Assert::AssertTrue("Error loading model from file", result, mauveassert::ENUM_severity::SEV_ERROR);
-	if (!result) return;
+	loaded = result;
 }
 
 OBJModel::~OBJModel()
@@ -19,6 +19,10 @@ OBJModel::~OBJModel()
 bool OBJModel::LoadFromFile(std::string filename)
 {
 	std::vector<std::string> objString = mauvefile::FileManager::ReadFileLines(filename.c_str());
+	parsedIndices.reserve(10000);
+	parsedVertices.reserve(10000);
+	parsedNormals.reserve(10000);
+	parsedUVs.reserve(10000);
 	bool result1 = mauveassert::Assert::AssertTrue("Failed to read object model file", (objString.size() > 0), mauveassert::ENUM_severity::SEV_ERROR);
 	if (!result1) return false;
 
@@ -128,7 +132,10 @@ bool OBJModel::LoadFromFile(std::string filename)
 				std::string index = (*it).substr(startingPos, second - startingPos);
 				index.erase(std::remove(index.begin(), index.end(), '/'), index.end());
 				//index.replace(index.begin(), index.begin() + 1, "");
-				parsedIndices.push_back(std::stoi(index));
+				if (i == 0 || i == 3 || i == 6)
+				{
+					parsedIndices.push_back(std::stoi(index) - 1);
+				}
 
 				//Set the starting position to second
 				startingPos = second;

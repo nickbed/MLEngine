@@ -6,7 +6,8 @@
 #include "..\Interfaces\IEntity.h"
 #include "GLM\glm.hpp"
 #include "GLM\gtx\transform.hpp"
-#include "..\Components\threeDGraphics.h"
+#include "..\Components\StaticMeshNoIndices.h"
+#include "..\Components\StaticMesh.h"
 #include "..\Resources\ResourceManager.h"
 #include "..\Entities\Camera.h"
 #include "..\Scenes\SceneTypes.h"
@@ -28,9 +29,13 @@ public:
 	//Draw window, poll events and swap buffers. Returns false if window should be closing
 	bool DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt);
 
+	//Handles the window close event
+	static void WindowCloseCallback(GLFWwindow* window);
+
 	void DrawEntity(IEntity* ent);
 
-	void RenderComponents(ThreeDGraphics* componentToRender, TransformComponent* modelTransform);
+	template <class IComponent>
+	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform);
 
 	//Getters
 	GLFWwindow* GetCurrentWindow();
@@ -47,6 +52,8 @@ public:
 
 private:
 
+	bool UploadShaderDataForDraw(TransformComponent* modelTransform);
+
 	//This class will store the current window
 	GLFWwindow* currentWindow;
 
@@ -57,8 +64,8 @@ private:
 	Shader* currentShader;
 	CameraEntity* currentCamera;
 	SceneLight* currentSceneLight;
-	
 
+	static bool windowShouldBeClosed;	
 };
 
 

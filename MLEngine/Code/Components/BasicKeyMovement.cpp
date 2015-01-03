@@ -24,7 +24,7 @@ void BasicKeyMovement::Update(float dt)
 	//A == 65
 	//S == 83
 	//D == 68
-	float movementConst = 2.0f;
+	float movementConst = 160.0f;
 
 	//Up
 	if (keyBuffer[GLFW_KEY_W])

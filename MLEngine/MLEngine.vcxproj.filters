@@ -126,9 +126,6 @@
     <ClCompile Include="Code\Components\Transform.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Components\threeDGraphics.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Resources\Shader.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
@@ -161,6 +158,21 @@
     </ClCompile>
     <ClCompile Include="Code\Scenes\SceneManager.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Resources\OBJModel.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\StaticMesh.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libs\jsoncpp\jsoncpp.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Resources\JSONFile.cpp">
+      <Filter>Source Files\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +221,6 @@
     <ClInclude Include="Code\Components\Transform.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Components\threeDGraphics.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Resources\Shader.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
@@ -241,6 +250,18 @@
     </ClInclude>
     <ClInclude Include="Code\Scenes\SceneTypes.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Resources\OBJModel.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\StaticMeshNoIndices.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\StaticMesh.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Resources\JSONFile.h">
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

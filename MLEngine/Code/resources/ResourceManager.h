@@ -7,6 +7,8 @@
 #include <memory>
 #include <string>
 #include "Shader.h"
+#include "OBJModel.h"
+#include "JSONFile.h"
 
 typedef std::unordered_map<std::string, IResource*> ResourceMap;
 

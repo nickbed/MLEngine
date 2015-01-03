@@ -9,29 +9,39 @@
 #include "..\Scenes\SceneManager.h"
 
 
-#include "..\Components\threeDGraphics.h"
+#include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\BasicKeyMovement.h"
 #include "..\Components\MousePoller.h"
 
+#include "json\json.h"
+
 struct EngineConfig
 {
+	int openglMajVersion;
+	int openglMinVersion;
 	int resX;
 	int resY;
+	bool antiAliasing;
+	bool asserts;
+	const char* defaultShader;
 };
 
 class Engine
 {
 public:
 	//Constructor/destructor
-	Engine(const EngineConfig conf);
+	Engine();
 	virtual ~Engine();
 
 	//Init the engine with config
-	void Init();
+	void Init(const EngineConfig conf);
 
 	//Update the engine
 	bool Update(float dt);
 	void Draw();
+
+	//Reading config files
+	EngineConfig ReadConfigFile(const char* configFile);
 
 private:
 	//State stuff

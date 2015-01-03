@@ -19,7 +19,7 @@ Shader::Shader(std::string file) : IResource(file)
 {
 	bool result = LoadFromFile(file);
 	result &= mauveassert::Assert::AssertTrue("Error loading shader from file", result, mauveassert::ENUM_severity::SEV_ERROR);
-	if(!result) return;
+	loaded = result;
 }
 
 bool Shader::LoadFromFile(std::string filename)

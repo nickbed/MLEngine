@@ -1,0 +1,72 @@
+{
+  "scene": {
+    "name": "testscene",
+    "sceneshader": "data\\shaders\\default",
+    "currentcamera": "camera0",
+    "currentlight": "light0",
+    "entities": {
+      "ent1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 0,
+          "scaleY": 0,
+          "scaleZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        }
+      },
+    "cameras": {
+      "camera0": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 3,
+          "posZ": 3,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 50,
+          "pitch": 0,
+          "yaw": 0
+        }
+      },
+      "camera1": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 10,
+          "posZ": 3,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 50,
+          "pitch": 0,
+          "yaw": 0
+        }
+      }
+    },
+    "lights": {
+      "light0": {
+        "posX": 0,
+        "posY": 0,
+        "posZ": 0,
+        "intensityR": 1,
+        "intensityG": 1,
+        "intensityB": 1,
+        "surfaceReflectivityR_TEMP": 1,
+        "surfaceReflectivityG_TEMP": 1,
+        "surfaceReflectivityB_TEMP": 1
+      }
+    }
+  }
+}

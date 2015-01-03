@@ -20,3 +20,8 @@ std::string IResource::GetFilename()
 {
 	return filename;
 }
+
+bool IResource::HasLoaded()
+{
+	return loaded;
+}

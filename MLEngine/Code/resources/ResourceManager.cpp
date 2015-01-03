@@ -32,7 +32,11 @@ namespace mauveresource
 		{
 			//Put it into the map
 			gotResource = new Shader(resourcePath);
-			if (gotResource) DEBUGWRITEINFO("Successfully loaded shader:", resourcePath);
+			if (gotResource->HasLoaded()) DEBUGWRITEINFO("Successfully loaded shader:", resourcePath)
+			else
+			{
+				return nullptr;
+			}
 			resources->insert(std::pair<std::string, IResource*>(resourcePath, gotResource));
 			
 		}
@@ -52,6 +56,78 @@ namespace mauveresource
 		}
 		IResource* gotResource = resources->find(resourcePath)->second;
 		return (Shader*)gotResource;
+	}
+
+	template <>
+	OBJModel* ResourceManager::LoadResource<OBJModel>(std::string resourcePath)
+	{
+		ReserveMapSpace();
+		//Does it already exist?
+		IResource* gotResource = nullptr;
+		if (resources->find(resourcePath) == resources->end())
+		{
+			//Put it into the map
+			gotResource = new OBJModel(resourcePath);
+			if (gotResource->HasLoaded()) DEBUGWRITEINFO("Successfully loaded OBJ Model:", resourcePath)
+			else
+			{
+				return nullptr;
+			}
+			resources->insert(std::pair<std::string, IResource*>(resourcePath, gotResource));
+
+		}
+		else
+		{
+			gotResource = resources->find(resourcePath)->second;
+		}
+		return (OBJModel*)gotResource;
+	}
+
+	template <>
+	OBJModel* ResourceManager::GetResource<OBJModel>(std::string resourcePath)
+	{
+		if (resources->find(resourcePath) == resources->end())
+		{
+			return LoadResource<OBJModel>(resourcePath);
+		}
+		IResource* gotResource = resources->find(resourcePath)->second;
+		return (OBJModel*)gotResource;
+	}
+
+	template <>
+	JSONFile* ResourceManager::LoadResource<JSONFile>(std::string resourcePath)
+	{
+		ReserveMapSpace();
+		//Does it already exist?
+		IResource* gotResource = nullptr;
+		if (resources->find(resourcePath) == resources->end())
+		{
+			//Put it into the map
+			gotResource = new JSONFile(resourcePath);
+			if (gotResource->HasLoaded()) DEBUGWRITEINFO("Successfully loaded JSON File:", resourcePath)
+			else
+			{
+				return nullptr;
+			}
+			resources->insert(std::pair<std::string, IResource*>(resourcePath, gotResource));
+
+		}
+		else
+		{
+			gotResource = resources->find(resourcePath)->second;
+		}
+		return (JSONFile*)gotResource;
+	}
+
+	template <>
+	JSONFile* ResourceManager::GetResource<JSONFile>(std::string resourcePath)
+	{
+		if (resources->find(resourcePath) == resources->end())
+		{
+			return LoadResource<JSONFile>(resourcePath);
+		}
+		IResource* gotResource = resources->find(resourcePath)->second;
+		return (JSONFile*)gotResource;
 	}
 
 	bool ResourceManager::UnloadAllResources()

@@ -10,9 +10,14 @@ public:
 	virtual ~IResource();
 	virtual bool LoadFromFile(std::string filename) = 0;
 	std::string GetFilename();
+	virtual bool HasLoaded();
+
+protected:
+	bool loaded;
 
 private:
 	//Assuming every resource of every type is loaded from a file and has a filename.
 	std::string filename;
+	
 };
 #endif

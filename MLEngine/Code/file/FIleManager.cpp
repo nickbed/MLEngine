@@ -29,4 +29,27 @@ namespace mauvefile
 		return output;
 	}
 
+	std::vector<std::string> FileManager::ReadFileLines(const char* filename)
+	{
+		std::string output;
+		std::ifstream fileStream(filename, std::ios::in);
+		std::vector<std::string> result;
+		if (!fileStream.good())
+		{
+			std::string errorMessage;
+			errorMessage.append("Error reading file: ");
+			errorMessage.append(filename);
+			mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, (char*)errorMessage.c_str());
+			return result;
+		}
+
+		//Read each line into the vector
+		std::string currentLine;
+		while (std::getline(fileStream, currentLine))
+		{
+			result.push_back(currentLine);
+		}
+		return result;
+	}
+
 }

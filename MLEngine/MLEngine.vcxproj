@@ -58,10 +58,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC;</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -119,12 +119,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Libs\jsoncpp\jsoncpp.cpp" />
     <ClCompile Include="Code\Assert\Assert.cpp" />
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
     <ClCompile Include="Code\Components\MousePoller.cpp" />
-    <ClCompile Include="Code\Components\threeDGraphics.cpp" />
+    <ClCompile Include="Code\Components\StaticMesh.cpp" />
+    <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
     <ClCompile Include="Code\Entities\Camera.cpp" />
@@ -139,6 +141,8 @@
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
     <ClCompile Include="Code\Messages\MessageManager.cpp" />
     <ClCompile Include="Code\Messages\PositionMessage.cpp" />
+    <ClCompile Include="Code\Resources\JSONFile.cpp" />
+    <ClCompile Include="Code\Resources\OBJModel.cpp" />
     <ClCompile Include="Code\Resources\ResourceManager.cpp" />
     <ClCompile Include="Code\Resources\Shader.cpp" />
     <ClCompile Include="Code\Scenes\SceneManager.cpp" />
@@ -149,7 +153,8 @@
     <ClInclude Include="Code\Assert\Assert.h" />
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
     <ClInclude Include="Code\Components\MousePoller.h" />
-    <ClInclude Include="Code\Components\threeDGraphics.h" />
+    <ClInclude Include="Code\Components\StaticMesh.h" />
+    <ClInclude Include="Code\Components\StaticMeshNoIndices.h" />
     <ClInclude Include="Code\Components\ComponentManager.h" />
     <ClInclude Include="Code\Components\DebugComponent.h" />
     <ClInclude Include="Code\Components\Transform.h" />
@@ -166,6 +171,8 @@
     <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
     <ClInclude Include="Code\Messages\PositionMessage.h" />
+    <ClInclude Include="Code\Resources\JSONFile.h" />
+    <ClInclude Include="Code\Resources\OBJModel.h" />
     <ClInclude Include="Code\Resources\ResourceManager.h" />
     <ClInclude Include="Code\Resources\Shader.h" />
     <ClInclude Include="Code\Scenes\SceneManager.h" />

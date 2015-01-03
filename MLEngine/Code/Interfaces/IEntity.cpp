@@ -41,6 +41,6 @@ void IEntity::Destroy()
 
 IEntity::~IEntity()
 {
-	if(Components != nullptr) delete Components;
+	if(Components != nullptr) Components;
 	if(Transform != nullptr) delete Transform;
 }

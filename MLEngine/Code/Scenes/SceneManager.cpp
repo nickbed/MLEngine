@@ -14,12 +14,107 @@ bool SceneManager::LoadScene(SceneConfig scene)
 	return InitCurrentScene();
 }
 
-SceneConfig SceneManager::LoadSceneFromFile(const char* fileName)
+SceneConfig SceneManager::LoadSceneFromFile(const char* filePath)
 {
-	//do json stuff here
-	mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Load scene from file not implemented!");
-	SceneConfig fail;
-	return fail;
+	SceneConfig gotConfig;
+	JSONFile* gotJSON = mauveresource::ResourceManager::GetResource<JSONFile>(filePath);
+	bool success = true;
+	if (gotJSON == nullptr)
+	{
+		success = false;
+	}
+	else
+	{
+		const Json::Value& sceneData = gotJSON->GetJsonKeyValue("scene");
+		if (sceneData == 0) success = false;
+		if (!sceneData.isNull() && success)
+		{
+			//Create and setup entities
+			const Json::Value& jsonEntities = sceneData["entities"];
+			if (jsonEntities.isNull())
+			{
+				success = false;
+			}
+			else
+			{
+				//Iterate over all entities
+				for (Json::Value::const_iterator it = jsonEntities.begin(); it != jsonEntities.end(); ++it)
+				{
+					IEntity* entToCreate = nullptr;
+					Json::Value value = (*it);
+					std::string entType = value["type"].asString();
+					if (entType == "generalentity")
+					{
+						entToCreate = new GeneralEntity();
+					}
+
+					//Iterate over data inside the entity (components, transform)
+					for (Json::Value::iterator it2 = value.begin(); it2 != value.end(); ++it2)
+					{
+						Json::Value key2 = it2.key();
+						Json::Value value2 = (*it2);
+						std::cout << "Key: " << key2.toStyledString();
+						std::cout << "Value: " << value2.toStyledString();
+
+						//*************************COMPONENT HANDLING**************************************
+						//*************************COMPONENT HANDLING**************************************
+						//*************************COMPONENT HANDLING**************************************
+						if (key2.asString() == "components")
+						{
+							//Iterate over component data
+							for (Json::Value::iterator it3 = value2.begin(); it3 != value2.end(); ++it3)
+							{
+								Json::Value componentID = it3.key();
+								Json::Value componentContents = (*it3);
+
+								
+								if (componentContents["type"] == "staticmesh")
+								{
+									 StaticMesh* gotComponent = new StaticMesh("staticmesh");
+									
+									//Load in the obj file specified
+									std::string gotOBJPath = componentContents["OBJModel"].asCString();
+									if (gotOBJPath.size() == 0) success = false;
+									else
+									{
+										OBJModel* gotModel = mauveresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
+										if (gotModel == nullptr) success = false;
+										else
+										{
+											//Put the obj data in the thing
+											gotComponent->UploadVertices(gotModel->GetVertices());
+											gotComponent->UploadNormals(gotModel->GetNormals());
+											gotComponent->UploadIndices(gotModel->GetIndicies());
+											success &= entToCreate->Components->AddComponent(componentContents["id"].asCString(), gotComponent);
+										}
+									}
+								}
+							}
+						}
+
+						//*************************TRANSFORM HANDLING**************************************
+						//*************************TRANSFORM HANDLING**************************************
+						//*************************TRANSFORM HANDLING**************************************
+						else if (key2.asString() == "transform")
+						{
+							glm::vec3 gotPosition = glm::vec3(value2["posX"].asFloat(), value2["posY"].asFloat(), value2["posZ"].asFloat());
+							glm::vec3 gotRotation = glm::vec3(value2["rotateX"].asFloat(), value2["rotateY"].asFloat(), value2["rotateZ"].asFloat());
+							glm::vec3 gotScale = glm::vec3(value2["scaleX"].asFloat(), value2["scaleY"].asFloat(), value2["scaleZ"].asFloat());
+
+							entToCreate->Transform->SetPosition(gotPosition);
+							entToCreate->Transform->SetPosition(gotRotation);
+							entToCreate->Transform->SetPosition(gotScale);
+						}
+					}
+				}
+			}
+			//Create and setup cameras
+			//Create and setup lights
+
+			//Read scene setup current values last
+		}
+	}
+	return gotConfig;
 }
 
 bool SceneManager::InitSceneManager()
@@ -57,7 +152,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	}
 
 	currentScene.currentSceneCamera->Update(dt);
-	DrawCurrentSceneEntities(dt);
+	result &= DrawCurrentSceneEntities(dt);
 	return result;
 }
 
@@ -68,8 +163,7 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 	graphicsManager->SetCurrentCamera(currentScene.currentSceneCamera);
 	graphicsManager->SetCurrentSceneLight(currentScene.currentSceneLight);
 	graphicsManager->SetCurrentShader(currentScene.currentSceneShader);
-	graphicsManager->DrawAndUpdateWindow(currentScene.entities,dt);
-	return true;
+	return graphicsManager->DrawAndUpdateWindow(currentScene.entities,dt);
 }
 
 bool SceneManager::DestroyCurrentSceneEntities()
@@ -89,8 +183,10 @@ SceneConfig SceneManager::CreateTestScene()
 	SceneConfig testScene;
 
 	//Create our scene here
-	ThreeDGraphics* graphics = new ThreeDGraphics("threeDGraphics");
-	ThreeDGraphics* graphics2 = new ThreeDGraphics("threeDGraphics2");
+	StaticMeshNoIndices* graphics = new StaticMeshNoIndices("StaticMeshNoIndices");
+	StaticMeshNoIndices* graphics2 = new StaticMeshNoIndices("StaticMeshNoIndices2");
+	StaticMesh* graphics3 = new StaticMesh("StaticMesh");
+	OBJModel* testLeon = mauveresource::ResourceManager::GetResource<OBJModel>("data\\models\\leon.obj");
 
 	GLfloat floatvert[]  = 
 	{
@@ -169,11 +265,18 @@ SceneConfig SceneManager::CreateTestScene()
 	graphics2->UploadColours(testColours2);
 	graphics2->UploadNormals(testNormals2);
 
+	graphics3->UploadVertices(testLeon->GetVertices());
+	graphics3->UploadNormals(testLeon->GetNormals());
+	graphics3->UploadIndices(testLeon->GetIndicies());
+
 	GeneralEntity* testEntity = new GeneralEntity();
 	GeneralEntity* testEntity2 = new GeneralEntity();
+	GeneralEntity* testEntity3 = new GeneralEntity();
 
 	testEntity->Components->AddComponent("testGraphics",graphics);
 	testEntity2->Components->AddComponent("testGraphics", graphics2);
+	testEntity3->Components->AddComponent("staticmesh", graphics3);
+	testEntity3->Transform->SetScale(glm::vec3(1.0, 1.0, 1.0));
 
 
 	//Add a camera
@@ -229,10 +332,12 @@ SceneConfig SceneManager::CreateTestScene()
 	testScene.currentSceneLight->surfaceReflectivity = glm::vec3(1.0f, 1.0f, 1.0f);
 	testScene.currentSceneLight->lightPosition = glm::vec3(0.0f, 2.0f, 0.0f);
 	testScene.currentSceneShader = mauveresource::ResourceManager::GetResource<Shader>("data\\shaders\\default");
+	
 	testScene.cameras.push_back(currentCamera);
 	testScene.currentSceneCamera = currentCamera;
 	testScene.entities.push_back(testEntity);
 	testScene.entities.push_back(testEntity2);
+	testScene.entities.push_back(testEntity3);
 	return testScene;
 }
 

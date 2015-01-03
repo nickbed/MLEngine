@@ -2,7 +2,6 @@
 
 GeneralEntity::~GeneralEntity()
 {
-	IEntity::~IEntity();
 }
 
 void GeneralEntity::Init()
