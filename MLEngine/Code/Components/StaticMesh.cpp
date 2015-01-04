@@ -34,6 +34,7 @@ bool StaticMesh::UploadVertices(std::vector<GLfloat> verts)
 	bool result = BufferDataToGPU(verts, verticesID);
 	if (result)
 	{
+		verticesCount = verts.size();
 		vertices = verts;
 	}
 
@@ -63,6 +64,7 @@ bool StaticMesh::UploadIndices(std::vector<GLuint> ind)
 	bool result = BufferDataToGPU(ind, verticesID);
 	if (result)
 	{
+		indicesCount = ind.size();
 		indices = ind;
 	}
 	return result;
@@ -157,3 +159,13 @@ const std::vector<GLuint> StaticMesh::GetIndices()
 {
 	return indices;
 }
+
+const unsigned int StaticMesh::GetIndicesCount()
+{
+	return indicesCount;
+}
+const unsigned int StaticMesh::GetVerticesCount()
+{
+	return verticesCount;
+}
+

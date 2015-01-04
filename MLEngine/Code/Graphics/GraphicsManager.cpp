@@ -47,7 +47,7 @@ void GraphicsManager::RenderComponents<StaticMesh>(StaticMesh* componentToRender
 	glBindVertexArray(componentToRender->GetVAO());
 
 	//Draw them
-	glDrawElements(GL_TRIANGLES, componentToRender->GetIndices().size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, componentToRender->GetIndicesCount(), GL_UNSIGNED_INT, 0);
 
 	glBindVertexArray(0);
 

@@ -6,17 +6,17 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 	graphicsManager = std::move(graph);
 }
 
-bool SceneManager::LoadScene(SceneConfig scene)
+bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 {
-	currentScene = scene;
+	currentScene = std::move(scene);
 
 	//Init scene after we load in
 	return InitCurrentScene();
 }
 
-SceneConfig SceneManager::LoadSceneFromFile(const char* filePath)
+std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
 {
-	SceneConfig gotConfig;
+	std::unique_ptr<SceneConfig> gotConfig = std::unique_ptr<SceneConfig>(new SceneConfig);
 	JSONFile* gotJSON = mauveresource::ResourceManager::GetResource<JSONFile>(filePath);
 	bool success = true;
 	if (gotJSON == nullptr)
@@ -35,7 +35,7 @@ SceneConfig SceneManager::LoadSceneFromFile(const char* filePath)
 			{
 				success = false;
 			}
-			else
+			else if (success)
 			{
 				//Iterate over all entities
 				for (Json::Value::const_iterator it = jsonEntities.begin(); it != jsonEntities.end(); ++it)
@@ -43,6 +43,7 @@ SceneConfig SceneManager::LoadSceneFromFile(const char* filePath)
 					IEntity* entToCreate = nullptr;
 					Json::Value value = (*it);
 					std::string entType = value["type"].asString();
+					std::string entID = it.key().asString();
 					if (entType == "generalentity")
 					{
 						entToCreate = new GeneralEntity();
@@ -70,10 +71,10 @@ SceneConfig SceneManager::LoadSceneFromFile(const char* filePath)
 								
 								if (componentContents["type"] == "staticmesh")
 								{
-									 StaticMesh* gotComponent = new StaticMesh("staticmesh");
+									StaticMesh* gotComponent = new StaticMesh(componentContents["id"].asString());
 									
 									//Load in the obj file specified
-									std::string gotOBJPath = componentContents["OBJModel"].asCString();
+									std::string gotOBJPath = componentContents["OBJModel"].asString();
 									if (gotOBJPath.size() == 0) success = false;
 									else
 									{
@@ -85,7 +86,7 @@ SceneConfig SceneManager::LoadSceneFromFile(const char* filePath)
 											gotComponent->UploadVertices(gotModel->GetVertices());
 											gotComponent->UploadNormals(gotModel->GetNormals());
 											gotComponent->UploadIndices(gotModel->GetIndicies());
-											success &= entToCreate->Components->AddComponent(componentContents["id"].asCString(), gotComponent);
+											success &= entToCreate->Components->AddComponent(componentContents["type"].asString(), gotComponent);
 										}
 									}
 								}
@@ -102,19 +103,131 @@ SceneConfig SceneManager::LoadSceneFromFile(const char* filePath)
 							glm::vec3 gotScale = glm::vec3(value2["scaleX"].asFloat(), value2["scaleY"].asFloat(), value2["scaleZ"].asFloat());
 
 							entToCreate->Transform->SetPosition(gotPosition);
-							entToCreate->Transform->SetPosition(gotRotation);
-							entToCreate->Transform->SetPosition(gotScale);
+							entToCreate->Transform->SetRotation(gotRotation);
+							entToCreate->Transform->SetScale(gotScale);
 						}
 					}
+					//Put entity into our map
+					std::string entIDtoadd = entID;
+					gotConfig->sceneEntities->insert(std::pair<std::string, IEntity*>(entIDtoadd, entToCreate));
 				}
 			}
 			//Create and setup cameras
+			const Json::Value& jsonCameras = sceneData["cameras"];
+			if (jsonCameras.isNull())
+			{
+				success = false;
+			}
+			else if (success)
+			{
+				//Iterate over all cameras
+				for (Json::Value::const_iterator it = jsonCameras.begin(); it != jsonCameras.end(); ++it)
+				{
+					CameraEntity* camToCreate = new CameraEntity();
+					Json::Value value = (*it);
+					std::string cameraID = it.key().asString();
+
+					Json::Value camSetup = value["camerasetup"];
+
+					glm::vec3 camPosition = glm::vec3(camSetup["posX"].asFloat(), camSetup["posY"].asFloat(), camSetup["posZ"].asFloat());
+					glm::vec3 lookPosition = glm::vec3(camSetup["lookX"].asFloat(), camSetup["lookY"].asFloat(), camSetup["lookZ"].asFloat());
+					float fov = camSetup["fov"].asFloat();
+					float pitch = camSetup["pitch"].asFloat();
+					float yaw = camSetup["yaw"].asFloat();
+
+					//Load values into camera
+					camToCreate->SetPosition(camPosition);
+					camToCreate->SetLookPosition(lookPosition);
+					camToCreate->SetFov(fov);
+					camToCreate->SetPitch(pitch);
+					camToCreate->SetYaw(yaw);
+
+					//Put the camera in the map
+					std::string cameraIDtoadd = cameraID;
+					gotConfig->sceneCameras->insert(std::pair<std::string, CameraEntity*>(cameraIDtoadd, camToCreate));
+
+				}
+
+			}
+
 			//Create and setup lights
+			const Json::Value& jsonLights = sceneData["lights"];
+			if (jsonLights.isNull())
+			{
+				success = false;
+			}
+			else if (success)
+			{
+				//Iterate over all lights
+				for (Json::Value::const_iterator it = jsonLights.begin(); it != jsonLights.end(); ++it)
+				{
+					SceneLight* lightToCreate = new SceneLight();
+					Json::Value value = (*it);
+					std::string lightID = it.key().asString();
+
+					Json::Value lightSetup = value["lightparams"];
+
+					glm::vec3 lightPosition = glm::vec3(lightSetup["posX"].asFloat(), lightSetup["posY"].asFloat(), lightSetup["posZ"].asFloat());
+					glm::vec3 lightIntensity = glm::vec3(lightSetup["intensityR"].asFloat(), lightSetup["intensityG"].asFloat(), lightSetup["intensityB"].asFloat());
+					glm::vec3 lightReflectivity = glm::vec3(lightSetup["intensityR"].asFloat(), lightSetup["intensityG"].asFloat(), lightSetup["intensityB"].asFloat());
+
+					//Load values into light
+					lightToCreate->lightPosition = lightPosition;
+					lightToCreate->lightIntensity = lightIntensity;
+					lightToCreate->surfaceReflectivity = lightReflectivity;
+
+					//Put the light in the map
+					std::string lightIDtoadd = lightID;
+					gotConfig->sceneLights->insert(std::pair<std::string, SceneLight*>(lightIDtoadd, lightToCreate));
+				}
+			}
+
+			//TODO - Guard all this
 
 			//Read scene setup current values last
+			std::string sceneShader = sceneData["sceneshader"].asCString();
+			std::string sceneCamera = sceneData["currentcamera"].asCString();
+			std::string sceneLight = sceneData["currentlight"].asCString();
+			
+			//Iterate through all active entities and put them in the vector
+			Json::Value activeEntities = sceneData["activeentities"];
+			for (unsigned int i = 0; i < activeEntities.size(); i++)
+			{
+				std::string gotEntid = activeEntities[i].asString();
+				IEntity* gotEntPtr = gotConfig->sceneEntities->find(gotEntid)->second;
+				gotConfig->activeEntities.push_back((gotConfig->sceneEntities->find(gotEntid)->second));
+			}
+
+			//Put the active shader in the current shader
+			gotConfig->currentSceneShader = mauveresource::ResourceManager::GetResource<Shader>(sceneShader);
+
+			//Put the active camera in the scene
+			gotConfig->currentSceneCamera = gotConfig->sceneCameras->find(sceneCamera)->second;
+
+			//Put the active light in the scene
+			gotConfig->currentSceneLight = gotConfig->sceneLights->find(sceneLight)->second;
 		}
 	}
-	return gotConfig;
+	//std::unique_ptr<SceneConfig> returnConfig = std::unique_ptr<SceneConfig>(new SceneConfig);
+
+	//Hack
+	BasicKeyMovement* movement = new BasicKeyMovement("keyboardMovement", graphicsManager->GetCurrentWindow());
+	movement->Init();
+
+	MousePoller* mouseReader = new MousePoller("mouseMovement", graphicsManager->GetCurrentWindow());
+	mouseReader->Init();
+
+	using namespace std::placeholders;
+	AddMessageListner("keyboardMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, _1));
+
+	AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, _1));
+
+	AddMessageListner("cameraPositionMove", gotConfig->currentSceneLight, std::bind(&SceneLight::msg_LightPositionHandler, gotConfig->currentSceneLight, _1));
+
+	gotConfig->currentSceneCamera->Components->AddComponent("keyboardMovement", movement);
+	gotConfig->currentSceneCamera->Components->AddComponent("mouseMovement", mouseReader);
+
+	return std::move(gotConfig);
 }
 
 bool SceneManager::InitSceneManager()
@@ -126,14 +239,14 @@ bool SceneManager::InitSceneManager()
 bool SceneManager::InitCurrentScene()
 {
 	//Is anything our current scene? No entities = no scene
-	if(currentScene.entities.size() == 0)
+	if(currentScene->activeEntities.size() == 0)
 	{
 		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Called init scene on an empty scene");
 		return false;
 	}
 
 	//Iterate through vector and init all entities
-	for(std::vector<IEntity*>::iterator it = currentScene.entities.begin(); it != currentScene.entities.end(); ++it)
+	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
 		(*it)->Init();
 	}
@@ -146,12 +259,12 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//iterate through vector and update all entities and their components
 	//Iterate through vector and init all entities
 	bool result = true;
-	for(std::vector<IEntity*>::iterator it = currentScene.entities.begin(); it != currentScene.entities.end(); ++it)
+	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
 		result &= (*it)->Update(dt);
 	}
 
-	currentScene.currentSceneCamera->Update(dt);
+	currentScene->currentSceneCamera->Update(dt);
 	result &= DrawCurrentSceneEntities(dt);
 	return result;
 }
@@ -160,20 +273,21 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 {
 	//send entities to graphics manager to have them drawn
 	//also send camera and light info
-	graphicsManager->SetCurrentCamera(currentScene.currentSceneCamera);
-	graphicsManager->SetCurrentSceneLight(currentScene.currentSceneLight);
-	graphicsManager->SetCurrentShader(currentScene.currentSceneShader);
-	return graphicsManager->DrawAndUpdateWindow(currentScene.entities,dt);
+	graphicsManager->SetCurrentCamera(currentScene->currentSceneCamera);
+	graphicsManager->SetCurrentSceneLight(currentScene->currentSceneLight);
+	graphicsManager->SetCurrentShader(currentScene->currentSceneShader);
+	return graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities,dt);
 }
 
 bool SceneManager::DestroyCurrentSceneEntities()
 {
-	for(std::vector<IEntity*>::iterator it = currentScene.entities.begin(); it != currentScene.entities.end(); ++it)
+	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
 		(*it)->Destroy();
 		delete *it;
 	}
-	currentScene.entities.clear();
+	currentScene->activeEntities.clear();
+	//TODO - delete inactive entities too
 	//Delete everything from the vector and associated components
 	return true;
 }
@@ -333,11 +447,11 @@ SceneConfig SceneManager::CreateTestScene()
 	testScene.currentSceneLight->lightPosition = glm::vec3(0.0f, 2.0f, 0.0f);
 	testScene.currentSceneShader = mauveresource::ResourceManager::GetResource<Shader>("data\\shaders\\default");
 	
-	testScene.cameras.push_back(currentCamera);
-	testScene.currentSceneCamera = currentCamera;
-	testScene.entities.push_back(testEntity);
-	testScene.entities.push_back(testEntity2);
-	testScene.entities.push_back(testEntity3);
+	//testScene.sceneCameras->push_back(currentCamera);
+	//testScene.currentSceneCamera = currentCamera;
+	//testScene.entities.push_back(testEntity);
+	//testScene.entities.push_back(testEntity2);
+	//testScene.entities.push_back(testEntity3);
 	return testScene;
 }
 

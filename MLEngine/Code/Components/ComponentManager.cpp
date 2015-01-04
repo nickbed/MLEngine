@@ -14,20 +14,20 @@ ComponentManager::ComponentManager(std::unique_ptr<componentMapType> components)
 	components.swap(componentList);
 }
 
-bool ComponentManager::AddComponent(const char* componentType, IComponent* componentToAdd)
+bool ComponentManager::AddComponent(std::string componentType, IComponent* componentToAdd)
 {
-	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != nullptr, mauveassert::ENUM_severity::SEV_ERROR);
+	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != "", mauveassert::ENUM_severity::SEV_ERROR);
 	if(!result) return false;
 
 	//Insert our component
-	componentList->insert(std::pair<const char*, IComponent*>(componentType, componentToAdd));
+	componentList->insert(std::pair<std::string, IComponent*>(componentType, componentToAdd));
 	return true;
 }
 
-bool ComponentManager::RemoveComponent(const char* componentType, const char* componentID)
+bool ComponentManager::RemoveComponent(std::string componentType, std::string componentID)
 {
-	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != nullptr, mauveassert::ENUM_severity::SEV_ERROR);
-	result &= mauveassert::Assert::AssertTrue("Component ID is null", componentID != nullptr, mauveassert::ENUM_severity::SEV_ERROR);
+	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != "", mauveassert::ENUM_severity::SEV_ERROR);
+	result &= mauveassert::Assert::AssertTrue("Component ID is null", componentID != "", mauveassert::ENUM_severity::SEV_ERROR);
 	if(!result) return false;
 
 	//Get our list of components that match the type
@@ -46,9 +46,9 @@ bool ComponentManager::RemoveComponent(const char* componentType, const char* co
 	return false;
 }
 
-std::vector<IComponent*> ComponentManager::GetComponentsOfType(const char* componentType)
+std::vector<IComponent*> ComponentManager::GetComponentsOfType(std::string componentType)
 {
-	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != nullptr, mauveassert::ENUM_severity::SEV_ERROR);
+	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != "", mauveassert::ENUM_severity::SEV_ERROR);
 	std::vector<IComponent*> gotComponents;
 
 	//Get our list of components that match the type

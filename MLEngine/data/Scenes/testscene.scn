@@ -4,17 +4,207 @@
     "sceneshader": "data\\shaders\\default",
     "currentcamera": "camera0",
     "currentlight": "light0",
+	"activeentities": ["ent1","ent2","ent3","ent4","ent5","ent6","ent7","ent8","ent9","ent10"],
     "entities": {
       "ent1": {
         "type": "generalentity",
         "transform": {
-          "posX": 0,
+          "posX": 10,
           "posY": 0,
           "posZ": 0,
-          "scaleX": 0,
-          "scaleY": 0,
-          "scaleZ": 0,
-          "rotateX": 0,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent2": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 20,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent3": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 10,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent4": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 20,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent5": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 10,
+          "posY": 0,
+          "posZ": 20,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent6": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 30,
+          "posY": 0,
+          "posZ": 30,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent7": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 40,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent8": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 20,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent9": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 10,
+          "posY": 10,
+          "posZ": 0,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj"
+              }
+          }
+        },
+		"ent10": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 10,
+          "posY": 40,
+          "posZ": 20,
+          "scaleX": 0.1,
+          "scaleY": 0.1,
+          "scaleZ": 0.1,
+          "rotateX": -90,
           "rotateY": 0,
           "rotateZ": 0
         },
@@ -36,7 +226,7 @@
           "lookX": 0,
           "lookY": 0,
           "lookZ": 0,
-          "fov": 50,
+          "fov": 90,
           "pitch": 0,
           "yaw": 0
         }
@@ -57,6 +247,7 @@
     },
     "lights": {
       "light0": {
+		"lightparams": {
         "posX": 0,
         "posY": 0,
         "posZ": 0,
@@ -66,6 +257,7 @@
         "surfaceReflectivityR_TEMP": 1,
         "surfaceReflectivityG_TEMP": 1,
         "surfaceReflectivityB_TEMP": 1
+		}
       }
     }
   }

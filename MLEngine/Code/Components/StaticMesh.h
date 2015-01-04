@@ -37,6 +37,9 @@ public:
 	const std::vector<GLfloat> GetNormals();
 	const std::vector<GLfloat> GetUVs();
 	const std::vector<GLuint> GetIndices();
+
+	const unsigned int GetVerticesCount();
+	const unsigned int GetIndicesCount();
 	//TODO - Normals/texture support
 
 private:
@@ -53,6 +56,8 @@ private:
 	std::vector<GLuint> indices;
 	bool VAOGenerated;
 	int currentVAOIndex;
+	unsigned int indicesCount;
+	unsigned int verticesCount;
 };
 
 #endif

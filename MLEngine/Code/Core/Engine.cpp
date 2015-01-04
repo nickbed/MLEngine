@@ -26,9 +26,9 @@ void Engine::Init(EngineConfig conf)
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
 	sceneManager->InitSceneManager();
-	sceneManager->LoadSceneFromFile("data\\scenes\\testscene.scn");
-	SceneConfig newScene = sceneManager->CreateTestScene();
-	sceneManager->LoadScene(newScene);
+	std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\testscene.scn");
+	//SceneConfig newScene = sceneManager->CreateTestScene();
+	sceneManager->LoadScene(std::move(newScene));
 }
 
 bool Engine::Update(float dt)

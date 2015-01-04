@@ -15,6 +15,7 @@
 #include "..\Messages\BaseMessage.h"
 #include "SceneTypes.h"
 #include <vector>
+#include <map>
 
 
 
@@ -26,10 +27,10 @@ public:
 	SceneManager(std::unique_ptr<GraphicsManager> graph);
 
 	//Load scene into engine
-	bool LoadScene(SceneConfig scene);
+	bool LoadScene(std::unique_ptr<SceneConfig> scene);
 
 	//Generate scene from file
-	SceneConfig LoadSceneFromFile(const char* fileName);
+	std::unique_ptr<SceneConfig> LoadSceneFromFile(const char* fileName);
 
 	//Do manager Init stuff
 	bool InitSceneManager();
@@ -52,7 +53,9 @@ public:
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);
 	std::unique_ptr<GraphicsManager> graphicsManager;
-	SceneConfig currentScene;
+	std::unique_ptr<SceneConfig> currentScene;
+
+	
 };
 
 #endif
