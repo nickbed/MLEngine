@@ -75,17 +75,32 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 									
 									//Load in the obj file specified
 									std::string gotOBJPath = componentContents["OBJModel"].asString();
+
+									//Load in the texture location
+									std::string gotTexturePath = componentContents["TextureFile"].asString();
+
 									if (gotOBJPath.size() == 0) success = false;
 									else
 									{
+										//Load texture
+										ImageTexture* gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>(gotTexturePath);
+										if (gotTexture == nullptr)
+										{
+											//Use the no texture found texture
+											gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\default.png");
+										}
+
 										OBJModel* gotModel = mauveresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
 										if (gotModel == nullptr) success = false;
 										else
 										{
 											//Put the obj data in the thing
+											gotComponent->UploadUVs(gotModel->GetUVs());
 											gotComponent->UploadVertices(gotModel->GetVertices());
-											gotComponent->UploadNormals(gotModel->GetNormals());
+										    gotComponent->UploadNormals(gotModel->GetNormals());
 											gotComponent->UploadIndices(gotModel->GetIndicies());
+
+											gotComponent->UploadTexture(gotTexture->GetBitmap());
 											success &= entToCreate->Components->AddComponent(componentContents["type"].asString(), gotComponent);
 										}
 									}

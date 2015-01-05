@@ -26,6 +26,11 @@ bool OBJModel::LoadFromFile(std::string filename)
 	bool result1 = mauveassert::Assert::AssertTrue("Failed to read object model file", (objString.size() > 0), mauveassert::ENUM_severity::SEV_ERROR);
 	if (!result1) return false;
 
+	std::vector<GLfloat> tempUVs;
+	std::vector<GLfloat> tempNormals;
+	std::vector<GLfloat> tempVerts;
+	int indexCount = 0;
+
 	//Parse each line
 	for (std::vector<std::string>::iterator it = objString.begin(); it != objString.end(); ++it)
 	{
@@ -53,7 +58,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 					
 					//Parse the vertex string and put the value into the vector
 					std::string vert = (*it).substr(startingPos, second-startingPos);
-					parsedVertices.push_back(std::stof(vert));
+					tempVerts.push_back(std::stof(vert));
 					
 					//Set the starting position to second
 					startingPos = second;
@@ -77,7 +82,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 
 					//Parse the vertex string and put the value into the vector
 					std::string uvcoord = (*it).substr(startingPos, second - startingPos);
-					parsedUVs.push_back(std::stof(uvcoord));
+					tempUVs.push_back(std::stof(uvcoord));
 
 					//Set the starting position to second
 					startingPos = second;
@@ -99,7 +104,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 
 					//Parse the vertex string and put the value into the vector
 					std::string normal = (*it).substr(startingPos, second - startingPos);
-					parsedNormals.push_back(std::stof(normal));
+					tempNormals.push_back(std::stof(normal));
 
 					//Set the starting position to second
 					startingPos = second;
@@ -134,13 +139,37 @@ bool OBJModel::LoadFromFile(std::string filename)
 				//index.replace(index.begin(), index.begin() + 1, "");
 				if (i == 0 || i == 3 || i == 6)
 				{
-					parsedIndices.push_back(std::stoi(index) - 1);
+					//parsedIndices.push_back(std::stoi(index) - 1);
+					int position = ((std::stoi(index )-1) * 3);
+					parsedVertices.push_back(tempVerts.at(position));
+					parsedVertices.push_back(tempVerts.at(position + 1));
+					parsedVertices.push_back(tempVerts.at(position + 2));
+					++indexCount;
+				}
+				//UVs
+				else if (i == 1 || i == 4 || i == 7)
+				{
+					int uvloc = ((std::stoi(index) - 1) * 2);
+					parsedUVs.push_back(tempUVs.at(uvloc));
+					parsedUVs.push_back(tempUVs.at(uvloc+1));
+				}
+				//Normals
+				else if (i == 2 || i == 5 || i == 8)
+				{
+					int normalloc = ((std::stoi(index)-1) * 3);
+					parsedNormals.push_back(tempNormals.at(normalloc));
+					parsedNormals.push_back(tempNormals.at(normalloc+1));
+					parsedNormals.push_back(tempNormals.at(normalloc+2));
 				}
 
 				//Set the starting position to second
 				startingPos = second;
 			}
 		}
+	}
+	for (int i = 0; i < indexCount; ++i)
+	{
+		parsedIndices.push_back(i);
 	}
 	return true;
 }

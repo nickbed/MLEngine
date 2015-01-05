@@ -9,6 +9,7 @@
 #include "Shader.h"
 #include "OBJModel.h"
 #include "JSONFile.h"
+#include "ImageTexture.h"
 
 typedef std::unordered_map<std::string, IResource*> ResourceMap;
 

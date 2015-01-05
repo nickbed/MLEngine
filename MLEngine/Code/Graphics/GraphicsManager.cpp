@@ -46,16 +46,22 @@ void GraphicsManager::RenderComponents<StaticMesh>(StaticMesh* componentToRender
 	//Bind to the VAO
 	glBindVertexArray(componentToRender->GetVAO());
 
+	//Bind the texture
+	//glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, componentToRender->GetTextureID());
+
 	//Draw them
 	glDrawElements(GL_TRIANGLES, componentToRender->GetIndicesCount(), GL_UNSIGNED_INT, 0);
 
-	glBindVertexArray(0);
+
 
 	//Reset the state
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindVertexArray(0);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
-	glDisableVertexAttribArray(3);  // Vertex colour
+	glDisableVertexAttribArray(3); 
 
 
 

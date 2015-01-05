@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Libs\jsoncpp\jsoncpp.cpp" />
+    <ClCompile Include="..\Libs\TextureLoader\Bitmap.cpp" />
     <ClCompile Include="Code\Assert\Assert.cpp" />
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
     <ClCompile Include="Code\Messages\MessageManager.cpp" />
     <ClCompile Include="Code\Messages\PositionMessage.cpp" />
+    <ClCompile Include="Code\Resources\ImageTexture.cpp" />
     <ClCompile Include="Code\Resources\JSONFile.cpp" />
     <ClCompile Include="Code\Resources\OBJModel.cpp" />
     <ClCompile Include="Code\Resources\ResourceManager.cpp" />
@@ -150,6 +152,8 @@
     <ClCompile Include="Code\Systems\InputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Libs\TextureLoader\Bitmap.h" />
+    <ClInclude Include="..\Libs\TextureLoader\stb_image.h" />
     <ClInclude Include="Code\Assert\Assert.h" />
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
     <ClInclude Include="Code\Components\MousePoller.h" />
@@ -171,6 +175,7 @@
     <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
     <ClInclude Include="Code\Messages\PositionMessage.h" />
+    <ClInclude Include="Code\Resources\ImageTexture.h" />
     <ClInclude Include="Code\Resources\JSONFile.h" />
     <ClInclude Include="Code\Resources\OBJModel.h" />
     <ClInclude Include="Code\Resources\ResourceManager.h" />

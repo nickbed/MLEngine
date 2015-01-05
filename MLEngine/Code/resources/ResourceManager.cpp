@@ -130,6 +130,42 @@ namespace mauveresource
 		return (JSONFile*)gotResource;
 	}
 
+	template <>
+	ImageTexture* ResourceManager::LoadResource<ImageTexture>(std::string resourcePath)
+	{
+		ReserveMapSpace();
+		//Does it already exist?
+		IResource* gotResource = nullptr;
+		if (resources->find(resourcePath) == resources->end())
+		{
+			//Put it into the map
+			gotResource = new ImageTexture(resourcePath);
+			if (gotResource->HasLoaded()) DEBUGWRITEINFO("Successfully loaded Image File:", resourcePath)
+			else
+			{
+				return nullptr;
+			}
+			resources->insert(std::pair<std::string, IResource*>(resourcePath, gotResource));
+
+		}
+		else
+		{
+			gotResource = resources->find(resourcePath)->second;
+		}
+		return (ImageTexture*)gotResource;
+	}
+
+	template <>
+	ImageTexture* ResourceManager::GetResource<ImageTexture>(std::string resourcePath)
+	{
+		if (resources->find(resourcePath) == resources->end())
+		{
+			return LoadResource<ImageTexture>(resourcePath);
+		}
+		IResource* gotResource = resources->find(resourcePath)->second;
+		return (ImageTexture*)gotResource;
+	}
+
 	bool ResourceManager::UnloadAllResources()
 	{
 		DEBUGWRITEINFO("Number of resources unloading:",resources->size());

@@ -12,9 +12,9 @@
           "posX": 10,
           "posY": 0,
           "posZ": 0,
-          "scaleX": 0.1,
-          "scaleY": 0.1,
-          "scaleZ": 0.1,
+          "scaleX": 10,
+          "scaleY": 10,
+          "scaleZ": 10,
           "rotateX": -90,
           "rotateY": 0,
           "rotateZ": 0
@@ -23,7 +23,8 @@
               "ent1mesh": {
               "id": "ent1mesh",
               "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
+              "OBJModel": "data\\models\\leon.obj",
+			  "TextureFile": "data\\images\\leon_tex.tga"
               }
           }
         },
@@ -44,7 +45,8 @@
               "ent1mesh": {
               "id": "ent1mesh",
               "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
+              "OBJModel": "data\\models\\leon.obj",
+			  "TextureFile": "data\\images\\rainbow.png"
               }
           }
         },
@@ -65,7 +67,8 @@
               "ent1mesh": {
               "id": "ent1mesh",
               "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
+              "OBJModel": "data\\models\\leon.obj",
+			  "TextureFile": "data\\images\\rainbow.png"
               }
           }
         },
@@ -201,9 +204,9 @@
           "posX": 10,
           "posY": 40,
           "posZ": 20,
-          "scaleX": 0.1,
-          "scaleY": 0.1,
-          "scaleZ": 0.1,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
           "rotateX": -90,
           "rotateY": 0,
           "rotateZ": 0
@@ -212,7 +215,30 @@
               "ent1mesh": {
               "id": "ent1mesh",
               "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
+              "OBJModel": "data\\models\\leon.obj",
+			  "TextureFile": "data\\images\\bunny-atlas.jpg"
+              }
+          }
+        },
+		"ent11": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 10,
+          "posY": 40,
+          "posZ": 20,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+          "components": {
+              "ent1mesh": {
+              "id": "ent1mesh",
+              "type": "staticmesh",
+              "OBJModel": "data\\models\\leon.obj",
+			  "TextureFile": "data\\images\\bunny-atlas.jpg"
               }
           }
         }

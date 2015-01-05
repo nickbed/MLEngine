@@ -1,6 +1,8 @@
 #ifndef STATICMESHCOMPONENT_H
 #define STATICMESHCOMPONENT_H
+#include "..\Assert\Assert.h"
 #include "..\Interfaces\IComponent.h"
+#include "..\..\Libs\TextureLoader\Bitmap.h"
 #include "GL\glew.h"
 #include "GLFW\glfw3.h"
 
@@ -22,9 +24,12 @@ public:
 	bool UploadNormals(std::vector<GLfloat> normals);
 	bool UploadUVs(std::vector<GLfloat> UVs);
 	bool UploadIndices(std::vector<GLuint> indices);
+	bool UploadTexture(Bitmap* texture);
 
-	bool BufferDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr);
+	bool BufferDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr, GLuint currentLoc);
 	bool BufferDataToGPU(std::vector<GLuint> data, GLuint &bufferAddr);
+	bool BufferUVDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr);
+	bool BufferTextureDataToGPU(Bitmap* data, GLuint &bufferAddr);
 	bool GenVertexArrays(GLuint bufferAddr, GLuint &arrayAddr, int &currentIndex);
 
 	const GLuint GetVerticesID();
@@ -32,6 +37,7 @@ public:
 	const GLuint GetUVsID();
 	const GLuint GetIndicesID();
 	const GLuint GetVAO();
+	const GLuint GetTextureID();
 
 	const std::vector<GLfloat> GetVertices();
 	const std::vector<GLfloat> GetNormals();
@@ -49,6 +55,7 @@ private:
 	GLuint vaoID;
 	GLuint uvID;
 	GLuint indicesID;
+	GLuint textureID;
 
 	std::vector<GLfloat> vertices;
 	std::vector<GLfloat> normals;
