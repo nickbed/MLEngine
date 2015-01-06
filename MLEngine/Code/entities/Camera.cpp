@@ -122,6 +122,13 @@ void CameraEntity::msg_SetLookPosition(mauvemessage::BaseMessage* msg)
 	RegenerateCameraMatrix();
 }
 
+void CameraEntity::msg_SetLookPositionAbsolute(mauvemessage::BaseMessage* msg)
+{
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	SetLookPosition(messagePos);
+}
+
 const glm::mat4 CameraEntity::GetCameraMatrix()
 {
 	return cameraMatrix;
@@ -167,7 +174,8 @@ void CameraEntity::RegenerateCameraMatrix()
 
 	rightVector = glm::vec3(glm::sin(yaw - glm::pi<float>() / 2.0f), 0, glm::cos(yaw - glm::pi<float>() / 2.0f));
 	//upVector = glm::cross(rightVector, cameraDirection);
-	cameraMatrix = glm::lookAt(Transform->GetPosition(), Transform->GetPosition() + cameraDirection, upVector);
+	//cameraMatrix = glm::lookAt(Transform->GetPosition(), Transform->GetPosition() + cameraDirection, upVector);
+	cameraMatrix = glm::lookAt(Transform->GetPosition(), cameraLookPosition, upVector);
 	viewMatrix = glm::perspective(cameraFOV, (float)1024/ (float)768, 0.1f, 1000.0f);
 	viewProjMatrix = viewMatrix * cameraMatrix;
 }

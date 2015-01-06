@@ -3,7 +3,7 @@
 
 namespace mauvefile
 {
-
+	std::ifstream FileManager::openFile = std::ifstream();
 	std::string FileManager::ReadFile(const char* file, bool shaderFormatting)
 	{
 		std::string output;
@@ -34,6 +34,7 @@ namespace mauvefile
 		std::string output;
 		std::ifstream fileStream(filename, std::ios::in);
 		std::vector<std::string> result;
+		result.reserve(10000);
 		if (!fileStream.good())
 		{
 			std::string errorMessage;
@@ -49,6 +50,31 @@ namespace mauvefile
 		{
 			result.push_back(currentLine);
 		}
+		return result;
+	}
+
+	bool FileManager::OpenFile(const char* filename)
+	{
+		openFile = std::ifstream(filename, std::ios::in);
+		if (!openFile.good())
+		{
+			std::string errorMessage;
+			errorMessage.append("Error reading file: ");
+			errorMessage.append(filename);
+			mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, (char*)errorMessage.c_str());
+			return false;
+		}
+		return true;
+	}
+
+	void FileManager::CloseFile()
+	{
+		openFile.close();
+	}
+
+	bool FileManager::ReadLineFromFile(std::string& line)
+	{
+		bool result = std::getline(openFile, line) != 0;
 		return result;
 	}
 

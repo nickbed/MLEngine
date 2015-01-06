@@ -67,6 +67,41 @@ void GraphicsManager::RenderComponents<StaticMesh>(StaticMesh* componentToRender
 
 }
 
+template<>
+void GraphicsManager::RenderComponents<BasicBone>(BasicBone* componentToRender, TransformComponent* modelTransform, TransformComponent boneTransform)
+{
+	UploadBoneShaderDataForDraw(*modelTransform, boneTransform);
+
+	//Vertices
+	glEnableVertexAttribArray(0);  // Vertex position
+	glEnableVertexAttribArray(1);  // Vertex colour
+	glEnableVertexAttribArray(2);  // Vertex colour
+	glEnableVertexAttribArray(3);  // Vertex colour
+
+	//Bind to the VAO
+	glBindVertexArray(componentToRender->GetVAO());
+
+	//Bind the texture
+	//glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, componentToRender->GetTextureID());
+
+	//Draw them
+	glDrawElements(GL_TRIANGLES, componentToRender->GetIndicesCount(), GL_UNSIGNED_INT, 0);
+
+
+
+	//Reset the state
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindVertexArray(0);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(3); 
+
+
+
+}
+
 GraphicsManager::GraphicsManager()
 {
 	currentWindow = nullptr;
@@ -192,15 +227,22 @@ void GraphicsManager::DrawEntity(IEntity* ent)
 	//Get all instances of graphics components
 	std::vector<IComponent*> arrayComponents = ent->Components->GetComponentsOfType("testGraphics");
 	std::vector<IComponent*> meshComponents = ent->Components->GetComponentsOfType("staticmesh");
+	std::vector<IComponent*> boneComponents = ent->Components->GetComponentsOfType("basicbone");
 
-	for (auto& y : arrayComponents)
+	for (auto& x : arrayComponents)
 	{
-		RenderComponents<StaticMeshNoIndices>((StaticMeshNoIndices*)y, ent->Transform);
+		RenderComponents<StaticMeshNoIndices>((StaticMeshNoIndices*)x, ent->Transform);
 	}
 
 	for (auto& y : meshComponents)
 	{
 		RenderComponents<StaticMesh>((StaticMesh*)y, ent->Transform);
+	}
+
+	for (auto& z : boneComponents)
+	{
+		BasicBone* gotBone = (BasicBone*)z;
+		RenderComponents<BasicBone>(gotBone, ent->Transform, gotBone->BoneTransform);
 	}
 }
 
@@ -216,6 +258,51 @@ bool GraphicsManager::UploadShaderDataForDraw(TransformComponent* modelTransform
 	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
 	modelMat *= glm::scale(glm::mat4(1.0f), modelTransform->GetScale());
 	//TODO - ROTATE MATRIX IMPLEMENTATION
+	glm::mat4 modelViewCalc = currentCamera->GetViewMatrix() * modelMat;
+
+	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMat)));
+
+
+	//Upload matrix to the shader
+	currentShader->SendUniformMat4("modelmatrix", modelMat);
+	currentShader->SendUniformMat4("viewprojmatrix", currentCamera->GetViewProjMatrix());
+	currentShader->SendUniformMat4("viewmatrix", currentCamera->GetViewMatrix());
+	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
+
+	//Lighting stuff - TODO make some kind of material out of this
+	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
+
+	//Reflectivity
+	currentShader->SendUniformVec3("Kd", currentSceneLight->surfaceReflectivity);
+
+	//Light intensity
+	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
+	return true;
+}
+
+//Hack
+bool GraphicsManager::UploadBoneShaderDataForDraw(TransformComponent modelTransform, TransformComponent boneTransform)
+{
+	currentShader->UseShader();
+
+	//Set up model matrix
+	glm::mat4 modelMat(1.0f);
+	modelMat *= glm::translate(glm::mat4(1.0f), modelTransform.GetPosition());
+	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform.GetRotation().x, glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform.GetRotation().y, glm::vec3(0.0f, 1.0f, 0.0f));
+	modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform.GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
+	modelMat *= glm::scale(glm::mat4(1.0f), modelTransform.GetScale());
+
+	glm::mat4 boneMat(1.0f);
+	//boneMat *= glm::translate(glm::mat4(1.0f), boneTransform.GetPosition());
+	boneMat *= glm::rotate(glm::mat4(1.0f), boneTransform.GetRotation().x, glm::vec3(1.0f, 0.0f, 0.0f));
+	boneMat *= glm::rotate(glm::mat4(1.0f), boneTransform.GetRotation().y, glm::vec3(0.0f, 1.0f, 0.0f));
+	boneMat *= glm::rotate(glm::mat4(1.0f), boneTransform.GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
+	//boneMat *= glm::scale(glm::mat4(1.0f), boneTransform.GetScale());
+
+	//TEMP - put this in the shader?
+	modelMat *= boneMat;
+
 	glm::mat4 modelViewCalc = currentCamera->GetViewMatrix() * modelMat;
 
 	glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMat)));

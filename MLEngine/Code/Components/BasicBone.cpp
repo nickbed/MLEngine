@@ -1,6 +1,6 @@
-#include "StaticMesh.h"
+#include "BasicBone.h"
 
-StaticMesh::StaticMesh(std::string id) : IComponent(id)
+BasicBone::BasicBone(std::string id) : IComponent(id), BoneTransform("bone")
 {
 	//Invalidate our IDs
 	verticesID = 0;
@@ -13,24 +13,24 @@ StaticMesh::StaticMesh(std::string id) : IComponent(id)
 	VAOGenerated = false;
 }
 
-StaticMesh::~StaticMesh()
+BasicBone::~BasicBone()
 {
 	IComponent::~IComponent();
 }
 
-void StaticMesh::Init()
+void BasicBone::Init()
 {
 }
 
-void StaticMesh::Update(float dt)
+void BasicBone::Update(float dt)
 {
 }
 
-void StaticMesh::Destroy()
+void BasicBone::Destroy()
 {
 }
 
-bool StaticMesh::UploadVertices(std::vector<GLfloat> verts)
+bool BasicBone::UploadVertices(std::vector<GLfloat> verts)
 {
 	bool result = BufferDataToGPU(verts, verticesID, 0);
 	if (result)
@@ -43,14 +43,14 @@ bool StaticMesh::UploadVertices(std::vector<GLfloat> verts)
 }
 
 
-bool StaticMesh::UploadNormals(std::vector<GLfloat> norm)
+bool BasicBone::UploadNormals(std::vector<GLfloat> norm)
 {
 	bool result = BufferDataToGPU(norm, normalsID, 1);
 	if (result) normals = norm;
 	return result;
 }
 
-bool StaticMesh::UploadUVs(std::vector<GLfloat> uvs)
+bool BasicBone::UploadUVs(std::vector<GLfloat> uvs)
 {
 	bool result = BufferUVDataToGPU(uvs, uvID);
 	if (result)
@@ -60,7 +60,7 @@ bool StaticMesh::UploadUVs(std::vector<GLfloat> uvs)
 	return result;
 }
 
-bool StaticMesh::UploadIndices(std::vector<GLuint> ind)
+bool BasicBone::UploadIndices(std::vector<GLuint> ind)
 {
 	bool result = BufferDataToGPU(ind, verticesID);
 	if (result)
@@ -71,14 +71,14 @@ bool StaticMesh::UploadIndices(std::vector<GLuint> ind)
 	return result;
 }
 
-bool StaticMesh::UploadTexture(Bitmap* texture)
+bool BasicBone::UploadTexture(Bitmap* texture)
 {
 	NULLPTRCHECK(texture, "Null pointer passed for texture bitmap");
 	bool result = BufferTextureDataToGPU(texture, textureID);
 	return result;
 }
 
-bool StaticMesh::BufferDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr, GLuint currentLoc)
+bool BasicBone::BufferDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr, GLuint currentLoc)
 {
 
 	glEnableVertexAttribArray(currentLoc);
@@ -100,7 +100,7 @@ bool StaticMesh::BufferDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr, 
 	return true;
 }
 
-bool StaticMesh::BufferDataToGPU(std::vector<GLuint> data, GLuint &bufferAddr)
+bool BasicBone::BufferDataToGPU(std::vector<GLuint> data, GLuint &bufferAddr)
 {
 
 	GenVertexArrays(bufferAddr, vaoID, currentVAOIndex);
@@ -116,7 +116,7 @@ bool StaticMesh::BufferDataToGPU(std::vector<GLuint> data, GLuint &bufferAddr)
 	return true;
 }
 
-bool StaticMesh::BufferUVDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr)
+bool BasicBone::BufferUVDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr)
 {
 	GenVertexArrays(bufferAddr, vaoID, currentVAOIndex);
 	//Generate, bind and upload data
@@ -134,7 +134,7 @@ bool StaticMesh::BufferUVDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr
 	return true;
 }
 
-bool StaticMesh::BufferTextureDataToGPU(Bitmap* data, GLuint &bufferAddr)
+bool BasicBone::BufferTextureDataToGPU(Bitmap* data, GLuint &bufferAddr)
 {
 	GLenum bitmapFormat;
 	//TODO - maybe handle more of these formats?
@@ -174,7 +174,7 @@ bool StaticMesh::BufferTextureDataToGPU(Bitmap* data, GLuint &bufferAddr)
 	return true;
 }
 
-bool StaticMesh::GenVertexArrays(GLuint bufferAddr, GLuint &arrayAddr, int &currentIndex)
+bool BasicBone::GenVertexArrays(GLuint bufferAddr, GLuint &arrayAddr, int &currentIndex)
 {
 	if (!VAOGenerated)
 	{
@@ -189,54 +189,54 @@ bool StaticMesh::GenVertexArrays(GLuint bufferAddr, GLuint &arrayAddr, int &curr
 }
 
 
-const GLuint StaticMesh::GetVerticesID()
+const GLuint BasicBone::GetVerticesID()
 {
 	return verticesID;
 }
 
 
-const GLuint StaticMesh::GetNormalsID()
+const GLuint BasicBone::GetNormalsID()
 {
 	return normalsID;
 }
 
-const GLuint StaticMesh::GetVAO()
+const GLuint BasicBone::GetVAO()
 {
 	return vaoID;
 }
 
-const GLuint StaticMesh::GetTextureID()
+const GLuint BasicBone::GetTextureID()
 {
 	return textureID;
 }
 
 
-const std::vector<GLfloat> StaticMesh::GetVertices()
+const std::vector<GLfloat> BasicBone::GetVertices()
 {
 	return vertices;
 }
 
 
-const std::vector<GLfloat> StaticMesh::GetNormals()
+const std::vector<GLfloat> BasicBone::GetNormals()
 {
 	return normals;
 }
 
-const std::vector<GLfloat> StaticMesh::GetUVs()
+const std::vector<GLfloat> BasicBone::GetUVs()
 {
 	return UVs;
 }
 
-const std::vector<GLuint> StaticMesh::GetIndices()
+const std::vector<GLuint> BasicBone::GetIndices()
 {
 	return indices;
 }
 
-const unsigned int StaticMesh::GetIndicesCount()
+const unsigned int BasicBone::GetIndicesCount()
 {
 	return indicesCount;
 }
-const unsigned int StaticMesh::GetVerticesCount()
+const unsigned int BasicBone::GetVerticesCount()
 {
 	return verticesCount;
 }

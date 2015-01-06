@@ -104,7 +104,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -122,6 +122,7 @@
     <ClCompile Include="..\Libs\jsoncpp\jsoncpp.cpp" />
     <ClCompile Include="..\Libs\TextureLoader\Bitmap.cpp" />
     <ClCompile Include="Code\Assert\Assert.cpp" />
+    <ClCompile Include="Code\Components\BasicBone.cpp" />
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="Code\Core\Engine.cpp" />
     <ClCompile Include="Code\Entities\Camera.cpp" />
     <ClCompile Include="Code\Entities\GeneralEntity.cpp" />
+    <ClCompile Include="Code\entities\Robot.cpp" />
     <ClCompile Include="Code\File\FIleManager.cpp" />
     <ClCompile Include="Code\Graphics\GraphicsManager.cpp" />
     <ClCompile Include="Code\Interfaces\IComponent.cpp" />
@@ -155,6 +157,7 @@
     <ClInclude Include="..\Libs\TextureLoader\Bitmap.h" />
     <ClInclude Include="..\Libs\TextureLoader\stb_image.h" />
     <ClInclude Include="Code\Assert\Assert.h" />
+    <ClInclude Include="Code\Components\BasicBone.h" />
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
     <ClInclude Include="Code\Components\MousePoller.h" />
     <ClInclude Include="Code\Components\StaticMesh.h" />
@@ -165,6 +168,7 @@
     <ClInclude Include="Code\Core\Engine.h" />
     <ClInclude Include="Code\Entities\Camera.h" />
     <ClInclude Include="Code\Entities\GeneralEntity.h" />
+    <ClInclude Include="Code\entities\Robot.h" />
     <ClInclude Include="Code\File\FileManager.h" />
     <ClInclude Include="Code\Graphics\GraphicsManager.h" />
     <ClInclude Include="Code\Interfaces\IComponent.h" />

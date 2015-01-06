@@ -27,6 +27,7 @@ public:
 	//Message processors
 	void msg_SetMovePosition(mauvemessage::BaseMessage* msg);
 	void msg_SetLookPosition(mauvemessage::BaseMessage* msg);
+	void msg_SetLookPositionAbsolute(mauvemessage::BaseMessage* msg);
 
 	const glm::mat4 GetCameraMatrix();
 	const glm::vec3 GetCameraPosition();

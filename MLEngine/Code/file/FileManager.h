@@ -18,6 +18,15 @@ namespace mauvefile
 
 		//Reads a file into a vector of strings, 1 per line
 		static std::vector<std::string> ReadFileLines(const char* filename);
+
+		//File manager will store one file to read and write from
+		static bool OpenFile(const char* filename);
+		static void CloseFile();
+
+		static bool ReadLineFromFile(std::string& line);
+
+	private:
+		static std::ifstream openFile; 
 	};
 }
 

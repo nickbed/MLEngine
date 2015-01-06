@@ -48,6 +48,13 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					{
 						entToCreate = new GeneralEntity();
 					}
+					if (entType == "robot")
+					{
+						entToCreate = new Robot();
+						using namespace std::placeholders;
+						Robot* tempRobot = (Robot*)entToCreate;
+						AddMessageListner("keyboardMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, _1));
+					}
 
 					//Iterate over data inside the entity (components, transform)
 					for (Json::Value::iterator it2 = value.begin(); it2 != value.end(); ++it2)
@@ -72,6 +79,42 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 								if (componentContents["type"] == "staticmesh")
 								{
 									StaticMesh* gotComponent = new StaticMesh(componentContents["id"].asString());
+									
+									//Load in the obj file specified
+									std::string gotOBJPath = componentContents["OBJModel"].asString();
+
+									//Load in the texture location
+									std::string gotTexturePath = componentContents["TextureFile"].asString();
+
+									if (gotOBJPath.size() == 0) success = false;
+									else
+									{
+										//Load texture
+										ImageTexture* gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>(gotTexturePath);
+										if (gotTexture == nullptr)
+										{
+											//Use the no texture found texture
+											gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\default.png");
+										}
+
+										OBJModel* gotModel = mauveresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
+										if (gotModel == nullptr) success = false;
+										else
+										{
+											//Put the obj data in the thing
+											gotComponent->UploadUVs(gotModel->GetUVs());
+											gotComponent->UploadVertices(gotModel->GetVertices());
+										    gotComponent->UploadNormals(gotModel->GetNormals());
+											gotComponent->UploadIndices(gotModel->GetIndicies());
+
+											gotComponent->UploadTexture(gotTexture->GetBitmap());
+											success &= entToCreate->Components->AddComponent(componentContents["type"].asString(), gotComponent);
+										}
+									}
+								}
+								if (componentContents["type"] == "basicbone")
+								{
+									BasicBone* gotComponent = new BasicBone(componentContents["id"].asString());
 									
 									//Load in the obj file specified
 									std::string gotOBJPath = componentContents["OBJModel"].asString();
@@ -196,6 +239,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					gotConfig->sceneLights->insert(std::pair<std::string, SceneLight*>(lightIDtoadd, lightToCreate));
 				}
 			}
+			if(!success)
+			{
+				return nullptr;
+			}
 
 			//TODO - Guard all this
 
@@ -223,6 +270,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			gotConfig->currentSceneLight = gotConfig->sceneLights->find(sceneLight)->second;
 		}
 	}
+	if(!success)
+	{
+		return nullptr;
+	}
 	//std::unique_ptr<SceneConfig> returnConfig = std::unique_ptr<SceneConfig>(new SceneConfig);
 
 	//Hack
@@ -233,14 +284,16 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	mouseReader->Init();
 
 	using namespace std::placeholders;
-	AddMessageListner("keyboardMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, _1));
+	//AddMessageListner("keyboardMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, _1));
 
-	AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, _1));
+	//AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, _1));
+
+	AddMessageListner("robotPositionMove", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPositionAbsolute, gotConfig->currentSceneCamera, _1));
 
 	AddMessageListner("cameraPositionMove", gotConfig->currentSceneLight, std::bind(&SceneLight::msg_LightPositionHandler, gotConfig->currentSceneLight, _1));
 
 	gotConfig->currentSceneCamera->Components->AddComponent("keyboardMovement", movement);
-	gotConfig->currentSceneCamera->Components->AddComponent("mouseMovement", mouseReader);
+	//gotConfig->currentSceneCamera->Components->AddComponent("mouseMovement", mouseReader);
 
 	return std::move(gotConfig);
 }
@@ -254,6 +307,11 @@ bool SceneManager::InitSceneManager()
 bool SceneManager::InitCurrentScene()
 {
 	//Is anything our current scene? No entities = no scene
+	NULLPTRCHECK(currentScene, "Nullptr on current scene when trying to init");
+	if(currentScene == nullptr)
+	{
+		return false;
+	}
 	if(currentScene->activeEntities.size() == 0)
 	{
 		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Called init scene on an empty scene");
@@ -261,10 +319,10 @@ bool SceneManager::InitCurrentScene()
 	}
 
 	//Iterate through vector and init all entities
-	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
+	/*for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
 		(*it)->Init();
-	}
+	}*/
 
 	return true;
 }

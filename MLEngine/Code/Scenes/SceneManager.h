@@ -8,6 +8,7 @@
 #include "..\Resources\JSONFile.h"
 #include "..\entities\Camera.h"
 #include "..\entities\GeneralEntity.h"
+#include "..\entities\Robot.h"
 #include "..\Components\BasicKeyMovement.h"
 #include "..\Components\MousePoller.h"
 #include "..\Components\StaticMeshNoIndices.h"

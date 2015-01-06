@@ -51,7 +51,7 @@ int guardedMain()
 		}
 		else
 		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(timeToWait));
+			std::this_thread::yield();
 		}
 	}
 	return 0;

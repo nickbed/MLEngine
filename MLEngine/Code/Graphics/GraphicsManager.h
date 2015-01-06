@@ -8,6 +8,7 @@
 #include "GLM\gtx\transform.hpp"
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\StaticMesh.h"
+#include "..\Components\BasicBone.h"
 #include "..\Resources\ResourceManager.h"
 #include "..\Entities\Camera.h"
 #include "..\Scenes\SceneTypes.h"
@@ -36,6 +37,8 @@ public:
 
 	template <class IComponent>
 	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform);
+	template <class IComponent>
+	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform, TransformComponent boneTransform);
 
 	//Getters
 	GLFWwindow* GetCurrentWindow();
@@ -53,6 +56,7 @@ public:
 private:
 
 	bool UploadShaderDataForDraw(TransformComponent* modelTransform);
+	bool UploadBoneShaderDataForDraw(TransformComponent modelTransform, TransformComponent boneTransform);
 
 	//This class will store the current window
 	GLFWwindow* currentWindow;

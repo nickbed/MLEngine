@@ -4,7 +4,20 @@
     "sceneshader": "data\\shaders\\default",
     "currentcamera": "camera0",
     "currentlight": "light0",
-	"activeentities": ["ent1","ent2","ent3","ent4","ent5","ent6","ent7","ent8","ent9","ent10"],
+    "activeentities": [
+      "ent1",
+      "ent2",
+      "ent3",
+      "ent4",
+      "ent5",
+      "ent6",
+      "ent7",
+      "ent8",
+      "ent9",
+      "ent10",
+      "ent11",
+      "ent12"
+    ],
     "entities": {
       "ent1": {
         "type": "generalentity",
@@ -12,23 +25,23 @@
           "posX": 10,
           "posY": 0,
           "posZ": 0,
-          "scaleX": 10,
-          "scaleY": 10,
-          "scaleZ": 10,
+          "scaleX": 0.01,
+          "scaleY": 0.01,
+          "scaleZ": 0.01,
           "rotateX": -90,
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj",
-			  "TextureFile": "data\\images\\leon_tex.tga"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\leon_tex.tga"
           }
-        },
-		"ent2": {
+        }
+      },
+      "ent2": {
         "type": "generalentity",
         "transform": {
           "posX": 20,
@@ -41,16 +54,16 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj",
-			  "TextureFile": "data\\images\\rainbow.png"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj",
+            "TextureFile": "data\\images\\rainbow.png"
           }
-        },
-		"ent3": {
+        }
+      },
+      "ent3": {
         "type": "generalentity",
         "transform": {
           "posX": 0,
@@ -63,16 +76,16 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj",
-			  "TextureFile": "data\\images\\rainbow.png"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj",
+            "TextureFile": "data\\images\\rainbow.png"
           }
-        },
-		"ent4": {
+        }
+      },
+      "ent4": {
         "type": "generalentity",
         "transform": {
           "posX": 0,
@@ -85,15 +98,15 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj"
           }
-        },
-		"ent5": {
+        }
+      },
+      "ent5": {
         "type": "generalentity",
         "transform": {
           "posX": 10,
@@ -106,15 +119,15 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj"
           }
-        },
-		"ent6": {
+        }
+      },
+      "ent6": {
         "type": "generalentity",
         "transform": {
           "posX": 30,
@@ -127,15 +140,15 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj"
           }
-        },
-		"ent7": {
+        }
+      },
+      "ent7": {
         "type": "generalentity",
         "transform": {
           "posX": 40,
@@ -148,15 +161,15 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj"
           }
-        },
-		"ent8": {
+        }
+      },
+      "ent8": {
         "type": "generalentity",
         "transform": {
           "posX": 20,
@@ -169,15 +182,15 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj"
           }
-        },
-		"ent9": {
+        }
+      },
+      "ent9": {
         "type": "generalentity",
         "transform": {
           "posX": 10,
@@ -190,59 +203,105 @@
           "rotateY": 0,
           "rotateZ": 0
         },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj"
-              }
-          }
-        },
-		"ent10": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 10,
-          "posY": 40,
-          "posZ": 20,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": -90,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj",
-			  "TextureFile": "data\\images\\bunny-atlas.jpg"
-              }
-          }
-        },
-		"ent11": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 10,
-          "posY": 40,
-          "posZ": 20,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": -90,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-          "components": {
-              "ent1mesh": {
-              "id": "ent1mesh",
-              "type": "staticmesh",
-              "OBJModel": "data\\models\\leon.obj",
-			  "TextureFile": "data\\images\\bunny-atlas.jpg"
-              }
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj"
           }
         }
       },
+      "ent10": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 10,
+          "posY": 40,
+          "posZ": 20,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": -90,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\leon.obj",
+            "TextureFile": "data\\images\\bunny-atlas.jpg"
+          }
+        }
+      },
+      "ent11": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent12": {
+        "type": "robot",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 10,
+          "scaleY": 10,
+          "scaleZ": 10,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      }
+    },
     "cameras": {
       "camera0": {
         "camerasetup": {
@@ -273,17 +332,17 @@
     },
     "lights": {
       "light0": {
-		"lightparams": {
-        "posX": 0,
-        "posY": 0,
-        "posZ": 0,
-        "intensityR": 1,
-        "intensityG": 1,
-        "intensityB": 1,
-        "surfaceReflectivityR_TEMP": 1,
-        "surfaceReflectivityG_TEMP": 1,
-        "surfaceReflectivityB_TEMP": 1
-		}
+        "lightparams": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "intensityR": 1,
+          "intensityG": 1,
+          "intensityB": 1,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
       }
     }
   }
