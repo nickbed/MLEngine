@@ -35,13 +35,14 @@ bool OBJModel::LoadFromFile(std::string filename)
 	std::string gotLine;
 	while (mauvefile::FileManager::ReadLineFromFile(gotLine))
 	{
+		if(gotLine.size() <3) continue;
 		const char identifierChar[3] =
 		{
 			gotLine[0],
 			gotLine[1],
 			gotLine[2]
 		};
-
+		try{
 		if (identifierChar[0] == 'v')
 		{
 			//Handle if gotLine is a vertex (has a blank space next to gotLine)
@@ -53,6 +54,10 @@ bool OBJModel::LoadFromFile(std::string filename)
 				{
 					//Find next space
 					std::size_t second = gotLine.find(' ', startingPos+1);
+					if(second == 2)
+					{
+						second = gotLine.find(' ', startingPos+2);
+					}
 					
 					//If we can't find one, set second to the end of the string
 					if (second == std::string::npos) second = gotLine.size();
@@ -141,16 +146,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 				index[2] = ' ';
 				index[3] = ' ';
 				index[4] = ' '; 
-				//index.erase(std::remove(index.begin(), index.end(), '/'), index.end());
-				//if(temp.size() == 1)
-				//{
-				//	index[0] = temp[0];
-				//}
-				//if(temp.size() == 2)
-				//{
-				//	index[0] = temp[1];
-				//}
-				//else
+
 				if(temp[0] == '/')
 				{
 					temp[0] = ' ';
@@ -162,6 +158,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 				//	
 				//}
 				//index.replace(index.begin(), index.begin() + 1, "");
+				
 				if (i == 0 || i == 3 || i == 6)
 				{
 					//parsedIndices.push_back(std::stoi(index) - 1);
@@ -198,10 +195,20 @@ bool OBJModel::LoadFromFile(std::string filename)
 					parsedNormals.push_back(tempNormals.at(normalloc+1));
 					parsedNormals.push_back(tempNormals.at(normalloc+2));
 				}
+				
 
 				//Set the starting posgotLineion to second
 				startingPos = second;
 			}
+		}
+		else if(identifierChar[0] == 's' && identifierChar[1] == ' ')
+		{
+			continue;
+		}
+		}
+		catch(std::exception e)
+		{
+			continue;
 		}
 	}
 	for (int i = 0; i < indexCount; ++i)

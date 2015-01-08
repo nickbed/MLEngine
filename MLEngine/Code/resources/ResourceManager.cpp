@@ -109,7 +109,7 @@ namespace mauveresource
 			{
 				return nullptr;
 			}
-			resources->insert(std::pair<std::string, IResource*>(resourcePath, gotResource));
+			//resources->insert(std::pair<std::string, IResource*>(resourcePath, gotResource));
 
 		}
 		else

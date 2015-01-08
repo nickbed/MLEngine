@@ -14,6 +14,12 @@ ComponentManager::ComponentManager(std::unique_ptr<componentMapType> components)
 	components.swap(componentList);
 }
 
+ComponentManager::~ComponentManager()
+{
+	DestroyAllComponents();
+	componentList.release();
+}
+
 bool ComponentManager::AddComponent(std::string componentType, IComponent* componentToAdd)
 {
 	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != "", mauveassert::ENUM_severity::SEV_ERROR);
@@ -96,4 +102,5 @@ void ComponentManager::DestroyAllComponents()
 		delete (*startIt).second;
 	}
 	componentList->clear();
+	
 }

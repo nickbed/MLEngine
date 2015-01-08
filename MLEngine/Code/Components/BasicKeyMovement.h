@@ -28,7 +28,8 @@ private:
 	GLFWwindow* window;
 	static void keyFunc(GLFWwindow* win, int key, int scanCode, int action, int mods);
 	static bool keyBuffer[400];  //1->1 mapping with keycodes
-	void SendMovementMessage(glm::vec3 msg);
+	void SendMovementMessage(glm::vec3 msg, const char* messageType);
+	bool used;
 };
 
 #endif

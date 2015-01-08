@@ -33,6 +33,7 @@ namespace mauvemessage
 		static void AddMessageListner(const char* typeToListen, RecieverInfo& reciever);
 		static void ClearMessageListner(void* listnerObject);
 		static void ClearMessageListner(RecieverInfo& recieverToRemove);
+		static void ClearAllListners();
 
 	private:
 		static std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listnerMap;

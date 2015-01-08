@@ -61,19 +61,35 @@ bool Shader::SendUniformMat3(const char* uniformName, const glm::mat3 matrix)
 	return true;
 }
 
-bool Shader::SendUniformVec4(const char* uniformName, const glm::vec4 vec)
+bool Shader::SendUniformVec4(const char* uniformName, const glm::vec4 vec4)
 {
 	GLint uniformLocation = GetUniformLocation(uniformName);
 	if(!mauveassert::Assert::AssertTrue("Got -1 from getting uniform location. Unable to send data to shader.", uniformLocation != -1, mauveassert::ENUM_severity::SEV_ERROR)) return false;
-	glUniform4f(uniformLocation, vec.x, vec.y, vec.z, vec.w);
+	glUniform4f(uniformLocation, vec4.x, vec4.y, vec4.z, vec4.w);
 	return true;
 }
 
-bool Shader::SendUniformVec3(const char* uniformName, const glm::vec3 vec)
+bool Shader::SendUniformVec3(const char* uniformName, const glm::vec3 vec3)
 {
 	GLint uniformLocation = GetUniformLocation(uniformName);
 	if(!mauveassert::Assert::AssertTrue("Got -1 from getting uniform location. Unable to send data to shader.", uniformLocation != -1, mauveassert::ENUM_severity::SEV_ERROR)) return false;
-	glUniform3f(uniformLocation, vec.x, vec.y, vec.z);
+	glUniform3f(uniformLocation, vec3.x, vec3.y, vec3.z);
+	return true;
+}
+
+bool Shader::SendUniformVec2(const char* uniformName, const glm::vec2 vec2)
+{
+	GLint uniformLocation = GetUniformLocation(uniformName);
+	if(!mauveassert::Assert::AssertTrue("Got -1 from getting uniform location. Unable to send data to shader.", uniformLocation != -1, mauveassert::ENUM_severity::SEV_ERROR)) return false;
+	glUniform2f(uniformLocation, vec2.x, vec2.y);
+	return true;
+}
+
+bool Shader::SendUniform1i(const char* uniformName, const GLint i)
+{
+	GLint uniformLocation = GetUniformLocation(uniformName);
+	if(!mauveassert::Assert::AssertTrue("Got -1 from getting uniform location. Unable to send data to shader.", uniformLocation != -1, mauveassert::ENUM_severity::SEV_ERROR)) return false;
+	glUniform1i(uniformLocation, i);
 	return true;
 }
 

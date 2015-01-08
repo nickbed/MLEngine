@@ -58,7 +58,8 @@ private:
 	//Load the next state into current state from the current state 
 	//(ie - put the next state into the current state and release the pointer for the old state)
 	bool LoadNextState();
-	int loops;
+	float timer;
+	bool loading;
 };
 
 #endif

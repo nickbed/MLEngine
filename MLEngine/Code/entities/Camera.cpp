@@ -16,6 +16,8 @@ void CameraEntity::Init()
 	upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 	rightVector = glm::vec3(1.0f, 0.0f, 0.0f);
 	cameraDirection = glm::vec3(0.0f, 0.0f, 1.0f);
+	//Todo abstract this
+	Listning = false;
 }
 
 bool CameraEntity::Update(float dt)
@@ -46,8 +48,8 @@ void CameraEntity::SetViewMatrix(glm::mat4 matrix)
 void CameraEntity::SetPosition(glm::vec3 pos)
 {
 	Transform->SetPosition(pos);
-	mauvemessage::PositionMessage msg_cameraMove("cameraPositionMove", pos);
-	mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "cameraPositionMove");
+	//mauvemessage::PositionMessage msg_cameraMove("cameraPositionMove", pos);
+	//mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "cameraPositionMove");
 	RegenerateCameraMatrix();
 }
 
@@ -77,6 +79,7 @@ void CameraEntity::SetYaw(float yw)
 
 void CameraEntity::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 {
+	if(!Listning) return;
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
 	//Determine which direction we're going in
@@ -122,10 +125,12 @@ void CameraEntity::msg_SetLookPosition(mauvemessage::BaseMessage* msg)
 	RegenerateCameraMatrix();
 }
 
-void CameraEntity::msg_SetLookPositionAbsolute(mauvemessage::BaseMessage* msg)
+void CameraEntity::msg_SetFollowPosition(mauvemessage::BaseMessage* msg)
 {
+	if(!Listning) return;
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	SetPosition(messagePos);
 	SetLookPosition(messagePos);
 }
 
@@ -174,8 +179,7 @@ void CameraEntity::RegenerateCameraMatrix()
 
 	rightVector = glm::vec3(glm::sin(yaw - glm::pi<float>() / 2.0f), 0, glm::cos(yaw - glm::pi<float>() / 2.0f));
 	//upVector = glm::cross(rightVector, cameraDirection);
-	//cameraMatrix = glm::lookAt(Transform->GetPosition(), Transform->GetPosition() + cameraDirection, upVector);
-	cameraMatrix = glm::lookAt(Transform->GetPosition(), cameraLookPosition, upVector);
+	cameraMatrix = glm::lookAt(Transform->GetPosition(), Transform->GetPosition() + cameraDirection, upVector);
 	viewMatrix = glm::perspective(cameraFOV, (float)1024/ (float)768, 0.1f, 1000.0f);
 	viewProjMatrix = viewMatrix * cameraMatrix;
 }

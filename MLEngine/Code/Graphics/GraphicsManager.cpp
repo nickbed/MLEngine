@@ -102,14 +102,30 @@ void GraphicsManager::RenderComponents<BasicBone>(BasicBone* componentToRender, 
 
 }
 
+void GraphicsManager::RenderText(std::string text, int x, int y, int size, std::vector<IEntity*> entities)
+{
+	DrawAndUpdateWindow(entities, 0.1, false);
+	textRenderer->Draw2DText(text, x, y, size);
+	glfwSwapBuffers(currentWindow);
+	//Hack
+
+}
+
+void GraphicsManager::RenderText(std::string text, int x, int y, int size)
+{
+	textRenderer->Draw2DText(text, x, y, size);
+}
+
 GraphicsManager::GraphicsManager()
 {
 	currentWindow = nullptr;
 	windowShouldBeClosed = false;
+	textRenderer = new TextRender();
 }
 
 GraphicsManager::~GraphicsManager()
 {
+	delete textRenderer;
 	glfwTerminate();
 }
 
@@ -133,7 +149,7 @@ bool GraphicsManager::Init(int GLVersionMajor, int GLVersionMinor)
 	
 
 	//Initialize clear color
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.0f, 0.098f, 0.0f, 1.0f);
 
 	//Add a camera
 	currentCamera = new CameraEntity();
@@ -171,11 +187,13 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	//Make camera controls work nicely
 	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+	success &= textRenderer->InitTextRender(xSize, ySize);
+
 	if(!success) return false;
 	return true;
 }
 
-bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt)
+bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt, bool poll)
 {
 	//Hook into the esc here to close the window - probably temp
 	if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE))
@@ -198,22 +216,21 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 
 	glDepthMask(GL_TRUE);
 
-	//// Cull triangles which normal is not towards the camera
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
-
 	glfwSwapBuffers(currentWindow);
-	glfwPollEvents();
+	if(poll)
+	{
+		glfwPollEvents();
+	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.79f, 0.96f, 0.99f, 0.0f); //Background colour, should be replaced by skybox if there
+	glClearColor(0.098f, 0.0f, 1.0f, 1.0f); //Background colour, should be replaced by skybox if there
 	glClearDepth(1.0f);
 	
 	//Draw stuff
 	for (auto& x: entities)
 	{
 		DrawEntity(x);
+		
 	}
-
 	return true;
 }
 
@@ -295,9 +312,12 @@ bool GraphicsManager::UploadBoneShaderDataForDraw(TransformComponent modelTransf
 
 	glm::mat4 boneMat(1.0f);
 	//boneMat *= glm::translate(glm::mat4(1.0f), boneTransform.GetPosition());
+	//Translate to rotate position
+	boneMat *= glm::translate(glm::mat4(1.0f), -boneTransform.GetPosition());
 	boneMat *= glm::rotate(glm::mat4(1.0f), boneTransform.GetRotation().x, glm::vec3(1.0f, 0.0f, 0.0f));
 	boneMat *= glm::rotate(glm::mat4(1.0f), boneTransform.GetRotation().y, glm::vec3(0.0f, 1.0f, 0.0f));
 	boneMat *= glm::rotate(glm::mat4(1.0f), boneTransform.GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
+	boneMat *= glm::translate(glm::mat4(1.0f), boneTransform.GetPosition());
 	//boneMat *= glm::scale(glm::mat4(1.0f), boneTransform.GetScale());
 
 	//TEMP - put this in the shader?

@@ -33,12 +33,29 @@ struct SceneConfig
 	
 	SceneConfig()
 	{
-		sceneEntities = std::unique_ptr<std::map<std::string, IEntity*>>(new std::map<std::string, IEntity*>);
-		sceneCameras = std::unique_ptr<std::map<std::string, CameraEntity*>>(new std::map<std::string, CameraEntity*>);
-		sceneLights = std::unique_ptr<std::map<std::string, SceneLight*>>(new std::map<std::string, SceneLight*>);
-		stringBin = std::unique_ptr<std::vector<std::string*>>(new std::vector<std::string*>);
+		sceneEntities = std::unique_ptr<std::map<std::string, IEntity*>>(new std::map<std::string, IEntity*>, std::default_delete<std::map<std::string, IEntity*>>());
+		sceneCameras = std::unique_ptr<std::map<std::string, CameraEntity*>>(new std::map<std::string, CameraEntity*>, std::default_delete<std::map<std::string, CameraEntity*>>());
+		sceneLights = std::unique_ptr<std::map<std::string, SceneLight*>>(new std::map<std::string, SceneLight*>, std::default_delete<std::map<std::string, SceneLight*>>());
 	}
 
+	~SceneConfig()
+	{
+		for (std::vector<IEntity*>::iterator it = activeEntities.begin(); it != activeEntities.end(); ++it)
+		{
+			(*it)->Destroy();
+		}
+		activeEntities.clear();
+
+		std::map<std::string, IEntity*>::iterator startit = sceneEntities->begin();
+		for(auto it = sceneEntities->begin(); it != sceneEntities->end(); ++it)
+		{
+			if(it->second != nullptr)
+			{
+				delete it->second;
+			}
+		}
+		sceneEntities->clear();
+	}
 
 
 	//START Workaround for a VCC bug -_-
@@ -47,7 +64,6 @@ struct SceneConfig
 		sceneEntities = std::move(s.sceneEntities);
 		sceneCameras = std::move(s.sceneCameras);
 		sceneLights = std::move(s.sceneLights);
-		stringBin = std::move(s.stringBin);
 	}
 	//END Workaround for a VCC bug -_-
 
@@ -61,9 +77,8 @@ struct SceneConfig
 	std::unique_ptr<std::map<std::string, IEntity*>> sceneEntities;
 	std::unique_ptr<std::map<std::string, CameraEntity*>> sceneCameras;
 	std::unique_ptr<std::map<std::string, SceneLight*>> sceneLights;
-
-	//Bugfix for chars going out of scope
-	std::unique_ptr<std::vector<std::string*>> stringBin;
+	std::string filename;
+	
 };
 
 #endif

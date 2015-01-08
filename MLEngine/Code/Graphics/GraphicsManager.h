@@ -12,6 +12,7 @@
 #include "..\Resources\ResourceManager.h"
 #include "..\Entities\Camera.h"
 #include "..\Scenes\SceneTypes.h"
+#include "..\Graphics\TextRender.h"
 #include <map>
 
 class GraphicsManager
@@ -28,7 +29,7 @@ public:
 	bool CreateGraphicsWindow(const int xSize, const int ySize, const char* windowTitle);
 
 	//Draw window, poll events and swap buffers. Returns false if window should be closing
-	bool DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt);
+	bool DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt, bool poll);
 
 	//Handles the window close event
 	static void WindowCloseCallback(GLFWwindow* window);
@@ -39,6 +40,9 @@ public:
 	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform);
 	template <class IComponent>
 	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform, TransformComponent boneTransform);
+
+	void RenderText(std::string text, int x, int y, int size);
+	void RenderText(std::string text, int x, int y, int size, std::vector<IEntity*> entities);
 
 	//Getters
 	GLFWwindow* GetCurrentWindow();
@@ -52,6 +56,8 @@ public:
 	void SetCurrentCamera(CameraEntity* camera);
 	void SetCurrentSceneLight(SceneLight* light);
 	void SetCurrentShader(Shader* shader);
+
+	
 
 private:
 
@@ -68,6 +74,7 @@ private:
 	Shader* currentShader;
 	CameraEntity* currentCamera;
 	SceneLight* currentSceneLight;
+	TextRender* textRenderer;
 
 	static bool windowShouldBeClosed;	
 };

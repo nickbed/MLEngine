@@ -32,7 +32,7 @@ int guardedMain()
 	EngineConfig currentConf;
 	currentConf.resX = 1024;
 	currentConf.resY = 768;
-	float sixtyFPS = (1.0f / 90.0f) * 1000;
+	float sixtyFPS = (1.0f / 120.0f) * 1000;
 
 	//Make our engine
 	Engine currentEngine = Engine();

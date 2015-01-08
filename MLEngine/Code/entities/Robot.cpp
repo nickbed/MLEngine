@@ -165,38 +165,58 @@ void Robot::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
 	glm::vec3 moveSpeed(0.0f,0.0f,0.0f);
+	glm::vec3 messageToSend;
 	//Determine which direction we're going in
 	if (messagePos.z != 0.0f)
 	{
 		//Going right
-		moveSpeed.z = 1.0f;
-		Transform->SetPosition(Transform->GetPosition() + moveSpeed * messagePos.z);
+		moveSpeed.z = -1.0f;
+		//Transform->SetPosition(Transform->GetPosition() + moveSpeed * messagePos.z);
 		if(messagePos.z > 0.0f)
 		{
-			Transform->SetRotation(glm::vec3(0.0f,-180.0f,0.0f));
+			//Transform->SetRotation(glm::vec3(0.0f,-180.0f,0.0f));
+			
 		}
 		else
 		{
-			Transform->SetRotation(glm::vec3(0.0f,0.0f,0.0f));
+			//Transform->SetRotation(glm::vec3(0.0f,0.0f,0.0f));
+			//Transform->SetRotation(Transform->GetRotation() - moveSpeed * messagePos.z);
 		}
+		glm::vec3 moveVector = Transform->GetPosition();
+		moveVector.y = 0.0f; //Don't want to take y into account
+		moveVector.x = sinf(glm::radians(Transform->GetRotation().y)) * (moveSpeed.z * messagePos.z);
+		moveVector.z = cosf(glm::radians(Transform->GetRotation().y)) * (moveSpeed.z * messagePos.z);
+		Transform->SetPosition(Transform->GetPosition() + moveVector);
 
 	}
 	else if (messagePos.x != 0.0f)
 	{
-		moveSpeed.x = -1.0f;
-		if(messagePos.x > 0.0f)
-		{
-			Transform->SetRotation(glm::vec3(0.0f,90.0f,0.0f));
-		}
-		else
-		{
-			Transform->SetRotation(glm::vec3(0.0f,-90.0f,0.0f));
-		}
-		Transform->SetPosition(Transform->GetPosition() + moveSpeed * messagePos.x);
+		moveSpeed.x = 1.0f;
+		glm::vec3 moveVector = Transform->GetPosition();
+		moveVector.y = 0.0f; //Don't want to take y into account
+		moveVector.x = sinf(glm::radians(Transform->GetRotation().y + 90.0f)) * (moveSpeed.x * messagePos.x);
+		moveVector.z = cosf(glm::radians(Transform->GetRotation().y + 90.0f)) * (moveSpeed.x * messagePos.x);
+		Transform->SetPosition(Transform->GetPosition() + moveVector);
 	}
 	isAnimating = true;
-	mauvemessage::PositionMessage msg_cameraMove("robotPositionMove", Transform->GetPosition());
+	glm::vec3 followPos(0.0f, 0.8f, 0.0f);
+	followPos += Transform->GetPosition();
+	mauvemessage::PositionMessage msg_cameraMove("robotPositionMove", followPos);
 	mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "robotPositionMove");
+}
+
+void Robot::msg_SetHeadPosition(mauvemessage::BaseMessage* msg)
+{
+	const float multiplier = 5.0f;
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	if(messagePos.x > 5.0f || messagePos.x < -5.0f || messagePos.x == 0.0f) return;
+	glm::vec3 setPos = Transform->GetRotation();
+	setPos.y += glm::degrees(messagePos.x);
+	Transform->SetRotation(setPos);
+	setPos = Transform->GetRotation();
+	setPos.y = 0;
+	if(Transform->GetRotation().y > 360.0f || Transform->GetRotation().y < -360.0f) Transform->SetRotation(setPos);
 }
 
 void Robot::Destroy()

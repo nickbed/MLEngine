@@ -26,14 +26,32 @@ void Engine::Init(EngineConfig conf)
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
 	sceneManager->InitSceneManager();
-	std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\testscene.scn");
+	std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\loading.scn");
 	//SceneConfig newScene = sceneManager->CreateTestScene();
 	sceneManager->LoadScene(std::move(newScene));
+	loading = true;
 }
 
 bool Engine::Update(float dt)
 {
-	return sceneManager->UpdateCurrentSceneEntities(dt);
+	bool result = true;
+	result &= sceneManager->UpdateCurrentSceneEntities(dt);
+	timer += dt;
+	if(loading)
+	{
+		    sceneManager->UpdateCurrentSceneEntities(dt);
+		    std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\demolevel.scn");
+			sceneManager->LoadScene(std::move(newScene));
+			loading = false;
+			timer = 0;
+	}
+	//else if(timer > 5.0f)
+	//{
+	//	std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\demolevel.scn");
+	//	sceneManager->LoadScene(std::move(newScene));
+	//	timer = 0.0f;
+	//}
+	return result;
 }
 
 bool Engine::LoadNextState()

@@ -5,7 +5,7 @@
 IEntity::IEntity()
 {
 	//If no component list is specified, create it here.
-	std::unique_ptr<componentMapType> components(new componentMapType);
+	std::unique_ptr<componentMapType> components(new componentMapType, std::default_delete<componentMapType>());
 	Components = new ComponentManager(std::move(components));
 	
 	Transform = new TransformComponent("defaultTransform");
@@ -41,6 +41,6 @@ void IEntity::Destroy()
 
 IEntity::~IEntity()
 {
-	if(Components != nullptr) Components;
+	if(Components != nullptr) delete Components;
 	if(Transform != nullptr) delete Transform;
 }

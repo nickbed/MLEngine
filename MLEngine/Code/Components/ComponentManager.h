@@ -16,6 +16,7 @@ class ComponentManager
 public:
 	ComponentManager();
 	ComponentManager(std::unique_ptr<componentMapType> components);
+	~ComponentManager();
 
 	bool AddComponent(std::string componentType, IComponent* componentToAdd);
 	bool RemoveComponent(std::string componentType, std::string componentID);

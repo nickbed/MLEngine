@@ -4,6 +4,8 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 {
 	NULLPTRCHECK(graph, "Null graphicsmanager ptr passed to scene manager");
 	graphicsManager = std::move(graph);
+	isLoading = false;
+	showDebug = false;
 }
 
 bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
@@ -12,12 +14,24 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 
 	//Init scene after we load in
 	return InitCurrentScene();
+	isLoading = false;
 }
 
 std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
 {
-	std::unique_ptr<SceneConfig> gotConfig = std::unique_ptr<SceneConfig>(new SceneConfig);
-	JSONFile* gotJSON = mauveresource::ResourceManager::GetResource<JSONFile>(filePath);
+	showDebug = false;
+	mauvemessage::MessageManager::ClearAllListners();
+	int loadingTextX = 60;
+	int loadingTextY = 100;
+	int loadingTextSize = 50;
+	std::vector<IEntity*> gotEntities;
+	if(currentScene != nullptr)
+	{
+		gotEntities = currentScene->activeEntities;
+	}
+	std::unique_ptr<SceneConfig> gotConfig = std::unique_ptr<SceneConfig>(new SceneConfig, std::default_delete<SceneConfig>());
+	gotConfig->filename = filePath;
+	JSONFile* gotJSON = mauveresource::ResourceManager::LoadResource<JSONFile>(filePath);
 	bool success = true;
 	if (gotJSON == nullptr)
 	{
@@ -44,6 +58,9 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					Json::Value value = (*it);
 					std::string entType = value["type"].asString();
 					std::string entID = it.key().asString();
+					char result[100];
+					sprintf_s(result, "Loading entityID: \n%s", entID.c_str());
+					graphicsManager->RenderText(result,loadingTextX,loadingTextY,loadingTextSize,gotEntities);
 					if (entType == "generalentity")
 					{
 						entToCreate = new GeneralEntity();
@@ -53,7 +70,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						entToCreate = new Robot();
 						using namespace std::placeholders;
 						Robot* tempRobot = (Robot*)entToCreate;
-						AddMessageListner("keyboardMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, _1));
+						AddMessageListner("robotMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, _1));
 					}
 
 					//Iterate over data inside the entity (components, transform)
@@ -61,27 +78,37 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					{
 						Json::Value key2 = it2.key();
 						Json::Value value2 = (*it2);
+#ifdef JSON_PARSE_OUTPUT
 						std::cout << "Key: " << key2.toStyledString();
 						std::cout << "Value: " << value2.toStyledString();
+#endif
 
 						//*************************COMPONENT HANDLING**************************************
 						//*************************COMPONENT HANDLING**************************************
 						//*************************COMPONENT HANDLING**************************************
 						if (key2.asString() == "components")
 						{
+
 							//Iterate over component data
 							for (Json::Value::iterator it3 = value2.begin(); it3 != value2.end(); ++it3)
 							{
 								Json::Value componentID = it3.key();
 								Json::Value componentContents = (*it3);
 
+								char result[100];
+								sprintf_s(result, "Loading component: \n%s", componentID.asCString());
+								graphicsManager->RenderText(result,loadingTextX,loadingTextY,loadingTextSize,gotEntities);
 								
 								if (componentContents["type"] == "staticmesh")
 								{
+									graphicsManager->RenderText("Loading static mesh",loadingTextX,loadingTextY,loadingTextSize,gotEntities);
 									StaticMesh* gotComponent = new StaticMesh(componentContents["id"].asString());
 									
 									//Load in the obj file specified
 									std::string gotOBJPath = componentContents["OBJModel"].asString();
+									char result[100];
+									sprintf_s(result, "Loading OBJ: %s", gotOBJPath.c_str());
+									graphicsManager->RenderText(result,loadingTextX,loadingTextY,loadingTextSize,gotEntities);
 
 									//Load in the texture location
 									std::string gotTexturePath = componentContents["TextureFile"].asString();
@@ -114,6 +141,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 								}
 								if (componentContents["type"] == "basicbone")
 								{
+									graphicsManager->RenderText("Loading bone",loadingTextX,loadingTextY,loadingTextSize,gotEntities);
 									BasicBone* gotComponent = new BasicBone(componentContents["id"].asString());
 									
 									//Load in the obj file specified
@@ -142,9 +170,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 											gotComponent->UploadVertices(gotModel->GetVertices());
 										    gotComponent->UploadNormals(gotModel->GetNormals());
 											gotComponent->UploadIndices(gotModel->GetIndicies());
-
 											gotComponent->UploadTexture(gotTexture->GetBitmap());
+											gotComponent->BoneTransform.SetPosition(glm::vec3(-50.0f,0.0f,0.0f));
 											success &= entToCreate->Components->AddComponent(componentContents["type"].asString(), gotComponent);
+
 										}
 									}
 								}
@@ -178,6 +207,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			}
 			else if (success)
 			{
+				graphicsManager->RenderText("Loading cameras",loadingTextX,loadingTextY,60,gotEntities);
 				//Iterate over all cameras
 				for (Json::Value::const_iterator it = jsonCameras.begin(); it != jsonCameras.end(); ++it)
 				{
@@ -216,6 +246,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			}
 			else if (success)
 			{
+				graphicsManager->RenderText("Loading lights",loadingTextX,loadingTextY,60,gotEntities);
 				//Iterate over all lights
 				for (Json::Value::const_iterator it = jsonLights.begin(); it != jsonLights.end(); ++it)
 				{
@@ -250,6 +281,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			std::string sceneShader = sceneData["sceneshader"].asCString();
 			std::string sceneCamera = sceneData["currentcamera"].asCString();
 			std::string sceneLight = sceneData["currentlight"].asCString();
+			bool messageHandlers = sceneData["messagehandlers"].asBool();
 			
 			//Iterate through all active entities and put them in the vector
 			Json::Value activeEntities = sceneData["activeentities"];
@@ -268,33 +300,83 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 			//Put the active light in the scene
 			gotConfig->currentSceneLight = gotConfig->sceneLights->find(sceneLight)->second;
+			if(!messageHandlers) return std::move(gotConfig);
 		}
 	}
 	if(!success)
 	{
-		return nullptr;
+		return std::move(nullptr);
 	}
 	//std::unique_ptr<SceneConfig> returnConfig = std::unique_ptr<SceneConfig>(new SceneConfig);
 
-	//Hack
+	//Hack - needs to be data driven
 	BasicKeyMovement* movement = new BasicKeyMovement("keyboardMovement", graphicsManager->GetCurrentWindow());
 	movement->Init();
 
 	MousePoller* mouseReader = new MousePoller("mouseMovement", graphicsManager->GetCurrentWindow());
 	mouseReader->Init();
 
+	CameraEntity* dummyCamera = new CameraEntity();
+
+	//TODO - abstract into the input manager
+	dummyCamera->Components->AddComponent("keyboardMovement", movement);
+
+	dummyCamera->Components->AddComponent("mouseMovement", mouseReader);
+
+	
+	//TODO - fixthis
 	using namespace std::placeholders;
-	//AddMessageListner("keyboardMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, _1));
+	//if(currentScene != nullptr)
+	//{
+	//	int check = 0;
+	//	for(std::map<std::string, CameraEntity*>::iterator itz = currentScene->sceneCameras->begin(); itz != currentScene->sceneCameras->end(); ++itz)
+	//	{
+	//		++check;
+	//		//if(check > 2) break;
+	//		CameraEntity* gotCamera = (*itz).second;
+	//		AddMessageListner("cameraMovement", gotCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotCamera, _1));
 
-	//AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, _1));
+	//		AddMessageListner("mouseMovement", gotCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotCamera, _1));
 
-	AddMessageListner("robotPositionMove", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPositionAbsolute, gotConfig->currentSceneCamera, _1));
 
-	AddMessageListner("cameraPositionMove", gotConfig->currentSceneLight, std::bind(&SceneLight::msg_LightPositionHandler, gotConfig->currentSceneLight, _1));
+	//	}
+	//}
 
-	gotConfig->currentSceneCamera->Components->AddComponent("keyboardMovement", movement);
-	//gotConfig->currentSceneCamera->Components->AddComponent("mouseMovement", mouseReader);
+	gotConfig->sceneCameras->insert(std::pair<std::string, CameraEntity*>("dummy", dummyCamera)); 
 
+	if(gotConfig->sceneEntities->find("robot1") != gotConfig->sceneEntities->end())
+	{
+		AddMessageListner("mouseMovement",(Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, _1));
+	}
+
+	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, _1));
+
+	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, _1));
+	
+	
+	
+	//bad
+
+	CameraEntity* camToSetup = gotConfig->sceneCameras->find("camera1")->second;
+
+	AddMessageListner("cameraMovement", camToSetup, std::bind(&CameraEntity::msg_SetMovePosition, camToSetup, _1));
+
+	AddMessageListner("mouseMovement", camToSetup, std::bind(&CameraEntity::msg_SetLookPosition, camToSetup, _1));
+
+	AddMessageListner("cameraMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, _1));
+
+	AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, _1));
+
+	//For realoding the scene
+	AddMessageListner("reloadScene", this, std::bind(&SceneManager::msg_ReloadScene, this, _1));
+
+	AddMessageListner("showDebug", this, std::bind(&SceneManager::msg_ShowDebug, this, _1));
+
+	//AddMessageListner("cameraPositionMove", gotConfig->currentSceneLight, std::bind(&SceneLight::msg_LightPositionHandler, gotConfig->currentSceneLight, _1));
+
+
+
+	//gotConfig->currentSceneCamera = (CameraEntity*)gotConfig->sceneCameras->find("camera0")->second;
 	return std::move(gotConfig);
 }
 
@@ -337,31 +419,49 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		result &= (*it)->Update(dt);
 	}
 
+	//for(std::map<std::string, CameraEntity*>::iterator it = currentScene->sceneCameras->begin(); it != currentScene->sceneCameras->end(); ++it)
+	//	{
+	//		CameraEntity* gotCamera = (*it).second;
+	//		gotCamera->Update(dt);
+	//}
+	currentScene->currentSceneCamera->Listning = true;
 	currentScene->currentSceneCamera->Update(dt);
+	if(currentScene->sceneCameras->find("dummy") != currentScene->sceneCameras->end())
+	{
+		currentScene->sceneCameras->find("dummy")->second->Update(dt);
+	}
 	result &= DrawCurrentSceneEntities(dt);
+	if(showDebug)
+	{
+		std::stringstream s;
+		float update = dt*1000.0f;
+		s << "msec: " << update;
+		graphicsManager->RenderText(s.str().c_str(),5,700,60);
+	}
+	if(isLoading) ReloadScene();
 	return result;
 }
 
 bool SceneManager::DrawCurrentSceneEntities(float dt)
 {
+	
 	//send entities to graphics manager to have them drawn
 	//also send camera and light info
 	graphicsManager->SetCurrentCamera(currentScene->currentSceneCamera);
 	graphicsManager->SetCurrentSceneLight(currentScene->currentSceneLight);
 	graphicsManager->SetCurrentShader(currentScene->currentSceneShader);
-	return graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities,dt);
+	return graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities,dt, true);
 }
 
 bool SceneManager::DestroyCurrentSceneEntities()
 {
+	if(currentScene == nullptr) return true;
 	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
 		(*it)->Destroy();
 		delete *it;
 	}
 	currentScene->activeEntities.clear();
-	//TODO - delete inactive entities too
-	//Delete everything from the vector and associated components
 	return true;
 }
 
@@ -496,7 +596,9 @@ SceneConfig SceneManager::CreateTestScene()
 
 	AddMessageListner("cameraPositionMove", testScene.currentSceneLight, std::bind(&SceneLight::msg_LightPositionHandler, testScene.currentSceneLight, _1));
 
-	AddMessageListner("cameraPositionMove", testEntity2, std::bind(&TransformComponent::msg_MoveToPosition, testEntity2->Transform, _1));
+	
+
+	//AddMessageListner("cameraPositionMove", testEntity2, std::bind(&TransformComponent::msg_MoveToPosition, testEntity2->Transform, _1));
 
 //#define LISTNERFUNCTION(function, currobj) using namespace std::placeholders; std::bind(function, currobj, _1);
 
@@ -539,4 +641,64 @@ void SceneManager::AddMessageListner(const char* typeToListen, void* entToBindTo
 
 	rec.typeToListen = typeToListen;
 	mauvemessage::MessageManager::AddMessageListner(typeToListen, rec);
+}
+
+void SceneManager::msg_SetCamera(mauvemessage::BaseMessage* msg)
+{
+	//Get camera number from the message
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	std::string camToSearch;
+	int camNum = std::ceilf(messagePos.x);
+	if(camNum == 1)
+	{
+		camToSearch = "camera0";
+	}
+	else if(camNum == 2)
+	{
+		camToSearch = "camera1";
+	}
+	else if(camNum == 3)
+	{
+		camToSearch = "camera2";
+	}
+	else if(camNum == 4)
+	{
+		camToSearch = "camera3";
+	}
+	CameraEntity* cam = currentScene->sceneCameras->at(camToSearch);
+	std::map<std::string, CameraEntity*>::iterator gotCamera = currentScene->sceneCameras->find(camToSearch);
+	if(gotCamera != currentScene->sceneCameras->end())
+	{
+		currentScene->currentSceneCamera->Listning = false;
+		currentScene->currentSceneCamera = cam;
+		currentScene->currentSceneCamera->Listning = true;
+	}
+}
+
+void SceneManager::msg_ReloadScene(mauvemessage::BaseMessage* msg)
+{
+	isLoading = true;
+}
+
+void SceneManager::msg_ShowDebug(mauvemessage::BaseMessage* msg)
+{
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	int debug = std::ceilf(messagePos.x);
+	if(debug == 1)
+	{
+		showDebug = true;
+	}
+	else
+	{
+		showDebug = false;
+	}
+}
+
+void SceneManager::ReloadScene()
+{
+	std::unique_ptr<SceneConfig> scn = LoadSceneFromFile(currentScene->filename.c_str());
+	LoadScene(std::move(scn));
+	isLoading = false;
 }

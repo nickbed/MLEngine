@@ -16,6 +16,12 @@ StaticMesh::StaticMesh(std::string id) : IComponent(id)
 StaticMesh::~StaticMesh()
 {
 	IComponent::~IComponent();
+	glDeleteBuffers(1, &verticesID);
+	glDeleteBuffers(1, &normalsID);
+	glDeleteBuffers(1, &uvID);
+	glDeleteBuffers(1, &indicesID);
+	glDeleteTextures(1, &textureID);
+
 }
 
 void StaticMesh::Init()
@@ -151,11 +157,11 @@ bool StaticMesh::BufferTextureDataToGPU(Bitmap* data, GLuint &bufferAddr)
 	//Generate, bind and upload data
 	glGenTextures(1, &bufferAddr);
 	glBindTexture(GL_TEXTURE_2D, bufferAddr);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
 	glTexImage2D(GL_TEXTURE_2D,
 		0,
 		bitmapFormat,
@@ -166,7 +172,9 @@ bool StaticMesh::BufferTextureDataToGPU(Bitmap* data, GLuint &bufferAddr)
 		GL_UNSIGNED_BYTE,
 		data->pixelBuffer());
 	//Reset the texture
+	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	
 	++currentVAOIndex;
 
 	GLenum error = glGetError();

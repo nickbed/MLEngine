@@ -186,6 +186,9 @@
     <ClCompile Include="Code\Components\BasicBone.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Graphics\TextRender.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -290,9 +293,14 @@
     <ClInclude Include="Code\Components\BasicBone.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Graphics\TextRender.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\default.frag" />
     <None Include="Data\Shaders\default.vert" />
+    <None Include="data\Shaders\text.frag" />
+    <None Include="data\Shaders\text.vert" />
   </ItemGroup>
 </Project>

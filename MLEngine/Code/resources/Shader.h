@@ -24,6 +24,8 @@ public:
 	bool SendUniformMat3(const char* uniformName, const glm::mat3 matrix);
 	bool SendUniformVec4(const char* uniformName, const glm::vec4 vector);
 	bool SendUniformVec3(const char* uniformName, const glm::vec3 vector);
+	bool SendUniformVec2(const char* uniformName, const glm::vec2 vector);
+	bool SendUniform1i(const char* uniformName, const GLint i);
 
 	void UseShader();
 

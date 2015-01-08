@@ -17,6 +17,7 @@
 #include "SceneTypes.h"
 #include <vector>
 #include <map>
+#include <sstream>
 
 
 
@@ -25,6 +26,7 @@
 class SceneManager
 {
 public:
+
 	SceneManager(std::unique_ptr<GraphicsManager> graph);
 
 	//Load scene into engine
@@ -50,12 +52,21 @@ public:
 
 	SceneConfig CreateTestScene();
 
+	void msg_SetCamera(mauvemessage::BaseMessage* msg);
+
+	void msg_ReloadScene(mauvemessage::BaseMessage* msg);
+
+	void msg_ShowDebug(mauvemessage::BaseMessage* msg);
+
+	void ReloadScene();
+
 
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	std::unique_ptr<SceneConfig> currentScene;
-
+	bool isLoading;
+	bool showDebug;
 	
 };
 

@@ -26,8 +26,9 @@ namespace mauvemessage
 		listnerIterator startIt, endIt;
 		std::pair<listnerIterator, listnerIterator> keyRange = listnerMap->equal_range(typeToSend);
 
-		mauveassert::Assert::AssertFalse("Attempt to send message when there are no listners of specified type", (keyRange.first == keyRange.second), mauveassert::ENUM_severity::SEV_WARNING);
-		
+		//mauveassert::Assert::AssertFalse("Attempt to send message when there are no listners of specified type", (keyRange.first == keyRange.second), mauveassert::ENUM_severity::SEV_WARNING);
+		if(keyRange.first == keyRange.second) return;
+
 		for(startIt = keyRange.first; startIt != keyRange.second; ++ startIt)
 		{
 			//Send our data into the void* in the function
@@ -84,5 +85,9 @@ namespace mauvemessage
 				++startIt;
 			}
 		}
+	}
+	void MessageManager::ClearAllListners()
+	{
+		listnerMap->clear();
 	}
 }

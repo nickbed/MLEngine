@@ -19,6 +19,7 @@ public:
 	virtual void Destroy();
 
 	void msg_SetMovePosition(mauvemessage::BaseMessage* msg);
+	void msg_SetHeadPosition(mauvemessage::BaseMessage* msg);
 
 private:
 	float currentRotationAngle0;

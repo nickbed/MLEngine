@@ -15,9 +15,9 @@ layout (location=0) out vec4 FragColour;
 void main()
 {
 
-	float linearAttenuation = 0.01;
+	float linearAttenuation = 0.06;
 	vec3 intensity = vec3(0.5, 0.5, 0.5);
-	vec4 ambientLight = vec4(0.0, 0.0, 0.0, 1.0);
+	vec4 ambientLight = vec4(0.1, 0.1, 0.1, 0.0);
 	vec4 ambient = ambientLight;
 	//Calculate the light vector
    float vertToLDistance = length(lightPos - vertPos);
@@ -42,7 +42,7 @@ void main()
 	}
    else
 	{
-		specularReflection = vec4(attenuation) * vec4(pow( max(vec3(0.0), dot( reflect(-L, N), viewDirection ) ), vec3(1.0,1.0,1.0)),1.0);
+		specularReflection = vec4(attenuation) * vec4(pow( max(vec3(0.0), dot( reflect(-L, N), viewDirection ) ), vec3(25.0,25.0,25.0)),1.0);
 	}     
 
    //Multiply the Reflectivity by the Diffuse intensity
