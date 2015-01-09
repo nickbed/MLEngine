@@ -33,6 +33,7 @@ namespace mauveassert
 			//Writes some coloured debug text to the console
 		static void WriteDebug(std::string DebugText, ENUM_severity sev)
 		{
+#ifdef _DEBUG
 			switch(sev)
 			{
 			case ENUM_severity::SEV_ERROR: //error - red
@@ -50,24 +51,29 @@ namespace mauveassert
 			std::cout << DebugText << std::endl;
 
 			SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x0F );
+#endif
 		}
 
 		static void WriteDebug(std::string DebugText, int number, ENUM_severity sev)
 		{
+#ifdef _DEBUG
 			std::stringstream result;
 
 			result << DebugText << " " << number;
 
 			WriteDebug(result.str(), sev);
+#endif
 		}
 
 		static void WriteDebug(std::string DebugText, std::string MoreDebugText, ENUM_severity sev)
 		{
+#ifdef _DEBUG
 			std::stringstream result;
 
 			result << DebugText << " " << MoreDebugText;
 
 			WriteDebug(result.str(), sev);
+#endif
 		}
 
 		static void HandleAssert(ENUM_severity sev, char* message)

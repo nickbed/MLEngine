@@ -34,7 +34,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLLoadGen;C:\Dev\MauveEngine\MLEngine\Libs\GLEW\include;$(SolutionDir)MLEngine\Code;$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLLoadGen;C:\Dev\MauveEngine\MLEngine\Libs\GLEW\include;$(SolutionDir)MLEngine\Code;$(VCInstallDir)UnitTest\include;$(SolutionDir)Libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
       <CompileAs>Default</CompileAs>

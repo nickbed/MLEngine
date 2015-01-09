@@ -155,13 +155,9 @@ bool OBJModel::LoadFromFile(std::string filename)
 				{
 					index[z] = temp[z];
 				}
-				//	
-				//}
-				//index.replace(index.begin(), index.begin() + 1, "");
 				
 				if (i == 0 || i == 3 || i == 6)
 				{
-					//parsedIndices.push_back(std::stoi(index) - 1);
 					int position = ((std::stoi(index )-1) * 3);
 					if(position < 0)
 					{

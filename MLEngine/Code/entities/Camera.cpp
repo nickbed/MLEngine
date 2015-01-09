@@ -48,8 +48,6 @@ void CameraEntity::SetViewMatrix(glm::mat4 matrix)
 void CameraEntity::SetPosition(glm::vec3 pos)
 {
 	Transform->SetPosition(pos);
-	//mauvemessage::PositionMessage msg_cameraMove("cameraPositionMove", pos);
-	//mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "cameraPositionMove");
 	RegenerateCameraMatrix();
 }
 
@@ -85,7 +83,7 @@ void CameraEntity::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 	//Determine which direction we're going in
 	if (messagePos.z != 0.0f)
 	{
-		//Going right
+		//Going x
 		SetPosition(GetCameraPosition() + cameraDirection * messagePos.z);
 		SetLookPosition(cameraLookPosition + cameraDirection * messagePos.z);
 
@@ -93,11 +91,10 @@ void CameraEntity::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 	else if (messagePos.x != 0.0f)
 	{
 		glm::vec3 tempRightVector = rightVector * messagePos.x;
-		//tempRightVector *= messagePos.z;
 
 		SetPosition(GetCameraPosition() + tempRightVector);
 		SetLookPosition(cameraLookPosition + tempRightVector);
-		//Going forward
+		//Going z
 	}
 	RegenerateCameraMatrix();
 }
@@ -106,10 +103,13 @@ void CameraEntity::msg_SetLookPosition(mauvemessage::BaseMessage* msg)
 {
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
+
 	//Rubbish data filtering
 	if(messagePos.x > 5.0f || messagePos.x < -5.0f || messagePos.y > 5.0f || messagePos.y < -5.0f) return;
+
 	yaw += messagePos.x;
 	pitch += messagePos.y;
+
 	if (pitch > glm::radians(85.0f))
 	{
 		pitch = glm::radians(85.0f);
@@ -119,17 +119,20 @@ void CameraEntity::msg_SetLookPosition(mauvemessage::BaseMessage* msg)
 		pitch = glm::radians(-85.0f);
 	}
 	if(yaw > glm::radians(360.0f) || yaw < glm::radians(-360.0f)) yaw = 0.0f;
-	//glm::vec3 lookDirection(glm::cos(pitch) * glm::sin(yaw), glm::sin(pitch), glm::cos(pitch) * glm::cos(yaw));
+
 	glm::vec3 lookDirection(glm::cos(pitch) * glm::sin(yaw), glm::sin(pitch), glm::cos(pitch) * glm::cos(yaw));
 	cameraDirection = glm::normalize(lookDirection);
+
 	RegenerateCameraMatrix();
 }
 
 void CameraEntity::msg_SetFollowPosition(mauvemessage::BaseMessage* msg)
 {
 	if(!Listning) return;
+
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
+
 	SetPosition(messagePos);
 	SetLookPosition(messagePos);
 }
@@ -176,9 +179,8 @@ const float CameraEntity::GetYaw()
 
 void CameraEntity::RegenerateCameraMatrix()
 {
-
+	//TODO - fix look direction
 	rightVector = glm::vec3(glm::sin(yaw - glm::pi<float>() / 2.0f), 0, glm::cos(yaw - glm::pi<float>() / 2.0f));
-	//upVector = glm::cross(rightVector, cameraDirection);
 	cameraMatrix = glm::lookAt(Transform->GetPosition(), Transform->GetPosition() + cameraDirection, upVector);
 	viewMatrix = glm::perspective(cameraFOV, (float)1024/ (float)768, 0.1f, 1000.0f);
 	viewProjMatrix = viewMatrix * cameraMatrix;

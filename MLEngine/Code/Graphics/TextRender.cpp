@@ -17,7 +17,9 @@ bool TextRender::InitTextRender(int xScr, int yScr)
 	fontTexture = mauveresource::ResourceManager::GetResource<ImageTexture>(texturePath);
 	NULLPTRCHECK(fontTexture, "Failed to init text renderer due to failing to load font texture");
 	fontTexture->GetBitmap()->flipVertically();
+
 	textShader->UseShader();
+
 	//Load our texture in
 	GLenum bitmapFormat;
 	//TODO - maybe handle more of these formats?
@@ -68,7 +70,7 @@ void TextRender::Draw2DText(std::string text, int x, int y, int size)
 	std::vector<glm::vec2> UVs;
 	
 	int xMin = 0 + x;
-	for(int i = 0; i < text.length(); ++i)
+	for(unsigned int i = 0; i < text.length(); ++i)
 	{
 		int offset = size /2 - 5;
 		//Get as ascii value
@@ -76,7 +78,8 @@ void TextRender::Draw2DText(std::string text, int x, int y, int size)
 
 		//Generate vertices and UVs for each character
 		//Vertices
-		//int multiplier = 2;
+
+		//Fixes for wide/narrow chars
 		if(charval == 'i' || charval == 'L' || charval == 'J' || charval == 'I' || charval == 'l')
 		{
 			xMin -= size/8;
@@ -86,7 +89,7 @@ void TextRender::Draw2DText(std::string text, int x, int y, int size)
 		{
 			offset -= size/9;
 		}
-		//xMin = x + i * size - offset;
+
 		int xMax = xMin + size;
 		if((xMax - xMin) <=10) xMax += 10;
 
@@ -139,12 +142,8 @@ void TextRender::Draw2DText(std::string text, int x, int y, int size)
 	glBindBuffer(GL_ARRAY_BUFFER, uvBufferID);
 	glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], GL_STATIC_DRAW);
 
-	
-
-	//glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, fontTextureID);
 
-	//textShader->SendUniform1i("textureUnit", 0);
 	textShader->SendUniformVec2("screenSize", glm::vec2(xScreen, yScreen));
 
 	glEnableVertexAttribArray(0);

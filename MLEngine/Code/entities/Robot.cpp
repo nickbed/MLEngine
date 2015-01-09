@@ -15,72 +15,6 @@ void Robot::Init()
 	rotationDirection1 = false;
 
 	isAnimating = false;
-
-	////Create our components
-	//StaticMesh* robotBody = new StaticMesh("robotBody");
-	//BasicBone* robotLeftLeg = new BasicBone("robotLeftLeg");
-	//BasicBone* robotRightLeg = new BasicBone("robotRightLeg");
-	//BasicBone* robotLeftArm = new BasicBone("robotLeftArm");
-	//BasicBone* robotRightArm = new BasicBone("robotRightArm");
-
-	////Load in OBJ files
-	//OBJModel* robotBodyObj = mauveresource::ResourceManager::GetResource<OBJModel>("data\\models\\robbody.obj");
-	//OBJModel* robotLeftLegObj = mauveresource::ResourceManager::GetResource<OBJModel>("data\\models\\roblleg.obj");
-	//OBJModel* robotRightLegObj = mauveresource::ResourceManager::GetResource<OBJModel>("data\\models\\robrleg.obj");
-	//OBJModel* robotLeftArmObj = mauveresource::ResourceManager::GetResource<OBJModel>("data\\models\\roblarm.obj");
-	//OBJModel* robotRightArmObj = mauveresource::ResourceManager::GetResource<OBJModel>("data\\models\\robrarm.obj");
-
-	////Load Textures
-	//ImageTexture* robotBodyTex = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\rainbow.png");
-	//ImageTexture* robotLeftArmTex = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\rainbow.png");
-	//ImageTexture* robotRightArmTex = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\rainbow.png");
-	//ImageTexture* robotLeftLegTex = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\rainbow.png");
-	//ImageTexture* robotRightLegTex = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\rainbow.png");
-
-	////Upload everything into the entity
-
-	////Body
-	//robotBody->UploadVertices(robotBodyObj->GetVertices());
-	//robotBody->UploadIndices(robotBodyObj->GetIndicies());
-	//robotBody->UploadNormals(robotBodyObj->GetNormals());
-	//robotBody->UploadUVs(robotBodyObj->GetUVs());
-	//robotBody->UploadTexture(robotBodyTex->GetBitmap());
-
-	////Left Leg
-	//robotLeftLeg->UploadVertices(robotLeftLegObj->GetVertices());
-	//robotLeftLeg->UploadIndices(robotLeftLegObj->GetIndicies());
-	//robotLeftLeg->UploadNormals(robotLeftLegObj->GetNormals());
-	//robotLeftLeg->UploadUVs(robotLeftLegObj->GetUVs());
-	//robotLeftLeg->UploadTexture(robotLeftLegTex->GetBitmap());
-
-	////Right Leg
-	//robotRightLeg->UploadVertices(robotRightLegObj->GetVertices());
-	//robotRightLeg->UploadIndices(robotRightLegObj->GetIndicies());
-	//robotRightLeg->UploadNormals(robotRightLegObj->GetNormals());
-	//robotRightLeg->UploadUVs(robotRightLegObj->GetUVs());
-	//robotRightLeg->UploadTexture(robotRightLegTex->GetBitmap());
-
-	////Left Arm
-	//robotLeftArm->UploadVertices(robotLeftArmObj->GetVertices());
-	//robotLeftArm->UploadIndices(robotLeftArmObj->GetIndicies());
-	//robotLeftArm->UploadNormals(robotLeftArmObj->GetNormals());
-	//robotLeftArm->UploadUVs(robotLeftArmObj->GetUVs());
-	//robotLeftArm->UploadTexture(robotLeftArmTex->GetBitmap());
-
-	////Right Arm
-	//robotRightArm->UploadVertices(robotRightArmObj->GetVertices());
-	//robotRightArm->UploadIndices(robotRightArmObj->GetIndicies());
-	//robotRightArm->UploadNormals(robotRightArmObj->GetNormals());
-	//robotRightArm->UploadUVs(robotRightArmObj->GetUVs());
-	//robotRightArm->UploadTexture(robotRightArmTex->GetBitmap());
-
-	////Add components to the entity
-	//Components->AddComponent("staticmesh", robotBody);
-	//Components->AddComponent("basicbone", robotLeftLeg);
-	//Components->AddComponent("basicbone", robotRightLeg);
-	//Components->AddComponent("basicbone", robotLeftArm);
-	//Components->AddComponent("basicbone", robotRightArm);
-
 }
 
 bool Robot::Update(float dt)
@@ -171,17 +105,6 @@ void Robot::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 	{
 		//Going right
 		moveSpeed.z = -1.0f;
-		//Transform->SetPosition(Transform->GetPosition() + moveSpeed * messagePos.z);
-		if(messagePos.z > 0.0f)
-		{
-			//Transform->SetRotation(glm::vec3(0.0f,-180.0f,0.0f));
-			
-		}
-		else
-		{
-			//Transform->SetRotation(glm::vec3(0.0f,0.0f,0.0f));
-			//Transform->SetRotation(Transform->GetRotation() - moveSpeed * messagePos.z);
-		}
 		glm::vec3 moveVector = Transform->GetPosition();
 		moveVector.y = 0.0f; //Don't want to take y into account
 		moveVector.x = sinf(glm::radians(Transform->GetRotation().y)) * (moveSpeed.z * messagePos.z);
@@ -198,19 +121,21 @@ void Robot::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 		moveVector.z = cosf(glm::radians(Transform->GetRotation().y + 90.0f)) * (moveSpeed.x * messagePos.x);
 		Transform->SetPosition(Transform->GetPosition() + moveVector);
 	}
+
 	isAnimating = true;
 	glm::vec3 followPos(0.0f, 0.8f, 0.0f);
 	followPos += Transform->GetPosition();
+
 	mauvemessage::PositionMessage msg_cameraMove("robotPositionMove", followPos);
 	mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "robotPositionMove");
 }
 
 void Robot::msg_SetHeadPosition(mauvemessage::BaseMessage* msg)
 {
-	const float multiplier = 5.0f;
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
 	if(messagePos.x > 5.0f || messagePos.x < -5.0f || messagePos.x == 0.0f) return;
+
 	glm::vec3 setPos = Transform->GetRotation();
 	setPos.y += glm::degrees(messagePos.x);
 	Transform->SetRotation(setPos);

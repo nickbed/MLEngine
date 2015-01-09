@@ -302,5 +302,6 @@
     <None Include="Data\Shaders\default.vert" />
     <None Include="data\Shaders\text.frag" />
     <None Include="data\Shaders\text.vert" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

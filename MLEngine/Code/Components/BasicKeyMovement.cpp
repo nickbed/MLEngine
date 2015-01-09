@@ -26,7 +26,10 @@ void BasicKeyMovement::Update(float dt)
 	//S == 83
 	//D == 68
 	float movementConst = 10.0f;
-
+	if (keyBuffer[GLFW_KEY_LEFT_SHIFT])
+	{
+		movementConst *= 2;
+	}
 	//Up
 	if (keyBuffer[GLFW_KEY_W])
 	{
@@ -128,6 +131,12 @@ void BasicKeyMovement::Update(float dt)
 	{
 		SendMovementMessage(glm::vec3(0.0f,0.0f,0.0f), "showDebug");
 	}
+
+	if (keyBuffer[GLFW_KEY_F1])
+	{
+		SendMovementMessage(glm::vec3(0.0f, 0.0f, 0.0f), "loadGame");
+	}
+
 
 	//Test message!
 	if (keyBuffer[399])

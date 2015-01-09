@@ -21,27 +21,28 @@ void Engine::Init(EngineConfig conf)
 	//Init graphics here
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
 	graphicsMan->Init(3,3);
-	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Test window");
+	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Mauve Engine");
 
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
 	sceneManager->InitSceneManager();
-	std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\loading.scn");
-	//SceneConfig newScene = sceneManager->CreateTestScene();
+
+	std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\menu.scn");
 	sceneManager->LoadScene(std::move(newScene));
-	loading = true;
 }
 
 bool Engine::Update(float dt)
 {
 	bool result = true;
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
-	timer += dt;
-	if(loading)
+	if(sceneManager->ShouldLoadLevel())
 	{
-		    sceneManager->UpdateCurrentSceneEntities(dt);
-		    std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\demolevel.scn");
+			std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\loading.scn");
 			sceneManager->LoadScene(std::move(newScene));
+		    sceneManager->UpdateCurrentSceneEntities(dt);
+
+		    std::unique_ptr<SceneConfig> newScene2 = sceneManager->LoadSceneFromFile("data\\scenes\\demolevel.scn");
+			sceneManager->LoadScene(std::move(newScene2));
 			loading = false;
 			timer = 0;
 	}
@@ -56,28 +57,7 @@ bool Engine::Update(float dt)
 
 bool Engine::LoadNextState()
 {
-	//Cache our next state so it doesn't get destroyed
-	std::unique_ptr<IState> nextState = std::move(this->currentState->GetNextState());
-	
-	//Check to see if we have a next state, if we don't then handle it elsewhere in the engine.
-	if(nextState == nullptr)
-	{
-		//handle this in our update loop
-		return false;
-	}
-
-	//Clean up our old current state
-	this->currentState->StateDestroy();
-	this->currentState.release();
-
-	//Plop our new state into 
-	this->currentState = std::move(nextState);
-
-	//Init our new state
-	this->currentState->StateInit();
-
-	//Success
-	return true;
+	return false;
 }
 
 EngineConfig Engine::ReadConfigFile(const char* configFile)

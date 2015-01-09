@@ -58,7 +58,11 @@ public:
 
 	void msg_ShowDebug(mauvemessage::BaseMessage* msg);
 
+	void msg_LoadGame(mauvemessage::BaseMessage* msg);
+
 	void ReloadScene();
+
+	bool ShouldLoadLevel();
 
 
 private:
@@ -67,6 +71,7 @@ private:
 	std::unique_ptr<SceneConfig> currentScene;
 	bool isLoading;
 	bool showDebug;
+	bool shouldLoadLevel;
 	
 };
 

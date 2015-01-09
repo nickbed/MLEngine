@@ -28,6 +28,8 @@ public:
 	//Create window to render stuff in and make it current
 	bool CreateGraphicsWindow(const int xSize, const int ySize, const char* windowTitle);
 
+	void SetWindowTitle(const char* title);
+
 	//Draw window, poll events and swap buffers. Returns false if window should be closing
 	bool DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt, bool poll);
 

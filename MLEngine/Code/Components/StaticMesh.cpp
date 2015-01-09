@@ -89,6 +89,7 @@ bool StaticMesh::BufferDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr, 
 
 	glEnableVertexAttribArray(currentLoc);
 	GenVertexArrays(bufferAddr, vaoID, currentVAOIndex);
+
 	//Generate, bind and upload data
 	glEnableVertexAttribArray(currentLoc);
 	glGenBuffers(1, &bufferAddr);
@@ -143,6 +144,7 @@ bool StaticMesh::BufferUVDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr
 bool StaticMesh::BufferTextureDataToGPU(Bitmap* data, GLuint &bufferAddr)
 {
 	GLenum bitmapFormat;
+
 	//TODO - maybe handle more of these formats?
 	if (data->format() == Bitmap::Format_RGB)
 	{

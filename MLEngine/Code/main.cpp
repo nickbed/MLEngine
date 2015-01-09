@@ -10,8 +10,6 @@ int guardedMain();
 
 int main()
 {
-	//mauveassert::Assert assertManager;
-	//mauvemessage::MessageManager messageManager;
 	mauveassert::Assert::InitExceptionHandler(&ExceptionHandler);
 	try{
 		guardedMain();
@@ -20,9 +18,10 @@ int main()
 	{
 		mauveassert::Assert::HandleException(e.what());
 	}
-
+#ifdef _DEBUG
 	DEBUGWRITEINFO("Closed with no errors", "");
 	system("pause");
+#endif
 	return 0;
 }
 
@@ -40,19 +39,20 @@ int guardedMain()
 	currentEngine.Init(currentConf);
 	while(true)
 	{
-		long timeToWait = sixtyFPS - (glfwGetTime() * 1000);
+		long timeToWait = (long)sixtyFPS - (long)(glfwGetTime() * 1000);
 		if (timeToWait <= 0)
 		{
-			if (!currentEngine.Update(glfwGetTime()))
+			float delta = (float)glfwGetTime();
+			if (!currentEngine.Update(delta))
 			{
 				break;
 			}
 			glfwSetTime(0.0f);
 		}
-		else
-		{
-			std::this_thread::yield();
-		}
+		//else
+		//{
+		//	std::this_thread::yield();
+		//}
 	}
 	return 0;
 }
@@ -60,7 +60,19 @@ int guardedMain()
 void ExceptionHandler(const char* message)
 {
 	//Just close it
+#ifdef _DEBUG 
 	std::cout << "Handling an exception :-)" << message << std::endl;
 	system("pause");
+#else
+	std::stringstream s;
+	s << "I'm sorry but I've had to quit due to an error :-(" << std::endl <<std::endl << "Details: " << message;
+	MessageBox(
+		NULL,
+		s.str().c_str(),
+		"Mauve lamp has fallen..",
+		MB_ICONSTOP
+		);
+#endif
+
 	std::exit(1);
 }

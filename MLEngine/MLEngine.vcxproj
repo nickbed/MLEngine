@@ -53,6 +53,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)$(Configuration)\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\Builds\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(SolutionDir)$(Configuration)\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\Builds\</OutDir>
+    <TargetName>$(ProjectName)_Release</TargetName>
+    <CustomBuildAfterTargets>
+    </CustomBuildAfterTargets>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)$(Configuration)\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\Builds\</OutDir>
+    <TargetName>$(ProjectName)_Debug</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -77,7 +92,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -116,7 +131,21 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <CustomBuildStep>
+      <Command>copy $(SolutionDir)\MLEngine\Data\*.* $(SolutionDir)\Builds /Y</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Data to Builds Folder</Message>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)MLEngine\Data\*.*" "$(SolutionDir)Builds" /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copying Data to Builds Folder</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Libs\jsoncpp\jsoncpp.cpp" />
@@ -192,6 +221,7 @@
     <ClInclude Include="Code\Systems\InputSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="Data\Shaders\default.frag" />
     <None Include="Data\Shaders\default.vert" />
     <None Include="data\Shaders\text.frag" />

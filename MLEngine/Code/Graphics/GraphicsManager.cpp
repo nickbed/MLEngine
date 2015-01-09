@@ -104,7 +104,7 @@ void GraphicsManager::RenderComponents<BasicBone>(BasicBone* componentToRender, 
 
 void GraphicsManager::RenderText(std::string text, int x, int y, int size, std::vector<IEntity*> entities)
 {
-	DrawAndUpdateWindow(entities, 0.1, false);
+	DrawAndUpdateWindow(entities, 0.1f, false);
 	textRenderer->Draw2DText(text, x, y, size);
 	glfwSwapBuffers(currentWindow);
 	//Hack
@@ -191,6 +191,12 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 
 	if(!success) return false;
 	return true;
+}
+
+void GraphicsManager::SetWindowTitle(const char* windowTitle)
+{
+	if (currentWindow == nullptr) return;
+	glfwSetWindowTitle(currentWindow, windowTitle);
 }
 
 bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt, bool poll)

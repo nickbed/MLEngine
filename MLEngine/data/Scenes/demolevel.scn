@@ -5,6 +5,7 @@
     "currentcamera": "camera0",
     "currentlight": "light0",
 	"messagehandlers": true,
+	"menu": false,
     "activeentities": [
       "forestfloor",
       "robot1",
@@ -45,12 +46,12 @@
         "type": "generalentity",
         "transform": {
           "posX": 0,
-          "posY": 0.15,
+          "posY": -0.15,
           "posZ": 0,
           "scaleX": 3,
           "scaleY": 5,
           "scaleZ": 3,
-          "rotateX": 180,
+          "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
         },
@@ -751,9 +752,9 @@
           "posX": 0,
           "posY": 1,
           "posZ": 0,
-          "scaleX": 0.1,
-          "scaleY": 0.1,
-          "scaleZ": 0.1,
+          "scaleX": 0.15,
+          "scaleY": 0.15,
+          "scaleZ": 0.15,
           "rotateX": 0,
           "rotateY": 180,
           "rotateZ": 0
@@ -850,14 +851,14 @@
       "light0": {
         "lightparams": {
           "posX": -5,
-          "posY": 20,
+          "posY": 10,
           "posZ": -10,
-          "intensityR": 0.1,
-          "intensityG": 0.11,
-          "intensityB": 0.1,
-          "surfaceReflectivityR_TEMP": 0.5,
-          "surfaceReflectivityG_TEMP": 0.9,
-          "surfaceReflectivityB_TEMP": 0.5
+          "intensityR": 0.5,
+          "intensityG": 0.5,
+          "intensityB": 0.5,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
         }
       }
     }

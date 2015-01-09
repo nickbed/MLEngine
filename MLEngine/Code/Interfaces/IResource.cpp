@@ -12,7 +12,6 @@ IResource::IResource(std::string file) : filename(file)
 
 IResource::~IResource()
 {
-
 }
 
 
