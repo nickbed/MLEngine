@@ -53,20 +53,20 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IntDir>$(SolutionDir)$(Configuration)\Generated\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\Builds\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Builds\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Builds\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)$(Configuration)\Generated\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\Builds\</OutDir>
+    <IntDir>$(SolutionDir)Builds\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Builds\</OutDir>
     <TargetName>$(ProjectName)_Release</TargetName>
     <CustomBuildAfterTargets>
     </CustomBuildAfterTargets>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)$(Configuration)\Generated\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)\Builds\</OutDir>
+    <IntDir>$(SolutionDir)Builds\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Builds\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

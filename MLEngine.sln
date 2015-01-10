@@ -23,7 +23,6 @@ Global
 		{425E281D-636C-4CAF-BAFE-615CD278C325}.Debug|Win32.ActiveCfg = Test|Win32
 		{425E281D-636C-4CAF-BAFE-615CD278C325}.Release|Win32.ActiveCfg = Test|Win32
 		{425E281D-636C-4CAF-BAFE-615CD278C325}.Test|Win32.ActiveCfg = Test|Win32
-		{425E281D-636C-4CAF-BAFE-615CD278C325}.Test|Win32.Build.0 = Test|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
