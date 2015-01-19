@@ -16,7 +16,7 @@ public:
 	Shader();
 	Shader(std::string path);
 
-	~Shader();
+	virtual ~Shader();
 	
 	virtual bool LoadFromFile(std::string filename);
 	

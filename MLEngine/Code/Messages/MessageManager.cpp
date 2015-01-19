@@ -9,7 +9,7 @@ namespace mauvemessage
 
 	MessageManager::MessageManager()
 	{
-		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Cannot use default constructor with the Message Manager");
+		//mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Cannot use default constructor with the Message Manager");
 	}
 
 	MessageManager::MessageManager(std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listners)
@@ -19,6 +19,7 @@ namespace mauvemessage
 
 	MessageManager::~MessageManager()
 	{
+		listnerMap->clear();
 	}
 
 	void MessageManager::SendListnerMessage(BaseMessage* message, const char* typeToSend)
@@ -90,4 +91,10 @@ namespace mauvemessage
 	{
 		listnerMap->clear();
 	}
+
+	void MessageManager::LoadMap(std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listners)
+	{
+		listnerMap = listners;
+	}
+
 }

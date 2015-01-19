@@ -9,6 +9,11 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 	shouldLoadLevel = false;
 }
 
+SceneManager::~SceneManager()
+{
+	graphicsManager.release();
+}
+
 bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 {
 	currentScene = std::move(scene);
@@ -38,7 +43,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	}
 	std::unique_ptr<SceneConfig> gotConfig = std::unique_ptr<SceneConfig>(new SceneConfig, std::default_delete<SceneConfig>());
 	gotConfig->filename = filePath;
-	JSONFile* gotJSON = mauveresource::ResourceManager::LoadResource<JSONFile>(filePath);
+	JSONFile* gotJSON = mauvefileresource::ResourceManager::LoadResource<JSONFile>(filePath);
 	bool success = true;
 	if (gotJSON == nullptr)
 	{
@@ -124,24 +129,36 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 									else
 									{
 										//Load texture
-										ImageTexture* gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>(gotTexturePath);
+										ImageTexture* gotTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>(gotTexturePath);
 										if (gotTexture == nullptr)
 										{
 											//Use the no texture found texture
-											gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\default.png");
+											gotTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>("data\\images\\default.png");
 										}
 
-										OBJModel* gotModel = mauveresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
+										GPUTexture* gotGPUTexture = mauvegpuresource::GPUResourceManager::GetResource<GPUTexture>(gotTexturePath);
+										if (gotGPUTexture == nullptr)
+										{
+											gotGPUTexture = new GPUTexture();
+											gotGPUTexture->SetTexture(gotTexture);
+											gotGPUTexture = mauvegpuresource::GPUResourceManager::LoadResource<GPUTexture>(gotGPUTexture, gotTexturePath);
+											
+										}
+										gotComponent->SetTexture(*gotGPUTexture);
+										OBJModel* gotModel = mauvefileresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
 										if (gotModel == nullptr) success = false;
 										else
 										{
 											//Put the obj data in the thing
-											gotComponent->UploadUVs(gotModel->GetUVs());
-											gotComponent->UploadVertices(gotModel->GetVertices());
-										    gotComponent->UploadNormals(gotModel->GetNormals());
-											gotComponent->UploadIndices(gotModel->GetIndicies());
-
-											gotComponent->UploadTexture(gotTexture->GetBitmap());
+											GPUModel* gotGPUModel = mauvegpuresource::GPUResourceManager::GetResource<GPUModel>(gotOBJPath);
+											if (gotGPUModel == nullptr)
+											{
+												//Create and load in new gpu model
+												gotGPUModel = new GPUModel();
+												gotGPUModel->SetAllData(gotModel->GetVertices(), gotModel->GetNormals(), gotModel->GetUVs(), gotModel->GetIndicies());
+												gotGPUModel = mauvegpuresource::GPUResourceManager::LoadResource(gotGPUModel, gotOBJPath);
+											}
+											gotComponent->SetModel(*gotGPUModel);
 											success &= entToCreate->Components->AddComponent(componentContents["type"].asString(), gotComponent);
 										}
 									}
@@ -161,21 +178,21 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 									else
 									{
 										//Load texture
-										ImageTexture* gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>(gotTexturePath);
+										ImageTexture* gotTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>(gotTexturePath);
 										if (gotTexture == nullptr)
 										{
 											//Use the no texture found texture
-											gotTexture = mauveresource::ResourceManager::GetResource<ImageTexture>("data\\images\\default.png");
+											gotTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>("data\\images\\default.png");
 										}
 
-										OBJModel* gotModel = mauveresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
+										OBJModel* gotModel = mauvefileresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
 										if (gotModel == nullptr) success = false;
 										else
 										{
 											//Put the obj data in the thing
 											gotComponent->UploadUVs(gotModel->GetUVs());
 											gotComponent->UploadVertices(gotModel->GetVertices());
-										    gotComponent->UploadNormals(gotModel->GetNormals());
+											gotComponent->UploadNormals(gotModel->GetNormals());
 											gotComponent->UploadIndices(gotModel->GetIndicies());
 											gotComponent->UploadTexture(gotTexture->GetBitmap());
 											gotComponent->BoneTransform.SetPosition(glm::vec3(-50.0f,0.0f,0.0f));
@@ -301,7 +318,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			}
 
 			//Put the active shader in the current shader
-			gotConfig->currentSceneShader = mauveresource::ResourceManager::GetResource<Shader>(sceneShader);
+			gotConfig->currentSceneShader = mauvefileresource::ResourceManager::GetResource<Shader>(sceneShader);
 
 			//Put the active camera in the scene
 			gotConfig->currentSceneCamera = gotConfig->sceneCameras->find(sceneCamera)->second;
@@ -395,7 +412,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	AddMessageListner("showDebug", this, std::bind(&SceneManager::msg_ShowDebug, this, _1));
 
 	
-
+	delete gotJSON;
 	return std::move(gotConfig);
 }
 
@@ -450,6 +467,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		currentScene->sceneCameras->find("dummy")->second->Update(dt);
 	}
 	result &= DrawCurrentSceneEntities(dt);
+	if(result == false) return false;
 	if(showDebug)
 	{
 		//update msec
@@ -543,7 +561,7 @@ SceneConfig SceneManager::CreateTestScene()
 	StaticMeshNoIndices* graphics = new StaticMeshNoIndices("StaticMeshNoIndices");
 	StaticMeshNoIndices* graphics2 = new StaticMeshNoIndices("StaticMeshNoIndices2");
 	StaticMesh* graphics3 = new StaticMesh("StaticMesh");
-	OBJModel* testLeon = mauveresource::ResourceManager::GetResource<OBJModel>("data\\models\\leon.obj");
+	OBJModel* testLeon = mauvefileresource::ResourceManager::GetResource<OBJModel>("data\\models\\leon.obj");
 
 	GLfloat floatvert[]  = 
 	{
@@ -622,9 +640,9 @@ SceneConfig SceneManager::CreateTestScene()
 	graphics2->UploadColours(testColours2);
 	graphics2->UploadNormals(testNormals2);
 
-	graphics3->UploadVertices(testLeon->GetVertices());
-	graphics3->UploadNormals(testLeon->GetNormals());
-	graphics3->UploadIndices(testLeon->GetIndicies());
+	//graphics3->UploadVertices(testLeon->GetVertices());
+	//graphics3->UploadNormals(testLeon->GetNormals());
+	//graphics3->UploadIndices(testLeon->GetIndicies());
 
 	GeneralEntity* testEntity = new GeneralEntity();
 	GeneralEntity* testEntity2 = new GeneralEntity();
@@ -674,7 +692,7 @@ SceneConfig SceneManager::CreateTestScene()
 	testScene.currentSceneLight->lightIntensity = glm::vec3(1.0f, 1.0f, 1.0f);
 	testScene.currentSceneLight->surfaceReflectivity = glm::vec3(1.0f, 1.0f, 1.0f);
 	testScene.currentSceneLight->lightPosition = glm::vec3(0.0f, 2.0f, 0.0f);
-	testScene.currentSceneShader = mauveresource::ResourceManager::GetResource<Shader>("data\\shaders\\default");
+	testScene.currentSceneShader = mauvefileresource::ResourceManager::GetResource<Shader>("data\\shaders\\default");
 	
 	//testScene.sceneCameras->push_back(currentCamera);
 	//testScene.currentSceneCamera = currentCamera;
@@ -686,7 +704,7 @@ SceneConfig SceneManager::CreateTestScene()
 
 void SceneManager::AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind)
 {
-	//Set mouse listner events
+	//Set mouse listener events
 	mauvemessage::RecieverInfo rec;
 	rec.listenobjectptr = entToBindTo;
 
@@ -765,4 +783,6 @@ bool SceneManager::ShouldLoadLevel()
 {
 	return shouldLoadLevel;
 }
+
+
 

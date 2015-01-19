@@ -1,4 +1,5 @@
 #include "GraphicsManager.h"
+#include "..\Resources\GPUResourceManager.h"
 
 bool GraphicsManager::windowShouldBeClosed = false;
 
@@ -35,7 +36,7 @@ template<>
 void GraphicsManager::RenderComponents<StaticMesh>(StaticMesh* componentToRender, TransformComponent* modelTransform)
 {
 
-	UploadShaderDataForDraw(modelTransform);
+
 
 	//Vertices
 	glEnableVertexAttribArray(0);  // Vertex position
@@ -44,14 +45,16 @@ void GraphicsManager::RenderComponents<StaticMesh>(StaticMesh* componentToRender
 	glEnableVertexAttribArray(3);  // Vertex colour
 
 	//Bind to the VAO
-	glBindVertexArray(componentToRender->GetVAO());
+	glBindVertexArray(componentToRender->GetModelVAOID());
 
 	//Bind the texture
 	//glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, componentToRender->GetTextureID());
 
+	UploadShaderDataForDraw(modelTransform);
+
 	//Draw them
-	glDrawElements(GL_TRIANGLES, componentToRender->GetIndicesCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, componentToRender->GetModelIndicesCount(), GL_UNSIGNED_INT, 0);
 
 
 
@@ -210,6 +213,11 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	//Close and cleanup
 	if (windowShouldBeClosed)
 	{
+		//Stop memory leaks
+		mauvegpuresource::GPUResourceManager::UnloadAllResources();
+		mauvefileresource::ResourceManager::UnloadAllResources();
+		mauvemessage::MessageManager::ClearAllListners();
+		delete textRenderer;
 		glfwDestroyWindow(currentWindow);
 		return false;
 	}
@@ -228,7 +236,7 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 		glfwPollEvents();
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.098f, 0.0f, 1.0f, 1.0f); //Background colour, should be replaced by skybox if there
+	glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
 	glClearDepth(1.0f);
 	
 	//Draw stuff

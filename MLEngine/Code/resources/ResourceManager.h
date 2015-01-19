@@ -13,7 +13,7 @@
 
 typedef std::unordered_map<std::string, IResource*> ResourceMap;
 
-namespace mauveresource
+namespace mauvefileresource
 {
 	
 	class ResourceManager

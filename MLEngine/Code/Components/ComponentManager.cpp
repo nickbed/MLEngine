@@ -11,7 +11,7 @@ ComponentManager::ComponentManager()
 ComponentManager::ComponentManager(std::unique_ptr<componentMapType> components)
 {
 	//Move the pointer to be contained in this class
-	components.swap(componentList);
+	componentList = std::move(components);
 }
 
 ComponentManager::~ComponentManager()

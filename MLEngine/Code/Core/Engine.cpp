@@ -8,7 +8,7 @@ Engine::Engine()
 Engine::~Engine()
 {
 	currentState.release();
-	sceneManager->DestroyCurrentSceneEntities();
+	delete sceneManager;
 }
 
 void Engine::Init(EngineConfig conf)
@@ -16,7 +16,7 @@ void Engine::Init(EngineConfig conf)
 	currentConfig = conf;
 	//Init message manager
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
-	mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
+	mauvemessage::MessageManager::LoadMap(listners);
 
 	//Init graphics here
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
@@ -74,7 +74,7 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 
 		bool success = true;
 		EngineConfig jsonConfig;
-		JSONFile* configJson = mauveresource::ResourceManager::GetResource<JSONFile>(configFile);
+		JSONFile* configJson = mauvefileresource::ResourceManager::GetResource<JSONFile>(configFile);
 		if (configJson == nullptr)
 		{
 			success = false;
@@ -106,6 +106,7 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 			mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Error reading engine config json file, using default.");
 			return defaultConfig;
 		}
+		delete configJson;
 		return jsonConfig;
 }
 

@@ -13,6 +13,7 @@
 #include "..\Entities\Camera.h"
 #include "..\Scenes\SceneTypes.h"
 #include "..\Graphics\TextRender.h"
+#include "..\Messages\MessageManager.h"
 #include <map>
 
 class GraphicsManager

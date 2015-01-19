@@ -11,10 +11,10 @@ bool TextRender::InitTextRender(int xScr, int yScr)
 	xScreen = xScr;
 	yScreen = yScr;
 
-	textShader = mauveresource::ResourceManager::GetResource<Shader>(shaderPath);
+	textShader = mauvefileresource::ResourceManager::GetResource<Shader>(shaderPath);
 	NULLPTRCHECK(textShader, "Failed to init text renderer due to failing to load text shader");
 
-	fontTexture = mauveresource::ResourceManager::GetResource<ImageTexture>(texturePath);
+	fontTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>(texturePath);
 	NULLPTRCHECK(fontTexture, "Failed to init text renderer due to failing to load font texture");
 	fontTexture->GetBitmap()->flipVertically();
 
@@ -173,4 +173,5 @@ TextRender::~TextRender()
 {
 	glDeleteBuffers(1, &uvBufferID);
 	glDeleteBuffers(1, &VBOid);
+	glDeleteTextures(1, &fontTextureID);
 }

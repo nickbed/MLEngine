@@ -1,6 +1,7 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 #include "..\Assert\Assert.h"
+#include "..\Resources\GPUResourceManager.h"
 #include "..\Graphics\GraphicsManager.h"
 #include "..\Interfaces\IEntity.h"
 #include "..\resources\Shader.h"
@@ -28,6 +29,7 @@ class SceneManager
 public:
 
 	SceneManager(std::unique_ptr<GraphicsManager> graph);
+	~SceneManager();
 
 	//Load scene into engine
 	bool LoadScene(std::unique_ptr<SceneConfig> scene);

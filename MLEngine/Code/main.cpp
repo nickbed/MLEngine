@@ -3,6 +3,8 @@
 #include "Assert\Assert.h"
 #include "Core/Engine.h"
 #include "Messages\MessageManager.h"
+#include "Resources\GPUResourceManager.h"
+#include "Resources\ResourceManager.h"
 
 void ExceptionHandler(const char* message);
 int guardedMain();
@@ -54,6 +56,7 @@ int guardedMain()
 		//	std::this_thread::yield();
 		//}
 	}
+	//_CrtDumpMemoryLeaks();
 	return 0;
 }
 
