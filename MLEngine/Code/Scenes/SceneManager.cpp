@@ -264,42 +264,9 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 			//Create and setup lights
 			const Json::Value& jsonLights = sceneData["lights"];
-			if (jsonLights.isNull())
-			{
-				success = false;
-			}
-			else if (success)
-			{
-				graphicsManager->RenderText("Loading lights",loadingTextX,loadingTextY,60,gotEntities);
-				//Iterate over all lights
-				for (Json::Value::const_iterator it = jsonLights.begin(); it != jsonLights.end(); ++it)
-				{
-					SceneLight* lightToCreate = new SceneLight();
-					Json::Value value = (*it);
-					std::string lightID = it.key().asString();
+			graphicsManager->RenderText("Loading lights", loadingTextX, loadingTextY, 60, gotEntities);
+			GenerateLightsFromJson(jsonLights, *gotConfig->sceneLights);
 
-					Json::Value lightSetup = value["lightparams"];
-
-					glm::vec3 lightPosition = glm::vec3(lightSetup["posX"].asFloat(), lightSetup["posY"].asFloat(), lightSetup["posZ"].asFloat());
-					glm::vec3 lightIntensity = glm::vec3(lightSetup["intensityR"].asFloat(), lightSetup["intensityG"].asFloat(), lightSetup["intensityB"].asFloat());
-					glm::vec3 lightReflectivity = glm::vec3(lightSetup["intensityR"].asFloat(), lightSetup["intensityG"].asFloat(), lightSetup["intensityB"].asFloat());
-
-					//Load values into light
-					lightToCreate->lightPosition = lightPosition;
-					lightToCreate->lightIntensity = lightIntensity;
-					lightToCreate->surfaceReflectivity = lightReflectivity;
-
-					//Put the light in the map
-					std::string lightIDtoadd = lightID;
-					gotConfig->sceneLights->insert(std::pair<std::string, SceneLight*>(lightIDtoadd, lightToCreate));
-				}
-			}
-			if(!success)
-			{
-				return nullptr;
-			}
-
-			//TODO - Guard all this
 
 			//Read scene setup current values last
 			std::string sceneShader = sceneData["sceneshader"].asCString();
@@ -713,6 +680,31 @@ void SceneManager::AddMessageListner(const char* typeToListen, void* entToBindTo
 
 	rec.typeToListen = typeToListen;
 	mauvemessage::MessageManager::AddMessageListner(typeToListen, rec);
+}
+
+void SceneManager::GenerateLightsFromJson(const Json::Value& jsonLights, std::map<std::string, SceneLight*>& lights)
+{
+	for (Json::Value::const_iterator it = jsonLights.begin(); it != jsonLights.end(); ++it)
+	{
+		SceneLight* lightToCreate = new SceneLight();
+		Json::Value value = (*it);
+		std::string lightID = it.key().asString();
+
+		Json::Value lightSetup = value["lightparams"];
+
+		glm::vec3 lightPosition = glm::vec3(lightSetup["posX"].asFloat(), lightSetup["posY"].asFloat(), lightSetup["posZ"].asFloat());
+		glm::vec3 lightIntensity = glm::vec3(lightSetup["intensityR"].asFloat(), lightSetup["intensityG"].asFloat(), lightSetup["intensityB"].asFloat());
+		glm::vec3 lightReflectivity = glm::vec3(lightSetup["intensityR"].asFloat(), lightSetup["intensityG"].asFloat(), lightSetup["intensityB"].asFloat());
+
+		//Load values into light
+		lightToCreate->lightPosition = lightPosition;
+		lightToCreate->lightIntensity = lightIntensity;
+		lightToCreate->surfaceReflectivity = lightReflectivity;
+
+		//Put the light in the map
+		std::string lightIDtoadd = lightID;
+		lights.insert(std::pair<std::string, SceneLight*>(lightIDtoadd, lightToCreate));
+	}
 }
 
 void SceneManager::msg_SetCamera(mauvemessage::BaseMessage* msg)

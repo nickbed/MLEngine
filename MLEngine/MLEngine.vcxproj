@@ -158,6 +158,7 @@
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
+    <ClCompile Include="Code\Components\MessageKeyMovement.cpp" />
     <ClCompile Include="Code\Components\MousePoller.cpp" />
     <ClCompile Include="Code\Components\StaticMesh.cpp" />
     <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Code\Interfaces\IState.cpp" />
     <ClCompile Include="Code\main.cpp" />
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
+    <ClCompile Include="Code\Messages\KeyMessage.cpp" />
     <ClCompile Include="Code\Messages\MessageManager.cpp" />
     <ClCompile Include="Code\Messages\PositionMessage.cpp" />
     <ClCompile Include="Code\Resources\GPUModel.cpp" />
@@ -196,6 +198,7 @@
     <ClInclude Include="Code\Assert\Assert.h" />
     <ClInclude Include="Code\Components\BasicBone.h" />
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
+    <ClInclude Include="Code\Components\MessageKeyMovement.h" />
     <ClInclude Include="Code\Components\MousePoller.h" />
     <ClInclude Include="Code\Components\StaticMesh.h" />
     <ClInclude Include="Code\Components\StaticMeshNoIndices.h" />
@@ -215,6 +218,7 @@
     <ClInclude Include="Code\Interfaces\IState.h" />
     <ClInclude Include="Code\Interfaces\IEntity.h" />
     <ClInclude Include="Code\Messages\BaseMessage.h" />
+    <ClInclude Include="Code\Messages\KeyMessage.h" />
     <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
     <ClInclude Include="Code\Messages\PositionMessage.h" />

@@ -69,6 +69,9 @@ public:
 
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);
+	void GenerateLightsFromJson(const Json::Value& jsonLights, std::map<std::string, SceneLight*>& lights);
+
+
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	std::unique_ptr<SceneConfig> currentScene;
 	bool isLoading;

@@ -9,6 +9,7 @@ Engine::~Engine()
 {
 	currentState.release();
 	delete sceneManager;
+	delete inputManager;
 }
 
 void Engine::Init(EngineConfig conf)
@@ -18,10 +19,14 @@ void Engine::Init(EngineConfig conf)
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
 	mauvemessage::MessageManager::LoadMap(listners);
 
+
 	//Init graphics here
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
 	graphicsMan->Init(3,3);
 	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Mauve Engine");
+
+	inputManager = new InputSystem();
+	inputManager->Init(graphicsMan->GetCurrentWindow());
 
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
@@ -34,6 +39,7 @@ void Engine::Init(EngineConfig conf)
 bool Engine::Update(float dt)
 {
 	bool result = true;
+	result &= inputManager->Update(dt);
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
 	if(sceneManager->ShouldLoadLevel())
 	{

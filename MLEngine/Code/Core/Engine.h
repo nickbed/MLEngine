@@ -12,6 +12,7 @@
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\BasicKeyMovement.h"
 #include "..\Components\MousePoller.h"
+#include "..\Systems\InputSystem.h"
 
 #include "json\json.h"
 
@@ -54,6 +55,8 @@ private:
 	EngineConfig currentConfig;
 
 	SceneManager* sceneManager;
+
+	InputSystem* inputManager;
 
 	//Load the next state into current state from the current state 
 	//(ie - put the next state into the current state and release the pointer for the old state)
