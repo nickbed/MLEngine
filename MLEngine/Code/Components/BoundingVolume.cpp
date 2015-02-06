@@ -9,6 +9,16 @@ bool BoundingVolume::IsStatic()
 	return isStatic;
 }
 
+TransformComponent* BoundingVolume::getTransform()
+{
+	return transform;
+}
+
+void BoundingVolume::setTransform(TransformComponent* trans)
+{
+	transform = trans;
+}
+
 void BoundingVolume::Init()
 {
 }

@@ -16,15 +16,15 @@ public:
 
 	void Destroy();
 
-	static void AddStaticEntity(IEntity* entity);
-	static void AddDynamicEntity(IEntity* entity);
+	static void AddStaticVolume(BoundingVolume* volume);
+	static void AddDynamicVolume(BoundingVolume* volume);
 
 	static void CheckCollisions();
-	static bool EntitiesCollided(IEntity* entitya, IEntity* entityb);
+	static bool HasCollided(BoundingVolume* volumea, BoundingVolume* volumeb);
 	
 private:
-	static std::vector<IEntity*> statics;
-	static std::vector<IEntity*> dynamics;
+	static std::vector<BoundingVolume*> statics;
+	static std::vector<BoundingVolume*> dynamics;
 };
 
 #endif

@@ -393,14 +393,15 @@ void SceneManager::AddBoundingBox(Json::Value contents, IEntity* entToCreate)
 	glm::vec3 gotMin = glm::vec3(contents["minX"].asFloat(), contents["minY"].asFloat(), contents["minZ"].asFloat());
 	glm::vec3 gotMax = glm::vec3(contents["maxX"].asFloat(), contents["maxY"].asFloat(), contents["maxZ"].asFloat());
 	BoundingBox* gotComponent = new BoundingBox("boundingbox",gotMin,gotMax,gotStatic);
+	gotComponent->setTransform(entToCreate->Transform);
 	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
 	if(gotStatic==true)
 	{
-		CollisionSystem::AddStaticEntity(entToCreate);
+		CollisionSystem::AddStaticVolume(gotComponent);
 	}
 	else
 	{
-		CollisionSystem::AddDynamicEntity(entToCreate);
+		CollisionSystem::AddDynamicVolume(gotComponent);
 	}
 }
 
