@@ -11,10 +11,12 @@
 #include "..\entities\GeneralEntity.h"
 #include "..\entities\Robot.h"
 #include "..\Components\BasicKeyMovement.h"
+#include "..\Components\BoundingBox.h"
 #include "..\Components\MousePoller.h"
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\StaticMesh.h"
 #include "..\Messages\BaseMessage.h"
+#include "..\Systems\CollisionSystem.h"
 #include "SceneTypes.h"
 #include <vector>
 #include <map>
@@ -66,11 +68,11 @@ public:
 
 	bool ShouldLoadLevel();
 
-
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);
 	void GenerateLightsFromJson(const Json::Value& jsonLights, std::map<std::string, SceneLight*>& lights);
 
+	void AddBoundingBox(Json::Value contents, IEntity* entToCreate);
 
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	std::unique_ptr<SceneConfig> currentScene;

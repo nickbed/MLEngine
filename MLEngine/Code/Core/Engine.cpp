@@ -41,6 +41,7 @@ bool Engine::Update(float dt)
 	bool result = true;
 	result &= inputManager->Update(dt);
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
+	CollisionSystem::CheckCollisions();
 	if(sceneManager->ShouldLoadLevel())
 	{
 			std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\loading.scn");

@@ -207,6 +207,15 @@
     <ClCompile Include="Code\Messages\KeyMessage.cpp">
       <Filter>Source Files\Messages</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Components\BoundingBox.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingVolume.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Systems\CollisionSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -331,6 +340,15 @@
     </ClInclude>
     <ClInclude Include="Code\Messages\KeyMessage.h">
       <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingBox.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingVolume.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Systems\CollisionSystem.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

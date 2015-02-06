@@ -201,6 +201,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 										}
 									}
 								}
+								if (componentContents["type"] == "boundingbox")
+								{
+									AddBoundingBox(componentContents,entToCreate);
+								}
 							}
 						}
 
@@ -327,7 +331,6 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 		return std::move(nullptr);
 	}
 
-	
 	using namespace std::placeholders;
 	
 	//TODO - fixthis
@@ -381,6 +384,24 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	
 	delete gotJSON;
 	return std::move(gotConfig);
+}
+
+
+void SceneManager::AddBoundingBox(Json::Value contents, IEntity* entToCreate)
+{
+	bool gotStatic = contents["static"].asBool();
+	glm::vec3 gotMin = glm::vec3(contents["minX"].asFloat(), contents["minY"].asFloat(), contents["minZ"].asFloat());
+	glm::vec3 gotMax = glm::vec3(contents["maxX"].asFloat(), contents["maxY"].asFloat(), contents["maxZ"].asFloat());
+	BoundingBox* gotComponent = new BoundingBox("boundingbox",gotMin,gotMax,gotStatic);
+	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
+	if(gotStatic==true)
+	{
+		CollisionSystem::AddStaticEntity(entToCreate);
+	}
+	else
+	{
+		CollisionSystem::AddDynamicEntity(entToCreate);
+	}
 }
 
 bool SceneManager::InitSceneManager()

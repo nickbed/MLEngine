@@ -8,10 +8,10 @@
 #include "../Messages/MessageManager.h"
 #include "..\Scenes\SceneManager.h"
 
-
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\BasicKeyMovement.h"
 #include "..\Components\MousePoller.h"
+#include "..\Systems\CollisionSystem.h"
 #include "..\Systems\InputSystem.h"
 
 #include "json\json.h"
