@@ -79,11 +79,17 @@
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{9cfb4b6d-24f6-47c2-b088-39fba1ae8681}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{ee31f593-31da-44c2-b831-30b8b924bc51}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{8e95219e-05ea-4f92-bb90-b66d6ed93d56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts">
+      <UniqueIdentifier>{df061284-88f6-4ee7-86c1-39d0b76b0db4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripts">
+      <UniqueIdentifier>{2daca971-054d-4bc4-9b3e-22b0a349a549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{ee31f593-31da-44c2-b831-30b8b924bc51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +195,9 @@
     <ClCompile Include="Code\Graphics\TextRender.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Scripts\ScriptManager.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -261,10 +270,10 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Code\Scenes\SceneManager.h">
-      <Filter>Scene</Filter>
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Code\Scenes\SceneTypes.h">
-      <Filter>Scene</Filter>
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Code\Resources\OBJModel.h">
       <Filter>Header Files\Resources</Filter>
@@ -295,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="Code\Graphics\TextRender.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Scripts\ScriptManager.h">
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,12 @@ void Engine::Init(EngineConfig conf)
 	graphicsMan->Init(3,3);
 	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Mauve Engine");
 
+	bool scriptSystem = scriptManager.Init();
+	if (!scriptSystem)
+	{
+		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Unable to initialize Lua scripting environment.");
+	}
+
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
 	sceneManager->InitSceneManager();

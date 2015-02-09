@@ -8,6 +8,8 @@
 #include "../Messages/MessageManager.h"
 #include "..\Scenes\SceneManager.h"
 
+#include "..\Scripts\ScriptManager.h"
+
 
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\BasicKeyMovement.h"
@@ -54,6 +56,7 @@ private:
 	EngineConfig currentConfig;
 
 	SceneManager* sceneManager;
+	ScriptManager scriptManager;
 
 	//Load the next state into current state from the current state 
 	//(ie - put the next state into the current state and release the pointer for the old state)
