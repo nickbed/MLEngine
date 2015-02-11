@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include "..\Components\ComponentManager.h"
+#include "..\Components\Script.h"
 #include "..\Components\Transform.h"
 
 //Interface (Abstract class) that defines how components interact with entities
@@ -32,6 +33,10 @@ public:
 
 	//EVERYTHING has a transform
 	TransformComponent* Transform;
+
+	//EVERYTHING has a script
+
+	ScriptComponent* Script;
 };
 
 //Useful macro - Default implementation of calling the base class and moving the pointer if a map is specified

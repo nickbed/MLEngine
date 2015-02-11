@@ -156,6 +156,7 @@
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
     <ClCompile Include="Code\Components\MousePoller.cpp" />
+    <ClCompile Include="Code\Components\Script.cpp" />
     <ClCompile Include="Code\Components\StaticMesh.cpp" />
     <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Code\Components\BasicBone.h" />
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
     <ClInclude Include="Code\Components\MousePoller.h" />
+    <ClInclude Include="Code\Components\Script.h" />
     <ClInclude Include="Code\Components\StaticMesh.h" />
     <ClInclude Include="Code\Components\StaticMeshNoIndices.h" />
     <ClInclude Include="Code\Components\ComponentManager.h" />

@@ -9,6 +9,7 @@ IEntity::IEntity()
 	Components = new ComponentManager(std::move(components));
 	
 	Transform = new TransformComponent("defaultTransform");
+	Script = new ScriptComponent("defaultScript");
 }
 
 IEntity::IEntity(std::unique_ptr<componentMapType> componentList)
@@ -22,6 +23,7 @@ bool IEntity::Update(float dt)
 {
 	Components->UpdateAllComponents(dt);
 	Transform->Update(dt);
+	Script->Update(dt);
 	return true;
 }
 
@@ -42,5 +44,6 @@ void IEntity::Destroy()
 IEntity::~IEntity()
 {
 	if(Components != nullptr) delete Components;
-	if(Transform != nullptr) delete Transform;
+	if (Transform != nullptr) delete Transform;
+	if (Script != nullptr) delete Script;
 }

@@ -18,16 +18,17 @@ void Engine::Init(EngineConfig conf)
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
 	mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
 
+	//Init script system
+	if (!scriptManager.Init())
+	{
+		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Unable to initialize Lua scripting environment.");
+	}
+
 	//Init graphics here
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
 	graphicsMan->Init(3,3);
 	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Mauve Engine");
 
-	bool scriptSystem = scriptManager.Init();
-	if (!scriptSystem)
-	{
-		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Unable to initialize Lua scripting environment.");
-	}
 
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));

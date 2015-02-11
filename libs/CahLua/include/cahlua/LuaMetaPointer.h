@@ -7,6 +7,7 @@
 #include "LuaState.h"
 
 #include <map>
+#include <string>
 
 namespace CahLua 
 {
