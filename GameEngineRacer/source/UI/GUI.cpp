@@ -133,11 +133,13 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 		objects[i].zR = scene->GetGameObjects().at(i)->getTransformComp()->getRotate().z;
 		
         
-		_snprintf(objects[i].type, sizeof(objects[i].type), "%s", scene->GetGameObjects().at(i)->getEntityType().c_str());
-        // Set 'label' and 'help' parameters of the light
-		 _snprintf(objects[i].Name, sizeof(objects[i].Name), "%d", i+1); // Create a name for each light ("1", "2", "3",...)
-		 std::string grouping = "group="+scene->GetGameObjects().at(i)->getEntityType();
-		 TwAddVarRW(bar, objects[i].Name, modelType, &objects[i], grouping.c_str());
+		_snprintf(objects[i].type, sizeof(objects[i].type), "%s", scene->GetGameObjects().at(i)->getEntityType().c_str());//Copy data into objects.
+
+		 _snprintf(objects[i].Name, sizeof(objects[i].Name), "%d", i+1); //Create a unique name;
+
+		 std::string grouping = "group="+scene->GetGameObjects().at(i)->getEntityType();//Creates the string for grouping.
+		 TwAddVarRW(bar, objects[i].Name, modelType, &objects[i], grouping.c_str());//Creates Type Grouping.
+
         char paramValue[64];
 		_snprintf(paramValue, sizeof(paramValue), "%s", scene->GetGameObjects().at(i)->getName().c_str());
         TwSetParam(bar, objects[i].Name, "label", TW_PARAM_CSTRING, 1, paramValue); // Set label

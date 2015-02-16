@@ -7,7 +7,6 @@ Scene::Scene()
 	std::pair<std::string, Camera*> cameraPair;
 	cameraPair.first = "default";
 	cameraPair.second = new Camera();
-	cameraPair.second->init();
 	cameras.insert(cameraPair);
 	cameras.at("default")->init();
 	for(auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
@@ -251,11 +250,16 @@ bool Scene::LoadScene(std::string filename)
 
 		lights.push_back(light);
 	}
+	if(root["scene"]["cameras"].size() > 0)
+	{
+		cameras.clear();
+	}
 	for(Json::ValueIterator cameraIter = root["scene"]["cameras"].begin(); cameraIter != root["scene"]["cameras"].end(); ++cameraIter)
 	{
 		Json::Value cameraKey = cameraIter.key();
 		Json::Value cameraVal = (*cameraIter);
 		std::pair<std::string, Camera*> cameraPair;
+		
 		Camera* camera = new Camera();
 		camera->init();
 		glm::vec3 position;
