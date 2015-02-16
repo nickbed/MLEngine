@@ -14,8 +14,6 @@
 #include <fstream>
 
 
-enum SaveState { SAVE, DONTSAVE};
-enum FileState { OPEN, DONTOPEN};
 
 class GUI {
 private:
@@ -25,16 +23,13 @@ private:
 		float xR, yR, zR;
 		char    Name[4];
 	};
-	static FileState load;
-	static SaveState save;
-	//std::vector<float> x,y, z;
-	//std::vector<float> xR, yR, zR;
+	TwType modelType;
 	Object* objects;
 	TwBar* bar;
 	ResourceManager* rManager;
 	int width;
 	int height;
-	Scene* scene;
+	Scene* m_scene;
 	Json::StyledWriter writer;
 	int j;
 	void updateLayout();
@@ -47,10 +42,11 @@ public:
 	void onKeyPressed(int key, int mod);
 	void onResize(int w, int h);
 	void draw();
-	void saveData(Scene* nscene);
-	void openFile(Scene *nScene);
-	void update();
+	void saveData();
+	void openFile();
+	void update(Scene* scene);
 	
+	Scene* getScene(){return m_scene;};
 	static void TW_CALL Save(void *clientData);
 	static void TW_CALL OpenFile(void *clientData);
 	//bool getRotate()const{return rotate;};
