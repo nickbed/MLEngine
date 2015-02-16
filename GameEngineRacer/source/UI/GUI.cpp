@@ -71,7 +71,8 @@ void GUI::openFile(Scene *nScene)
 		{
 			std::cout << "This is a Scene file" << std::endl;
 		}
-			
+		TwRemoveAllVars(bar);
+		updateLayout();
 		load = DONTOPEN;
 	}
 
@@ -102,24 +103,16 @@ void GUI::saveData(Scene* nscene)
 	}
 }
 
-
-
-bool GUI::setup(int w, int h, Scene* nScene ) {
-	width = w;
-	height = h;
-	scene = nScene;
-
-	TwInit(TW_OPENGL, NULL);
-	bar = TwNewBar("GameEngine");
-
+void GUI::updateLayout()
+{
 	 TwStructMember objectMembers[] = // array used to describe tweakable variables of the Light structure
     {
         { "Translate X",    TW_TYPE_FLOAT, offsetof(Object, x),    " help='Translates the object in X.' " },   // Light::Active is a C++ boolean value
         { "Translate Y",     TW_TYPE_FLOAT, offsetof(Object, y),     " help='Translates the object in Y.' " },        // Light::Color is represented by 4 floats, but alpha channel should be ignored
         { "Translate Z",    TW_TYPE_FLOAT,   offsetof(Object, z),    " help='Translates the object in Z.' " },
-        { "Rotate X", TW_TYPE_FLOAT,        offsetof(Object, xR), " help='Change the animation mode.' " },  // use the enum 'modeType' created before to tweak the Light::Animation variable
-        { "Rotate Y",     TW_TYPE_FLOAT,   offsetof(Object, yR),    "  help='Light moving speed.' " }, // Light::Speed is made read-only
-		{ "Rotate Z",     TW_TYPE_FLOAT,   offsetof(Object, zR),    "  help='Light moving speed.' " } // Light::Speed is made read-only
+        { "Rotate X", TW_TYPE_FLOAT,        offsetof(Object, xR), " help='Rotate in the X.' " },  // use the enum 'modeType' created before to tweak the Light::Animation variable
+        { "Rotate Y",     TW_TYPE_FLOAT,   offsetof(Object, yR),    "  help='Rotate in the Y.' " }, // Light::Speed is made read-only
+		{ "Rotate Z",     TW_TYPE_FLOAT,   offsetof(Object, zR),    "  help='Rotate in the Z.' " } // Light::Speed is made read-only
     };
 
 	TwType modelType = TwDefineStruct("Object", objectMembers, 6, sizeof(Object), NULL, NULL);  // create a new TwType associated to the struct defined by the lightMembers array
@@ -153,6 +146,16 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 	TwDefine("GameEngine help='Press N to change camera'");
 	TwAddButton(bar, "Saving", Save, NULL , " label='Save Scene' ");
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File BROKEN!!' ");
+}
+bool GUI::setup(int w, int h, Scene* nScene ) {
+	width = w;
+	height = h;
+	scene = nScene;
+
+	TwInit(TW_OPENGL_CORE, NULL);
+	bar = TwNewBar("GameEngine");
+
+	updateLayout();
 
 
 	TwWindowSize(width, height);

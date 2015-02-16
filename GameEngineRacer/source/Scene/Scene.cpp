@@ -383,12 +383,13 @@ void Scene::Update(bool keys[])//Updates the scene running in a loop
 }
 void Scene::Render()
 {
+	
 	gl::UseProgram(rManager->getShaders().at(sceneData.sceneShader)->programhandle);
 
 	setLightParams();
 	for(auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
 	{
-
+		
 		model = glm::mat4(1);
 
 

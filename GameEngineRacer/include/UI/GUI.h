@@ -37,6 +37,7 @@ private:
 	Scene* scene;
 	Json::StyledWriter writer;
 	int j;
+	void updateLayout();
 public:
 	GUI();
 	~GUI();

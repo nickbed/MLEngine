@@ -53,10 +53,6 @@
   <ItemGroup>
     <None Include="Shader\basic3.Frag" />
     <None Include="Shader\basic3.vert" />
-    <None Include="Shader\diffuseCube.frag" />
-    <None Include="Shader\diffuseCube.vert" />
-    <None Include="Shader\diffuse.frag" />
-    <None Include="Shader\diffuse.vert" />
     <None Include="ClassDiagram.cd" />
     <None Include="Scene\menu.scn" />
     <None Include="Scene\loading.scn" />

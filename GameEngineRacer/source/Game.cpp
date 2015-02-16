@@ -48,8 +48,8 @@ void Game::Run()
 			Update();//TimeDelta for timestep.
 			Render();
 		}
-		
-		
+
+
 
 	}
 	glfwTerminate();
@@ -57,27 +57,44 @@ void Game::Run()
 }
 void Game::Initialise()
 {
+
 	width = 1024;
 	height = 768;
-	glfwSetErrorCallback(error_callback);
+
+
+
+
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
+	glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
+	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, TRUE);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//glfwWindowHint(GLFW_RESIZABLE, FALSE);
+	//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, TRUE);
 	window = glfwCreateWindow(width, height, "Most Awesome Game Ever", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	glfwSetWindowSizeCallback(window,WindowSizeCB);
+	
 	glfwMakeContextCurrent(window);
+	glfwSetWindowSizeCallback(window,WindowSizeCB);
+
 	glfwSetMouseButtonCallback(window,mouse_button_callback);
+
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);
+
 	glfwSetScrollCallback(window, scroll_callback);
+
 	glfwSetKeyCallback(window, key_callback);
+
 	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
+
 	// Load the OpenGL functions.
 	gl::exts::LoadTest didLoad = gl::sys::LoadFunctions();
-
+	printf("OpenGL version (%s): \n", gl::GetString(gl::VERSION));
 	if (!didLoad) {
 		//Claen up and abort
 		glfwTerminate();
@@ -91,6 +108,7 @@ void Game::Initialise()
 
 	scene[0]->InitScene("loading");
 	scene[0]->Update(keys);
+	
 	Render();
 	scene[0]->deleteShader();
 	rManager->clearAll();
@@ -103,15 +121,15 @@ void Game::Initialise()
 
 	scene[1]->InitScene("demolevel");
 	activeScene =1;	
-	
+
 	if(rManager->getShaders().size() > 0)
 	{
 		ui.initText2D();
 	}
-	
-
 
 	gui->setup(width,height, scene[activeScene]);
+
+	
 }
 
 void Game::error_callback(int error, const char* description)
@@ -150,14 +168,14 @@ void Game::Update()
 	}
 
 	scene[activeScene]->Update(keys);
-	gui->saveData(scene[activeScene]);
-	gui->openFile(scene[activeScene]);
-	gui->update();
+	//gui->saveData(scene[activeScene]);
+	//gui->openFile(scene[activeScene]);
+	//gui->update();
 	//Store the current cursor position
 	lastCursorPositionX = cursorPositionX;
 	lastCursorPositionY = cursorPositionY;
-	
-	
+
+
 }
 void Game::Render()
 {
@@ -166,9 +184,9 @@ void Game::Render()
 	gl::ClearColor(0.0f,0.5f,0.7f,1.0f);
 	gl::Clear( gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT );
 
-
-	scene[activeScene]->Render();
 	
+	scene[activeScene]->Render();
+
 
 	if(scene[1]->GetGameObjects().size() >=1)
 	{
@@ -236,12 +254,12 @@ bool Game::keyPressedOnce(int key)
 
 void Game::WindowSizeCB(GLFWwindow* window, int width, int height){
 	// Set OpenGL viewport and camera
-    gl::Viewport(0, 0, width, height);
-  
-    
-    
-    // Send the new window size to AntTweakBar
-    TwWindowSize(width, height);
+	gl::Viewport(0, 0, width, height);
+
+
+
+	// Send the new window size to AntTweakBar
+	TwWindowSize(width, height);
 	//gui->onResize(width,height);
 	//scene[activeScene]->resize(width,height);
 }

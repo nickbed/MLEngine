@@ -16,10 +16,6 @@
     <None Include="Scene\menu.scn" />
     <None Include="Shader\basic3.Frag" />
     <None Include="Shader\basic3.vert" />
-    <None Include="Shader\diffuse.frag" />
-    <None Include="Shader\diffuse.vert" />
-    <None Include="Shader\diffuseCube.frag" />
-    <None Include="Shader\diffuseCube.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Master\basicmaster.txt" />
