@@ -168,9 +168,9 @@ void Game::Update()
 	}
 
 	scene[activeScene]->Update(keys);
-	//gui->saveData(scene[activeScene]);
-	//gui->openFile(scene[activeScene]);
-	//gui->update();
+	gui->saveData(scene[activeScene]);
+	gui->openFile(scene[activeScene]);
+	gui->update();
 	//Store the current cursor position
 	lastCursorPositionX = cursorPositionX;
 	lastCursorPositionY = cursorPositionY;
