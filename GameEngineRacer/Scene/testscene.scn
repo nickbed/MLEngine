@@ -1,0 +1,501 @@
+{
+  "scene": {
+    "name": "testscene",
+    "sceneshader": "data\\shaders\\basic3",
+    "currentcamera": "camera0",
+    "currentlight": "light0",
+    "activeentities": [
+      "ent11",
+      "ent12",
+      "ent13",
+      "ent14",
+      "ent15",
+      "ent16",
+      "ent17",
+      "ent18",
+      "ent19",
+      "ent20"
+    ],
+    "entities": {
+      "ent11": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent12": {
+        "type": "robot",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent13": {
+        "type": "robot",
+        "transform": {
+          "posX": 0,
+          "posY": 30,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent14": {
+        "type": "robot",
+        "transform": {
+          "posX": 30,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent15": {
+        "type": "robot",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 20,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent16": {
+        "type": "robot",
+        "transform": {
+          "posX": 0,
+          "posY": 20,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent17": {
+        "type": "robot",
+        "transform": {
+          "posX": 20,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent18": {
+        "type": "robot",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 10,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent19": {
+        "type": "robot",
+        "transform": {
+          "posX": 0,
+          "posY": 10,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+      "ent20": {
+        "type": "robot",
+        "transform": {
+          "posX": 10,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      }
+    },
+    "cameras": {
+      "camera0": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 3,
+          "posZ": 3,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 90,
+          "pitch": 0,
+          "yaw": 0
+        }
+      },
+      "camera1": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 10,
+          "posZ": 3,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 50,
+          "pitch": 0,
+          "yaw": 0
+        }
+      }
+    },
+    "lights": {
+      "light0": {
+        "lightparams": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "intensityR": 0.6,
+          "intensityG": 0.6,
+          "intensityB": 0.6,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
+      }
+    }
+  }
+}

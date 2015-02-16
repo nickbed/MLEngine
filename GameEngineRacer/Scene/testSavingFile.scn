@@ -1,0 +1,1069 @@
+{
+   "scene" : {
+      "activeentities" : [
+         "crate1",
+         "crate2",
+         "crate3",
+         "forestfloor",
+         "house",
+         "light0Box",
+         "light1Box",
+         "light2Box",
+         "light3Box",
+         "light4Box",
+         "light5Box",
+         "moon",
+         "path1",
+         "path2",
+         "path3",
+         "robco",
+         "robot1",
+         "sign",
+         "toilet",
+         "toilet1",
+         "toiletwater1",
+         "toiletwater2",
+         "tree1",
+         "tree10",
+         "tree11",
+         "tree12",
+         "tree13",
+         "tree14",
+         "tree15",
+         "tree16",
+         "tree17",
+         "tree2",
+         "tree3",
+         "tree4",
+         "tree5",
+         "tree6",
+         "tree7",
+         "tree8",
+         "tree9"
+      ],
+      "cameras" : {
+         "camera0" : {
+            "camerasetup" : {
+               "fov" : 80,
+               "lookX" : 7.407233238220215,
+               "lookY" : 4.014221668243408,
+               "lookZ" : -3.336401224136353,
+               "pitch" : 0.2280000746250153,
+               "posX" : 13.1076135635376,
+               "posY" : 5.548677444458008,
+               "posZ" : 4.35380744934082,
+               "yaw" : -0.6589998006820679
+            }
+         },
+         "camera1" : {
+            "camerasetup" : {
+               "fov" : 80,
+               "lookX" : 47.12997436523438,
+               "lookY" : 17.96144485473633,
+               "lookZ" : 0.3522518575191498,
+               "pitch" : -0.006999999284744263,
+               "posX" : 50.89846801757813,
+               "posY" : 19.35792922973633,
+               "posZ" : 1.506056308746338,
+               "yaw" : -0.001000036601908505
+            }
+         },
+         "camera2" : {
+            "camerasetup" : {
+               "fov" : 120,
+               "lookX" : 0,
+               "lookY" : 0,
+               "lookZ" : 0,
+               "pitch" : 0,
+               "posX" : 0,
+               "posY" : 10,
+               "posZ" : -10,
+               "yaw" : 0
+            }
+         },
+         "camera3" : {
+            "camerasetup" : {
+               "fov" : 70,
+               "lookX" : -60.56060409545898,
+               "lookY" : 30.92426490783691,
+               "lookZ" : -16.81064414978027,
+               "pitch" : -0.2129999846220017,
+               "posX" : -128.6398162841797,
+               "posY" : 63.68184280395508,
+               "posZ" : -26.87522125244141,
+               "yaw" : 1.287000298500061
+            }
+         }
+      },
+      "currentcamera" : "camera0",
+      "currentlight" : "light0",
+      "entities" : {
+         "crate1" : {
+            "components" : {
+               "cratemesh" : {
+                  "OBJModel" : "data\\models\\crate.obj",
+                  "TextureFile" : "data\\images\\crate.tga",
+                  "id" : "cratemesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -22.79999923706055,
+               "posY" : 1,
+               "posZ" : -6.800000190734863,
+               "rotateX" : 0,
+               "rotateY" : 25,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "crate2" : {
+            "components" : {
+               "cratemesh" : {
+                  "OBJModel" : "data\\models\\crate.obj",
+                  "TextureFile" : "data\\images\\crate.tga",
+                  "id" : "cratemesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -22.79999923706055,
+               "posY" : 1,
+               "posZ" : -3.700000047683716,
+               "rotateX" : 0,
+               "rotateY" : -35,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "crate3" : {
+            "components" : {
+               "cratemesh" : {
+                  "OBJModel" : "data\\models\\crate.obj",
+                  "TextureFile" : "data\\images\\crate.tga",
+                  "id" : "cratemesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -22.79999923706055,
+               "posY" : 3,
+               "posZ" : -5.199999809265137,
+               "rotateX" : 2,
+               "rotateY" : 10,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "forestfloor" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\floor.obj",
+                  "TextureFile" : "data\\images\\forestfloor.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : -0.1500000059604645,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 3,
+               "scaleY" : 5,
+               "scaleZ" : 3
+            },
+            "type" : "generalentity"
+         },
+         "house" : {
+            "components" : {
+               "housemesh" : {
+                  "OBJModel" : "data\\models\\house.obj",
+                  "TextureFile" : "data\\images\\house.tga",
+                  "id" : "housemesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -0.449999988079071,
+               "posY" : 0,
+               "posZ" : -30,
+               "rotateX" : 0,
+               "rotateY" : -90,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "light0Box" : {
+            "components" : {
+               "toiletwater2" : {
+                  "OBJModel" : "data\\models\\box.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "toiletwater2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -1,
+               "posY" : 7.5,
+               "posZ" : -24,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.1000000014901161,
+               "scaleY" : 0.1000000014901161,
+               "scaleZ" : 0.1000000014901161
+            },
+            "type" : "light"
+         },
+         "light1Box" : {
+            "components" : {
+               "toiletwater2" : {
+                  "OBJModel" : "data\\models\\box.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "toiletwater2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 12,
+               "posY" : 2,
+               "posZ" : -1,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.1000000014901161,
+               "scaleY" : 0.1000000014901161,
+               "scaleZ" : 0.1000000014901161
+            },
+            "type" : "light"
+         },
+         "light2Box" : {
+            "components" : {
+               "toiletwater2" : {
+                  "OBJModel" : "data\\models\\box.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "toiletwater2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 4,
+               "posY" : 2,
+               "posZ" : 5.5,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.1000000014901161,
+               "scaleY" : 0.1000000014901161,
+               "scaleZ" : 0.1000000014901161
+            },
+            "type" : "light"
+         },
+         "light3Box" : {
+            "components" : {
+               "toiletwater2" : {
+                  "OBJModel" : "data\\models\\box.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "toiletwater2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 3.5,
+               "posY" : 2,
+               "posZ" : -6,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.1000000014901161,
+               "scaleY" : 0.1000000014901161,
+               "scaleZ" : 0.1000000014901161
+            },
+            "type" : "light"
+         },
+         "light4Box" : {
+            "components" : {
+               "toiletwater2" : {
+                  "OBJModel" : "data\\models\\box.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "toiletwater2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -6,
+               "posY" : 2,
+               "posZ" : -10,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.1000000014901161,
+               "scaleY" : 0.1000000014901161,
+               "scaleZ" : 0.1000000014901161
+            },
+            "type" : "light"
+         },
+         "light5Box" : {
+            "components" : {
+               "toiletwater2" : {
+                  "OBJModel" : "data\\models\\box.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "toiletwater2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -6,
+               "posY" : 2,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.1000000014901161,
+               "scaleY" : 0.1000000014901161,
+               "scaleZ" : 0.1000000014901161
+            },
+            "type" : "light"
+         },
+         "moon" : {
+            "components" : {
+               "moon" : {
+                  "OBJModel" : "data\\models\\moon.obj",
+                  "TextureFile" : "data\\images\\moon.tga",
+                  "id" : "moon",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -5,
+               "posY" : 20,
+               "posZ" : -10,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "path1" : {
+            "components" : {
+               "pathmesh" : {
+                  "OBJModel" : "data\\models\\path.obj",
+                  "TextureFile" : "data\\images\\path.tga",
+                  "id" : "pathmesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 0,
+               "posZ" : -5.699999809265137,
+               "rotateX" : 0,
+               "rotateY" : -90,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "path2" : {
+            "components" : {
+               "pathmesh" : {
+                  "OBJModel" : "data\\models\\path.obj",
+                  "TextureFile" : "data\\images\\path.tga",
+                  "id" : "pathmesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 12.80000019073486,
+               "posY" : 0,
+               "posZ" : -5.699999809265137,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "path3" : {
+            "components" : {
+               "pathmesh" : {
+                  "OBJModel" : "data\\models\\path.obj",
+                  "TextureFile" : "data\\images\\path.tga",
+                  "id" : "pathmesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -12.80000019073486,
+               "posY" : 0,
+               "posZ" : -5.699999809265137,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "robco" : {
+            "components" : {
+               "robco" : {
+                  "OBJModel" : "data\\models\\robco.obj",
+                  "TextureFile" : "data\\images\\robco.tga",
+                  "id" : "robco",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 25.79999923706055,
+               "posY" : 0,
+               "posZ" : -5.699999809265137,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "robot1" : {
+            "components" : {
+               "robotBody" : {
+                  "OBJModel" : "data\\models\\robbody.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotBody",
+                  "type" : "staticmesh"
+               },
+               "robotLeftArm" : {
+                  "OBJModel" : "data\\models\\roblarm.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotLeftArm",
+                  "type" : "basicbone"
+               },
+               "robotLeftLeg" : {
+                  "OBJModel" : "data\\models\\roblleg.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotLeftLeg",
+                  "type" : "basicbone"
+               },
+               "robotRightArm" : {
+                  "OBJModel" : "data\\models\\robrarm.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotRightArm",
+                  "type" : "basicbone"
+               },
+               "robotRightLeg" : {
+                  "OBJModel" : "data\\models\\robrleg.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotRightLeg",
+                  "type" : "basicbone"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 1,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : 180,
+               "rotateZ" : 0,
+               "scaleX" : 0.1500000059604645,
+               "scaleY" : 0.1500000059604645,
+               "scaleZ" : 0.1500000059604645
+            },
+            "type" : "robot"
+         },
+         "sign" : {
+            "components" : {
+               "sign" : {
+                  "OBJModel" : "data\\models\\sign.obj",
+                  "TextureFile" : "data\\images\\sign.tga",
+                  "id" : "sign",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 5,
+               "posY" : 0,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -90,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "toilet" : {
+            "components" : {
+               "toilet" : {
+                  "OBJModel" : "data\\models\\toilet.obj",
+                  "TextureFile" : "data\\images\\toilet.tga",
+                  "id" : "toilet",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 20,
+               "posY" : -12.10000038146973,
+               "posZ" : -30,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.300000011920929,
+               "scaleY" : 0.300000011920929,
+               "scaleZ" : 0.300000011920929
+            },
+            "type" : "generalentity"
+         },
+         "toilet1" : {
+            "components" : {
+               "toilet" : {
+                  "OBJModel" : "data\\models\\toilet.obj",
+                  "TextureFile" : "data\\images\\toilet.tga",
+                  "id" : "toilet",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -20,
+               "posY" : -12.10000038146973,
+               "posZ" : -30,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 0.300000011920929,
+               "scaleY" : 0.300000011920929,
+               "scaleZ" : 0.300000011920929
+            },
+            "type" : "generalentity"
+         },
+         "toiletwater1" : {
+            "components" : {
+               "toiletwater1" : {
+                  "OBJModel" : "data\\models\\toiletwater.obj",
+                  "TextureFile" : "data\\images\\toiletwater.tga",
+                  "id" : "toiletwater1",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 19.5,
+               "posY" : 0.2000000029802322,
+               "posZ" : -27.5,
+               "rotateX" : 0,
+               "rotateY" : 20,
+               "rotateZ" : 0,
+               "scaleX" : 1.279999971389771,
+               "scaleY" : 1.279999971389771,
+               "scaleZ" : 1.279999971389771
+            },
+            "type" : "generalentity"
+         },
+         "toiletwater2" : {
+            "components" : {
+               "toiletwater2" : {
+                  "OBJModel" : "data\\models\\toiletwater.obj",
+                  "TextureFile" : "data\\images\\toiletwater.tga",
+                  "id" : "toiletwater2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -19.5,
+               "posY" : 0.2000000029802322,
+               "posZ" : -27.5,
+               "rotateX" : 0,
+               "rotateY" : 20,
+               "rotateZ" : 0,
+               "scaleX" : 1.299999952316284,
+               "scaleY" : 1.279999971389771,
+               "scaleZ" : 1.279999971389771
+            },
+            "type" : "generalentity"
+         },
+         "tree1" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 0,
+               "posZ" : 10,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "tree10" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 20,
+               "posY" : 0,
+               "posZ" : 28,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 2.5,
+               "scaleY" : 2.5,
+               "scaleZ" : 2.5
+            },
+            "type" : "generalentity"
+         },
+         "tree11" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -23,
+               "posY" : 0,
+               "posZ" : 24,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 2.299999952316284,
+               "scaleY" : 2.299999952316284,
+               "scaleZ" : 2.299999952316284
+            },
+            "type" : "generalentity"
+         },
+         "tree12" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -10,
+               "posY" : 0,
+               "posZ" : 15,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 2.099999904632568,
+               "scaleY" : 2.099999904632568,
+               "scaleZ" : 2.099999904632568
+            },
+            "type" : "generalentity"
+         },
+         "tree13" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 25,
+               "posY" : 0,
+               "posZ" : 24,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1.200000047683716,
+               "scaleY" : 1.200000047683716,
+               "scaleZ" : 1.200000047683716
+            },
+            "type" : "generalentity"
+         },
+         "tree14" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -10,
+               "posY" : 0,
+               "posZ" : 18,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1.700000047683716,
+               "scaleY" : 1.700000047683716,
+               "scaleZ" : 1.700000047683716
+            },
+            "type" : "generalentity"
+         },
+         "tree15" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -10,
+               "posY" : 0,
+               "posZ" : 27,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1.899999976158142,
+               "scaleY" : 1.899999976158142,
+               "scaleZ" : 1.899999976158142
+            },
+            "type" : "generalentity"
+         },
+         "tree16" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -27,
+               "posY" : 0,
+               "posZ" : 5,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 3.400000095367432,
+               "scaleY" : 3.400000095367432,
+               "scaleZ" : 3.400000095367432
+            },
+            "type" : "generalentity"
+         },
+         "tree17" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 10,
+               "posY" : 0,
+               "posZ" : 13,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 10,
+               "scaleY" : 10,
+               "scaleZ" : 10
+            },
+            "type" : "generalentity"
+         },
+         "tree2" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 2,
+               "posY" : 0,
+               "posZ" : 12,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1.5,
+               "scaleY" : 1.5,
+               "scaleZ" : 1.5
+            },
+            "type" : "generalentity"
+         },
+         "tree3" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -3,
+               "posY" : 0,
+               "posZ" : 15,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "tree4" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -10,
+               "posY" : 0,
+               "posZ" : 20,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 3,
+               "scaleY" : 3,
+               "scaleZ" : 3
+            },
+            "type" : "generalentity"
+         },
+         "tree5" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 20,
+               "posY" : 0,
+               "posZ" : 17,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1.200000047683716,
+               "scaleY" : 1.200000047683716,
+               "scaleZ" : 1.200000047683716
+            },
+            "type" : "generalentity"
+         },
+         "tree6" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 6,
+               "posY" : 0,
+               "posZ" : 21,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 3.5,
+               "scaleY" : 3.5,
+               "scaleZ" : 3.5
+            },
+            "type" : "generalentity"
+         },
+         "tree7" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -20,
+               "posY" : 0,
+               "posZ" : 27,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 1.799999952316284,
+               "scaleY" : 1.799999952316284,
+               "scaleZ" : 1.799999952316284
+            },
+            "type" : "generalentity"
+         },
+         "tree8" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -18,
+               "posY" : 0,
+               "posZ" : 12,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 4,
+               "scaleY" : 4,
+               "scaleZ" : 4
+            },
+            "type" : "generalentity"
+         },
+         "tree9" : {
+            "components" : {
+               "ent1mesh" : {
+                  "OBJModel" : "data\\models\\tree.obj",
+                  "TextureFile" : "data\\images\\tree.tga",
+                  "id" : "ent1mesh",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 29,
+               "posY" : 0,
+               "posZ" : 13,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         }
+      },
+      "lights" : {
+         "light0" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 0,
+               "intensityR" : 0,
+               "posX" : -1,
+               "posY" : 7.5,
+               "posZ" : -24,
+               "surfaceReflectivityB_TEMP" : 1,
+               "surfaceReflectivityG_TEMP" : 1,
+               "surfaceReflectivityR_TEMP" : 1
+            }
+         },
+         "light1" : {
+            "lightparams" : {
+               "intensityB" : 0,
+               "intensityG" : 1,
+               "intensityR" : 0,
+               "posX" : 12,
+               "posY" : 2,
+               "posZ" : -1,
+               "surfaceReflectivityB_TEMP" : 1,
+               "surfaceReflectivityG_TEMP" : 1,
+               "surfaceReflectivityR_TEMP" : 1
+            }
+         },
+         "light2" : {
+            "lightparams" : {
+               "intensityB" : 0,
+               "intensityG" : 0,
+               "intensityR" : 1,
+               "posX" : 4,
+               "posY" : 2,
+               "posZ" : 5.5,
+               "surfaceReflectivityB_TEMP" : 1,
+               "surfaceReflectivityG_TEMP" : 1,
+               "surfaceReflectivityR_TEMP" : 1
+            }
+         },
+         "light3" : {
+            "lightparams" : {
+               "intensityB" : 0,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : 3.5,
+               "posY" : 2,
+               "posZ" : -6,
+               "surfaceReflectivityB_TEMP" : 1,
+               "surfaceReflectivityG_TEMP" : 1,
+               "surfaceReflectivityR_TEMP" : 1
+            }
+         },
+         "light4" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 0,
+               "posX" : -6,
+               "posY" : 2,
+               "posZ" : -10,
+               "surfaceReflectivityB_TEMP" : 1,
+               "surfaceReflectivityG_TEMP" : 1,
+               "surfaceReflectivityR_TEMP" : 1
+            }
+         },
+         "light5" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 0,
+               "intensityR" : 1,
+               "posX" : -6,
+               "posY" : 2,
+               "posZ" : 0,
+               "surfaceReflectivityB_TEMP" : 1,
+               "surfaceReflectivityG_TEMP" : 1,
+               "surfaceReflectivityR_TEMP" : 1
+            }
+         }
+      },
+      "menu" : false,
+      "messagehandlers" : true,
+      "name" : "testscene",
+      "sceneshader" : "data\\shaders\\basic3"
+   }
+}
