@@ -162,8 +162,8 @@ bool Scene::LoadScene(std::string filename)
 								{
 
 									objString = compVal2.asString();
-									//if ( rManager->getModel().find(objString) == rManager->getModel().end() ) 
-									//{
+									if ( rManager->getModel().find(objString) == rManager->getModel().end() ) 
+									{
 										ModelLoader* m_Loader = new ModelLoader();
 										Model* m = new Model();
 										m_Loader->loadFromfile(objString);
@@ -171,7 +171,7 @@ bool Scene::LoadScene(std::string filename)
 										m->normals = m_Loader->getNormals();
 										m->textureCoords = m_Loader->getTextureCoords();
 										rManager->addToModel(std::pair<std::string, Model*>(objString,m));
-									//}
+									}
 
 									/*if(!rManager->getModel().at(objString))
 									{
@@ -189,6 +189,7 @@ bool Scene::LoadScene(std::string filename)
 									g->addToComponentTextureFiles(compVal2.asString());
 									TextureLoader* t_Loader = new TextureLoader();
 									t_Loader->LoadTexture(textureString);
+									t_Loader->FlipImage();
 									rManager->addToTexture(std::pair<std::string, Texture*>(textureString,t_Loader->getTexture()));
 								}
 							}

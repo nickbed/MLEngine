@@ -48,7 +48,7 @@ void GUI::openFile()
 			ModelLoader mLoader(filename);
 			GameObject* g = new GameObject();
 			Model* m = new Model();
-			filename = filename.substr(filename.find_last_of("Data")-3);
+			filename = filename.substr(filename.find_last_of("data")-3);
 			std::string name = filename.substr(filename.find_last_of("\\")+1);
 
 			m->normals = mLoader.getNormals();
