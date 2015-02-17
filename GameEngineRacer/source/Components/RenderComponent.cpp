@@ -5,7 +5,7 @@ RenderComponent::RenderComponent()
 	rManager = ResourceManager::getInstance();
 };
 
-void RenderComponent::init(Model* model, Texture* nTexture, const std::string& shaderID)
+void RenderComponent::init(Model* model, Texture* nTexture)
 {
 	texture = nTexture;
 	m_model = *model;
@@ -74,6 +74,7 @@ void RenderComponent::update()
 	
 	gl::BindVertexArray(vaoHandle);
 	gl::DrawArrays(gl::TRIANGLES, 0,indicesCount );
+	gl::BindVertexArray(0);
 	gl::DisableVertexAttribArray(0);
 	gl::DisableVertexAttribArray(1);
 	gl::DisableVertexAttribArray(2);

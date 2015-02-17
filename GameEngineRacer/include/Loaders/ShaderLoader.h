@@ -20,7 +20,7 @@ private:
 public:
 	ShaderLoader();
 	~ShaderLoader();
-	void LoadShader(std::string nVert, std::string nFrag);
+	bool LoadShader(std::string nVert, std::string nFrag);
 
 	const std::string& getName(){return m_name;}; 
 	const GLuint& getFrag(){return m_fragShader;};

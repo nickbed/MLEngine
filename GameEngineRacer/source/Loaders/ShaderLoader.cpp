@@ -9,17 +9,20 @@ ShaderLoader::ShaderLoader()
 ShaderLoader::~ShaderLoader()
 {
 }
-void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
+bool ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 {
 	//////////////////////////////////////////////////////
 	/////////// Vertex shader //////////////////////////
 	//////////////////////////////////////////////////////
+
 	m_name = nVert;
+	m_name.erase(nVert.find_last_of("."));
+
 	// Load contents of file
 	std::ifstream inFile( nVert );
 	if (!inFile) {
 		fprintf(stderr, "Error opening file: shader\n" );
-		exit(1);
+		return false;
 	}
 
 	std::stringstream code;
@@ -31,7 +34,7 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 	m_vertShader = gl::CreateShader( gl::VERTEX_SHADER );
 	if (0 == m_vertShader) {
 		fprintf(stderr, "Error creating vertex shader.\n");
-		exit(EXIT_FAILURE);
+		return false;
 	}
 
 	// Load the source code into the shader object
@@ -58,6 +61,7 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 
 			free(log);
 		}
+		return false;
 	}
 
 	//////////////////////////////////////////////////////
@@ -68,7 +72,7 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 	std::ifstream fragFile( nFrag );
 	if (!fragFile) {
 		fprintf(stderr, "Error opening file: shader\n" );
-		exit(1);
+		return false;
 	}
 
 	std::stringstream fragCode;
@@ -80,7 +84,7 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 	m_fragShader = gl::CreateShader( gl::FRAGMENT_SHADER );
 	if (0 == m_fragShader) {
 		fprintf(stderr, "Error creating fragment shader.\n");
-		exit(1);
+		return false;
 	}
 
 	// Load the source code into the shader object
@@ -105,12 +109,14 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 			fprintf(stderr, "Shader log: \n%s", log);
 
 			free(log);
+
 		}
+		return false;
 	}
 	m_programHandle = gl::CreateProgram();
 	if(0 == m_programHandle) {
 		fprintf(stderr, "Error creating program object.\n");
-		exit(1);
+		return false;
 	}
 	
 	gl::AttachShader( m_programHandle, m_vertShader );
@@ -119,6 +125,6 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 	gl::LinkProgram( m_programHandle );
 	
 	
-	
+	return true;
 }
 

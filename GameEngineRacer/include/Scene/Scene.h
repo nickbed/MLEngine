@@ -53,8 +53,8 @@ private:
 public:
 	Scene();
 	~Scene();
-	bool LoadScene(std::string filename); //Loads gameobjects and shaders.
-	void InitScene(std::string loadSceneName); //Loads gameobjects and shaders.
+	bool LoadScene(const std::string& filename); //Loads gameobjects and shaders.
+	void InitScene(const std::string& loadSceneName); //Loads gameobjects and shaders.
 	void Update(bool keys[]);//Updates the current scene
 	void Render();
 	static void resize(int w,int h);

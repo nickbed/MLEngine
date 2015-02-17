@@ -25,9 +25,6 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{712d3ff8-8400-4f9d-93fe-53b6ee83b0c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GameObjects">
-      <UniqueIdentifier>{2203c748-bd27-4fe3-a9ba-e03d6ad11889}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameObjects">
       <UniqueIdentifier>{68098003-115f-4cb5-8856-5ed22ec6d650}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{3d4d99d0-cd0a-44cf-a198-56237b7b72de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI\GameObjects">
+      <UniqueIdentifier>{2203c748-bd27-4fe3-a9ba-e03d6ad11889}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,7 +81,7 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\GameObjects\GameObject.h">
-      <Filter>Header Files\GameObjects</Filter>
+      <Filter>Header Files\UI\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="include\Loaders\ModelLoader.h">
       <Filter>Header Files\Loaders</Filter>

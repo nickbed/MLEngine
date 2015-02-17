@@ -30,7 +30,7 @@ Scene::~Scene()
 	}
 
 }
-bool Scene::LoadScene(std::string filename)
+bool Scene::LoadScene(const std::string& filename)
 {
 	Json::Reader reader;
 	Json::Value root;
@@ -54,7 +54,29 @@ bool Scene::LoadScene(std::string filename)
 	}
 	///Storing the scene data from JSON
 	sceneData.name = root["scene"]["name"].asString();
-	sceneData.sceneShader = root["scene"]["sceneshader"].asString();
+	ShaderLoader sLoader;
+	if(sLoader.LoadShader(root["scene"]["sceneshader"].asString()+".vert", root["scene"]["sceneshader"].asString()+".Frag"))
+	{
+		sceneData.sceneShader = root["scene"]["sceneshader"].asString();
+		if (rManager->getShaders_const().find(sceneData.sceneShader) == rManager->getShaders_const().end() ) 
+		{
+			ShaderLoader m_sloader;
+			m_sloader.LoadShader(sceneData.sceneShader+".vert",sceneData.sceneShader+".Frag");
+			Shader* shader = new Shader();
+			shader->fragShader = m_sloader.getFrag();
+			shader->vertShader = m_sloader.getVert();
+			shader->programhandle = m_sloader.getProgramHandle();
+			std::pair<std::string, Shader*> shaderPair;
+			shaderPair.first = m_sloader.getName();
+			shaderPair.second = shader;
+			rManager->addToShader(shaderPair);
+		}
+	}
+	else 
+	{
+		sceneData.sceneShader = "data\\shaders\\basic3.vert";
+	}
+
 	activeCamera = sceneData.currentCamera = root["scene"]["currentcamera"].asString();
 	sceneData.currentLight = root["scene"]["currentlight"].asString();
 	sceneData.messageHandlers =	root["scene"]["messagehandlers"].asBool();
@@ -162,8 +184,8 @@ bool Scene::LoadScene(std::string filename)
 								{
 
 									objString = compVal2.asString();
-								//	if ( rManager->getModel().find(objString) == rManager->getModel().end() ) 
-									//{
+									if (rManager->getModel_const().find(objString) == rManager->getModel_const().end() ) 
+									{
 										ModelLoader* m_Loader = new ModelLoader();
 										Model* m = new Model();
 										m_Loader->loadFromfile(objString);
@@ -171,7 +193,7 @@ bool Scene::LoadScene(std::string filename)
 										m->normals = m_Loader->getNormals();
 										m->textureCoords = m_Loader->getTextureCoords();
 										rManager->addToModel(std::pair<std::string, Model*>(objString,m));
-									//}
+									}
 
 									/*if(!rManager->getModel().at(objString))
 									{
@@ -187,13 +209,16 @@ bool Scene::LoadScene(std::string filename)
 								{
 									textureString = compVal2.asString();
 									g->addToComponentTextureFiles(compVal2.asString());
-									TextureLoader* t_Loader = new TextureLoader();
-									t_Loader->LoadTexture(textureString);
-									t_Loader->FlipImage();
-									rManager->addToTexture(std::pair<std::string, Texture*>(textureString,t_Loader->getTexture()));
+									if (rManager->getTextures_const().find(textureString) == rManager->getTextures_const().end() ) 
+									{
+										TextureLoader* t_Loader = new TextureLoader();
+										t_Loader->LoadTexture(textureString);
+										t_Loader->FlipImage();
+										rManager->addToTexture(std::pair<std::string, Texture*>(textureString,t_Loader->getTexture()));
+									}
 								}
 							}
-							g->getRenderComp()->init(rManager->getModel().at(objString), rManager->getTexture().at(textureString), sceneData.sceneShader);
+							g->getRenderComp()->init(rManager->getModel().at(objString), rManager->getTexture().at(textureString));
 							//g->getTransformComp()->Rotate(
 						}
 					}
@@ -385,7 +410,7 @@ void Scene::loadDefaults()
 	shaderPair2.second = shader2;
 	rManager->addToShader(shaderPair2);
 }
-void Scene::InitScene(std::string loadSceneName)//Loads gameobjects and shaders.
+void Scene::InitScene(const std::string& loadSceneName)//Loads gameobjects and shaders.
 {
 
 
@@ -407,12 +432,18 @@ void Scene::InitScene(std::string loadSceneName)//Loads gameobjects and shaders.
 		sceneData.currentLight = "default";
 		sceneData.menu = false;
 		sceneData.messageHandlers = false;
-		sceneData.sceneShader = "data\\shaders\\basic3.vert";
+		sceneData.sceneShader = "data\\shaders\\basic3";
 
 		//exit(EXIT_FAILURE);
 	}
-
-	programHandle = rManager->getShaders().at(sceneData.sceneShader)->programhandle;
+	if (rManager->getShaders_const().find(sceneData.sceneShader) == rManager->getShaders_const().end() ) 
+	{
+		programHandle = rManager->getShaders().at(sceneData.sceneShader)->programhandle;
+	}
+	else
+	{
+		programHandle = rManager->getShaders().at("data\\shaders\\basic3")->programhandle;
+	}
 
 	if(gameObjects.size() != 0 )
 	{

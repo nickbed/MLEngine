@@ -44,6 +44,9 @@ public:
 	std::unordered_map<std::string, Shader*> getShaders(){return m_shaders;};
 	std::unordered_map<std::string, Model*> getModel(){return m_model;};
 	std::unordered_map<std::string, Texture*> getTexture() {return m_textures;};
+	std::unordered_map<std::string, Model*>const &  getModel_const()const {return m_model;};
+	std::unordered_map<std::string, Shader*>const &  getShaders_const()const {return m_shaders;};
+	std::unordered_map<std::string, Texture*>const &  getTextures_const()const {return m_textures;};
 };
 #endif
 

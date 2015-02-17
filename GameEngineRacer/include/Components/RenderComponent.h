@@ -25,7 +25,7 @@ private:
 	Texture* texture;
 public:
 	RenderComponent();
-	void init( Model* model, Texture* nTexture, const std::string& shaderID);
+	void init( Model* model, Texture* nTexture);
 	void update();
 };
 #endif

@@ -32,7 +32,7 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 	OPENFILENAME ofn={0};
 	char szFileName[MAX_PATH]={0};
 	ofn.lStructSize=sizeof(OPENFILENAME);
-	ofn.Flags=OFN_EXPLORER|OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST;
+	ofn.Flags=OFN_EXPLORER|OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST|OFN_NOCHANGEDIR;
 	ofn.lpstrFilter = "Obj Files\0*.OBJ\0Scene Files\0*.scn\0";
 	ofn.lpstrFile=szFileName;
 	ofn.nMaxFile=MAX_PATH;
@@ -48,8 +48,9 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			ModelLoader mLoader;
 			GameObject* g = new GameObject();
 			Model* m = new Model();
+			filename = filename.substr(filename.find("data"));
 			std::string name = filename.substr(filename.find_last_of("/\\")+1);
-			mLoader.loadFromfile(name);
+			mLoader.loadFromfile(filename);
 			m->normals = mLoader.getNormals();
 			m->verts = mLoader.getVerts();
 			m->textureCoords = mLoader.getTextureCoords();
@@ -64,10 +65,10 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			g->addToComponentTYPE("mesh");
 			g->addToComponentModelFiles(filename);
 			g->addToComponentTextureFiles("data\\images\\default.png");
-			g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\default.png"),m_scene->getSceneData().sceneShader);
+			g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\default.png"));
 			g->getRenderComp()->update();
 			m_scene->addGameObject(g);
-			TwRemoveAllVars(bar);
+			//TwRemoveAllVars(bar);
 			updateLayout();
 
 
@@ -77,10 +78,11 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 		{
 			rManager->clearAll();
 			Scene* newScene = new Scene();
-			std::string name = filename.substr(filename.find_last_of("/\\")+1);
+			//std::string name = filename.substr(filename.find();
+
 			++activeScene;
 			scene.push_back(newScene);
-			scene.at(activeScene)->InitScene(name);
+			scene.at(activeScene)->InitScene(filename);
 		}
 
 
