@@ -40,45 +40,33 @@
          "tree7",
          "tree8",
          "tree9"
+         
       ],
       "cameras" : {
-         "" : {
+         "camera0" : {
             "camerasetup" : {
-               "fov" : 50,
+               "fov" : 80,
                "lookX" : 0,
                "lookY" : 0,
                "lookZ" : 0,
                "pitch" : 0,
-               "posX" : 0,
-               "posY" : 1,
-               "posZ" : -5,
+               "posX" : 5,
+               "posY" : 2.5,
+               "posZ" : -1.899999976158142,
                "yaw" : 0
-            }
-         },
-         "camera0" : {
-            "camerasetup" : {
-               "fov" : 80,
-               "lookX" : 7.407233238220215,
-               "lookY" : 4.014221668243408,
-               "lookZ" : -3.336401224136353,
-               "pitch" : 0.2280000746250153,
-               "posX" : 13.1076135635376,
-               "posY" : 5.548677444458008,
-               "posZ" : 4.35380744934082,
-               "yaw" : -0.6589998006820679
             }
          },
          "camera1" : {
             "camerasetup" : {
                "fov" : 80,
-               "lookX" : 47.12997436523438,
-               "lookY" : 17.96144485473633,
-               "lookZ" : 0.3522518575191498,
-               "pitch" : -0.006999999284744263,
-               "posX" : 50.89846801757813,
-               "posY" : 19.35792922973633,
-               "posZ" : 1.506056308746338,
-               "yaw" : -0.001000036601908505
+               "lookX" : 4,
+               "lookY" : 9,
+               "lookZ" : -1,
+               "pitch" : 0,
+               "posX" : 5,
+               "posY" : 10,
+               "posZ" : -2,
+               "yaw" : 0
             }
          },
          "camera2" : {
@@ -97,40 +85,14 @@
          "camera3" : {
             "camerasetup" : {
                "fov" : 70,
-               "lookX" : -60.56060409545898,
-               "lookY" : 30.92426490783691,
-               "lookZ" : -16.81064414978027,
-               "pitch" : -0.2129999846220017,
-               "posX" : -128.6398162841797,
-               "posY" : 63.68184280395508,
-               "posZ" : -26.87522125244141,
-               "yaw" : 1.287000298500061
-            }
-         },
-         "cameraload" : {
-            "camerasetup" : {
-               "fov" : 90,
-               "lookX" : -58.31294250488281,
-               "lookY" : 24.32890892028809,
-               "lookZ" : 17.76021766662598,
-               "pitch" : -0.4029999077320099,
-               "posX" : -80.77095794677734,
-               "posY" : 33.12706756591797,
-               "posZ" : 24.32071876525879,
-               "yaw" : 1.716001391410828
-            }
-         },
-         "cameraload1" : {
-            "camerasetup" : {
-               "fov" : 50,
-               "lookX" : 0,
-               "lookY" : 0,
-               "lookZ" : 0,
-               "pitch" : -0.2809999287128449,
-               "posX" : -15.56379890441895,
-               "posY" : 6.884803295135498,
-               "posZ" : -18.31303596496582,
-               "yaw" : 0.6900001168251038
+               "lookX" : 0.2804850339889526,
+               "lookY" : 2.309463262557983,
+               "lookZ" : -8.863419532775879,
+               "pitch" : -0.1619999706745148,
+               "posX" : -75.47100830078125,
+               "posY" : 34.34564208984375,
+               "posZ" : -2.913168430328369,
+               "yaw" : 1.577999711036682
             }
          }
       },
@@ -257,9 +219,9 @@
                }
             },
             "transform" : {
-               "posX" : -1,
-               "posY" : 7.5,
-               "posZ" : -24,
+               "posX" : -5,
+               "posY" : 550,
+               "posZ" : -10,
                "rotateX" : 0,
                "rotateY" : 0,
                "rotateZ" : 0,
@@ -279,9 +241,9 @@
                }
             },
             "transform" : {
-               "posX" : 12,
+               "posX" : -6,
                "posY" : 2,
-               "posZ" : -1,
+               "posZ" : -10,
                "rotateX" : 0,
                "rotateY" : 0,
                "rotateZ" : 0,
@@ -301,9 +263,9 @@
                }
             },
             "transform" : {
-               "posX" : 4,
+               "posX" : -6,
                "posY" : 2,
-               "posZ" : 5.5,
+               "posZ" : -10,
                "rotateX" : 0,
                "rotateY" : 0,
                "rotateZ" : 0,
@@ -323,9 +285,9 @@
                }
             },
             "transform" : {
-               "posX" : 3.5,
+               "posX" : -6,
                "posY" : 2,
-               "posZ" : -6,
+               "posZ" : -10,
                "rotateX" : 0,
                "rotateY" : 0,
                "rotateZ" : 0,
@@ -1026,9 +988,9 @@
                "intensityB" : 1,
                "intensityG" : 0,
                "intensityR" : 0,
-               "posX" : -1,
-               "posY" : 7.5,
-               "posZ" : -24,
+               "posX" : -5,
+               "posY" : 550,
+               "posZ" : -10,
                "surfaceReflectivityB_TEMP" : 1,
                "surfaceReflectivityG_TEMP" : 1,
                "surfaceReflectivityR_TEMP" : 1
@@ -1039,9 +1001,9 @@
                "intensityB" : 0,
                "intensityG" : 1,
                "intensityR" : 0,
-               "posX" : 12,
+               "posX" : -6,
                "posY" : 2,
-               "posZ" : -1,
+               "posZ" : -10,
                "surfaceReflectivityB_TEMP" : 1,
                "surfaceReflectivityG_TEMP" : 1,
                "surfaceReflectivityR_TEMP" : 1
@@ -1052,9 +1014,9 @@
                "intensityB" : 0,
                "intensityG" : 0,
                "intensityR" : 1,
-               "posX" : 4,
+               "posX" : -6,
                "posY" : 2,
-               "posZ" : 5.5,
+               "posZ" : -10,
                "surfaceReflectivityB_TEMP" : 1,
                "surfaceReflectivityG_TEMP" : 1,
                "surfaceReflectivityR_TEMP" : 1
@@ -1065,9 +1027,9 @@
                "intensityB" : 0,
                "intensityG" : 1,
                "intensityR" : 1,
-               "posX" : 3.5,
+               "posX" : -6,
                "posY" : 2,
-               "posZ" : -6,
+               "posZ" : -10,
                "surfaceReflectivityB_TEMP" : 1,
                "surfaceReflectivityG_TEMP" : 1,
                "surfaceReflectivityR_TEMP" : 1
@@ -1103,6 +1065,6 @@
       "menu" : false,
       "messagehandlers" : true,
       "name" : "testscene",
-      "sceneshader" : "data\\shaders\\basic3"
+      "sceneshader" : "data\\shaders\\basic3.vert"
    }
 }

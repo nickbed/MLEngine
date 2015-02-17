@@ -27,11 +27,9 @@
     <ClInclude Include="include\3rdParty\Texture.h" />
     <ClInclude Include="include\Components\AnimationComponent.h" />
     <ClInclude Include="include\Components\RenderComponent.h" />
-    <ClInclude Include="include\Components\ShaderComponent.h" />
     <ClInclude Include="include\Components\TransformComponent.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObjects\GameObject.h" />
-    <ClInclude Include="include\Loaders\AnimationLoader.h" />
     <ClInclude Include="include\Loaders\ModelLoader.h" />
     <ClInclude Include="include\Loaders\ShaderLoader.h" />
     <ClInclude Include="include\Loaders\TextureLoader.h" />
@@ -48,11 +46,9 @@
     <ClCompile Include="source\3rdParty\Texture.cpp" />
     <ClCompile Include="source\Components\AnimationComponent.cpp" />
     <ClCompile Include="source\Components\RenderComponent.cpp" />
-    <ClCompile Include="source\Components\ShaderComponent.cpp" />
     <ClCompile Include="source\Components\TransformComponent.cpp" />
     <ClCompile Include="source\Game.cpp" />
     <ClCompile Include="source\GameObjects\GameObject.cpp" />
-    <ClCompile Include="source\Loaders\AnimationLoader.cpp" />
     <ClCompile Include="source\Loaders\ModelLoader.cpp" />
     <ClCompile Include="source\Loaders\ShaderLoader.cpp" />
     <ClCompile Include="source\Loaders\TextureLoader.cpp" />

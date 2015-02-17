@@ -77,17 +77,11 @@
     <ClInclude Include="include\Components\RenderComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\ShaderComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="include\Components\TransformComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\GameObjects\GameObject.h">
       <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Loaders\AnimationLoader.h">
-      <Filter>Header Files\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="include\Loaders\ModelLoader.h">
       <Filter>Header Files\Loaders</Filter>
@@ -133,17 +127,11 @@
     <ClCompile Include="source\Components\RenderComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="source\Components\ShaderComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="source\Components\TransformComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="source\GameObjects\GameObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Loaders\AnimationLoader.cpp">
-      <Filter>Source Files\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="source\Loaders\ModelLoader.cpp">
       <Filter>Source Files\Loaders</Filter>

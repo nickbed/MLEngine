@@ -18,13 +18,7 @@ void ShaderComponent::SetShader(const std::string& shaderName)
 }
 void ShaderComponent::Render()
 {
-	/*GLuint loc= gl::GetUniformLocation(programHandle, "frag");
-	gl::Uniform1i(loc, false);*/
 
-    //gl::UseProgram( programHandle );
-
-
-	
 }
 
 

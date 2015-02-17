@@ -16,7 +16,7 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 	//////////////////////////////////////////////////////
 	m_name = nVert;
 	// Load contents of file
-	std::ifstream inFile( "shader/"+nVert+".vert" );
+	std::ifstream inFile( nVert );
 	if (!inFile) {
 		fprintf(stderr, "Error opening file: shader\n" );
 		exit(1);
@@ -65,7 +65,7 @@ void ShaderLoader::LoadShader(std::string nVert, std::string nFrag)
 	//////////////////////////////////////////////////////
 	
 	// Load contents of file into shaderCode here
-	std::ifstream fragFile( "shader/"+nFrag+".Frag" );
+	std::ifstream fragFile( nFrag );
 	if (!fragFile) {
 		fprintf(stderr, "Error opening file: shader\n" );
 		exit(1);

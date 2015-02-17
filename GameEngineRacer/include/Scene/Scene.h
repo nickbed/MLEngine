@@ -65,7 +65,10 @@ public:
 
 	const Json::Value Scene::createJson();
 
+	
 	const SceneJsonData& getSceneData()const {return sceneData;};
+
+	void loadDefaults();
 	std::vector<Light>& getLights() {return lights;};
 	const std::string& getFileName(){return filename;};
 	const std::vector<GameObject*> GetGameObjects()const{return gameObjects;};

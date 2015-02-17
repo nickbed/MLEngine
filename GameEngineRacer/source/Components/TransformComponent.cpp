@@ -10,9 +10,6 @@ TransformComponent::TransformComponent():
 void TransformComponent::Init()
 {
 	
-	
-
-
 }
 void TransformComponent::setRotate(const glm::vec3& rotate)
 {
@@ -26,24 +23,19 @@ void TransformComponent::setTranslate(const glm::vec3& translate)
 void TransformComponent::Update()
 {
 	
-
-	
 }
 void TransformComponent::Rotate(float nx, float ny, float nz)
 {
 	m_rotate.x += nx;
 	m_rotate.y += ny;
 	m_rotate.z += nz;
-	
-	
+
 }
 void TransformComponent::Translate(float nx, float ny, float nz)
 {
 	m_translate.x += nx;
 	m_translate.y += ny;
 	m_translate.z += nz;
-	
-	
 }
 void TransformComponent::Scale(float nx, float ny, float nz)
 {

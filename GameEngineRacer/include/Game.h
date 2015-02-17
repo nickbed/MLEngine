@@ -11,6 +11,7 @@
 #include "UI\GUI.h"
 #include "ResourceManager.h"
 #include "UI\UI.h"
+#include <vector>
 
 #define PI 3.14159265359
 //inline void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods){TwEventMouseButtonGLFW(button, action);}
@@ -25,7 +26,7 @@ private:
 	UI ui;
 	ResourceManager* rManager;
 	float x1,y1,z1,rot,speed, turnSpeed;
-	Scene* scene[2];
+	std::vector<Scene*> scene;
 	int activeScene;
 	static bool keys[1024];
 	static float zoom;

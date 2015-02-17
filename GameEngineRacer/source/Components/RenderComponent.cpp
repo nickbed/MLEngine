@@ -52,6 +52,10 @@ void RenderComponent::init(Model* model, Texture* nTexture, const std::string& s
 	gl::Enable(gl::DEPTH_TEST);
 	gl::DepthFunc(gl::LESS);
 	gl::Enable(gl::BLEND);
+
+	
+	gl::BindVertexArray(vaoHandle);
+	gl::DrawArrays(gl::TRIANGLES, 0,indicesCount );
 	/*gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_S, gl::REPEAT);
 	gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_R, gl::REPEAT);
 	gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_T, gl::REPEAT);*/

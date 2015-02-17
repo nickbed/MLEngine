@@ -5,11 +5,9 @@ GameObject::GameObject()
 	m_renderer = NULL;
 	m_transform = NULL;
 	m_anim = NULL;
-	m_shader = NULL;
 	m_rManager = ResourceManager::getInstance();
 	m_renderer = new RenderComponent();
 	m_transform = new TransformComponent();
-	m_shader = new ShaderComponent();
 }
 GameObject::GameObject(std::string nName)
 {
@@ -17,22 +15,18 @@ GameObject::GameObject(std::string nName)
 	m_name = nName;
 	m_renderer = NULL;
 	m_transform = NULL;
-	m_shader = NULL;
 	m_rManager = ResourceManager::getInstance();
 	m_renderer = new RenderComponent();
 	m_transform = new TransformComponent();
-	m_shader = new ShaderComponent();
 }
 GameObject::~GameObject()
 {
 	delete m_renderer;
 	delete m_transform;
-	delete m_shader;
 	delete m_anim;
 	m_anim = NULL;
 	m_renderer = NULL;
 	m_transform = NULL;
-	m_shader = NULL;
 }
 void GameObject::setEntityType(const std::string& entityType)
 {
@@ -61,8 +55,6 @@ void GameObject::update(bool keys[])
 
 void GameObject::render()
 {
-	
-	m_shader->Render();
 	m_renderer->update();
 }
 bool GameObject::addComponent(std::string nName)

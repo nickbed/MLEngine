@@ -48,19 +48,24 @@ void GUI::openFile()
 			ModelLoader mLoader(filename);
 			GameObject* g = new GameObject();
 			Model* m = new Model();
-			filename = filename.substr(filename.find_last_of("\\")+1);
+			filename = filename.substr(filename.find_last_of("Data")-3);
+			std::string name = filename.substr(filename.find_last_of("\\")+1);
 
 			m->normals = mLoader.getNormals();
 			m->verts = mLoader.getVerts();
 			m->textureCoords = mLoader.getTextureCoords();
-			g->setEntityType("generalEntity");
-			g->addToComponentModelFiles(filename);
-			g->addToComponentTextureFiles("data\\images\\default.png");
+			rManager->addToModel(std::pair<std::string, Model*>(filename,m));
+			g->setEntityType("generalentity");
 			g->getTransformComp()->Translate(0.0,0.0,0.0);
 			g->getTransformComp()->Scale(1.0, 1.0, 1.0);
 			g->getTransformComp()->Rotate(0.0, 0.0, 0.0);
 			g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\default.png"),m_scene->getSceneData().sceneShader);
-			g->setName(filename);
+			g->setName(name);
+			g->addToComponentID(name);
+			g->addToComponentTYPE("mesh");
+			g->addToComponentModelFiles(filename);
+			g->addToComponentTextureFiles("data\\images\\default.png");
+			g->init(rManager->getShaders().begin()->first);
 			m_scene->addGameObject(g);
 			TwRemoveAllVars(bar);
 			updateLayout();
@@ -70,7 +75,7 @@ void GUI::openFile()
 			Scene* newScene = new Scene();
 			newScene->LoadScene(filename);
 		}
-		
+
 
 	}
 
@@ -97,13 +102,13 @@ void GUI::saveData()
 	}
 
 
-	
+
 }
 
 void GUI::updateLayout()
 {
 
-	
+
 	for(unsigned int i=0; i<m_scene->GetGameObjects().size(); ++i)  // Add 'maxLights' variables of type lightType; 
 	{                               // unused lights variables (over NumLights) will hidden by Scene::Update( )
 		objects[i].x = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().x;
@@ -121,9 +126,14 @@ void GUI::updateLayout()
 		std::string grouping = "group="+m_scene->GetGameObjects().at(i)->getEntityType();//Creates the string for grouping.
 		TwAddVarRW(bar, objects[i].Name, modelType, &objects[i], grouping.c_str());//Creates Type Grouping.
 
+
 		char paramValue[64];
 		_snprintf(paramValue, sizeof(paramValue), "%s", m_scene->GetGameObjects().at(i)->getName().c_str());
 		TwSetParam(bar, objects[i].Name, "label", TW_PARAM_CSTRING, 1, paramValue); // Set label
+
+		
+
+
 		std::string fold = "GameEngine/"+m_scene->GetGameObjects().at(i)->getEntityType()+" opened='false'";
 		TwDefine(fold.c_str());
 
@@ -144,12 +154,12 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 	bar = TwNewBar("GameEngine");
 	TwStructMember objectMembers[] = // array used to describe tweakable variables of the Light structure
 	{
-		{ "Translate X",    TW_TYPE_FLOAT, offsetof(Object, x),    " help='Translates the object in X.' " },   // Light::Active is a C++ boolean value
-		{ "Translate Y",     TW_TYPE_FLOAT, offsetof(Object, y),     " help='Translates the object in Y.' " },        // Light::Color is represented by 4 floats, but alpha channel should be ignored
-		{ "Translate Z",    TW_TYPE_FLOAT,   offsetof(Object, z),    " help='Translates the object in Z.' " },
-		{ "Rotate X", TW_TYPE_FLOAT,        offsetof(Object, xR), " help='Rotate in the X.' " },  // use the enum 'modeType' created before to tweak the Light::Animation variable
-		{ "Rotate Y",     TW_TYPE_FLOAT,   offsetof(Object, yR),    "  help='Rotate in the Y.' " }, // Light::Speed is made read-only
-		{ "Rotate Z",     TW_TYPE_FLOAT,   offsetof(Object, zR),    "  help='Rotate in the Z.' " } // Light::Speed is made read-only
+		{ "Translate X",    TW_TYPE_FLOAT, offsetof(Object, x),    " help='Translates the object in X.' step=0.1" },   // Light::Active is a C++ boolean value
+		{ "Translate Y",     TW_TYPE_FLOAT, offsetof(Object, y),     " help='Translates the object in Y.' step=0.1" },        // Light::Color is represented by 4 floats, but alpha channel should be ignored
+		{ "Translate Z",    TW_TYPE_FLOAT,   offsetof(Object, z),    " help='Translates the object in Z.' step=0.1" },
+		{ "Rotate X", TW_TYPE_FLOAT,        offsetof(Object, xR), " help='Rotate in the X.' step=0.1" },  // use the enum 'modeType' created before to tweak the Light::Animation variable
+		{ "Rotate Y",     TW_TYPE_FLOAT,   offsetof(Object, yR),    "  help='Rotate in the Y.' step=0.1" }, // Light::Speed is made read-only
+		{ "Rotate Z",     TW_TYPE_FLOAT,   offsetof(Object, zR),    "  help='Rotate in the Z.' step=0.1" } // Light::Speed is made read-only
 	};
 
 	modelType = TwDefineStruct("Object", objectMembers, 6, sizeof(Object), NULL, NULL);  // create a new TwType associated to the struct defined by the lightMembers array

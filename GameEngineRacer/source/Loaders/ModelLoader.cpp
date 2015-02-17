@@ -24,7 +24,7 @@ void ModelLoader::loadFromfile(const std::string& nfileName)
 	if(!input.is_open())
 	{
 		std::cout << "Object not found" << std::endl;
-		return;
+		exit(EXIT_FAILURE);
 	}
 	std::cout << "Loading...\n";
 

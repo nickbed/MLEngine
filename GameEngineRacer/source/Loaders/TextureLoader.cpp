@@ -16,8 +16,7 @@ TextureLoader::~TextureLoader()
 void TextureLoader::LoadTexture(std::string filename)
 {
 	m_name = filename;
-	Bitmap temp = Bitmap::bitmapFromFile("Texture/"+filename);
-	flip = temp;
+	flip = Bitmap::bitmapFromFile(filename);
 	
 }
 

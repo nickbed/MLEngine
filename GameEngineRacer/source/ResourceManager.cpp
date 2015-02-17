@@ -3,12 +3,14 @@
 
 bool ResourceManager::instanceFlag = false;
 ResourceManager * ResourceManager::m_rManager = NULL;
-ResourceManager::ResourceManager()
+ResourceManager::ResourceManager():
+	m_model(), 
+	m_shaders(),
+	m_textures() 
 {
-	m_tLoader = new TextureLoader();
+	/*m_tLoader = new TextureLoader();
 	m_sLoader = new ShaderLoader();
-	m_mLoader = new ModelLoader();
-	m_aLoader = new AnimationLoader();
+	m_mLoader = new ModelLoader();*/
 }
 ResourceManager* ResourceManager::getInstance()
 {
@@ -24,11 +26,10 @@ ResourceManager* ResourceManager::getInstance()
 
 ResourceManager::~ResourceManager()
 {
-	delete m_tLoader;
+   /*delete m_tLoader;
 	delete m_rManager;
 	delete m_sLoader;
-	delete m_mLoader;
-	delete m_aLoader;
+	delete m_mLoader;*/
 	for(auto it = m_shaders.begin(); it != m_shaders.end(); ++it)
 	{
 		delete (*it).second;
@@ -44,13 +45,27 @@ ResourceManager::~ResourceManager()
 		delete (*it).second;
 		(*it).second = NULL;
 	}
-	m_mLoader = NULL;
+	/*m_mLoader = NULL;
 	m_sLoader = NULL;
 	m_rManager = NULL;
-	m_aLoader = NULL;
-	m_tLoader = NULL;
+	m_tLoader = NULL;*/
 }
-bool ResourceManager::LoadMaster(const std::string& filename)//Will load a file containing all resources.
+
+void  ResourceManager::addToModel(const std::pair<std::string, Model*>& pair)
+{
+	m_model.insert(pair);
+}
+void ResourceManager::addToShader(const std::pair<std::string, Shader*>& pair)
+{
+	m_shaders.insert(pair);
+}
+void ResourceManager::addToTexture(const std::pair<std::string, Texture*>& pair)
+{
+	m_textures.insert(pair);
+}
+
+
+/*bool ResourceManager::LoadMaster(const std::string& filename)//Will load a file containing all resources.
 {
 	std::ifstream input;
 	std::stringstream ss;
@@ -61,7 +76,7 @@ bool ResourceManager::LoadMaster(const std::string& filename)//Will load a file 
 	std::pair<std::string,Shader*> shaderPair;
 	std::pair<std::string,Texture*> texturePair;
 	int i=0;
-	input.open("Master/"+filename+".txt");
+	input.open(filename);
 	if(!input.is_open())
 	{
 		std::cout << "file not found" << std::endl;
@@ -151,7 +166,7 @@ bool ResourceManager::LoadMaster(const std::string& filename)//Will load a file 
 	}
 	input.close();
 	return true;
-}
+}*/
 
 void ResourceManager::clearAll()
 {

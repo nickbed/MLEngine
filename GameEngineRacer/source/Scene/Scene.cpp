@@ -4,11 +4,13 @@ std::string Scene::activeCamera = "default";
 std::unordered_map<std::string, Camera*> Scene::cameras;
 Scene::Scene()
 {
+	rManager = ResourceManager::getInstance();
 	std::pair<std::string, Camera*> cameraPair;
 	cameraPair.first = "default";
 	cameraPair.second = new Camera();
 	cameras.insert(cameraPair);
 	cameras.at("default")->init();
+	cameras.find("default")->second->setName("default");
 	for(auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
 	{
 		*it = NULL;
@@ -37,7 +39,7 @@ bool Scene::LoadScene(std::string filename)
 
 
 	//std::size_t found;
-	input.open("Scene/"+filename+".scn");
+	input.open(filename);
 	if(!input.is_open())
 	{
 		std::cout << "file not found use .scn file extension" << std::endl;
@@ -160,6 +162,17 @@ bool Scene::LoadScene(std::string filename)
 								{
 
 									objString = compVal2.asString();
+									//if ( rManager->getModel().find(objString) == rManager->getModel().end() ) 
+									//{
+										ModelLoader* m_Loader = new ModelLoader();
+										Model* m = new Model();
+										m_Loader->loadFromfile(objString);
+										m->verts = m_Loader->getVerts();
+										m->normals = m_Loader->getNormals();
+										m->textureCoords = m_Loader->getTextureCoords();
+										rManager->addToModel(std::pair<std::string, Model*>(objString,m));
+									//}
+
 									/*if(!rManager->getModel().at(objString))
 									{
 									Model* m = new Model();
@@ -174,6 +187,9 @@ bool Scene::LoadScene(std::string filename)
 								{
 									textureString = compVal2.asString();
 									g->addToComponentTextureFiles(compVal2.asString());
+									TextureLoader* t_Loader = new TextureLoader();
+									t_Loader->LoadTexture(textureString);
+									rManager->addToTexture(std::pair<std::string, Texture*>(textureString,t_Loader->getTexture()));
 								}
 							}
 							g->getRenderComp()->init(rManager->getModel().at(objString), rManager->getTexture().at(textureString), sceneData.sceneShader);
@@ -259,7 +275,7 @@ bool Scene::LoadScene(std::string filename)
 		Json::Value cameraKey = cameraIter.key();
 		Json::Value cameraVal = (*cameraIter);
 		std::pair<std::string, Camera*> cameraPair;
-		
+
 		Camera* camera = new Camera();
 		camera->init();
 		glm::vec3 position;
@@ -332,20 +348,70 @@ bool Scene::LoadScene(std::string filename)
 
 	return true;
 }
+
+void Scene::loadDefaults()
+{
+	TextureLoader* t_loader = new TextureLoader();
+	t_loader->LoadTexture("data\\images\\holstein1.png");
+	std::pair<std::string, Texture*> texturePair;
+	texturePair.first = t_loader->getName();
+	texturePair.second = t_loader->getTexture();
+	rManager->addToTexture(texturePair);
+	std::pair<std::string, Texture*> texturePair2;
+	t_loader->LoadTexture("data\\images\\default.png");
+	texturePair2.first = t_loader->getName();
+	texturePair2.second = t_loader->getTexture();
+	rManager->addToTexture(texturePair2);
+
+	ShaderLoader m_sloader;
+	m_sloader.LoadShader("data\\shaders\\basic3.vert","data\\shaders\\basic3.Frag");
+	Shader* shader = new Shader();
+	shader->fragShader = m_sloader.getFrag();
+	shader->vertShader = m_sloader.getVert();
+	shader->programhandle = m_sloader.getProgramHandle();
+	std::pair<std::string, Shader*> shaderPair;
+	shaderPair.first = m_sloader.getName();
+	shaderPair.second = shader;
+	rManager->addToShader(shaderPair);
+
+	m_sloader.LoadShader("data\\shaders\\TextVertexShader.vert", "data\\shaders\\TextVertexShader.Frag");
+	Shader* shader2 = new Shader();
+	shader2->fragShader = m_sloader.getFrag();
+	shader2->vertShader = m_sloader.getVert();
+	shader2->programhandle = m_sloader.getProgramHandle();
+	std::pair<std::string, Shader*> shaderPair2;
+	shaderPair2.first = m_sloader.getName();
+	shaderPair2.second = shader2;
+	rManager->addToShader(shaderPair2);
+}
 void Scene::InitScene(std::string loadSceneName)//Loads gameobjects and shaders.
 {
+
+
 	filename = loadSceneName;
-	rManager = ResourceManager::getInstance();
+
+
+	loadDefaults();
+
 	if(!LoadScene(loadSceneName))
 	{
-		std::cout << "error loading scene\n";
+		/////Default Params
+
+
+
+
+		std::cout << "error loading scene\n Default data is provided.\n";
+		sceneData.name = "Default";
+		sceneData.currentCamera = "default";
+		sceneData.currentLight = "default";
+		sceneData.menu = false;
+		sceneData.messageHandlers = false;
+		sceneData.sceneShader = "data\\shaders\\basic3.vert";
+
+		//exit(EXIT_FAILURE);
 	}
 
-
 	programHandle = rManager->getShaders().at(sceneData.sceneShader)->programhandle;
-
-
-
 
 	if(gameObjects.size() != 0 )
 	{
@@ -383,13 +449,13 @@ void Scene::Update(bool keys[])//Updates the scene running in a loop
 }
 void Scene::Render()
 {
-	
+
 	gl::UseProgram(rManager->getShaders().at(sceneData.sceneShader)->programhandle);
 
 	setLightParams();
 	for(auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
 	{
-		
+
 		model = glm::mat4(1);
 
 
@@ -422,7 +488,7 @@ void Scene::nextCamera()
 	{
 		if(it->first == activeCamera)
 		{
-			
+
 			if(it == --cameras.end())//
 			{
 				it = cameras.begin();

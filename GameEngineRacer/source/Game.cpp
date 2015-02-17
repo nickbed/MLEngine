@@ -3,18 +3,12 @@
 float Game::zoom;
 bool Game::keys[1024]= {false};
 
-Game::Game(){
+Game::Game():activeScene(0)
+
+{
 	//scene = new CubeScene();
-	scene[1] = new Scene();
-	scene[0] = new Scene();
+	scene.push_back(new Scene());
 	gui = new GUI();
-	speed = 0.5f;
-	turnSpeed = 5.5f;
-	activeScene =0;
-	x1 = 0;
-	y1=0;
-	z1=0;
-	rot=0;
 	rManager = ResourceManager::getInstance();
 }
 
@@ -22,7 +16,7 @@ Game::~Game()
 {
 	delete gui;
 	gui = NULL;
-	for(unsigned int i=0; i < 2; ++i)
+	for(unsigned int i=0; i < scene.size(); ++i)
 	{
 		delete scene[i];
 		scene[i] = NULL;
@@ -81,15 +75,10 @@ void Game::Initialise()
 	
 	glfwMakeContextCurrent(window);
 	glfwSetWindowSizeCallback(window,WindowSizeCB);
-
 	glfwSetMouseButtonCallback(window,mouse_button_callback);
-
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);
-
 	glfwSetScrollCallback(window, scroll_callback);
-
 	glfwSetKeyCallback(window, key_callback);
-
 	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
 
 	// Load the OpenGL functions.
@@ -100,28 +89,9 @@ void Game::Initialise()
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	if(!rManager->LoadMaster("splashmaster"))
-	{
-		std::cout << "Error loading master\n";
-		exit(EXIT_FAILURE);
-	}
-
-	scene[0]->InitScene("loading");
-	scene[0]->Update(keys);
 	
-	Render();
-	scene[0]->deleteShader();
-	rManager->clearAll();
-	if(!rManager->LoadMaster("basicmaster"))
-	{
-		std::cout << "Error loading master\n";
-		exit(EXIT_FAILURE);
-	}
-
-
-	scene[1]->InitScene("demolevel");
-	activeScene =1;	
-
+	scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
+	//scene[activeScene]->InitScene("");
 	if(rManager->getShaders().size() > 0)
 	{
 		ui.initText2D();
@@ -187,7 +157,7 @@ void Game::Render()
 	scene[activeScene]->Render();
 
 
-	if(scene[1]->GetGameObjects().size() >=1)
+	if(scene[activeScene])
 	{
 		ui.printText2D("EDITOR",20,20,20);
 	}

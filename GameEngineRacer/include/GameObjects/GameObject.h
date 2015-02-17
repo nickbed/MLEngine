@@ -4,7 +4,6 @@
 #include <vector>
 #include "Components\TransformComponent.h"
 #include "Components\RenderComponent.h"
-#include "Components\ShaderComponent.h"
 #include "ResourceManager.h"
 #include "Components\AnimationComponent.h"
 #include "ResourceManager.h"
@@ -32,7 +31,7 @@ private:
 	AnimationComponent *m_anim;
 	TransformComponent *m_transform;//Pointer to Transform component
 	RenderComponent *m_renderer;//Creates the vbo and vao for this object.
-	ShaderComponent *m_shader;//Loads in the shaders for this object
+
 public:
 	GameObject();
 	GameObject(std::string nName);
@@ -61,7 +60,6 @@ public:
 
 	TransformComponent* getTransformComp(){return m_transform;};
 	RenderComponent* getRenderComp(){return m_renderer;};
-	ShaderComponent* getShaderComp(){return m_shader;};
 	AnimationComponent* getAnimComp(){return m_anim;};
 };
 #endif
