@@ -48,7 +48,7 @@ void GameObject::update(bool keys[])
 		|| m_anim && keys[GLFW_KEY_D])
 		{
 			m_anim->Prepare();
-			m_transform->Rotate(0.0f,0.0f,glm::radians(m_anim->getAngle()));
+			//m_transform->Rotate(0.0f,0.0f,glm::radians(m_anim->getAngle()));
 		}
 		m_transform->Update();
 }

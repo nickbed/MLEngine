@@ -20,7 +20,7 @@ private:
 	struct Object{
 		char type[32];
 		glm::vec3 pos;
-		glm::vec3 rot;
+		glm::quat rot;
 		glm::vec3 scale;
 		char    Name[4];
 	};

@@ -58,7 +58,7 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			g->setEntityType("generalentity");
 			g->getTransformComp()->setTranslate(glm::vec3(0,0,0));
 			g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
-			g->getTransformComp()->setRotate(glm::vec3(0.0, 0.0, 0.0));
+			g->getTransformComp()->setRotate(glm::quat(0.0, 0.0, 0.0,0.0));
 
 			g->setName(name);
 			g->addToComponentID(name);
@@ -127,9 +127,7 @@ void GUI::updateLayout()
 		objects[i].pos.x = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().x;
 		objects[i].pos.y = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().y;
 		objects[i].pos.z = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().z;
-		objects[i].rot.x = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().x;
-		objects[i].rot.y = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().y;
-		objects[i].rot.z = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().z;
+		objects[i].rot = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate();
 		objects[i].scale.x = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale().x;
 		objects[i].scale.y = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale().y;
 		objects[i].scale.z = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale().z;
@@ -173,15 +171,13 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 		{ "Translate X",    TW_TYPE_FLOAT, offsetof(Object, pos.x),    " help='Translates the object in X.' step=0.1" },   
 		{ "Translate Y",     TW_TYPE_FLOAT, offsetof(Object, pos.y),     " help='Translates the object in Y.' step=0.1" }, 
 		{ "Translate Z",    TW_TYPE_FLOAT,   offsetof(Object, pos.z),    " help='Translates the object in Z.' step=0.1" },
-		{ "Rotate X", TW_TYPE_FLOAT,        offsetof(Object, rot.x), " help='Rotate in the X.' step=0.1" },  
-		{ "Rotate Y",     TW_TYPE_FLOAT,   offsetof(Object, rot.y),    "  help='Rotate in the Y.' step=0.1" },
-		{ "Rotate Z",     TW_TYPE_FLOAT,   offsetof(Object, rot.z),    "  help='Rotate in the Z.' step=0.1" }, 
-		{ "Scale X", TW_TYPE_FLOAT,        offsetof(Object, scale.x), " help='Rotate in the X.' step=0.01" },  
-		{ "Scale Y",     TW_TYPE_FLOAT,   offsetof(Object, scale.y),    "  help='Rotate in the Y.' step=0.01" },
-		{ "Scale Z",     TW_TYPE_FLOAT,   offsetof(Object, scale.z),    "  help='Rotate in the Z.' step=0.01" } 
+		{ "Rotate ", TW_TYPE_QUAT4F,        offsetof(Object, rot), " help='Rotate in the .' " },  
+		{ "Scale X", TW_TYPE_FLOAT,        offsetof(Object, scale.x), " help='Scale in the X.' step=0.01" },  
+		{ "Scale Y",     TW_TYPE_FLOAT,   offsetof(Object, scale.y),    "  help='Scale in the Y.' step=0.01" },
+		{ "Scale Z",     TW_TYPE_FLOAT,   offsetof(Object, scale.z),    "  help='Scale in the Z.' step=0.01" } 
 	};
 
-	modelType = TwDefineStruct("Object", objectMembers, 9, sizeof(Object), NULL, NULL);  // create a new TwType associated to the struct defined by the lightMembers array
+	modelType = TwDefineStruct("Object", objectMembers, 7, sizeof(Object), NULL, NULL);  // create a new TwType associated to the struct defined by the lightMembers array
 	updateLayout();
 
 

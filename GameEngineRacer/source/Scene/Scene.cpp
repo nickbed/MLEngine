@@ -153,9 +153,10 @@ bool Scene::LoadScene(const std::string& filename)
 							}
 
 						}
-						g->getTransformComp()->Translate(posX,posY,posZ);
-						g->getTransformComp()->Scale(scaleX, scaleY, scaleZ);
-						g->getTransformComp()->Rotate(rotX, rotY, rotZ);
+						g->getTransformComp()->setTranslate(glm::vec3(posX,posY,posZ));
+						g->getTransformComp()->setScale(glm::vec3(scaleX, scaleY, scaleZ));
+						//TODO
+						g->getTransformComp()->setRotate(glm::quat(glm::vec3(rotX, rotY, rotZ)));
 					}
 					//ModelLoader modelLoader;
 					if(key.asString() == "components" )
@@ -489,13 +490,13 @@ void Scene::Render()
 	{
 
 		model = glm::mat4(1);
-
-
-
+		model = glm::translate(model,-(*it)->getTransformComp()->getTranslate());
+		model = glm::mat4_cast((*it)->getTransformComp()->getRotate());
 		model = glm::translate(model,(*it)->getTransformComp()->getTranslate());
-		model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().x),glm::vec3(1.0f,0.0f,0.0f));
-		model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().y),glm::vec3(0.0f,1.0f,0.0f));
-		model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().z),glm::vec3(0.0f,0.0f,1.0f));
+		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().x),glm::vec3(1.0f,0.0f,0.0f));
+		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().y),glm::vec3(0.0f,1.0f,0.0f));
+		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().z),glm::vec3(0.0f,0.0f,1.0f));
+		
 		model = glm::scale(model,(*it)->getTransformComp()->getScale());
 
 
