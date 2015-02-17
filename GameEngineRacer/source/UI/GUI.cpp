@@ -80,9 +80,13 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			Scene* newScene = new Scene();
 			//std::string name = filename.substr(filename.find();
 
-			++activeScene;
+			activeScene++;
 			scene.push_back(newScene);
 			scene.at(activeScene)->InitScene(filename);
+			m_scene = scene[activeScene];
+			TwRefreshBar(bar);
+			updateLayout();
+			
 		}
 
 
@@ -152,7 +156,7 @@ void GUI::updateLayout()
 
 	TwDefine("GameEngine help='Press N to change camera'");
 	TwAddButton(bar, "Saving", Save, this , " label='Save Scene' ");
-	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File BROKEN!!' ");
+	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
 }
 bool GUI::setup(int w, int h, Scene* nScene ) {
 	width = w;

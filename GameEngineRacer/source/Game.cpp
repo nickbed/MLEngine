@@ -89,8 +89,8 @@ void Game::Initialise()
 		exit(EXIT_FAILURE);
 	}
 	
-	scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
-//	scene[activeScene]->InitScene("");
+	//scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
+	scene[activeScene]->InitScene("");
 	if(rManager->getShaders().size() > 0)
 	{
 		ui.initText2D();
