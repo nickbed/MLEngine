@@ -124,12 +124,15 @@ void GUI::updateLayout()
 
 	for(unsigned int i=0; i<m_scene->GetGameObjects().size(); ++i)  // Add 'maxLights' variables of type lightType; 
 	{                               // unused lights variables (over NumLights) will hidden by Scene::Update( )
-		objects[i].x = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().x;
-		objects[i].y = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().y;
-		objects[i].z = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().z;
-		objects[i].xR = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().x;
-		objects[i].yR = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().y;
-		objects[i].zR = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().z;
+		objects[i].pos.x = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().x;
+		objects[i].pos.y = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().y;
+		objects[i].pos.z = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate().z;
+		objects[i].rot.x = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().x;
+		objects[i].rot.y = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().y;
+		objects[i].rot.z = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate().z;
+		objects[i].scale.x = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale().x;
+		objects[i].scale.y = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale().y;
+		objects[i].scale.z = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale().z;
 
 
 		_snprintf(objects[i].type, sizeof(objects[i].type), "%s", m_scene->GetGameObjects().at(i)->getEntityType().c_str());//Copy data into objects.
@@ -167,15 +170,18 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 	bar = TwNewBar("GameEngine");
 	TwStructMember objectMembers[] = // array used to describe tweakable variables of the Light structure
 	{
-		{ "Translate X",    TW_TYPE_FLOAT, offsetof(Object, x),    " help='Translates the object in X.' step=0.1" },   // Light::Active is a C++ boolean value
-		{ "Translate Y",     TW_TYPE_FLOAT, offsetof(Object, y),     " help='Translates the object in Y.' step=0.1" },        // Light::Color is represented by 4 floats, but alpha channel should be ignored
-		{ "Translate Z",    TW_TYPE_FLOAT,   offsetof(Object, z),    " help='Translates the object in Z.' step=0.1" },
-		{ "Rotate X", TW_TYPE_FLOAT,        offsetof(Object, xR), " help='Rotate in the X.' step=0.1" },  // use the enum 'modeType' created before to tweak the Light::Animation variable
-		{ "Rotate Y",     TW_TYPE_FLOAT,   offsetof(Object, yR),    "  help='Rotate in the Y.' step=0.1" }, // Light::Speed is made read-only
-		{ "Rotate Z",     TW_TYPE_FLOAT,   offsetof(Object, zR),    "  help='Rotate in the Z.' step=0.1" } // Light::Speed is made read-only
+		{ "Translate X",    TW_TYPE_FLOAT, offsetof(Object, pos.x),    " help='Translates the object in X.' step=0.1" },   
+		{ "Translate Y",     TW_TYPE_FLOAT, offsetof(Object, pos.y),     " help='Translates the object in Y.' step=0.1" }, 
+		{ "Translate Z",    TW_TYPE_FLOAT,   offsetof(Object, pos.z),    " help='Translates the object in Z.' step=0.1" },
+		{ "Rotate X", TW_TYPE_FLOAT,        offsetof(Object, rot.x), " help='Rotate in the X.' step=0.1" },  
+		{ "Rotate Y",     TW_TYPE_FLOAT,   offsetof(Object, rot.y),    "  help='Rotate in the Y.' step=0.1" },
+		{ "Rotate Z",     TW_TYPE_FLOAT,   offsetof(Object, rot.z),    "  help='Rotate in the Z.' step=0.1" }, 
+		{ "Scale X", TW_TYPE_FLOAT,        offsetof(Object, scale.x), " help='Rotate in the X.' step=0.01" },  
+		{ "Scale Y",     TW_TYPE_FLOAT,   offsetof(Object, scale.y),    "  help='Rotate in the Y.' step=0.01" },
+		{ "Scale Z",     TW_TYPE_FLOAT,   offsetof(Object, scale.z),    "  help='Rotate in the Z.' step=0.01" } 
 	};
 
-	modelType = TwDefineStruct("Object", objectMembers, 6, sizeof(Object), NULL, NULL);  // create a new TwType associated to the struct defined by the lightMembers array
+	modelType = TwDefineStruct("Object", objectMembers, 9, sizeof(Object), NULL, NULL);  // create a new TwType associated to the struct defined by the lightMembers array
 	updateLayout();
 
 
@@ -242,11 +248,12 @@ void GUI::update(Scene* nscene)
 		int j =0;
 		for(unsigned int i = 0; i < m_scene->GetGameObjects().size(); ++i)
 		{   
-			m_scene->GetGameObjects().at(i)->getTransformComp()->setTranslate(glm::vec3(objects[i].x,objects[i].y,objects[i].z));
-			m_scene->GetGameObjects().at(i)->getTransformComp()->setRotate(glm::vec3(objects[i].xR,objects[i].yR,objects[i].zR)) ;
+			m_scene->GetGameObjects().at(i)->getTransformComp()->setTranslate(objects[i].pos);
+			m_scene->GetGameObjects().at(i)->getTransformComp()->setRotate(objects[i].rot) ;
+			m_scene->GetGameObjects().at(i)->getTransformComp()->setScale(objects[i].scale) ;
 			if(m_scene->GetGameObjects().at(i)->getEntityType() == "light")
 			{
-				m_scene->getLights().at(j++).position = glm::vec3(objects[i].x,objects[i].y,objects[i].z);
+				m_scene->getLights().at(j++).position = glm::vec3(objects[i].pos.x,objects[i].pos.y,objects[i].pos.z);
 			}
 
 		}

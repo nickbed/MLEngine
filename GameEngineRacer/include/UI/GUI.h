@@ -19,8 +19,9 @@ class GUI {
 private:
 	struct Object{
 		char type[32];
-		float x,y,z;
-		float xR, yR, zR;
+		glm::vec3 pos;
+		glm::vec3 rot;
+		glm::vec3 scale;
 		char    Name[4];
 	};
 	static LoadState loadfile;

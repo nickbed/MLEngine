@@ -39,21 +39,21 @@
          "tree6",
          "tree7",
          "tree8",
-         "tree9"
-         
+         "tree9",
+         "Leon.obj"
       ],
       "cameras" : {
          "camera0" : {
             "camerasetup" : {
                "fov" : 80,
-               "lookX" : 0,
-               "lookY" : 0,
-               "lookZ" : 0,
-               "pitch" : 0,
-               "posX" : 5,
-               "posY" : 2.5,
-               "posZ" : -1.899999976158142,
-               "yaw" : 0
+               "lookX" : 0.6237142086029053,
+               "lookY" : 2.826745986938477,
+               "lookZ" : -11.59188461303711,
+               "pitch" : 0.551999568939209,
+               "posX" : 0.8620565533638001,
+               "posY" : 3.519334554672241,
+               "posZ" : -5.284682750701904,
+               "yaw" : 4.056000232696533
             }
          },
          "camera1" : {
@@ -99,6 +99,28 @@
       "currentcamera" : "camera0",
       "currentlight" : "light0",
       "entities" : {
+         "Leon.obj" : {
+            "components" : {
+               "Leon.obj" : {
+                  "OBJModel" : "data\\models\\Leon.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "Leon.obj",
+                  "type" : "mesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0.800000011920929,
+               "posY" : 2.799999952316284,
+               "posZ" : -7.5,
+               "rotateX" : -88.70000457763672,
+               "rotateY" : 0,
+               "rotateZ" : 7.450580596923828e-009,
+               "scaleX" : 0.009999999776482582,
+               "scaleY" : 0.009999999776482582,
+               "scaleZ" : 0.009999999776482582
+            },
+            "type" : "generalentity"
+         },
          "crate1" : {
             "components" : {
                "cratemesh" : {
