@@ -2,6 +2,7 @@
 
 BoundingBox::BoundingBox(std::string id) : BoundingVolume(id)
 {
+	type = BOUNDING_TYPE_AABBOX;
 	leftbotfore = glm::vec3(0.0);
 	righttoprear = glm::vec3(0.0);
 	isStatic = true;
@@ -9,6 +10,7 @@ BoundingBox::BoundingBox(std::string id) : BoundingVolume(id)
 
 BoundingBox::BoundingBox(std::string id, glm::vec3 left, glm::vec3 right, bool isStatic) : BoundingVolume(id)
 {
+	type = BOUNDING_TYPE_AABBOX;
 	leftbotfore = left;
 	righttoprear = right;
 	this->isStatic = isStatic;

@@ -1,8 +1,11 @@
 #ifndef COLLISIONSYSTEM_H
 #define COLLISIONSYSTEM_H
+#include "GLM\gtx\transform.hpp"
 #include "..\Interfaces\IEntity.h"
 #include "..\Components\BoundingVolume.h"
 #include "..\Components\BoundingBox.h"
+#include "..\Components\BoundingBoxO.h"
+#include "..\Components\BoundingSphere.h"
 
 class CollisionSystem : public IEntity
 {
@@ -20,11 +23,14 @@ public:
 	static void AddDynamicVolume(BoundingVolume* volume);
 
 	static void CheckCollisions();
-	static bool HasCollided(BoundingVolume* volumea, BoundingVolume* volumeb);
+	static bool CheckVolumes(BoundingVolume* volumea, BoundingVolume* volumeb);
 	
 private:
 	static std::vector<BoundingVolume*> statics;
 	static std::vector<BoundingVolume*> dynamics;
+
+	static bool HasCollided(BoundingBox* boxa, BoundingBox* boxb);
+	static bool HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb);
 };
 
 #endif

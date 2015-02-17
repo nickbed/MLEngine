@@ -656,14 +656,14 @@
             "OBJModel": "data\\models\\robco.obj",
             "TextureFile": "data\\images\\robco.tga"
 		  },
-		  "boundingbox": {
-		    "type":"boundingbox",
-			"minX": -10.0,
-			"minY": 0.0,
-			"minZ": -10.0,
-			"maxX": 10.0,
-			"maxY": 10.0,
-			"maxZ": 10.0,
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 10.0,
+			"extentY": 10.0,
+			"extentZ": 10.0,
 			"static": false
 		  }
         }
@@ -776,14 +776,14 @@
             "OBJModel": "data\\models\\robbody.obj",
             "TextureFile": "data\\images\\rainbow.png"
           },
-		  "boundingbox": {
-		    "type":"boundingbox",
-			"minX": -0.5,
-			"minY": 0.0,
-			"minZ": -0.5,
-			"maxX": 0.5,
-			"maxY": 2.0,
-			"maxZ": 0.5,
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 1.0,
+			"centerZ": 0.0,
+			"extentX": 3.0,
+			"extentY": 3.0,
+			"extentZ": 3.0,
 			"static": false
 		  },
           "robotlleg": {

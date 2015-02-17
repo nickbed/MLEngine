@@ -9,6 +9,7 @@
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\StaticMesh.h"
 #include "..\Components\BasicBone.h"
+#include "..\Components\BoundingBoxO.h"
 #include "..\Resources\ResourceManager.h"
 #include "..\Entities\Camera.h"
 #include "..\Scenes\SceneTypes.h"

@@ -105,6 +105,95 @@ void GraphicsManager::RenderComponents<BasicBone>(BasicBone* componentToRender, 
 
 }
 
+template<>
+void GraphicsManager::RenderComponents<BoundingBoxO>(BoundingBoxO* componentToRender, TransformComponent* modelTransform)
+{
+	//gl_Position = viewprojmatrix * modelmatrix * vertexPosition_modelspace;
+	glUseProgram(0);
+	/*glm::vec4 translate = glm::vec4(modelTransform->GetPosition(),1.0);
+	glm::mat4 rotate = glm::rotate(modelTransform->GetRotation().x,glm::vec3(1,0,0));
+	rotate = glm::rotate(rotate,modelTransform->GetRotation().y,glm::vec3(0,1,0));
+	rotate = glm::rotate(rotate,modelTransform->GetRotation().z,glm::vec3(0,0,1));
+	glm::vec4 model = translate * rotate;*/
+
+
+	//Set up model matrix
+	//glm::mat4 modelMat(1.0f);
+	//modelMat *= glm::translate(glm::mat4(1.0f), modelTransform->GetPosition());
+	//modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().x, glm::vec3(1.0f, 0.0f, 0.0f));
+	//modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().y, glm::vec3(0.0f, 1.0f, 0.0f));
+	//modelMat *= glm::rotate(glm::mat4(1.0f), modelTransform->GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
+	//modelMat *= glm::scale(glm::mat4(1.0f), modelTransform->GetScale());
+
+	//TODO - ROTATE MATRIX IMPLEMENTATION
+	//glm::mat4 modelViewCalc = currentCamera->GetViewMatrix() * modelMat;
+	glm::mat4 viewprojmatrix = currentCamera->GetViewMatrix();
+
+	//glm::mat4 finalMatrix = viewprojmatrix * modelMat;
+	//glm::mat4 view = currentCamera->GetViewMatrix();
+	glm::vec3 ext = componentToRender->GetExtent();
+
+ 
+
+	
+	glm::vec4 pos[8] =
+	{
+		glm::vec4(ext.x,ext.y,ext.z,1.0),    //0
+		glm::vec4(ext.x,ext.y,-ext.z,1.0),   //1
+		glm::vec4(-ext.x,ext.y,-ext.z,1.0),  //2
+		glm::vec4(-ext.x,ext.y,ext.z,1.0),   //3
+		glm::vec4(ext.x,-ext.y,ext.z,1.0),   //4
+		glm::vec4(ext.x,-ext.y,-ext.z,1.0),  //5
+		glm::vec4(-ext.x,-ext.y,-ext.z,1.0), //6
+		glm::vec4(-ext.x,-ext.y,ext.z,1.0)   //7
+	};
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(currentCamera->GetCameraFov(),(float)1024 / (float)768, 0.1f, 10000.0f);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(currentCamera->GetCameraPosition().x, currentCamera->GetCameraPosition().y, currentCamera->GetCameraPosition().z,currentCamera->GetCameraCenterPosition().x,currentCamera->GetCameraCenterPosition().y, currentCamera->GetCameraCenterPosition().z,currentCamera->GetUpVector().x, currentCamera->GetUpVector().y, currentCamera->GetUpVector().z);   
+	glTranslatef(modelTransform->GetPosition().x, modelTransform->GetPosition().y, modelTransform->GetPosition().z);
+	glRotatef(modelTransform->GetRotation().x, 1.0, 0.0, 0.0);
+	glRotatef(modelTransform->GetRotation().y, 0.0, 1.0, 0.0);
+	glRotatef(modelTransform->GetRotation().z, 0.0, 0.0, 1.0);
+
+	glLineWidth(2.0);
+	glColor3f(1.0f,1.0f,0.0f);
+	glDepthRange(0.1f,1000.f);
+	glBegin(GL_LINES);
+	glVertex3f(pos[0].x,pos[0].y,pos[0].z);
+	glVertex3f(pos[1].x,pos[1].y,pos[1].z);
+	glVertex3f(pos[1].x,pos[1].y,pos[1].z);
+	glVertex3f(pos[2].x,pos[2].y,pos[2].z);
+	glVertex3f(pos[2].x,pos[2].y,pos[2].z);
+	glVertex3f(pos[3].x,pos[3].y,pos[3].z);
+	glVertex3f(pos[3].x,pos[3].y,pos[3].z);
+	glVertex3f(pos[0].x,pos[0].y,pos[0].z);
+
+	glVertex3f(pos[0].x,pos[0].y,pos[0].z);
+	glVertex3f(pos[4].x,pos[4].y,pos[4].z);
+	glVertex3f(pos[1].x,pos[1].y,pos[1].z);
+	glVertex3f(pos[5].x,pos[5].y,pos[5].z);
+	glVertex3f(pos[2].x,pos[2].y,pos[2].z);
+	glVertex3f(pos[6].x,pos[6].y,pos[6].z);
+	glVertex3f(pos[3].x,pos[3].y,pos[3].z);
+	glVertex3f(pos[7].x,pos[7].y,pos[7].z);
+
+	glVertex3f(pos[4].x,pos[4].y,pos[4].z);
+	glVertex3f(pos[5].x,pos[5].y,pos[5].z);
+	glVertex3f(pos[5].x,pos[5].y,pos[5].z);
+	glVertex3f(pos[6].x,pos[6].y,pos[6].z);
+	glVertex3f(pos[6].x,pos[6].y,pos[6].z);
+	glVertex3f(pos[7].x,pos[7].y,pos[7].z);
+	glVertex3f(pos[7].x,pos[7].y,pos[7].z);
+	glVertex3f(pos[4].x,pos[4].y,pos[4].z);
+
+	glEnd();
+}
+
 void GraphicsManager::RenderText(std::string text, int x, int y, int size, std::vector<IEntity*> entities)
 {
 	DrawAndUpdateWindow(entities, 0.1f, false);
@@ -145,7 +234,7 @@ bool GraphicsManager::Init(int GLVersionMajor, int GLVersionMinor)
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMajor);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMinor);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	glfwWindowHint(GL_DOUBLEBUFFER, GL_TRUE);
 
@@ -259,6 +348,7 @@ void GraphicsManager::DrawEntity(IEntity* ent)
 	std::vector<IComponent*> arrayComponents = ent->Components->GetComponentsOfType("testGraphics");
 	std::vector<IComponent*> meshComponents = ent->Components->GetComponentsOfType("staticmesh");
 	std::vector<IComponent*> boneComponents = ent->Components->GetComponentsOfType("basicbone");
+	std::vector<IComponent*> obbComponents = ent->Components->GetComponentsOfType("boundingboxo");
 
 	for (auto& x : arrayComponents)
 	{
@@ -269,11 +359,16 @@ void GraphicsManager::DrawEntity(IEntity* ent)
 	{
 		RenderComponents<StaticMesh>((StaticMesh*)y, ent->Transform);
 	}
+	//for (auto& z : boneComponents)
+	//{
+	//	BasicBone* gotBone = (BasicBone*)z;
+	//	RenderComponents<BasicBone>(gotBone, ent->Transform, gotBone->BoneTransform);
+	//}
 
-	for (auto& z : boneComponents)
+	for (auto& w : obbComponents)
 	{
-		BasicBone* gotBone = (BasicBone*)z;
-		RenderComponents<BasicBone>(gotBone, ent->Transform, gotBone->BoneTransform);
+		BoundingBoxO* gotBox = (BoundingBoxO*)w;
+		RenderComponents<BoundingBoxO>(gotBox, ent->Transform);
 	}
 }
 

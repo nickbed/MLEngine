@@ -12,6 +12,7 @@
 #include "..\entities\Robot.h"
 #include "..\Components\BasicKeyMovement.h"
 #include "..\Components\BoundingBox.h"
+#include "..\Components\BoundingBoxO.h"
 #include "..\Components\MousePoller.h"
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\StaticMesh.h"
@@ -21,9 +22,6 @@
 #include <vector>
 #include <map>
 #include <sstream>
-
-
-
 
 
 class SceneManager
@@ -73,13 +71,13 @@ private:
 	void GenerateLightsFromJson(const Json::Value& jsonLights, std::map<std::string, SceneLight*>& lights);
 
 	void AddBoundingBox(Json::Value contents, IEntity* entToCreate);
+	void AddBoundingBoxO(Json::Value contents, IEntity* entToCreate);
 
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	std::unique_ptr<SceneConfig> currentScene;
 	bool isLoading;
 	bool showDebug;
 	bool shouldLoadLevel;
-	
 };
 
 #endif

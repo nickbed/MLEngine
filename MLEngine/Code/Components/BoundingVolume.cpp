@@ -4,6 +4,11 @@ BoundingVolume::BoundingVolume(std::string id) : IComponent(id)
 {
 }
 
+int BoundingVolume::getType()
+{
+	return type;
+}
+
 bool BoundingVolume::IsStatic()
 {
 	return isStatic;
