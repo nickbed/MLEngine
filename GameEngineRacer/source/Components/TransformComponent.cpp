@@ -11,6 +11,11 @@ void TransformComponent::Init()
 {
 	
 }
+
+void TransformComponent::setScale(const glm::vec3& scale)
+{
+	m_scale = scale;
+}
 void TransformComponent::setRotate(const glm::vec3& rotate)
 {
 	m_rotate = rotate;

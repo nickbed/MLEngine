@@ -13,7 +13,7 @@
 #include "ResourceManager.h"
 #include <fstream>
 
-
+enum LoadState {OPEN, DONTOPEN};
 
 class GUI {
 private:
@@ -23,6 +23,7 @@ private:
 		float xR, yR, zR;
 		char    Name[4];
 	};
+	static LoadState loadfile;
 	TwType modelType;
 	Object* objects;
 	TwBar* bar;
@@ -33,6 +34,7 @@ private:
 	Json::StyledWriter writer;
 	int j;
 	void updateLayout();
+	void openFile(std::vector<Scene*>& scene, int& activeScene);
 public:
 	GUI();
 	~GUI();
@@ -43,7 +45,7 @@ public:
 	void onResize(int w, int h);
 	void draw();
 	void saveData();
-	void openFile();
+	void checkOpenFile(std::vector<Scene*>& scene, int& activeScene);
 	void update(Scene* scene);
 	
 	Scene* getScene(){return m_scene;};

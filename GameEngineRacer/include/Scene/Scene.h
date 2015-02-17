@@ -64,7 +64,6 @@ public:
 	void setLights();
 
 	const Json::Value Scene::createJson();
-
 	
 	const SceneJsonData& getSceneData()const {return sceneData;};
 

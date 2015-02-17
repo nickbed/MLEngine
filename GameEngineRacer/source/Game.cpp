@@ -6,7 +6,6 @@ bool Game::keys[1024]= {false};
 Game::Game():activeScene(0)
 
 {
-	//scene = new CubeScene();
 	scene.push_back(new Scene());
 	gui = new GUI();
 	rManager = ResourceManager::getInstance();
@@ -39,10 +38,10 @@ void Game::Run()
 		if (glfwGetTime()  > refresh_rate)
 		{
 			glfwSetTime(0.0);
-			Update();//TimeDelta for timestep.
+			Update();
 			Render();
 		}
-
+		
 
 
 	}
@@ -63,9 +62,9 @@ void Game::Initialise()
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, TRUE);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_RESIZABLE, FALSE);
-	//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, TRUE);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, TRUE);
 	window = glfwCreateWindow(width, height, "Most Awesome Game Ever", NULL, NULL);
 	if (!window)
 	{
@@ -90,8 +89,8 @@ void Game::Initialise()
 		exit(EXIT_FAILURE);
 	}
 	
-	scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
-	//scene[activeScene]->InitScene("");
+	//scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
+	scene[activeScene]->InitScene("");
 	if(rManager->getShaders().size() > 0)
 	{
 		ui.initText2D();
@@ -137,8 +136,8 @@ void Game::Update()
 		}
 	}
 
-	scene[activeScene]->Update(keys);
 	
+	gui->checkOpenFile(scene,activeScene);
 	gui->update(scene[activeScene]);
 	//Store the current cursor position
 	lastCursorPositionX = cursorPositionX;
@@ -164,6 +163,7 @@ void Game::Render()
 
 
 	gui->draw();
+	//scene[activeScene]->Update(keys);
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 
@@ -224,15 +224,8 @@ bool Game::keyPressedOnce(int key)
 void Game::WindowSizeCB(GLFWwindow* window, int width, int height){
 	// Set OpenGL viewport and camera
 	gl::Viewport(0, 0, width, height);
-
-
-
 	// Send the new window size to AntTweakBar
 	TwWindowSize(width, height);
-	//gui->onResize(width,height);
-	//scene[activeScene]->resize(width,height);
+	
 }
-//void Game::SetZoom(float z)
-//{
-//	zoom = z;
-//}
+

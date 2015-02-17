@@ -162,8 +162,8 @@ bool Scene::LoadScene(std::string filename)
 								{
 
 									objString = compVal2.asString();
-									if ( rManager->getModel().find(objString) == rManager->getModel().end() ) 
-									{
+								//	if ( rManager->getModel().find(objString) == rManager->getModel().end() ) 
+									//{
 										ModelLoader* m_Loader = new ModelLoader();
 										Model* m = new Model();
 										m_Loader->loadFromfile(objString);
@@ -171,7 +171,7 @@ bool Scene::LoadScene(std::string filename)
 										m->normals = m_Loader->getNormals();
 										m->textureCoords = m_Loader->getTextureCoords();
 										rManager->addToModel(std::pair<std::string, Model*>(objString,m));
-									}
+									//}
 
 									/*if(!rManager->getModel().at(objString))
 									{
@@ -451,7 +451,7 @@ void Scene::Update(bool keys[])//Updates the scene running in a loop
 void Scene::Render()
 {
 
-	gl::UseProgram(rManager->getShaders().at(sceneData.sceneShader)->programhandle);
+	gl::UseProgram(programHandle);
 
 	setLightParams();
 	for(auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
@@ -606,7 +606,7 @@ const Json::Value Scene::createJson()
 	root["scene"]["currentlight"] = sceneData.currentLight;
 	root["scene"]["messagehandlers"] = sceneData.messageHandlers;
 	root["scene"]["menu"] = sceneData.menu;
-	for(int i =0 ; i < gameObjects.size(); ++i)
+	for(unsigned int i =0 ; i < gameObjects.size(); ++i)
 	{
 		root["scene"]["activeentities"][i] = gameObjects.at(i)->getName();
 		root["scene"]["entities"][gameObjects.at(i)->getName()]["type"] = gameObjects.at(i)->getEntityType();
@@ -620,7 +620,7 @@ const Json::Value Scene::createJson()
 		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateY"] =  gameObjects.at(i)->getTransformComp()->getRotate().y;
 		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateZ"] =  gameObjects.at(i)->getTransformComp()->getRotate().z;
 
-		for(int j=0; j < gameObjects.at(i)->getComponentIDs().size(); ++j)
+		for(unsigned int j=0; j < gameObjects.at(i)->getComponentIDs().size(); ++j)
 		{
 			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"][gameObjects.at(i)->getComponentIDs().at(j)]["id"] = gameObjects.at(i)->getComponentIDs().at(j);
 			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"][gameObjects.at(i)->getComponentIDs().at(j)]["type"] =  gameObjects.at(i)->getComponentTypes().at(j);
@@ -643,7 +643,7 @@ const Json::Value Scene::createJson()
 		root["scene"]["cameras"][it->second->getName()]["camerasetup"]["pitch"] = it->second->getPitch();
 		root["scene"]["cameras"][it->second->getName()]["camerasetup"]["yaw"] = it->second->getYaw();
 	}
-	for(int i=0; i < lights.size(); ++i)
+	for(unsigned int i=0; i < lights.size(); ++i)
 	{
 		root["scene"]["lights"][lights.at(i).name]["lightparams"]["posX"] = lights.at(i).position.x;
 		root["scene"]["lights"][lights.at(i).name]["lightparams"]["posY"] = lights.at(i).position.y;

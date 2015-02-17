@@ -1,6 +1,6 @@
 #include "UI\GUI.h"
 
-
+LoadState GUI::loadfile = DONTOPEN;
 GUI::GUI() :width(0),height(0),j(0),objects(new Object[200]), modelType()
 {
 	rManager = ResourceManager::getInstance();
@@ -22,11 +22,11 @@ void TW_CALL GUI::Save(void *clientData)
 
 void TW_CALL GUI::OpenFile(void *clientData)
 {
-	GUI *ui = static_cast<GUI *>(clientData);
-	ui->openFile();
+	loadfile = OPEN;
+
 }
 
-void GUI::openFile()
+void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 {
 
 	OPENFILENAME ofn={0};
@@ -45,35 +45,42 @@ void GUI::openFile()
 
 		if(newstring == ".obj")
 		{
-			ModelLoader mLoader(filename);
+			ModelLoader mLoader;
 			GameObject* g = new GameObject();
 			Model* m = new Model();
-			filename = filename.substr(filename.find_last_of("data")-3);
-			std::string name = filename.substr(filename.find_last_of("\\")+1);
-
+			std::string name = filename.substr(filename.find_last_of("/\\")+1);
+			mLoader.loadFromfile(name);
 			m->normals = mLoader.getNormals();
 			m->verts = mLoader.getVerts();
 			m->textureCoords = mLoader.getTextureCoords();
 			rManager->addToModel(std::pair<std::string, Model*>(filename,m));
 			g->setEntityType("generalentity");
-			g->getTransformComp()->Translate(0.0,0.0,0.0);
-			g->getTransformComp()->Scale(1.0, 1.0, 1.0);
-			g->getTransformComp()->Rotate(0.0, 0.0, 0.0);
-			g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\default.png"),m_scene->getSceneData().sceneShader);
+			g->getTransformComp()->setTranslate(glm::vec3(0,0,0));
+			g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
+			g->getTransformComp()->setRotate(glm::vec3(0.0, 0.0, 0.0));
+
 			g->setName(name);
 			g->addToComponentID(name);
 			g->addToComponentTYPE("mesh");
 			g->addToComponentModelFiles(filename);
 			g->addToComponentTextureFiles("data\\images\\default.png");
-			g->init(rManager->getShaders().begin()->first);
+			g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\default.png"),m_scene->getSceneData().sceneShader);
+			g->getRenderComp()->update();
 			m_scene->addGameObject(g);
 			TwRemoveAllVars(bar);
 			updateLayout();
+
+
+
 		}
 		else if(newstring == ".scn")
 		{
+			rManager->clearAll();
 			Scene* newScene = new Scene();
-			newScene->LoadScene(filename);
+			std::string name = filename.substr(filename.find_last_of("/\\")+1);
+			++activeScene;
+			scene.push_back(newScene);
+			scene.at(activeScene)->InitScene(name);
 		}
 
 
@@ -131,7 +138,7 @@ void GUI::updateLayout()
 		_snprintf(paramValue, sizeof(paramValue), "%s", m_scene->GetGameObjects().at(i)->getName().c_str());
 		TwSetParam(bar, objects[i].Name, "label", TW_PARAM_CSTRING, 1, paramValue); // Set label
 
-		
+
 
 
 		std::string fold = "GameEngine/"+m_scene->GetGameObjects().at(i)->getEntityType()+" opened='false'";
@@ -143,14 +150,14 @@ void GUI::updateLayout()
 
 	TwDefine("GameEngine help='Press N to change camera'");
 	TwAddButton(bar, "Saving", Save, this , " label='Save Scene' ");
-	TwAddButton(bar, "OpenFiles", OpenFile, this , " label='Open File BROKEN!!' ");
+	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File BROKEN!!' ");
 }
 bool GUI::setup(int w, int h, Scene* nScene ) {
 	width = w;
 	height = h;
 	m_scene = nScene;
 
-	TwInit(TW_OPENGL_CORE, NULL);
+	TwInit(TW_OPENGL_CORE, NULL );
 	bar = TwNewBar("GameEngine");
 	TwStructMember objectMembers[] = // array used to describe tweakable variables of the Light structure
 	{
@@ -212,8 +219,17 @@ void GUI::onKeyPressed(int key, int mod) {
 
 	TwKeyPressed(key, TW_KMOD_NONE);
 }
+void GUI::checkOpenFile(std::vector<Scene*>& scene, int& activeScene)
+{
+	if(loadfile == OPEN)
+	{
+		openFile(scene, activeScene);
+		loadfile = DONTOPEN;
+	}
+}
 void GUI::update(Scene* nscene)
 {
+	
 	m_scene=nscene;
 	if(m_scene)
 	{
@@ -236,4 +252,6 @@ void GUI::draw() {
 
 
 	TwDraw();
+
+
 }

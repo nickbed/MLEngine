@@ -27,7 +27,7 @@
           "ent1mesh": {
             "id": "ent1mesh",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\splash.obj",
+            "OBJModel": "D:\\Tom\\GitHub\\MLEngine\\GameEngineRacer\\data\\models\\splash.obj",
             "TextureFile": "data\\images\\loading.tga"
           }
         }

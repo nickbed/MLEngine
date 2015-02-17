@@ -31,6 +31,7 @@ public:
 	const glm::vec3& getTranslate() {return m_translate;};
 	void setRotate(const glm::vec3& rotate);
 	void setTranslate(const glm::vec3& rotate);
+	void setScale(const glm::vec3& scale);
 
 };
 #endif

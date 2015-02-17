@@ -50,12 +50,12 @@ void RenderComponent::init(Model* model, Texture* nTexture, const std::string& s
 	
 	gl::Enable(gl::TEXTURE_2D);
 	gl::Enable(gl::DEPTH_TEST);
-	gl::DepthFunc(gl::LESS);
+	//gl::DepthFunc(gl::LESS);
 	gl::Enable(gl::BLEND);
 
 	
 	gl::BindVertexArray(vaoHandle);
-	gl::DrawArrays(gl::TRIANGLES, 0,indicesCount );
+	//gl::DrawArrays(gl::TRIANGLES, 0,indicesCount );
 	/*gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_S, gl::REPEAT);
 	gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_R, gl::REPEAT);
 	gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_T, gl::REPEAT);*/
@@ -64,13 +64,17 @@ void RenderComponent::init(Model* model, Texture* nTexture, const std::string& s
 }
 void RenderComponent::update()
 {
-	// Bind shader
 	
 	
+	gl::EnableVertexAttribArray(0);  // Vertex position
+	gl::EnableVertexAttribArray(1);  // Vertex normal
+	gl::EnableVertexAttribArray(2); //uv
 	gl::ActiveTexture(gl::TEXTURE0);
 	gl::BindTexture(gl::TEXTURE_2D,texture->object());
 	
 	gl::BindVertexArray(vaoHandle);
 	gl::DrawArrays(gl::TRIANGLES, 0,indicesCount );
-	
+	gl::DisableVertexAttribArray(0);
+	gl::DisableVertexAttribArray(1);
+	gl::DisableVertexAttribArray(2);
 }
