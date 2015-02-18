@@ -424,7 +424,7 @@ void Scene::InitScene(const std::string& loadSceneName)//Loads gameobjects and s
 
 
 		std::cout << "error loading scene\n Default data is provided.\n";
-		sceneData.name = "Default";
+		//sceneData.name = "Default";
 		sceneData.currentCamera = "default";
 		sceneData.currentLight = "default";
 		sceneData.menu = false;
