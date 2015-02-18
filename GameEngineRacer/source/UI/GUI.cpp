@@ -118,6 +118,11 @@ void GUI::saveData()
 
 }
 
+void GUI::createLight()
+{
+	
+}
+
 void GUI::updateLayout()
 {
 
@@ -157,10 +162,6 @@ void GUI::updateLayout()
 		TwDefine(fold.c_str());
 
 	}
-
-
-
-	
 }
 
 
@@ -253,7 +254,7 @@ void GUI::update(Scene* nscene)
 			m_scene->GetGameObjects().at(i)->getTransformComp()->setTranslate(objects[i].pos);
 			m_scene->GetGameObjects().at(i)->getTransformComp()->setRotate(objects[i].rot);
 			m_scene->GetGameObjects().at(i)->getTransformComp()->setScale(objects[i].scale) ;
-			if(m_scene->GetGameObjects().at(i)->getEntityType() == "light")
+			if(m_scene->GetGameObjects().at(i)->getEntityType() == "LightEntity")
 			{
 				m_scene->getLights().at(j++).position = glm::vec3(objects[i].pos.x,objects[i].pos.y,objects[i].pos.z);
 			}

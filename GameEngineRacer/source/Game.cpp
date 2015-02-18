@@ -163,7 +163,7 @@ void Game::Render()
 
 
 	gui->draw();
-	//scene[activeScene]->Update(keys);
+	scene[activeScene]->Update(keys);
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 

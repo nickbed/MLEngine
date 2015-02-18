@@ -9,6 +9,7 @@
 #include "ResourceManager.h"
 #include "json\json.h"
 #include <unordered_map>
+#include "glm\gtx\vector_angle.hpp"
 
 class Scene
 {
@@ -39,13 +40,15 @@ private:
 	void setLightParams();
 	void setUpMatricies();
 	std::vector<Light> lights;
+	std::vector<GameObject*> lightObjects;/////TODO ADD LIGHT OBJECTS
+
 	ResourceManager* rManager;
 
 	static std::string activeCamera;
 	static std::unordered_map<std::string, Camera*> cameras;
 
 	std::vector<GameObject*> gameObjects;
-	std::vector<GameObject*> lightObjects;/////TODO ADD LIGHT OBJECTS
+	
 	glm::mat4 model;
 	GLuint vertShader, fragShader,programHandle;
 
@@ -73,6 +76,7 @@ public:
 	const std::string& getFileName(){return filename;};
 	const std::vector<GameObject*> GetGameObjects()const{return gameObjects;};
 	void addGameObject(GameObject* gameobject){gameObjects.push_back(gameobject);};
+	void addLightObject(GameObject* lightObject){lightObjects.push_back(lightObject);};
 
 	Camera* GetCamera(){return cameras[activeCamera];};//returns the current camera.
 };

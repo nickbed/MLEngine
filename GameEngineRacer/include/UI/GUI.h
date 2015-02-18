@@ -34,6 +34,8 @@ private:
 	Scene* m_scene;
 	Json::StyledWriter writer;
 	int j;
+
+	void createLight();
 	void updateLayout();
 	void openFile(std::vector<Scene*>& scene, int& activeScene);
 public:
