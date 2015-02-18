@@ -291,7 +291,7 @@ void GUI::createScene()
 	TwDefine("'New Scene' position='260 40' color='254 92 99' ");
 	n_scene = new Scene();
 	
-	n_scene->setSceneData().menu = false;
+	//n_scene->setSceneData().menu = false;
 	TwCopyStdStringToClientFunc(CopyStdStringToClient);
 	TwAddVarRW(sceneBar, "Name", TW_TYPE_STDSTRING, &n_scene->setSceneData().name, "");
 	TwAddVarRW(sceneBar, "Menu", TW_TYPE_BOOLCPP, &n_scene->setSceneData().menu, "help='Declares is this is a Menu Scene' true='YES' false='NO'");
