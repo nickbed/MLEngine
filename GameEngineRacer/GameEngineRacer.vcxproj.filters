@@ -51,15 +51,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\basic3.Frag" />
-    <None Include="Shader\basic3.vert" />
     <None Include="ClassDiagram.cd" />
-    <None Include="Scene\menu.scn" />
-    <None Include="Scene\loading.scn" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Scene\robotScene.txt" />
-    <Text Include="Master\basicmaster.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\3rdParty\Bitmap.h">

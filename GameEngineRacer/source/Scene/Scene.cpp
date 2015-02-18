@@ -299,8 +299,8 @@ bool Scene::LoadScene(const std::string& filename)
 		g->getTransformComp()->setTranslate(light.position);
 		g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
 		g->getTransformComp()->setRotate(glm::quat(glm::vec3(glm::radians(90.0f),0.0f,0.0f)));
-		static int i =1;
-		g->setName("Light"+i++);
+		g->setName(light.name);
+
 		g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\light.jpg"));
 		g->getRenderComp()->update();
 
@@ -463,9 +463,9 @@ void Scene::InitScene(const std::string& loadSceneName)//Loads gameobjects and s
 	else
 	{
 		programHandle = rManager->getShaders().at("data\\shaders\\basic3")->programhandle;
+
 	}
 
-	
 
 
 }
@@ -486,27 +486,26 @@ void Scene::Update(bool keys[])//Updates the scene running in a loop
 
 		}
 	}
-	if(lightObjects.size() != 0 )
+	for(auto it = lightObjects.begin(); it != lightObjects.end(); ++it)
 	{
-		for(auto it = lightObjects.begin(); it != lightObjects.end(); ++it)
-		{
-			glm::vec3 forward = glm::normalize(cameras.at(activeCamera)->position() - (*it)->getTransformComp()->getTranslate());
-			glm::vec3 right = glm::normalize(glm::cross(forward,glm::vec3(0,1,0)));
-			glm::vec3 up = glm::normalize(glm::cross(forward,right));
-			glm::mat4 transform;
-			transform[0] = glm::vec4(right, 0);
-			transform[1] = glm::vec4(up, 0);
-			transform[2] = glm::vec4(forward, 0);
-			
-			glm::quat rotation = glm::quat_cast(transform);
-			(*it)->getTransformComp()->setRotate(rotation);
-			glm::vec3 position; 
-			position -= forward * 0.3f;
-			//glm::mat4 lookat = glm::lookAt((*it)->getTransformComp()->getTranslate(),cameras.at(activeCamera)->position(), up);
-			//glm::quat rotation = glm::quat_cast(lookat);
-			(*it)->getTransformComp()->setTranslate(position);
+		//Rotate to look at camera.
+		glm::vec3 forward = glm::normalize(cameras.at(activeCamera)->position() - (*it)->getTransformComp()->getTranslate());
+		glm::vec3 right = glm::normalize(glm::cross(forward,glm::vec3(0,1,0)));
+		glm::vec3 up = glm::normalize(glm::cross(forward,right));
 
-		}
+		//Rotate to look at camera.
+		glm::mat4 transform;
+		transform[0] = glm::vec4(right, 0);
+		transform[1] = glm::vec4(up, 0);
+		transform[2] = glm::vec4(forward, 0);
+		glm::quat rotation = glm::quat_cast(transform);
+		(*it)->getTransformComp()->setRotate(rotation);
+
+		/*//Move the Origin.
+		glm::vec3 position = (*it)->getTransformComp()->getTranslate(); 
+		position -= forward * 0.3f;
+		(*it)->getTransformComp()->setTranslate(position);*/
+
 	}
 
 
@@ -541,8 +540,9 @@ void Scene::Render()
 
 		model = glm::mat4(1);
 		//model = glm::translate(model,-(*it)->getTransformComp()->getTranslate());
-		glm::mat4 rotationMatrix = glm::mat4_cast((*it)->getTransformComp()->getRotate());
+
 		glm::mat4 translationMatrix = glm::translate(model,(*it)->getTransformComp()->getTranslate());
+		glm::mat4 rotationMatrix = glm::mat4_cast((*it)->getTransformComp()->getRotate());
 		glm::mat4 scaleMatrix =  glm::scale(model,(*it)->getTransformComp()->getScale()); 
 		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().x),glm::vec3(1.0f,0.0f,0.0f));
 		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().y),glm::vec3(0.0f,1.0f,0.0f));

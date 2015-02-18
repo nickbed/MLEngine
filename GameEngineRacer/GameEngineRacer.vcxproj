@@ -12,14 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="Scene\loading.scn" />
-    <None Include="Scene\menu.scn" />
-    <None Include="Shader\basic3.Frag" />
-    <None Include="Shader\basic3.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Master\basicmaster.txt" />
-    <Text Include="Scene\robotScene.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\3rdParty\Bitmap.h" />

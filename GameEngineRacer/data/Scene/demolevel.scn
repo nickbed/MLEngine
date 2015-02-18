@@ -872,9 +872,9 @@
                "intensityB" : 1,
                "intensityG" : 0,
                "intensityR" : 0,
-               "posX" : -5,
-               "posY" : 550,
-               "posZ" : -10,
+               "posX" : 0,
+               "posY" : 5,
+               "posZ" : 0,
                "surfaceReflectivityB_TEMP" : 1,
                "surfaceReflectivityG_TEMP" : 1,
                "surfaceReflectivityR_TEMP" : 1
@@ -886,60 +886,8 @@
                "intensityG" : 1,
                "intensityR" : 0,
                "posX" : -6,
-               "posY" : 2,
+               "posY" : 5,
                "posZ" : -10,
-               "surfaceReflectivityB_TEMP" : 1,
-               "surfaceReflectivityG_TEMP" : 1,
-               "surfaceReflectivityR_TEMP" : 1
-            }
-         },
-         "light2" : {
-            "lightparams" : {
-               "intensityB" : 0,
-               "intensityG" : 0,
-               "intensityR" : 1,
-               "posX" : -6,
-               "posY" : 2,
-               "posZ" : -10,
-               "surfaceReflectivityB_TEMP" : 1,
-               "surfaceReflectivityG_TEMP" : 1,
-               "surfaceReflectivityR_TEMP" : 1
-            }
-         },
-         "light3" : {
-            "lightparams" : {
-               "intensityB" : 0,
-               "intensityG" : 1,
-               "intensityR" : 1,
-               "posX" : -6,
-               "posY" : 2,
-               "posZ" : -10,
-               "surfaceReflectivityB_TEMP" : 1,
-               "surfaceReflectivityG_TEMP" : 1,
-               "surfaceReflectivityR_TEMP" : 1
-            }
-         },
-         "light4" : {
-            "lightparams" : {
-               "intensityB" : 1,
-               "intensityG" : 1,
-               "intensityR" : 0,
-               "posX" : -6,
-               "posY" : 2,
-               "posZ" : -10,
-               "surfaceReflectivityB_TEMP" : 1,
-               "surfaceReflectivityG_TEMP" : 1,
-               "surfaceReflectivityR_TEMP" : 1
-            }
-         },
-         "light5" : {
-            "lightparams" : {
-               "intensityB" : 1,
-               "intensityG" : 0,
-               "intensityR" : 1,
-               "posX" : -6,
-               "posY" : 2,
-               "posZ" : 0,
                "surfaceReflectivityB_TEMP" : 1,
                "surfaceReflectivityG_TEMP" : 1,
                "surfaceReflectivityR_TEMP" : 1

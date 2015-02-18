@@ -32,28 +32,6 @@
             "TextureFile": "data\\images\\Menu.tga"
           }
         }
-      },
-	  "box": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 1,
-          "posY": 0,
-          "posZ": 0,
-          "scaleX": 0.1,
-          "scaleY": 0.1,
-          "scaleZ": 0.1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "boxLight",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\box.obj",
-            "TextureFile": "data\\images\\default.png"
-          }
-        }
       }
     },
     "cameras": {
@@ -87,12 +65,25 @@
     "lights": {
       "light0": {
         "lightparams": {
-          "posX": 1,
+          "posX": 3,
+          "posY": 1,
+          "posZ": 0,
+          "intensityR": 1.0,
+          "intensityG": 1.0,
+          "intensityB": 1.0,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
+      },
+	  "light1": {
+        "lightparams": {
+          "posX": -3,
           "posY": 0,
           "posZ": 0,
-          "intensityR": 0.5,
-          "intensityG": 0.1,
-          "intensityB": 0.1,
+          "intensityR": 1.0,
+          "intensityG": 1.0,
+          "intensityB": 1.0,
           "surfaceReflectivityR_TEMP": 1,
           "surfaceReflectivityG_TEMP": 1,
           "surfaceReflectivityB_TEMP": 1
