@@ -20,23 +20,36 @@ private:
 	struct Object{
 		///char type[32];
 		glm::vec3 pos;
+		bool useRotBall;
 		glm::quat rot;
+		glm::vec3 eulers;
 		glm::vec3 scale;
 		char    Name[4];
 	};
+
+	struct GUILight{
+		std::string name;
+		glm::vec3 position;
+		glm::vec3 diffuse;
+	};
 	static LoadState loadfile;
-	TwType modelType;
+
+	Light light;
+	TwType modelType, lightType;
 	Object* objects;
-	TwBar* bar;
+	TwBar* bar, *lightbar;
+
 	ResourceManager* rManager;
 	int width;
 	int height;
 	Scene* m_scene;
 	Json::StyledWriter writer;
 	int j;
-
+	void saveData();
+	void deleteLightBar();
+	void addToLights();
 	void createLight();
-	void updateLayout();
+	void updateObjects();
 	void openFile(std::vector<Scene*>& scene, int& activeScene);
 public:
 	GUI();
@@ -47,15 +60,21 @@ public:
 	void onKeyPressed(int key, int mod);
 	void onResize(int w, int h);
 	void draw();
-	void saveData();
+
+
 	void checkOpenFile(std::vector<Scene*>& scene, int& activeScene);
 	void update(Scene* scene);
-	
+
 	Scene* getScene(){return m_scene;};
+	static void TW_CALL DeleteLightBar(void *clientData);
+	static void TW_CALL AddtoLights(void *clientData);
 	static void TW_CALL Save(void *clientData);
 	static void TW_CALL OpenFile(void *clientData);
-	//bool getRotate()const{return rotate;};
+	static void TW_CALL CreateLight(void *clientData);
+	static void TW_CALL CopyStdStringToClient(std::string& destinationClientString, const std::string& sourceLibraryString);
+	
 };
+
 
 #endif
 
