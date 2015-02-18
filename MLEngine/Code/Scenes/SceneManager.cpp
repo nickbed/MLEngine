@@ -77,7 +77,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						entToCreate = new Robot();
 						using namespace std::placeholders;
 						Robot* tempRobot = (Robot*)entToCreate;
-						AddMessageListner("robotMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, _1));
+						AddMessageListner("robotMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, std::placeholders::_1));
 					}
 
 					//Iterate over data inside the entity (components, transform)
@@ -199,6 +199,14 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 							entToCreate->Transform->SetPosition(gotPosition);
 							entToCreate->Transform->SetRotation(gotRotation);
 							entToCreate->Transform->SetScale(gotScale);
+						}
+
+						//*************************SCRIPT HANDLING**************************************
+						//*************************SCRIPT HANDLING**************************************
+						//*************************SCRIPT HANDLING**************************************
+						else if (key2.asString() == "script")
+						{
+							entToCreate->Script->Load(value2["path"].asString());
 						}
 					}
 					//Put entity into our map
@@ -331,7 +339,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 				if (menu)
 				{
-					AddMessageListner("loadGame", this, std::bind(&SceneManager::msg_LoadGame, this, _1));
+					AddMessageListner("loadGame", this, std::bind(&SceneManager::msg_LoadGame, this, std::placeholders::_1));
 				}
 			}
 
@@ -368,12 +376,12 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	if(gotConfig->sceneEntities->find("robot1") != gotConfig->sceneEntities->end())
 	{
-		AddMessageListner("mouseMovement",(Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, _1));
+		AddMessageListner("mouseMovement", (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::placeholders::_1));
 	}
 
-	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, _1));
+	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::placeholders::_1));
 
-	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, _1));
+	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, std::placeholders::_1));
 	
 	
 	
@@ -381,18 +389,18 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	CameraEntity* camToSetup = gotConfig->sceneCameras->find("camera1")->second;
 
-	AddMessageListner("cameraMovement", camToSetup, std::bind(&CameraEntity::msg_SetMovePosition, camToSetup, _1));
+	AddMessageListner("cameraMovement", camToSetup, std::bind(&CameraEntity::msg_SetMovePosition, camToSetup, std::placeholders::_1));
 
-	AddMessageListner("mouseMovement", camToSetup, std::bind(&CameraEntity::msg_SetLookPosition, camToSetup, _1));
+	AddMessageListner("mouseMovement", camToSetup, std::bind(&CameraEntity::msg_SetLookPosition, camToSetup, std::placeholders::_1));
 
-	AddMessageListner("cameraMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, _1));
+	AddMessageListner("cameraMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, std::placeholders::_1));
 
-	AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, _1));
+	AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, std::placeholders::_1));
 
-	//For realoding the scene
-	AddMessageListner("reloadScene", this, std::bind(&SceneManager::msg_ReloadScene, this, _1));
+	//For reloading the scene
+	AddMessageListner("reloadScene", this, std::bind(&SceneManager::msg_ReloadScene, this, std::placeholders::_1));
 
-	AddMessageListner("showDebug", this, std::bind(&SceneManager::msg_ShowDebug, this, _1));
+	AddMessageListner("showDebug", this, std::bind(&SceneManager::msg_ShowDebug, this, std::placeholders::_1));
 
 	
 
@@ -660,11 +668,11 @@ SceneConfig SceneManager::CreateTestScene()
 	//rec.typeToListen = "keyboardMovement";
 	//mauvemessage::MessageManager::AddMessageListner("keyboardMovement", rec);
 	using namespace std::placeholders;
-	AddMessageListner("keyboardMovement", currentCamera, std::bind(&CameraEntity::msg_SetMovePosition, currentCamera, _1));
+	AddMessageListner("keyboardMovement", currentCamera, std::bind(&CameraEntity::msg_SetMovePosition, currentCamera, std::placeholders::_1));
 
-	AddMessageListner("mouseMovement", currentCamera, std::bind(&CameraEntity::msg_SetLookPosition, currentCamera, _1));
+	AddMessageListner("mouseMovement", currentCamera, std::bind(&CameraEntity::msg_SetLookPosition, currentCamera, std::placeholders::_1));
 
-	AddMessageListner("cameraPositionMove", testScene.currentSceneLight, std::bind(&SceneLight::msg_LightPositionHandler, testScene.currentSceneLight, _1));
+	AddMessageListner("cameraPositionMove", testScene.currentSceneLight, std::bind(&SceneLight::msg_LightPositionHandler, testScene.currentSceneLight, std::placeholders::_1));
 
 	currentCamera->Components->AddComponent("keyboardMovement", movement);
 	currentCamera->Components->AddComponent("mouseMovement", mouseReader);

@@ -1,7 +1,16 @@
 #ifndef SCRIPTMANAGER_H
 #define SCRIPTMANAGER_H
 
-#include <cahlua/CahLua.hpp>
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+#include <LuaBridge/LuaBridge.h>
+
+
+#include "../Interfaces/IEntity.h"
+#include "../Components/Script.h"
 
 class ScriptManager
 {
@@ -11,9 +20,12 @@ public:
 
 	bool Init();
 
+	void Close();
 
 private:
+	lua_State *luaVM;
 
+	void bindElements();
 
 };
 

@@ -7,14 +7,29 @@ ScriptManager::ScriptManager()
 
 ScriptManager::~ScriptManager()
 {
-	CahLua::close();
 }
 
 bool ScriptManager::Init()
 {
-	bool success = CahLua::open();
+	luaVM = luaL_newstate();
+	luaL_openlibs(luaVM);
+	ScriptComponent::setVM(luaVM);
+	bindElements();
 
+	return true;
+}
 
+void ScriptManager::Close()
+{
+	lua_close(luaVM);
+}
 
-	return success;
+void ScriptManager::bindElements()
+{
+	/*luabind::module(luaVM)
+	[
+		luabind::class_<IEntity>("gameobject")
+		.def(luabind::constructor<>())
+		//.def("addFrame", &Animation::addFrame)
+	];*/
 }

@@ -7,6 +7,7 @@
 #include "..\Components\Script.h"
 #include "..\Components\Transform.h"
 
+
 //Interface (Abstract class) that defines how components interact with entities
 class IEntity
 {
@@ -27,7 +28,6 @@ public:
 	virtual void Destroy();
 
 
-
 	//List of components
 	ComponentManager* Components;
 
@@ -35,7 +35,6 @@ public:
 	TransformComponent* Transform;
 
 	//EVERYTHING has a script
-
 	ScriptComponent* Script;
 };
 

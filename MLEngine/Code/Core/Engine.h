@@ -6,9 +6,9 @@
 #include "..\Entities\GeneralEntity.h"
 #include "../States/TestState.h"
 #include "../Messages/MessageManager.h"
+#include "..\Scripts\ScriptManager.h"
 #include "..\Scenes\SceneManager.h"
 
-#include "..\Scripts\ScriptManager.h"
 
 
 #include "..\Components\StaticMeshNoIndices.h"

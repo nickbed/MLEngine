@@ -9,6 +9,7 @@ Engine::~Engine()
 {
 	currentState.release();
 	sceneManager->DestroyCurrentSceneEntities();
+	scriptManager.Close();
 }
 
 void Engine::Init(EngineConfig conf)

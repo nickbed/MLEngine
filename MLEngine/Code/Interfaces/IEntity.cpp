@@ -9,6 +9,7 @@ IEntity::IEntity()
 	Components = new ComponentManager(std::move(components));
 	
 	Transform = new TransformComponent("defaultTransform");
+
 	Script = new ScriptComponent("defaultScript");
 }
 
@@ -17,12 +18,15 @@ IEntity::IEntity(std::unique_ptr<componentMapType> componentList)
 	Components = new ComponentManager(std::move(componentList));
 	
 	Transform = new TransformComponent("defaultTransform");
+
+	Script = new ScriptComponent("defaultScript");
 }
 
 bool IEntity::Update(float dt)
 {
 	Components->UpdateAllComponents(dt);
 	Transform->Update(dt);
+
 	Script->Update(dt);
 	return true;
 }
@@ -31,12 +35,15 @@ void IEntity::Init()
 {
 	Components->InitAllComponents();
 	Transform->Init();
+
+	//Script->Init();
 }
 
 void IEntity::Destroy()
 {
 	Components->DestroyAllComponents();
 	Transform->Destroy();
+	Script->Destroy();
 	//Remove us as a listner for any messages we might be listening to.
 	mauvemessage::MessageManager::ClearMessageListner(this);
 }

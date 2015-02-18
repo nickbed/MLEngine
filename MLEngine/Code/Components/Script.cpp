@@ -1,59 +1,61 @@
 #include "Script.h"
 
+lua_State* ScriptComponent::luaVM = nullptr;
+int ScriptComponent::uid = 0;
+
 ScriptComponent::ScriptComponent(std::string id) : IComponent(id)
 {
-	loaded = false;
-	script = CahLua::Script(false, "data/Scripts/default.lua");
-	if (0 == script.getError())
-	{
-		loaded = true;
-	}
+	this->error = -1;
+	this->uuid = "env_" + std::to_string(uid);
+	++uid;
 }
-
-ScriptComponent::ScriptComponent(std::string id, std::string filename) : IComponent(id)
-{
-	script = CahLua::Script(false, filename);
-	if (0 == script.getError())
-	{
-		loaded = true;
-	}
-}
-
 
 ScriptComponent::~ScriptComponent()
 {
 }
 
-void ScriptComponent::CallFunc(std::string funcName)
-{
-	if (loaded)
-	{
-		script.callFunc(funcName);
-	}
-}
-
 void ScriptComponent::Init()
 {
-	if (loaded)
-	{
-		script.execute();
-	}
 }
 
 void ScriptComponent::Load(std::string filename)
 {
-	if (!loaded)
-	{
-		script = CahLua::Script(false, filename);
+	if (luaL_dofile(luaVM, filename.c_str()) == 0) {
+		luabridge::LuaRef table = luabridge::getGlobal(luaVM, "Default");
+		if (table.isTable()) {
+			if (table["Update"].isFunction()) {
+				updateFunc = std::make_shared<luabridge::LuaRef>(table["Update"]);
+			}
+			else {
+				updateFunc.reset();
+			}
+			if (table["Start"].isFunction()) {
+				table["Start"]();
+			}
+		}
 	}
-	script.execute();
+	else {
+		mauveassert::Assert::WriteDebug("Lua: Unable to open file: " + filename, mauveassert::ENUM_severity::SEV_WARNING);
+	}
 }
 
 void ScriptComponent::Update(float dt)
 {
-	CallFunc("Update");
+	if (updateFunc) {
+		try{
+			(*updateFunc)(dt);
+		}
+		catch (luabridge::LuaException const& e) {
+			std::cout << "Lua Exception: " << e.what() << std::endl;
+		}
+	}
 }
 
 void ScriptComponent::Destroy()
 {
+}
+
+void ScriptComponent::setVM(lua_State* L)
+{
+	luaVM = L;
 }
