@@ -18,7 +18,7 @@ enum LoadState {OPEN, DONTOPEN};
 class GUI {
 private:
 	struct Object{
-		char type[32];
+		///char type[32];
 		glm::vec3 pos;
 		glm::quat rot;
 		glm::vec3 scale;
