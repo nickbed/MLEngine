@@ -65,14 +65,15 @@ public:
 	void nextCamera();
 
 	void deleteShader();
-	void setLights();
 
 	const Json::Value Scene::createJson();
 
 	const SceneJsonData& getSceneData()const {return sceneData;};
 
 	void loadDefaults();
-	const std::vector<Light>& getLights()const {return lights;};
+	
+	const std::vector<GameObject*> getLightObjects()const{return lightObjects;};
+	std::vector<Light>& getLights() {return lights;};
 	const std::string& getFileName(){return filename;};
 	const std::vector<GameObject*> GetGameObjects()const{return gameObjects;};
 	void addGameObject(GameObject* gameobject){gameObjects.push_back(gameobject);};

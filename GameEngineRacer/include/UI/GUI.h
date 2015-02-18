@@ -24,16 +24,15 @@ private:
 		glm::quat rot;
 		glm::vec3 eulers;
 		glm::vec3 scale;
-		char    Name[4];
+		char    name[4];
 	};
 
 	struct GUILight{
-		std::string name;
 		glm::vec3 position;
 		glm::vec3 diffuse;
 	};
 	static LoadState loadfile;
-
+	GUILight* lights;
 	Light light;
 	TwType modelType, lightType;
 	Object* objects;
@@ -50,6 +49,7 @@ private:
 	void addToLights();
 	void createLight();
 	void updateObjects();
+	void updateLights();
 	void openFile(std::vector<Scene*>& scene, int& activeScene);
 public:
 	GUI();
