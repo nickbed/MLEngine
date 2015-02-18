@@ -120,9 +120,13 @@ void GUI::saveData()
 
 void GUI::updateLayout()
 {
+
 	TwDefine("GLOBAL help='Press N to change camera.\nHold alt to move the camera.'");
 	TwAddButton(bar, "Saving", Save, this , " label='Save Scene' ");
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
+	///TODO CREATE LIGHTS, ADD ROTATE IN EULER DEGREES
+
+
 
 	for(unsigned int i=0; i<m_scene->GetGameObjects().size(); ++i)  // Add 'maxLights' variables of type lightType; 
 	{                               // unused lights variables (over NumLights) will hidden by Scene::Update( )
@@ -167,6 +171,7 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 
 	TwInit(TW_OPENGL_CORE, NULL );
 	bar = TwNewBar("Editor");
+	TwDefine(" Editor color='192 255 192' text=dark ");
 	TwStructMember objectMembers[] = // array used to describe tweakable variables of the Light structure
 	{
 		{ "Translate ",    TW_TYPE_FLOAT, offsetof(Object, pos),    " help='Translates the object in X.' step=0.1" },   

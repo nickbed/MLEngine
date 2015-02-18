@@ -45,6 +45,7 @@ private:
 	static std::unordered_map<std::string, Camera*> cameras;
 
 	std::vector<GameObject*> gameObjects;
+	std::vector<GameObject*> lightObjects;/////TODO ADD LIGHT OBJECTS
 	glm::mat4 model;
 	GLuint vertShader, fragShader,programHandle;
 
