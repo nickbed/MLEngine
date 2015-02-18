@@ -287,25 +287,7 @@ bool Scene::LoadScene(const std::string& filename)
 			light.constant = 1.0f;
 
 		}
-		ModelLoader mLoader("data\\models\\plane.obj");
-		GameObject* g = new GameObject();
-		Model* m = new Model();
-		std::string name = filename.substr(filename.find_last_of("/\\")+1);
-		m->normals = mLoader.getNormals();
-		m->verts = mLoader.getVerts();
-		m->textureCoords = mLoader.getTextureCoords();
-		rManager->addToModel(std::pair<std::string, Model*>(filename,m));
-		g->setEntityType("LightEntity");
-		g->getTransformComp()->setTranslate(light.position);
-		g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
-		g->getTransformComp()->setRotate(glm::quat(glm::vec3(glm::radians(90.0f),0.0f,0.0f)));
-		g->setName(light.name);
-
-		g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\light.jpg"));
-		g->getRenderComp()->update();
-
-
-		lightObjects.push_back(g);
+		loadAndAddLightPlane(light);
 		lights.push_back(light);
 	}
 	if(root["scene"]["cameras"].size() > 0)
@@ -391,6 +373,32 @@ bool Scene::LoadScene(const std::string& filename)
 	return true;
 }
 
+void Scene::loadAndAddLightPlane(const Light& light)
+{
+	if (rManager->getModel_const().find("data\\models\\plane.obj") == rManager->getModel_const().end() ) 
+	{
+		ModelLoader mLoader("data\\models\\plane.obj");
+
+		Model* m = new Model();
+		std::string name = filename.substr(filename.find_last_of("/\\")+1);
+		m->normals = mLoader.getNormals();
+		m->verts = mLoader.getVerts();
+		m->textureCoords = mLoader.getTextureCoords();
+		rManager->addToModel(std::pair<std::string, Model*>("data\\models\\plane.obj",m));
+	}
+	GameObject* g = new GameObject();
+	g->setEntityType("LightEntity");
+	g->getTransformComp()->setTranslate(light.position);
+	g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
+	g->getTransformComp()->setRotate(glm::quat(glm::vec3(glm::radians(90.0f),0.0f,0.0f)));
+	g->setName(light.name);
+
+	g->getRenderComp()->init(rManager->getModel().at("data\\models\\plane.obj"),rManager->getTexture().at("data\\images\\light.jpg"));
+	g->getRenderComp()->update();
+
+
+	lightObjects.push_back(g);
+}
 void Scene::loadDefaults()
 {
 	TextureLoader* t_loader = new TextureLoader();
@@ -699,9 +707,10 @@ const Json::Value Scene::createJson()
 		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["scaleX"] =  gameObjects.at(i)->getTransformComp()->getScale().x;
 		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["scaleY"] =  gameObjects.at(i)->getTransformComp()->getScale().y;
 		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["scaleZ"] =  gameObjects.at(i)->getTransformComp()->getScale().z;
-		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateX"] =  gameObjects.at(i)->getTransformComp()->getRotate().x;
-		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateY"] =  gameObjects.at(i)->getTransformComp()->getRotate().y;
-		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateZ"] =  gameObjects.at(i)->getTransformComp()->getRotate().z;
+		glm::vec3 rot = glm::degrees(glm::eulerAngles(gameObjects.at(i)->getTransformComp()->getRotate()));
+		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateX"] =  rot.x;
+		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateY"] =  rot.y;
+		root["scene"]["entities"][gameObjects.at(i)->getName()]["transform"]["rotateZ"] =  rot.z;
 
 		for(unsigned int j=0; j < gameObjects.at(i)->getComponentIDs().size(); ++j)
 		{

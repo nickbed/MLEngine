@@ -10,32 +10,32 @@
 #include "json\json.h"
 #include <unordered_map>
 #include "glm\gtx\vector_angle.hpp"
-
+struct Light
+{
+	std::string name;
+	glm::vec3 position;
+	glm::vec3 diffuse;
+	glm::vec3 ambient;
+	glm::vec3 specular;
+	float constant;
+	float linear;
+	float quadratic;
+};
 class Scene
 {
 private:
 	struct SceneJsonData
-{
-	std::string name;
-	std::string sceneShader;
-	std::string currentCamera;
-	std::string currentLight;
-	bool messageHandlers;
-	bool menu;
-};
-	SceneJsonData sceneData;
-	std::string filename;
-	struct Light
 	{
 		std::string name;
-		glm::vec3 position;
-		glm::vec3 diffuse;
-		glm::vec3 ambient;
-		glm::vec3 specular;
-		float constant;
-		float linear;
-		float quadratic;
+		std::string sceneShader;
+		std::string currentCamera;
+		std::string currentLight;
+		bool messageHandlers;
+		bool menu;
 	};
+	SceneJsonData sceneData;
+	std::string filename;
+
 
 	void setLightParams();
 	void setUpMatricies();
@@ -48,12 +48,12 @@ private:
 	static std::unordered_map<std::string, Camera*> cameras;
 
 	std::vector<GameObject*> gameObjects;
-	
+
 	glm::mat4 model;
 	GLuint vertShader, fragShader,programHandle;
 
 
-	
+
 public:
 	Scene();
 	~Scene();
@@ -68,15 +68,20 @@ public:
 	void setLights();
 
 	const Json::Value Scene::createJson();
-	
+
 	const SceneJsonData& getSceneData()const {return sceneData;};
 
 	void loadDefaults();
-	std::vector<Light>& getLights() {return lights;};
+	const std::vector<Light>& getLights()const {return lights;};
 	const std::string& getFileName(){return filename;};
 	const std::vector<GameObject*> GetGameObjects()const{return gameObjects;};
 	void addGameObject(GameObject* gameobject){gameObjects.push_back(gameobject);};
 	void addLightObject(GameObject* lightObject){lightObjects.push_back(lightObject);};
+	void addLight(const Light& light){lights.push_back(light);};
+
+
+	void loadAndAddLightPlane(const Light& light);
+
 
 	Camera* GetCamera(){return cameras[activeCamera];};//returns the current camera.
 };
