@@ -17,9 +17,9 @@ public:
 	TransformComponent(std::string id, glm::vec3 pos, glm::vec3 rot, glm::vec3 scl);
 
 	//Getters/Setters
-	glm::vec3 GetPosition();
-	glm::vec3 GetRotation();
-	glm::vec3 GetScale();
+	glm::vec3 GetPosition() const { return position;};
+	glm::vec3 GetRotation() const {	return rotation;};
+	glm::vec3 GetScale() const { return scale; };
 
 	void SetPosition(glm::vec3 pos);
 	void SetRotation(glm::vec3 rot);

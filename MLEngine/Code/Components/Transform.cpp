@@ -47,21 +47,6 @@ void TransformComponent::SetScale(glm::vec3 scl)
 	scale = scl;
 }
 
-glm::vec3 TransformComponent::GetPosition()
-{
-	return position;
-}
-
-glm::vec3 TransformComponent::GetRotation()
-{
-	return rotation;
-}
-
-glm::vec3 TransformComponent::GetScale()
-{
-	return scale;
-}
-
 void TransformComponent::Init()
 {
 }

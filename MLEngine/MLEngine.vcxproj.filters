@@ -314,6 +314,9 @@
     <ClInclude Include="Code\Components\Script.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Scripts\ClassHelpers.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\default.frag" />

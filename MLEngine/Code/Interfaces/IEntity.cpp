@@ -11,6 +11,7 @@ IEntity::IEntity()
 	Transform = new TransformComponent("defaultTransform");
 
 	Script = new ScriptComponent("defaultScript");
+	Script->owner = this;
 }
 
 IEntity::IEntity(std::unique_ptr<componentMapType> componentList)
@@ -20,6 +21,7 @@ IEntity::IEntity(std::unique_ptr<componentMapType> componentList)
 	Transform = new TransformComponent("defaultTransform");
 
 	Script = new ScriptComponent("defaultScript");
+	Script->owner = this;
 }
 
 bool IEntity::Update(float dt)
@@ -53,4 +55,9 @@ IEntity::~IEntity()
 	if(Components != nullptr) delete Components;
 	if (Transform != nullptr) delete Transform;
 	if (Script != nullptr) delete Script;
+}
+
+void IEntity::setTransform(TransformComponent* t)
+{
+	Transform = t;
 }

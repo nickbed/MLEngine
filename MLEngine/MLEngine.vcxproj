@@ -220,6 +220,7 @@
     <ClInclude Include="Code\Resources\Shader.h" />
     <ClInclude Include="Code\Scenes\SceneManager.h" />
     <ClInclude Include="Code\Scenes\SceneTypes.h" />
+    <ClInclude Include="Code\Scripts\ClassHelpers.h" />
     <ClInclude Include="Code\Scripts\ScriptManager.h" />
     <ClInclude Include="Code\States\TestState.h" />
     <ClInclude Include="Code\Systems\InputSystem.h" />

@@ -206,7 +206,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						//*************************SCRIPT HANDLING**************************************
 						else if (key2.asString() == "script")
 						{
-							entToCreate->Script->Load(value2["path"].asString());
+							entToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
 						}
 					}
 					//Put entity into our map

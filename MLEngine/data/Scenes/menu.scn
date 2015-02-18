@@ -25,7 +25,8 @@
         },
 		"script":
 		{
-			"path": "data\\Scripts\\default.lua"
+			"path": "data\\Scripts\\player.lua",
+			"identifier": "Player"
 		},
         "components": {
           "ent1mesh": {

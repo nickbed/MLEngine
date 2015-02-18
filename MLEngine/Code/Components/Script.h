@@ -13,6 +13,8 @@ extern "C" {
 }
 #include <LuaBridge/LuaBridge.h>
 
+class IEntity;
+
 //For transforming/positioning stuff
 class ScriptComponent : public IComponent
 {
@@ -22,7 +24,7 @@ public:
 
 	//Getters/Setters
 	virtual void Init();
-	void Load(std::string filename = "");
+	void Load(std::string filename = "", std::string expectedNamespace = "");
 
 	//Update method
 	virtual void Update(float dt);
@@ -35,14 +37,16 @@ public:
 
 	static void setVM(lua_State*);
 
+	IEntity* owner;
+
 private:
-	//luabind::object luaDataTable;
-	//luabind::object compiledScript;
 	static lua_State* luaVM;
 	static int uid;
 	std::string uuid;
 
+	std::shared_ptr<luabridge::LuaRef> luaDataTable;
 	std::shared_ptr<luabridge::LuaRef> updateFunc;
+	std::shared_ptr<luabridge::LuaRef> startFunc;
 
 	int error;
 };

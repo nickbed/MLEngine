@@ -36,6 +36,9 @@ public:
 
 	//EVERYTHING has a script
 	ScriptComponent* Script;
+
+	TransformComponent* getTransform() const { return Transform;};
+	void setTransform(TransformComponent*);
 };
 
 //Useful macro - Default implementation of calling the base class and moving the pointer if a map is specified
