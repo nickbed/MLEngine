@@ -1,8 +1,18 @@
 #include "Scene\Scene.h"
 #include <sstream>
-std::string Scene::activeCamera = "default";
-std::unordered_map<std::string, Camera*> Scene::cameras;
-Scene::Scene()
+
+
+Scene::Scene():activeCamera("default")
+	,cameras()
+	,sceneData()
+	,m_filename()
+	,lights()
+	,lightObjects()
+	,gameObjects()
+	,model()
+	,vertShader()
+	,fragShader()
+	,programHandle()
 {
 	rManager = ResourceManager::getInstance();
 	std::pair<std::string, Camera*> cameraPair;
@@ -37,7 +47,7 @@ bool Scene::LoadScene(const std::string& filename)
 	std::fstream input;
 
 
-
+	
 	//std::size_t found;
 	input.open(filename);
 	if(!input.is_open())
@@ -74,7 +84,7 @@ bool Scene::LoadScene(const std::string& filename)
 	}
 	else 
 	{
-		sceneData.sceneShader = "data\\shaders\\basic3.vert";
+		sceneData.sceneShader = "data\\shaders\\basic3";
 	}
 
 	activeCamera = sceneData.currentCamera = root["scene"]["currentcamera"].asString();
@@ -380,7 +390,7 @@ void Scene::loadAndAddLightPlane(const Light& light)
 		ModelLoader mLoader("data\\models\\plane.obj");
 
 		Model* m = new Model();
-		std::string name = filename.substr(filename.find_last_of("/\\")+1);
+		std::string name = m_filename.substr(m_filename.find_last_of("/\\")+1);
 		m->normals = mLoader.getNormals();
 		m->verts = mLoader.getVerts();
 		m->textureCoords = mLoader.getTextureCoords();
@@ -399,53 +409,12 @@ void Scene::loadAndAddLightPlane(const Light& light)
 
 	lightObjects.push_back(g);
 }
-void Scene::loadDefaults()
-{
-	TextureLoader* t_loader = new TextureLoader();
-	t_loader->LoadTexture("data\\images\\holstein1.png");
-	std::pair<std::string, Texture*> texturePair;
-	texturePair.first = t_loader->getName();
-	texturePair.second = t_loader->getTexture();
-	rManager->addToTexture(texturePair);
-	//std::pair<std::string, Texture*> texturePair2;
-	t_loader->LoadTexture("data\\images\\default.png");
-	texturePair.first = t_loader->getName();
-	texturePair.second = t_loader->getTexture();
-	rManager->addToTexture(texturePair);
-	t_loader->LoadTexture("data\\images\\light.jpg");
-	texturePair.first = t_loader->getName();
-	texturePair.second = t_loader->getTexture();
-	rManager->addToTexture(texturePair);
 
-	ShaderLoader m_sloader;
-	m_sloader.LoadShader("data\\shaders\\basic3.vert","data\\shaders\\basic3.Frag");
-	Shader* shader = new Shader();
-	shader->fragShader = m_sloader.getFrag();
-	shader->vertShader = m_sloader.getVert();
-	shader->programhandle = m_sloader.getProgramHandle();
-	std::pair<std::string, Shader*> shaderPair;
-	shaderPair.first = m_sloader.getName();
-	shaderPair.second = shader;
-	rManager->addToShader(shaderPair);
-
-	m_sloader.LoadShader("data\\shaders\\TextVertexShader.vert", "data\\shaders\\TextVertexShader.Frag");
-	Shader* shader2 = new Shader();
-	shader2->fragShader = m_sloader.getFrag();
-	shader2->vertShader = m_sloader.getVert();
-	shader2->programhandle = m_sloader.getProgramHandle();
-	std::pair<std::string, Shader*> shaderPair2;
-	shaderPair2.first = m_sloader.getName();
-	shaderPair2.second = shader2;
-	rManager->addToShader(shaderPair2);
-}
 void Scene::InitScene(const std::string& loadSceneName)//Loads gameobjects and shaders.
 {
 
 
-	filename = loadSceneName;
-
-
-	loadDefaults();
+	m_filename = loadSceneName;
 
 	if(!LoadScene(loadSceneName))
 	{
@@ -558,7 +527,6 @@ void Scene::Render()
 
 		model = translationMatrix * rotationMatrix * scaleMatrix;
 
-
 		setUpMatricies();
 		(*it)->render();
 
@@ -568,10 +536,8 @@ void Scene::Render()
 void Scene::resize(int w, int h)
 {
 	gl::Viewport(0,0,w,h);
-	if(cameras.size() > 0)
-	{
-		cameras.at(activeCamera)->setAspectRatio((float)w/h);
-	}
+	
+	
 }
 
 void Scene::nextCamera()

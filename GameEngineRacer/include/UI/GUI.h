@@ -13,7 +13,7 @@
 #include "ResourceManager.h"
 #include <fstream>
 
-enum LoadState {OPEN, DONTOPEN};
+enum GUIstate {OPEN, DONTOPEN, NEWSCENE};
 
 class GUI {
 private:
@@ -31,25 +31,34 @@ private:
 		glm::vec3 position;
 		glm::vec3 diffuse;
 	};
-	static LoadState loadfile;
+
+	static GUIstate checkEnum;
 	GUILight* lights;
 	Light light;
 	TwType modelType, lightType;
 	Object* objects;
-	TwBar* bar, *lightbar;
+	TwBar* bar, *lightbar,*sceneBar;
 
+	std::vector<Scene*>* m_scenes;
+	Scene* n_scene;
+
+
+	int* m_activeScene;
 	ResourceManager* rManager;
 	int width;
 	int height;
 	Scene* m_scene;
+	
 	Json::StyledWriter writer;
 	int j;
 	void saveData();
-	void deleteLightBar();
 	void addToLights();
+	void addToScene();
 	void createLight();
 	void updateObjects();
 	void updateLights();
+	void updateBar(const std::string& name);
+	void createScene();
 	void openFile(std::vector<Scene*>& scene, int& activeScene);
 public:
 	GUI();
@@ -58,16 +67,17 @@ public:
 	void onMouseMoved(double x, double y);
 	void onMouseClicked(int bt, int action);
 	void onKeyPressed(int key, int mod);
-	void onResize(int w, int h);
 	void draw();
 
 
-	void checkOpenFile(std::vector<Scene*>& scene, int& activeScene);
+	void checkEnums(std::vector<Scene*>& scene, int& activeScene);
 	void update(Scene* scene);
 
 	Scene* getScene(){return m_scene;};
-	static void TW_CALL DeleteLightBar(void *clientData);
+	static void TW_CALL DeleteBar(void *clientData);
 	static void TW_CALL AddtoLights(void *clientData);
+	static void TW_CALL AddtoScene(void *clientData);
+	static void TW_CALL NewScene(void *clientData);
 	static void TW_CALL Save(void *clientData);
 	static void TW_CALL OpenFile(void *clientData);
 	static void TW_CALL CreateLight(void *clientData);

@@ -25,17 +25,14 @@ private:
 	static bool instanceFlag;
 	static ResourceManager *m_rManager;
 	ResourceManager();
-	//FileType fileType;
-	/*ShaderLoader* m_sLoader;
-	ModelLoader* m_mLoader;
-	TextureLoader* m_tLoader;*/
+	
 	std::unordered_map<std::string, Shader*> m_shaders;
 	std::unordered_map<std::string, Model*> m_model;
 	std::unordered_map<std::string, Texture*> m_textures;
 public:
 	~ResourceManager();
 	static ResourceManager* getInstance();
-	//bool LoadMaster(const std::string& filename);
+	void loadDefaults();
 	void clearAll();
 	void addToShader(const std::pair<std::string, Shader*>& pair);
 	void addToTexture(const std::pair<std::string, Texture*>& pair);

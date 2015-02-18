@@ -8,9 +8,7 @@ ResourceManager::ResourceManager():
 	m_shaders(),
 	m_textures() 
 {
-	/*m_tLoader = new TextureLoader();
-	m_sLoader = new ShaderLoader();
-	m_mLoader = new ModelLoader();*/
+
 }
 ResourceManager* ResourceManager::getInstance()
 {
@@ -26,10 +24,7 @@ ResourceManager* ResourceManager::getInstance()
 
 ResourceManager::~ResourceManager()
 {
-   /*delete m_tLoader;
-	delete m_rManager;
-	delete m_sLoader;
-	delete m_mLoader;*/
+ 
 	for(auto it = m_shaders.begin(); it != m_shaders.end(); ++it)
 	{
 		delete (*it).second;
@@ -45,10 +40,7 @@ ResourceManager::~ResourceManager()
 		delete (*it).second;
 		(*it).second = NULL;
 	}
-	/*m_mLoader = NULL;
-	m_sLoader = NULL;
-	m_rManager = NULL;
-	m_tLoader = NULL;*/
+	
 }
 
 void  ResourceManager::addToModel(const std::pair<std::string, Model*>& pair)
@@ -63,110 +55,47 @@ void ResourceManager::addToTexture(const std::pair<std::string, Texture*>& pair)
 {
 	m_textures.insert(pair);
 }
-
-
-/*bool ResourceManager::LoadMaster(const std::string& filename)//Will load a file containing all resources.
+void ResourceManager::loadDefaults()
 {
-	std::ifstream input;
-	std::stringstream ss;
-	std::string line, nameObject, texName, shader;
-	std::string flipped;
-	std::size_t found;
-	std::pair<std::string,Model*> modelPair;
-	std::pair<std::string,Shader*> shaderPair;
-	std::pair<std::string,Texture*> texturePair;
-	int i=0;
-	input.open(filename);
-	if(!input.is_open())
-	{
-		std::cout << "file not found" << std::endl;
-		return false;
-	}
-	while(getline(input, line))
-	{
-		fileType = UNKN;
-		found = line.find("obj");
-		if (found!= std::string::npos)
-		{
-			//cout<<line<<endl;
-			fileType = OBJ;
-		}
-		found = line.find("tex");
-		if (found!= std::string::npos)
-		{
-			fileType = TEX;
-		}
-		found = line.find("sha");
-		if (found!= std::string::npos)
-		{
-			fileType = SHA;
-		}
-		Model* m = new Model();
-		Shader* s = new Shader();
-		ss.str("");
-		ss.clear();
-		ss.str(line);
-		ss.ignore(3);
-		switch(fileType){
-		case OBJ:
-			ss >> nameObject;
-			m_mLoader->loadFromfile(nameObject);
+	TextureLoader* t_loader = new TextureLoader();
+	t_loader->LoadTexture("data\\images\\holstein1.png");
+	std::pair<std::string, Texture*> texturePair;
+	texturePair.first = t_loader->getName();
+	texturePair.second = t_loader->getTexture();
+	this->addToTexture(texturePair);
+	//std::pair<std::string, Texture*> texturePair2;
+	t_loader->LoadTexture("data\\images\\default.png");
+	texturePair.first = t_loader->getName();
+	texturePair.second = t_loader->getTexture();
+	this->addToTexture(texturePair);
+	t_loader->LoadTexture("data\\images\\light.jpg");
+	texturePair.first = t_loader->getName();
+	texturePair.second = t_loader->getTexture();
+	this->addToTexture(texturePair);
 
-			m->normals = m_mLoader->getNormals();
-			m->textureCoords = m_mLoader->getTextureCoords();
-			m->verts = m_mLoader->getVerts();
-			if(m_mLoader->getName().find_last_of("/"))
-			{
-				int cutOff = m_mLoader->getName().find_last_of("/");
-				m_mLoader->setName( m_mLoader->getName().substr(cutOff+1));
-			}
-			modelPair.first  = "data\\models\\"+m_mLoader->getName();
-			modelPair.second= m;
-			m_model.insert(modelPair);
+	ShaderLoader m_sloader;
+	m_sloader.LoadShader("data\\shaders\\basic3.vert","data\\shaders\\basic3.Frag");
+	Shader* shader = new Shader();
+	shader->fragShader = m_sloader.getFrag();
+	shader->vertShader = m_sloader.getVert();
+	shader->programhandle = m_sloader.getProgramHandle();
+	std::pair<std::string, Shader*> shaderPair;
+	shaderPair.first = m_sloader.getName();
+	shaderPair.second = shader;
+	this->addToShader(shaderPair);
 
-			break;
-		case TEX:
-			ss >> texName >> flipped;
-			m_tLoader->LoadTexture(texName);
-			if(flipped != "NOFLIP")
-			{
-				m_tLoader->FlipImage();
-			}
-			if(m_tLoader->getName().find_last_of("/"))
-			{
-				int cutOff = m_tLoader->getName().find_last_of("/");
-				m_tLoader->setName( m_tLoader->getName().substr(cutOff+1));
-			}
-			texturePair.first = "data\\images\\"+m_tLoader->getName();
-			texturePair.second = m_tLoader->getTexture();
-			m_textures.insert(texturePair);
-			flipped.clear();
-
-			break;
-		case SHA:
-			ss >> shader;
-			m_sLoader->LoadShader(shader,shader);
-			s->fragShader = m_sLoader->getFrag();
-			s->vertShader = m_sLoader->getVert();
-			s->programhandle = m_sLoader->getProgramHandle();
-			shaderPair.first = "data\\shaders\\"+m_sLoader->getName();
-			shaderPair.second = s;
-			m_shaders.insert(shaderPair);
-
-			break;
-		case UNKN:
-			break;
+	m_sloader.LoadShader("data\\shaders\\TextVertexShader.vert", "data\\shaders\\TextVertexShader.Frag");
+	Shader* shader2 = new Shader();
+	shader2->fragShader = m_sloader.getFrag();
+	shader2->vertShader = m_sloader.getVert();
+	shader2->programhandle = m_sloader.getProgramHandle();
+	std::pair<std::string, Shader*> shaderPair2;
+	shaderPair2.first = m_sloader.getName();
+	shaderPair2.second = shader2;
+	this->addToShader(shaderPair2);
+}
 
 
-		}
-
-
-
-
-	}
-	input.close();
-	return true;
-}*/
 
 void ResourceManager::clearAll()
 {

@@ -34,7 +34,7 @@ private:
 		bool menu;
 	};
 	SceneJsonData sceneData;
-	std::string filename;
+	std::string m_filename;
 
 
 	void setLightParams();
@@ -44,8 +44,8 @@ private:
 
 	ResourceManager* rManager;
 
-	static std::string activeCamera;
-	static std::unordered_map<std::string, Camera*> cameras;
+	std::string activeCamera;
+	std::unordered_map<std::string, Camera*> cameras;
 
 	std::vector<GameObject*> gameObjects;
 
@@ -68,13 +68,12 @@ public:
 
 	const Json::Value Scene::createJson();
 
+	SceneJsonData& setSceneData(){return sceneData;};
 	const SceneJsonData& getSceneData()const {return sceneData;};
-
-	void loadDefaults();
 	
 	const std::vector<GameObject*> getLightObjects()const{return lightObjects;};
 	std::vector<Light>& getLights() {return lights;};
-	const std::string& getFileName(){return filename;};
+	const std::string& getFileName(){return m_filename;};
 	const std::vector<GameObject*> GetGameObjects()const{return gameObjects;};
 	void addGameObject(GameObject* gameobject){gameObjects.push_back(gameobject);};
 	void addLightObject(GameObject* lightObject){lightObjects.push_back(lightObject);};

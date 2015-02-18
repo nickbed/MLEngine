@@ -1,6 +1,6 @@
 #include "UI\GUI.h"
 
-LoadState GUI::loadfile = DONTOPEN;
+GUIstate GUI::checkEnum = DONTOPEN;
 GUI::GUI() :width(0)
 	,height(0)
 	,j(0)
@@ -24,7 +24,7 @@ GUI::~GUI()
 
 void TW_CALL GUI::OpenFile(void *clientData)
 {
-	loadfile = OPEN;
+	checkEnum = OPEN;
 }
 
 void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
@@ -69,22 +69,42 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\default.png"));
 			g->getRenderComp()->update();
 			m_scene->addGameObject(g);
-			//TwRemoveAllVars(bar);
+			TwRemoveAllVars(bar);
+			updateBar(m_scene->getSceneData().name);
 			updateObjects();
+			
 		}
 		else if(newstring == ".scn")
 		{
-			rManager->clearAll();
+
+			std::string checkName = filename.substr(filename.find("data"));
+			for(int i=0; i < scene.size(); ++i)
+			{
+				if(scene.at(i)->getFileName() == checkName)
+				{
+					activeScene = i;
+					m_scene = scene[activeScene];
+					TwRemoveAllVars(bar);
+					updateBar(m_scene->getSceneData().name);
+					updateObjects();
+					updateLights();
+					return;
+				}
+
+			}
+			//rManager->clearAll();
 			Scene* newScene = new Scene();
 			//std::string name = filename.substr(filename.find();
-
 			activeScene++;
 			scene.push_back(newScene);
-			scene.at(activeScene)->InitScene(filename);
+			scene.at(activeScene)->InitScene(checkName);
 			m_scene = scene[activeScene];
+			TwRemoveAllVars(bar);
+			updateBar(m_scene->getSceneData().name);
 			updateObjects();
 			updateLights();
-			//TwRefreshBar(bar);
+			
+			TwRefreshBar(bar);
 		}
 
 
@@ -120,11 +140,12 @@ void TW_CALL GUI::Save(void *clientData)
 	GUI *ui = static_cast<GUI *>(clientData);
 	ui->saveData();
 }
-void TW_CALL GUI::DeleteLightBar(void *clientData)
+void TW_CALL GUI::DeleteBar(void *clientData)
 {
-	GUI *ui = static_cast<GUI *>(clientData);
-	ui->deleteLightBar();
+	TwBar *t = static_cast<TwBar *>(clientData);
+	TwDeleteBar(t);
 }
+
 void TW_CALL GUI::AddtoLights(void *clientData)
 {
 	GUI *ui = static_cast<GUI *>(clientData);
@@ -135,10 +156,7 @@ void TW_CALL GUI::CreateLight(void *clientData)
 	GUI *ui = static_cast<GUI *>(clientData);
 	ui->createLight();
 }
-void GUI::deleteLightBar()
-{
-	TwDeleteBar(lightbar);
-}
+
 void GUI::addToLights()
 {
 	m_scene->loadAndAddLightPlane(light);
@@ -154,6 +172,7 @@ void TW_CALL GUI::CopyStdStringToClient(std::string& destinationClientString, co
 void GUI::createLight()
 {
 	lightbar = TwNewBar("New Light");
+	TwDefine("'New Light' position='260 40' color='254 92 99' ");
 	static int i = 0;
 	light.diffuse = glm::vec3(255,255,255);
 	TwCopyStdStringToClientFunc(CopyStdStringToClient);
@@ -166,12 +185,22 @@ void GUI::createLight()
 	light.quadratic = 0.0007f;
 	light.constant = 1.0f;
 	TwAddButton(lightbar,"Create",AddtoLights,this,"");
-	TwAddButton(lightbar,"Quit",DeleteLightBar,this,"");
+	TwAddButton(lightbar,"Quit",DeleteBar,this->lightbar,"");
 	i++;
+}
+void GUI::updateBar(const std::string& name)
+{
+	std::string def =  " label='Scene Name: "+name+"' ";
+	TwAddButton(bar, "Info", NULL, NULL, def.c_str());
+	TwAddButton(bar, "NewScene", NewScene, this,"");
+	TwAddButton(bar, "Saving", Save, this , " label='Save Scene' ");
+	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
+	TwAddButton(bar, "createLights", CreateLight, this , " label='Create Light' ");
 }
 void GUI::updateObjects()
 {
-	///TODO CREATE LIGHTS
+	
+	
 	for(unsigned int i=0; i<m_scene->GetGameObjects().size(); ++i)  // Add 'maxLights' variables of type lightType; 
 	{                               // unused lights variables (over NumLights) will hidden by Scene::Update( )
 		objects[i].useRotBall = false;
@@ -190,8 +219,8 @@ void GUI::updateObjects()
 		TwSetParam(bar, objects[i].name, "label", TW_PARAM_CSTRING, 1, m_scene->GetGameObjects().at(i)->getName().c_str()); // Set label
 
 
-		std::string entityType = "Editor/"+m_scene->GetGameObjects().at(i)->getName()+" group="+m_scene->GetGameObjects().at(i)->getEntityType()+" opened='false'";//Creates the string for grouping.
-		TwDefine(entityType.c_str());
+		//std::string entityType = "Editor/"+m_scene->GetGameObjects().at(i)->getName()+" group="+m_scene->GetGameObjects().at(i)->getEntityType()+" opened='false'";//Creates the string for grouping.
+		//TwDefine(entityType.c_str());
 
 
 		std::string fold = "Editor/"+m_scene->GetGameObjects().at(i)->getEntityType()+" opened='false'";
@@ -202,25 +231,18 @@ void GUI::updateObjects()
 
 void GUI::updateLights()
 {
-	
 	for(unsigned int i=0; i<m_scene->getLights().size(); ++i)  // Add 'maxLights' variables of type lightType; 
 	{                               // unused lights variables (over NumLights) will hidden by Scene::Update( )
-		
+
 		lights[i].diffuse = m_scene->getLights().at(i).diffuse;
 		lights[i].position =  m_scene->getLights().at(i).position;
-		
+
 		std::string uniqueName = m_scene->getLights().at(i).name + std::to_string(i);
 		std::string grouping = "group=Lights";
 		TwAddVarRW(bar, uniqueName.c_str(), lightType, &lights[i], grouping.c_str());//Creates Type Grouping.
 		TwSetParam(bar, uniqueName.c_str(), "label", TW_PARAM_CSTRING, 1, m_scene->getLights().at(i).name.c_str()); // Set label
-
-
-		//std::string entityType = "Editor/"+m_scene->getLights().at(i).name+" group=Lights opened='false'";//Creates the string for grouping.
-		//TwDefine(entityType.c_str());
-
-
-		//std::string fold = "Editor/Lights opened='false'";
-		//TwDefine(fold.c_str());
+		std::string fold = "Editor/Lights opened='false'";
+		TwDefine(fold.c_str());
 
 	}
 }
@@ -231,7 +253,7 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 
 	TwInit(TW_OPENGL_CORE, NULL );
 	bar = TwNewBar("Editor");
-	TwDefine(" Editor color='192 255 192' text=dark ");
+	TwDefine("'Editor' position='20 20' color='254 92 99'  ");
 	TwStructMember objectMembers[] = 
 	{
 		{ "Translate X",    TW_TYPE_FLOAT, offsetof(Object, pos.x),    " help='Translates the object in X.' step=0.1 precision=2" },   
@@ -256,20 +278,46 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 
 	modelType = TwDefineStruct("Object", objectMembers, 11, sizeof(Object), NULL, NULL);
 	lightType = TwDefineStruct("Light", lightMembers,4,sizeof(GUILight),NULL,NULL);
-	updateObjects();
-	updateLights();
-	TwDefine("GLOBAL help='Press N to change camera.\nHold alt to move the camera.'");
-	TwAddButton(bar, "Saving", Save, this , " label='Save Scene' ");
+	TwAddButton(bar, "NewScene", NewScene, this,"");
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
-	TwAddButton(bar, "createLights", CreateLight, this , " label='Create Light' ");
+	TwDefine("GLOBAL help='Press N to change camera.\nHold alt to move the camera.'");
+	
 	TwWindowSize(width, height);
 	return true;
 }
+void GUI::createScene()
+{
+	sceneBar = TwNewBar("New Scene");
+	TwDefine("'New Scene' position='260 40' color='254 92 99' ");
+	n_scene = new Scene();
+	
+	n_scene->setSceneData().menu = false;
+	TwCopyStdStringToClientFunc(CopyStdStringToClient);
+	TwAddVarRW(sceneBar, "Name", TW_TYPE_STDSTRING, &n_scene->setSceneData().name, "");
+	TwAddVarRW(sceneBar, "Menu", TW_TYPE_BOOLCPP, &n_scene->setSceneData().menu, "help='Declares is this is a Menu Scene' true='YES' false='NO'");
+	TwAddButton(sceneBar,"Create Scene", AddtoScene, this, "");
+	TwAddButton(sceneBar,"Quit",DeleteBar,sceneBar,"");
 
-void GUI::onResize(int w, int h) {
-	width = w;
-	height = h;
-	TwWindowSize(w, h);
+}
+void GUI::addToScene()
+{
+	m_scenes->push_back(n_scene);
+	(*m_activeScene)++;
+	m_scenes->at(*m_activeScene)->InitScene(n_scene->setSceneData().name);
+	TwDeleteBar(sceneBar);
+	TwRemoveAllVars(bar);
+	updateBar(m_scenes->at(*m_activeScene)->getSceneData().name);
+}
+void TW_CALL GUI::AddtoScene(void *clientData)
+{
+	GUI *ui = static_cast<GUI *>(clientData);
+	ui->addToScene();
+}
+void TW_CALL GUI::NewScene(void *clientData)
+{
+	checkEnum = NEWSCENE;
+	GUI *ui = static_cast<GUI *>(clientData);
+	ui->createScene();
 }
 
 void GUI::onMouseMoved(double x, double y) {
@@ -308,12 +356,19 @@ void GUI::onKeyPressed(int key, int mod) {
 
 	TwKeyPressed(key, TW_KMOD_NONE);
 }
-void GUI::checkOpenFile(std::vector<Scene*>& scene, int& activeScene)
+void GUI::checkEnums(std::vector<Scene*>& scene, int& activeScene)
 {
-	if(loadfile == OPEN)
+	if(checkEnum == OPEN)
 	{
+		m_activeScene = &activeScene;
 		openFile(scene, activeScene);
-		loadfile = DONTOPEN;
+		checkEnum = DONTOPEN;
+	}
+	else if(checkEnum == NEWSCENE)
+	{
+		m_activeScene = &activeScene;
+		m_scenes = &scene;
+		checkEnum = DONTOPEN;
 	}
 }
 void GUI::update(Scene* nscene)
@@ -348,9 +403,5 @@ void GUI::update(Scene* nscene)
 }
 void GUI::draw() {
 
-
-
 	TwDraw();
-
-
 }

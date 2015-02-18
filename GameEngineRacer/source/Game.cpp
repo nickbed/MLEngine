@@ -88,7 +88,7 @@ void Game::Initialise()
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	
+	rManager->loadDefaults();
 	//scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
 	scene[activeScene]->InitScene("");
 	if(rManager->getShaders().size() > 0)
@@ -136,8 +136,8 @@ void Game::Update()
 		}
 	}
 
-	
-	gui->checkOpenFile(scene,activeScene);
+	scene[activeScene]->Update(keys);
+	gui->checkEnums(scene,activeScene);
 	gui->update(scene[activeScene]);
 	//Store the current cursor position
 	lastCursorPositionX = cursorPositionX;
@@ -163,7 +163,7 @@ void Game::Render()
 
 
 	gui->draw();
-	scene[activeScene]->Update(keys);
+	
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 
