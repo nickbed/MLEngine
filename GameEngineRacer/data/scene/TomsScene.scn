@@ -1,37 +1,37 @@
 {
    "scene" : {
-      "activeentities" : [ "plane2.obj" ],
+      "activeentities" : [ "floor.obj", "moon.obj", "robco.obj" ],
       "cameras" : {
          "default" : {
             "camerasetup" : {
                "fov" : 50,
-               "lookX" : 0,
-               "lookY" : 0,
-               "lookZ" : 0,
-               "pitch" : 0,
-               "posX" : 0,
-               "posY" : 10,
-               "posZ" : 20,
-               "yaw" : 0
+               "lookX" : 19.59283065795898,
+               "lookY" : 40.86899185180664,
+               "lookZ" : 75.84609222412109,
+               "pitch" : -0.1049999743700028,
+               "posX" : 25.00556755065918,
+               "posY" : 49.21872711181641,
+               "posZ" : 93.78900909423828,
+               "yaw" : -0.3180003762245178
             }
          }
       },
       "currentcamera" : "default",
       "currentlight" : "default",
       "entities" : {
-         "plane2.obj" : {
+         "floor.obj" : {
             "components" : {
-               "plane2.obj" : {
-                  "OBJModel" : "data\\models\\plane2.obj",
+               "floor.obj" : {
+                  "OBJModel" : "data\\Models\\floor.obj",
                   "TextureFile" : "data\\images\\default.png",
-                  "id" : "plane2.obj",
+                  "id" : "floor.obj",
                   "type" : "mesh"
                }
             },
             "transform" : {
                "posX" : 0,
                "posY" : 0,
-               "posZ" : 0.300000011920929,
+               "posZ" : 0,
                "rotateX" : 0,
                "rotateY" : -0,
                "rotateZ" : 0,
@@ -40,16 +40,73 @@
                "scaleZ" : 1
             },
             "type" : "generalentity"
+         },
+         "moon.obj" : {
+            "components" : {
+               "moon.obj" : {
+                  "OBJModel" : "data\\Models\\moon.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "moon.obj",
+                  "type" : "mesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 20,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "robco.obj" : {
+            "components" : {
+               "robco.obj" : {
+                  "OBJModel" : "data\\Models\\robco.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "robco.obj",
+                  "type" : "mesh"
+               }
+            },
+            "transform" : {
+               "posX" : -19.39999961853027,
+               "posY" : 0,
+               "posZ" : -16.60000038146973,
+               "rotateX" : 0,
+               "rotateY" : -39.00000381469727,
+               "rotateZ" : 0,
+               "scaleX" : 0.7300000190734863,
+               "scaleY" : 0.2299999892711639,
+               "scaleZ" : 0.4000000357627869
+            },
+            "type" : "generalentity"
          }
       },
       "lights" : {
-         "NewLight" : {
+         "Robcolight" : {
             "lightparams" : {
-               "intensityB" : 0.7058823704719544,
-               "intensityG" : 0.5568627715110779,
-               "intensityR" : 0.4431372880935669,
+               "intensityB" : 0.01568627543747425,
+               "intensityG" : 0,
+               "intensityR" : 0.9490196704864502,
+               "posX" : -19.10000038146973,
+               "posY" : 3.200000047683716,
+               "posZ" : -16.20000076293945,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
+         },
+         "light1" : {
+            "lightparams" : {
+               "intensityB" : 0.7764706611633301,
+               "intensityG" : 0.7686275243759155,
+               "intensityR" : 0.3921568989753723,
                "posX" : 0,
-               "posY" : 2.600000143051148,
+               "posY" : 17.19999885559082,
                "posZ" : 0,
                "surfaceReflectivityB_TEMP" : 0,
                "surfaceReflectivityG_TEMP" : 0,
@@ -59,7 +116,7 @@
       },
       "menu" : false,
       "messagehandlers" : false,
-      "name" : "Default",
+      "name" : "",
       "sceneshader" : "data\\shaders\\basic3"
    }
 }
