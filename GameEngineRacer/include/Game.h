@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "3rdParty\gl_core_4_3.hpp"
-#include "glfw3.h"
+#include <glew.h>
+#include <glfw3.h>
 #include "glm\glm.hpp"
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,7 +13,7 @@
 #include "UI\UI.h"
 #include <vector>
 
-#define PI 3.14159265359
+//#define PI 3.14159265359
 //inline void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods){TwEventMouseButtonGLFW(button, action);}
 inline void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos){TwMouseMotion(int(xpos), int(ypos));}
 //inline void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yoffset){TwEventMouseWheelGLFW(yoffset);}

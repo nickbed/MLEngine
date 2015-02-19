@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include "glfw3.h"
+#include <glfw3.h>
 
 enum linetype {unknown, v, f, vn, vt };
 

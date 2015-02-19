@@ -41,7 +41,7 @@ void Game::Run()
 			Update();
 			Render();
 		}
-		
+
 
 
 	}
@@ -60,18 +60,18 @@ void Game::Initialise()
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
-	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 0 );
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 	//glfwWindowHint(GLFW_RESIZABLE, FALSE);
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, TRUE);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	window = glfwCreateWindow(width, height, "Mauve Editor", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	
+
 	glfwMakeContextCurrent(window);
 	glfwSetWindowSizeCallback(window,WindowSizeCB);
 	glfwSetMouseButtonCallback(window,mouse_button_callback);
@@ -79,25 +79,30 @@ void Game::Initialise()
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
-
-	// Load the OpenGL functions.
-	gl::exts::LoadTest didLoad = gl::sys::LoadFunctions();
-	printf("OpenGL version (%s): \n", gl::GetString(gl::VERSION));
-	if (!didLoad) {
-		//Claen up and abort
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		/* Problem: glewInit failed, something is seriously wrong. */
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	rManager->loadDefaults();
+	
+	printf("OpenGL version (%s): \n", glGetString(GL_VERSION));
+	
+	if(!rManager->loadDefaults())
+	{
+		exit(EXIT_FAILURE);
+	}
 	//scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
 	scene[activeScene]->InitScene("");
-	
+
 	ui.initText2D();
-	
+
 
 	gui->setup(width,height, scene[activeScene]);
 
-	
+
 }
 
 void Game::error_callback(int error, const char* description)
@@ -148,20 +153,20 @@ void Game::Render()
 {
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
-	gl::ClearColor(0.0f,0.5f,0.7f,1.0f);
-	gl::Clear( gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT );
+	glClearColor(0.0f,0.5f,0.7f,1.0f);
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-	
+
 	scene[activeScene]->Render();
 
 
-	
 
-	
+
+
 	ui.printText2D("EDITOR",20,20,35);
-	
+
 	gui->draw();
-	
+
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 
@@ -175,7 +180,7 @@ void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, i
 	}
 	glfwSetKeyCallback(window,key_callback);
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, gl::TRUE_);
+		glfwSetWindowShouldClose(window, GL_TRUE);
 
 	keys[key] = action;
 
@@ -221,9 +226,9 @@ bool Game::keyPressedOnce(int key)
 
 void Game::WindowSizeCB(GLFWwindow* window, int width, int height){
 	// Set OpenGL viewport and camera
-	gl::Viewport(0, 0, width, height);
+	glViewport(0, 0, width, height);
 	// Send the new window size to AntTweakBar
 	TwWindowSize(width, height);
-	
+
 }
 

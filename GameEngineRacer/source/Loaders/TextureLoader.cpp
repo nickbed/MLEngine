@@ -22,7 +22,7 @@ void TextureLoader::LoadTexture(std::string filename)
 
 Texture* TextureLoader::getTexture()
 {
-	gTexture = new Texture(flip, gl::LINEAR, gl::REPEAT);
+	gTexture = new Texture(flip, GL_LINEAR, GL_REPEAT);
 	return gTexture;
 }
 void TextureLoader::FlipImage()

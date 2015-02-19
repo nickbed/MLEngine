@@ -1,5 +1,5 @@
 /*
- tdogl::Texture
+ tdoglTexture
  
  Copyright 2012 Thomas Dalling - http://tomdalling.com/
  
@@ -25,8 +25,8 @@
 GLenum Texture::TextureFormatForBitmapFormat(Bitmap::Format format)
 {
     switch (format) {
-        case Bitmap::Format_RGB:return gl::RGB;
-        case Bitmap::Format_RGBA: return gl::RGBA;
+        case Bitmap::Format_RGB:return GL_RGB;
+        case Bitmap::Format_RGBA: return GL_RGBA;
         default: throw std::runtime_error("Unrecognised Bitmap::Format");
     }
 }
@@ -35,27 +35,27 @@ Texture::Texture(const Bitmap& bitmap, GLint minMagFiler, GLint wrapMode) :
     _originalWidth((GLfloat)bitmap.width()),
     _originalHeight((GLfloat)bitmap.height())
 {
-    gl::GenTextures(1, &_object);
-    gl::BindTexture(gl::TEXTURE_2D, _object);
-    gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MIN_FILTER, minMagFiler);
-    gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, minMagFiler);
-    gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_S, wrapMode);
-    gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_T, wrapMode);
-    gl::TexImage2D(gl::TEXTURE_2D,
+    glGenTextures(1, &_object);
+    glBindTexture(GL_TEXTURE_2D, _object);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minMagFiler);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFiler);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
+    glTexImage2D(GL_TEXTURE_2D,
                  0, 
                  TextureFormatForBitmapFormat(bitmap.format()),
                  (GLsizei)bitmap.width(), 
                  (GLsizei)bitmap.height(),
                  0, 
                  TextureFormatForBitmapFormat(bitmap.format()), 
-                 gl::UNSIGNED_BYTE, 
+                 GL_UNSIGNED_BYTE, 
                  bitmap.pixelBuffer());
-    gl::BindTexture(gl::TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Texture::~Texture()
 {
-    gl::DeleteTextures(1, &_object);
+    glDeleteTextures(1, &_object);
 }
 
 GLuint Texture::object() const

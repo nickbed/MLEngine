@@ -20,14 +20,14 @@ void UI::initText2D(){
 
 	
 	// Initialize VBO
-	gl::GenBuffers(1, &Text2DVertexBufferID);
-	gl::GenBuffers(1, &Text2DUVBufferID);
+	glGenBuffers(1, &Text2DVertexBufferID);
+	glGenBuffers(1, &Text2DUVBufferID);
 	
 	// Initialize Shader
 	Text2DShaderID = rManager->getShaders().at("data\\shaders\\TextVertexShader")->programhandle;
 
 	// Initialize uniforms' IDs
-	Text2DUniformID = gl::GetUniformLocation( Text2DShaderID, "myTextureSampler" );
+	Text2DUniformID = glGetUniformLocation( Text2DShaderID, "myTextureSampler" );
 
 }
 
@@ -69,52 +69,52 @@ void UI::printText2D(std::string text, int x, int y, int size){
 		UVs.push_back(uv_up_right);
 		UVs.push_back(uv_down_left);
 	}
-	gl::BindBuffer(gl::ARRAY_BUFFER, Text2DVertexBufferID);
-	gl::BufferData(gl::ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], gl::STATIC_DRAW);
-	gl::BindBuffer(gl::ARRAY_BUFFER, Text2DUVBufferID);
-	gl::BufferData(gl::ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], gl::STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, Text2DVertexBufferID);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, Text2DUVBufferID);
+	glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(glm::vec2), &UVs[0], GL_STATIC_DRAW);
 
 	// Bind shader
-	gl::UseProgram(Text2DShaderID);
+	glUseProgram(Text2DShaderID);
 	// Bind texture
-	gl::ActiveTexture(gl::TEXTURE0);
-	gl::BindTexture(gl::TEXTURE_2D, rManager->getTexture().at("data\\images\\consolas.png")->object());
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, rManager->getTexture().at("data\\images\\consolas.png")->object());
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
-	gl::Uniform1i(Text2DUniformID, 0);
-	gl::GenVertexArrays( 1, &vaoHandle );
-	gl::BindVertexArray(vaoHandle);
+	glUniform1i(Text2DUniformID, 0);
+	glGenVertexArrays( 1, &vaoHandle );
+	glBindVertexArray(vaoHandle);
 	// 1rst attribute buffer : vertices
-	gl::EnableVertexAttribArray(0);
-	gl::BindBuffer(gl::ARRAY_BUFFER, Text2DVertexBufferID);
-	gl::VertexAttribPointer(0, 2, gl::FLOAT, gl::FALSE_, 0, (void*)0 );
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, Text2DVertexBufferID);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0 );
 
 	// 2nd attribute buffer : UVs
-	gl::EnableVertexAttribArray(1);
-	gl::BindBuffer(gl::ARRAY_BUFFER, Text2DUVBufferID);
-	gl::VertexAttribPointer(1, 2, gl::FLOAT, gl::FALSE_, 0, (void*)0 );
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, Text2DUVBufferID);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0 );
 
-	gl::Enable(gl::BLEND);
-	gl::BlendFunc(gl::SRC_ALPHA, gl::ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	// Draw call
-	gl::DrawArrays(gl::TRIANGLES, 0, vertices.size() );
-	gl::BindVertexArray(0);
-	gl::Disable(gl::BLEND);
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size() );
+	glBindVertexArray(0);
+	glDisable(GL_BLEND);
 
-	gl::DisableVertexAttribArray(0);
-	gl::DisableVertexAttribArray(1);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 
 }
 
 void UI::cleanupText2D(){
 
 	// Delete buffers
-	gl::DeleteBuffers(1, &Text2DVertexBufferID);
-	gl::DeleteBuffers(1, &Text2DUVBufferID);
+	glDeleteBuffers(1, &Text2DVertexBufferID);
+	glDeleteBuffers(1, &Text2DUVBufferID);
 
 	// Delete texture
-	gl::DeleteTextures(1, &Text2DTextureID);
+	glDeleteTextures(1, &Text2DTextureID);
 
 	// Delete shader
-	gl::DeleteProgram(Text2DShaderID);
+	glDeleteProgram(Text2DShaderID);
 }

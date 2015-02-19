@@ -55,7 +55,7 @@ void ResourceManager::addToTexture(const std::pair<std::string, Texture*>& pair)
 {
 	m_textures.insert(pair);
 }
-void ResourceManager::loadDefaults()
+bool ResourceManager::loadDefaults()
 {
 	TextureLoader* t_loader = new TextureLoader();
 	t_loader->LoadTexture("data\\images\\consolas.png");
@@ -74,7 +74,12 @@ void ResourceManager::loadDefaults()
 	this->addToTexture(texturePair);
 
 	ShaderLoader m_sloader;
-	m_sloader.LoadShader("data\\shaders\\basic3.vert","data\\shaders\\basic3.Frag");
+	
+	if(!m_sloader.LoadShader("data\\shaders\\basic3.vert","data\\shaders\\basic3.Frag"))
+	{
+		printf("Error loading shader: (%s) \n", m_sloader.getName());
+		return false;
+	}
 	Shader* shader = new Shader();
 	shader->fragShader = m_sloader.getFrag();
 	shader->vertShader = m_sloader.getVert();
@@ -84,7 +89,11 @@ void ResourceManager::loadDefaults()
 	shaderPair.second = shader;
 	this->addToShader(shaderPair);
 
-	m_sloader.LoadShader("data\\shaders\\TextVertexShader.vert", "data\\shaders\\TextVertexShader.Frag");
+	if(!m_sloader.LoadShader("data\\shaders\\TextVertexShader.vert", "data\\shaders\\TextVertexShader.Frag"))
+	{
+		printf("Error loading shader: (%s) \n", m_sloader.getName());
+		return false;
+	}
 	Shader* shader2 = new Shader();
 	shader2->fragShader = m_sloader.getFrag();
 	shader2->vertShader = m_sloader.getVert();
@@ -93,6 +102,7 @@ void ResourceManager::loadDefaults()
 	shaderPair2.first = m_sloader.getName();
 	shaderPair2.second = shader2;
 	this->addToShader(shaderPair2);
+	return true;
 }
 
 

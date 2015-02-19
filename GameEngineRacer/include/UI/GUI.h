@@ -7,9 +7,13 @@
 #include "Scene\Scene.h"
 #include <vector>
 #include <assert.h>
-#include "3rdParty\gl_core_4_3.hpp"
-#include "glfw3.h"
-#include <commdlg.h>
+
+#include <Windows.h>
+#include <glew.h>
+#include <glfw3.h>
+
+
+
 #include "ResourceManager.h"
 #include <fstream>
 

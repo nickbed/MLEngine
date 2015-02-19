@@ -3,12 +3,13 @@
 
 
 #include <iostream>
-#include "ShaderComponent.h"
-#include "3rdParty\gl_core_4_3.hpp"
-#include "glfw3.h"
+
+#include <glew.h>
+#include <glfw3.h>
 #include "3rdParty\Texture.h"
 #include "ResourceManager.h"
-
+#include <glew.h>
+#include <glfw3.h>
 #include <vector>
 class ResourceManager;
 class RenderComponent

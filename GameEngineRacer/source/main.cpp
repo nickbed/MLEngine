@@ -1,4 +1,6 @@
-#include "3rdParty\gl_core_4_3.hpp"
+#include <Windows.h>
+#include <glew.h>
+
 #include "Game.h"
 
 int main()

@@ -4,8 +4,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "3rdParty\gl_core_4_3.hpp"
-#include "glfw3.h"
+#include <glew.h>
+#include <glfw3.h>
 
 
 

@@ -11,11 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\3rdParty\Bitmap.h" />
-    <ClInclude Include="include\3rdParty\gl_core_4_3.hpp" />
     <ClInclude Include="include\3rdParty\Texture.h" />
     <ClInclude Include="include\Components\AnimationComponent.h" />
     <ClInclude Include="include\Components\RenderComponent.h" />
@@ -34,7 +30,6 @@
   <ItemGroup>
     <ClCompile Include="..\Tom\include\jsoncpp.cpp" />
     <ClCompile Include="source\3rdParty\Bitmap.cpp" />
-    <ClCompile Include="source\3rdParty\gl_core_4_3.cpp" />
     <ClCompile Include="source\3rdParty\Texture.cpp" />
     <ClCompile Include="source\Components\AnimationComponent.cpp" />
     <ClCompile Include="source\Components\RenderComponent.cpp" />
@@ -102,11 +97,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\Tom\include;$(SolutionDir)\GameEngineRacer\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\Tom\lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;openGL32.lib;AntTweakBar.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>openGL32.lib;glew32.lib;glu32.lib;glfw3.lib;AntTweakBar.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:MSVCRT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -122,7 +120,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;openGL32.lib;AntTweakBar.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;openGL32.lib;AntTweakBar.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\Tom\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

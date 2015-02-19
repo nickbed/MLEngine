@@ -490,7 +490,7 @@ void Scene::Update(bool keys[])//Updates the scene running in a loop
 void Scene::Render()
 {
 
-	gl::UseProgram(programHandle);
+	glUseProgram(programHandle);
 
 	setLightParams();
 	for(auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
@@ -535,7 +535,7 @@ void Scene::Render()
 }
 void Scene::resize(int w, int h)
 {
-	gl::Viewport(0,0,w,h);
+	glViewport(0,0,w,h);
 	
 	
 }
@@ -566,89 +566,89 @@ void Scene::setLightParams()
 {
 
 
-	GLuint loc5 = gl::GetUniformLocation(programHandle, "numLights");
-	gl::Uniform1i(loc5, lights.size());
+	GLuint loc5 = glGetUniformLocation(programHandle, "numLights");
+	glUniform1i(loc5, lights.size());
 	for(unsigned int i =0; i< lights.size();++i)
 	{
 		std::ostringstream oss;
 		oss << "lights[" << i << "].diffuse";
 		std::string var = oss.str();
-		GLuint loc = gl::GetUniformLocation(programHandle, var.c_str());
-		gl::Uniform3f(loc,lights.at(i).diffuse.r,lights.at(i).diffuse.g,lights.at(i).diffuse.b);
+		GLuint loc = glGetUniformLocation(programHandle, var.c_str());
+		glUniform3f(loc,lights.at(i).diffuse.r,lights.at(i).diffuse.g,lights.at(i).diffuse.b);
 		oss.clear();
 		oss.str("");
 		oss << "lights[" << i << "].ambient";
 		var = oss.str();
-		GLuint loc1 = gl::GetUniformLocation(programHandle, var.c_str());
-		gl::Uniform3f(loc1,lights.at(i).ambient.r,lights.at(i).ambient.g,lights.at(i).ambient.b);
+		GLuint loc1 = glGetUniformLocation(programHandle, var.c_str());
+		glUniform3f(loc1,lights.at(i).ambient.r,lights.at(i).ambient.g,lights.at(i).ambient.b);
 		oss.clear();
 		oss.str("");
 		oss << "lights[" << i << "].position";
 		var = oss.str();
-		GLuint loc2 = gl::GetUniformLocation(programHandle, var.c_str());
-		gl::Uniform3f( loc2,lights.at(i).position.x,lights.at(i).position.y,lights.at(i).position.z);
+		GLuint loc2 = glGetUniformLocation(programHandle, var.c_str());
+		glUniform3f( loc2,lights.at(i).position.x,lights.at(i).position.y,lights.at(i).position.z);
 		oss.clear();
 		oss.str("");
 		oss << "lights[" << i << "].linear";
 		var = oss.str();
-		GLuint loc3 = gl::GetUniformLocation(programHandle, var.c_str());
-		gl::Uniform1f( loc3,lights.at(i).linear);
+		GLuint loc3 = glGetUniformLocation(programHandle, var.c_str());
+		glUniform1f( loc3,lights.at(i).linear);
 		oss.clear();
 		oss.str("");
 		oss << "lights[" << i << "].constant";
 		var = oss.str();
-		GLuint loc4 = gl::GetUniformLocation(programHandle, var.c_str());
-		gl::Uniform1f( loc4,lights.at(i).constant);
+		GLuint loc4 = glGetUniformLocation(programHandle, var.c_str());
+		glUniform1f( loc4,lights.at(i).constant);
 		oss.clear();
 		oss.str("");
 		oss << "lights[" << i << "].quadratic";
 		var = oss.str();
-		GLuint loc5 = gl::GetUniformLocation(programHandle, var.c_str());
-		gl::Uniform1f( loc5,lights.at(i).quadratic);
+		GLuint loc5 = glGetUniformLocation(programHandle, var.c_str());
+		glUniform1f( loc5,lights.at(i).quadratic);
 		oss.clear();
 		oss.str("");
 		oss << "lights[" << i << "].specular";
 		var = oss.str();
-		GLuint loc6 = gl::GetUniformLocation(programHandle, var.c_str());
-		gl::Uniform3f(loc6,lights.at(i).specular.r,lights.at(i).specular.g,lights.at(i).specular.b);
+		GLuint loc6 = glGetUniformLocation(programHandle, var.c_str());
+		glUniform3f(loc6,lights.at(i).specular.r,lights.at(i).specular.g,lights.at(i).specular.b);
 
 
 	}
-	GLuint loc= gl::GetUniformLocation(programHandle, "Kd");
-	gl::Uniform3f(loc,1.0f, 1.0f, 1.0f);
-	GLuint loc1= gl::GetUniformLocation(programHandle, "Ks");
-	gl::Uniform3f(loc1,1.0f,1.0f,1.0f);
-	GLuint loc2= gl::GetUniformLocation(programHandle, "shininess");
-	gl::Uniform1f(loc2,32.0f);
+	GLuint loc= glGetUniformLocation(programHandle, "Kd");
+	glUniform3f(loc,1.0f, 1.0f, 1.0f);
+	GLuint loc1= glGetUniformLocation(programHandle, "Ks");
+	glUniform3f(loc1,1.0f,1.0f,1.0f);
+	GLuint loc2= glGetUniformLocation(programHandle, "shininess");
+	glUniform1f(loc2,32.0f);
 }
 void Scene::setUpMatricies()
 {
 
-	GLuint loc1 = gl::GetUniformLocation(programHandle,"NormalMatrix");
+	GLuint loc1 = glGetUniformLocation(programHandle,"NormalMatrix");
 
 	glm::mat3 normMat = glm::transpose(glm::inverse(glm::mat3(model)));
-	gl::UniformMatrix3fv(loc1, 1, FALSE, &normMat[0][0] );
+	glUniformMatrix3fv(loc1, 1, GL_FALSE, &normMat[0][0] );
 
 	GLuint viewMatrixID = 
-		gl::GetUniformLocation(programHandle, "V");//programhandle in first parameter
-	gl::UniformMatrix4fv(viewMatrixID, 1, gl::FALSE_, &cameras.at(activeCamera)->view()[0][0]);
+		glGetUniformLocation(programHandle, "V");//programhandle in first parameter
+	glUniformMatrix4fv(viewMatrixID, 1, GL_FALSE, &cameras.at(activeCamera)->view()[0][0]);
 
 	GLuint projectionMatrixID = 
-		gl::GetUniformLocation(programHandle, "P");//programhandle in first parameter
+		glGetUniformLocation(programHandle, "P");//programhandle in first parameter
 
-	gl::UniformMatrix4fv(projectionMatrixID, 1, gl::FALSE_, &cameras.at(activeCamera)->projection()[0][0]);
+	glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, &cameras.at(activeCamera)->projection()[0][0]);
 
-	GLuint modelMatrixID = gl::GetUniformLocation(programHandle, "M");
-	gl::UniformMatrix4fv(modelMatrixID, 1, gl::FALSE_, &model[0][0]);
+	GLuint modelMatrixID = glGetUniformLocation(programHandle, "M");
+	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &model[0][0]);
 
 }
 void Scene::deleteShader()
 {
-	gl::DeleteProgram(programHandle);
+	glDeleteProgram(programHandle);
 	/*for(int i=0; i< rManager->getShaders().size();++i)
 	{
-	gl::DeleteShader(rManager->getShaders().at(i)->fragShader);
-	gl::DeleteShader(rManager->getShaders().at(i)->vertShader);
+	glDeleteShader(rManager->getShaders().at(i)->fragShader);
+	glDeleteShader(rManager->getShaders().at(i)->vertShader);
 	}*/
 
 }

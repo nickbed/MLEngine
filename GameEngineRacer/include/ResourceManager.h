@@ -32,7 +32,7 @@ private:
 public:
 	~ResourceManager();
 	static ResourceManager* getInstance();
-	void loadDefaults();
+	bool loadDefaults();
 	void clearAll();
 	void addToShader(const std::pair<std::string, Shader*>& pair);
 	void addToTexture(const std::pair<std::string, Texture*>& pair);

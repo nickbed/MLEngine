@@ -51,13 +51,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\3rdParty\Bitmap.h">
-      <Filter>Header Files\3rd Party</Filter>
-    </ClInclude>
-    <ClInclude Include="include\3rdParty\gl_core_4_3.hpp">
       <Filter>Header Files\3rd Party</Filter>
     </ClInclude>
     <ClInclude Include="include\3rdParty\Texture.h">
@@ -105,9 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\3rdParty\Bitmap.cpp">
-      <Filter>Source Files\3rd Party</Filter>
-    </ClCompile>
-    <ClCompile Include="source\3rdParty\gl_core_4_3.cpp">
       <Filter>Source Files\3rd Party</Filter>
     </ClCompile>
     <ClCompile Include="source\3rdParty\Texture.cpp">

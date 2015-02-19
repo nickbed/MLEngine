@@ -2,8 +2,8 @@
 #define TRANSFORMCOMPONENT_H
 #define GLM_FORCE_RADIANS
 
-#include "3rdParty\gl_core_4_3.hpp"
-#include "glfw3.h"
+#include <glew.h>
+#include <glfw3.h>
 #include "glm\glm.hpp"
 #include "glm\gtc\constants.hpp"
 #include "glm\gtc\matrix_transform.hpp"
