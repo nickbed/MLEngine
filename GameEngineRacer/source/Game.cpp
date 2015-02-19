@@ -79,6 +79,7 @@ void Game::Initialise()
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
+	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
