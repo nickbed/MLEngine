@@ -45,32 +45,28 @@ $RECYCLE.BIN/
 *.userprefs
 
 # Build results
-[Dd]ebug/
+GameEngineRacer/Debug
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64/
-x86/
-build/
-bld/
-[Bb]in/
+
 Debug/[Oo]bj/
 
 # Roslyn cache directories
 *.ide/
 
 # MSTest test Results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
+
+
 
 #NUNIT
 *.VisualState.xml
 TestResult.xml
 
 # Build Results of an ATL Project
-[Dd]ebugPS/
+
 [Rr]eleasePS/
-dlldata.c
+
 
 *_i.c
 *_p.c
