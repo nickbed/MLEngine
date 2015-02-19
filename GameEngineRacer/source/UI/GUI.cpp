@@ -72,7 +72,6 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			TwRemoveAllVars(bar);
 			updateBar(m_scene->getSceneData().name);
 			updateObjects();
-			updateLights();
 			
 		}
 		else if(newstring == ".scn")
