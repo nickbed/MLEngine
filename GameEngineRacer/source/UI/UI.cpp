@@ -81,7 +81,8 @@ void UI::printText2D(std::string text, int x, int y, int size){
 	gl::BindTexture(gl::TEXTURE_2D, rManager->getTexture().at("data\\images\\holstein1.png")->object());
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
 	gl::Uniform1i(Text2DUniformID, 0);
-
+	gl::GenVertexArrays( 1, &vaoHandle );
+	gl::BindVertexArray(vaoHandle);
 	// 1rst attribute buffer : vertices
 	gl::EnableVertexAttribArray(0);
 	gl::BindBuffer(gl::ARRAY_BUFFER, Text2DVertexBufferID);
@@ -94,10 +95,10 @@ void UI::printText2D(std::string text, int x, int y, int size){
 
 	gl::Enable(gl::BLEND);
 	gl::BlendFunc(gl::SRC_ALPHA, gl::ONE_MINUS_SRC_ALPHA);
-
+	
 	// Draw call
 	gl::DrawArrays(gl::TRIANGLES, 0, vertices.size() );
-
+	gl::BindVertexArray(0);
 	gl::Disable(gl::BLEND);
 
 	gl::DisableVertexAttribArray(0);

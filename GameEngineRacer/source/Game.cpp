@@ -91,10 +91,9 @@ void Game::Initialise()
 	rManager->loadDefaults();
 	//scene[activeScene]->InitScene("data\\Scene\\demolevel.scn");
 	scene[activeScene]->InitScene("");
-	if(rManager->getShaders().size() > 0)
-	{
-		ui.initText2D();
-	}
+	
+	ui.initText2D();
+	
 
 	gui->setup(width,height, scene[activeScene]);
 
@@ -156,12 +155,11 @@ void Game::Render()
 	scene[activeScene]->Render();
 
 
-	if(scene[activeScene])
-	{
-		ui.printText2D("EDITOR",20,20,20);
-	}
+	
 
-
+	
+	ui.printText2D("EDITOR",20,20,20);
+	
 	gui->draw();
 	
 	glfwSwapBuffers(window);

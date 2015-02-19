@@ -174,7 +174,7 @@ void GUI::createLight()
 	lightbar = TwNewBar("New Light");
 	TwDefine("'New Light' position='260 40' color='254 92 99' ");
 	static int i = 0;
-	light.diffuse = glm::vec3(255,255,255);
+	light.diffuse = glm::vec3(1,1,1);
 	TwCopyStdStringToClientFunc(CopyStdStringToClient);
 	TwAddVarRW(lightbar, "Name", TW_TYPE_STDSTRING, &light.name, "");
 	TwAddVarRW(lightbar, "Colour", TW_TYPE_COLOR3F, &light.diffuse, "");

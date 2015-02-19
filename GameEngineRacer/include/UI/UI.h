@@ -12,6 +12,7 @@ private:
 	ResourceManager* rManager;
 	std::vector<glm::vec2> vertices;
 	std::vector<glm::vec2> UVs;
+	GLuint vaoHandle;
 public:
 	UI();
 	~UI();

@@ -54,7 +54,6 @@ void RenderComponent::init(Model* model, Texture* nTexture)
 	gl::Enable(gl::BLEND);
 
 	
-	gl::BindVertexArray(vaoHandle);
 	//gl::DrawArrays(gl::TRIANGLES, 0,indicesCount );
 	/*gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_S, gl::REPEAT);
 	gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_R, gl::REPEAT);
@@ -65,14 +64,14 @@ void RenderComponent::init(Model* model, Texture* nTexture)
 void RenderComponent::update()
 {
 	
-	
-	gl::EnableVertexAttribArray(0);  // Vertex position
-	gl::EnableVertexAttribArray(1);  // Vertex normal
-	gl::EnableVertexAttribArray(2); //uv
+
 	gl::ActiveTexture(gl::TEXTURE0);
 	gl::BindTexture(gl::TEXTURE_2D,texture->object());
 	
 	gl::BindVertexArray(vaoHandle);
+	gl::EnableVertexAttribArray(0);  // Vertex position
+	gl::EnableVertexAttribArray(1);  // Vertex normal
+	gl::EnableVertexAttribArray(2); //uv
 	gl::DrawArrays(gl::TRIANGLES, 0,indicesCount );
 	gl::BindVertexArray(0);
 	gl::DisableVertexAttribArray(0);
