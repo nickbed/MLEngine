@@ -65,7 +65,7 @@ void Game::Initialise()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_RESIZABLE, FALSE);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, TRUE);
-	window = glfwCreateWindow(width, height, "Most Awesome Game Ever", NULL, NULL);
+	window = glfwCreateWindow(width, height, "Mauve Editor", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();

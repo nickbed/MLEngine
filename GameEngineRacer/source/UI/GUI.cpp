@@ -192,7 +192,7 @@ void GUI::updateBar(const std::string& name)
 {
 	std::string def =  " label='Scene Name: "+name+"' ";
 	TwAddButton(bar, "Info", NULL, NULL, def.c_str());
-	TwAddButton(bar, "NewScene", NewScene, this,"");
+	TwAddButton(bar, "NewScene", NewScene, this,"label='New Scene'");
 	TwAddButton(bar, "Saving", Save, this , " label='Save Scene' ");
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
 	TwAddButton(bar, "createLights", CreateLight, this , " label='Create Light' ");
@@ -278,7 +278,7 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 
 	modelType = TwDefineStruct("Object", objectMembers, 11, sizeof(Object), NULL, NULL);
 	lightType = TwDefineStruct("Light", lightMembers,4,sizeof(GUILight),NULL,NULL);
-	TwAddButton(bar, "NewScene", NewScene, this,"");
+	TwAddButton(bar, "NewScene", NewScene, this,"label='New Scene'");
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
 	TwDefine("GLOBAL help='Press N to change camera.\nHold alt to move the camera.'");
 	
