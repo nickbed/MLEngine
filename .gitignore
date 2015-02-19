@@ -227,5 +227,7 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-
+
+Tom/bin/debug/
+Tom/bin/release/
 *.suo
