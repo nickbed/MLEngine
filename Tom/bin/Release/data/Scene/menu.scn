@@ -1,0 +1,94 @@
+{
+  "scene": {
+    "name": "testscene",
+    "sceneshader": "data\\shaders\\basic3",
+    "currentcamera": "cameraload",
+    "currentlight": "light0",
+	"messagehandlers": false,
+	"menu": true,
+    "activeentities": [
+      "ent1",
+	  "box"
+    ],
+    "entities": {
+      "ent1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 3.3,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 180,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\splash.obj",
+            "TextureFile": "data\\images\\Menu.tga"
+          }
+        }
+      }
+    },
+    "cameras": {
+      "cameraload": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": -25,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 90,
+          "pitch": 0,
+          "yaw": 0
+        }
+      },
+      "cameraload1": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": -25,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 50,
+          "pitch": 0,
+          "yaw": 0
+        }
+      }
+    },
+    "lights": {
+      "light0": {
+        "lightparams": {
+          "posX": 3,
+          "posY": 1,
+          "posZ": 0,
+          "intensityR": 1.0,
+          "intensityG": 1.0,
+          "intensityB": 1.0,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
+      },
+	  "light1": {
+        "lightparams": {
+          "posX": -3,
+          "posY": 0,
+          "posZ": 0,
+          "intensityR": 1.0,
+          "intensityG": 1.0,
+          "intensityB": 1.0,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
+      }
+    }
+  }
+}
