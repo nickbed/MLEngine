@@ -46,6 +46,12 @@
     <ClCompile Include="source\UI\GUI.cpp" />
     <ClCompile Include="source\UI\UI.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\basic3.Frag" />
+    <None Include="data\shaders\basic3.vert" />
+    <None Include="data\shaders\TextVertexShader.Frag" />
+    <None Include="data\shaders\TextVertexShader.vert" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D884EF7F-C060-413E-9FAD-450C52447E00}</ProjectGuid>
     <RootNamespace>GameEngineRacer</RootNamespace>

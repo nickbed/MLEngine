@@ -150,4 +150,10 @@
       <Filter>Source Files\3rd Party</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\TextVertexShader.Frag" />
+    <None Include="data\shaders\TextVertexShader.vert" />
+    <None Include="data\shaders\basic3.Frag" />
+    <None Include="data\shaders\basic3.vert" />
+  </ItemGroup>
 </Project>

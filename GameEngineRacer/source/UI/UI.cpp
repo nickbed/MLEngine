@@ -11,7 +11,7 @@ GLuint Text2DVertexBufferID;
 GLuint Text2DUVBufferID;
 GLuint Text2DShaderID;
 GLuint Text2DUniformID;
-UI::UI()
+UI::UI(): vaoHandle(0)
 {
 	rManager = ResourceManager::getInstance();
 };
