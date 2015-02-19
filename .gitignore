@@ -45,9 +45,9 @@ $RECYCLE.BIN/
 *.userprefs
 
 # Build results
-GameEngineRacer/Debug
+GameEngineRacer/[Dd]ebug
 [Dd]ebugPublic/
-[Rr]elease/
+GameEngineRacer/[Rr]elease
 [Rr]eleases/
 
 Debug/[Oo]bj/
