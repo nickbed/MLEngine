@@ -158,7 +158,7 @@ void Game::Render()
 	
 
 	
-	ui.printText2D("EDITOR",20,20,20);
+	ui.printText2D("EDITOR",20,20,35);
 	
 	gui->draw();
 	

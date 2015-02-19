@@ -58,7 +58,7 @@ void ResourceManager::addToTexture(const std::pair<std::string, Texture*>& pair)
 void ResourceManager::loadDefaults()
 {
 	TextureLoader* t_loader = new TextureLoader();
-	t_loader->LoadTexture("data\\images\\holstein1.png");
+	t_loader->LoadTexture("data\\images\\consolas.png");
 	std::pair<std::string, Texture*> texturePair;
 	texturePair.first = t_loader->getName();
 	texturePair.second = t_loader->getTexture();

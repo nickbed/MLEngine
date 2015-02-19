@@ -78,7 +78,7 @@ void UI::printText2D(std::string text, int x, int y, int size){
 	gl::UseProgram(Text2DShaderID);
 	// Bind texture
 	gl::ActiveTexture(gl::TEXTURE0);
-	gl::BindTexture(gl::TEXTURE_2D, rManager->getTexture().at("data\\images\\holstein1.png")->object());
+	gl::BindTexture(gl::TEXTURE_2D, rManager->getTexture().at("data\\images\\consolas.png")->object());
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
 	gl::Uniform1i(Text2DUniformID, 0);
 	gl::GenVertexArrays( 1, &vaoHandle );
