@@ -236,4 +236,3 @@ void Game::WindowSizeCB(GLFWwindow* window, int width, int height){
 	TwWindowSize(width, height);
 
 }
-

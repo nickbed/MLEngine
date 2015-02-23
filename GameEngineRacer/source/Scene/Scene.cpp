@@ -47,7 +47,7 @@ bool Scene::LoadScene(const std::string& filename)
 	std::fstream input;
 
 
-	
+
 	//std::size_t found;
 	input.open(filename);
 	if(!input.is_open())
@@ -528,8 +528,8 @@ void Scene::Render()
 void Scene::resize(int w, int h)
 {
 	glViewport(0,0,w,h);
-	
-	
+
+
 }
 
 void Scene::nextCamera()
@@ -708,5 +708,7 @@ const Json::Value Scene::createJson()
 
 	return root;
 }
+
+
 
 

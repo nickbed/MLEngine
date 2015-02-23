@@ -79,7 +79,6 @@ public:
 	void addLightObject(GameObject* lightObject){lightObjects.push_back(lightObject);};
 	void addLight(const Light& light){lights.push_back(light);};
 
-
 	void loadAndAddLightPlane(const Light& light);
 
 

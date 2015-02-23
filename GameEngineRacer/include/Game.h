@@ -43,7 +43,6 @@ private:
 	static void scroll_callback(GLFWwindow *window, double x, double y);
 	static void WindowSizeCB(GLFWwindow* window, int width, int height);
 
-
 	void handleInput();
 	bool keyPressedOnce(int key);
 	//void SetZoom(float);

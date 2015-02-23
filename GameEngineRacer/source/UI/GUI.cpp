@@ -3,7 +3,6 @@
 GUIstate GUI::checkEnum = DONTOPEN;
 GUI::GUI() :width(0)
 	,height(0)
-	,j(0)
 	,objects(new Object[200])
 	, modelType()
 	,bar()
@@ -35,21 +34,17 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 	ofn.lStructSize=sizeof(OPENFILENAME);
 	ofn.Flags=OFN_EXPLORER|OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST|OFN_NOCHANGEDIR;
 	ofn.lpstrFilter = "Obj Files (*obj)\0*.OBJ\0Scene Files (*.scn)\0*.scn\0";
-
 	ofn.lpstrFile=szFileName;
 	ofn.nMaxFile=MAX_PATH;
+
 	if(GetOpenFileName(&ofn))
 	{
 		std::string filename = ofn.lpstrFile;
-
 		std::string newstring = filename.substr(filename.find_last_of("."));
-
 
 		if(newstring == ".obj")
 		{
 			/////TODO NEED TO CHECK IF MODEL IS ALREADY LOADED
-
-
 			filename = filename.substr(filename.find("data"));
 			std::string name = filename.substr(filename.find_last_of("/\\")+1);
 			if (rManager->getModel_const().find(filename) == rManager->getModel_const().end() ) 
@@ -81,13 +76,14 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 		}
 		else if(newstring == ".scn")
 		{
-
 			std::string checkName = filename.substr(filename.find("data"));
 			for(int i=0; i < scene.size(); ++i)
 			{
 				if(scene.at(i)->getFileName() == checkName)
 				{
+					std::cout << "Before: " << activeScene;
 					activeScene = i;
+					std::cout << "  After: " << activeScene << std::endl;
 					m_scene = scene[activeScene];
 					TwRemoveAllVars(bar);
 					updateBar(m_scene->getSceneData().name);
@@ -95,13 +91,14 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 					updateLights();
 					return;
 				}
-
 			}
 			//rManager->clearAll();
 			Scene* newScene = new Scene();
-			//std::string name = filename.substr(filename.find();
-			activeScene++;
+			std::cout << "Before: " << activeScene;
+			
+			std::cout << "  After: " << activeScene << std::endl;
 			scene.push_back(newScene);
+			activeScene = scene.size()-1;
 			scene.at(activeScene)->InitScene(checkName);
 			m_scene = scene[activeScene];
 			TwRemoveAllVars(bar);
@@ -111,10 +108,7 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 
 			TwRefreshBar(bar);
 		}
-
-
 	}
-
 }
 
 void GUI::saveData()
@@ -207,6 +201,7 @@ void GUI::updateBar(const std::string& name)
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
 	TwAddButton(bar, "createLights", CreateLight, this , " label='Create Light' ");
 }
+
 void GUI::updateObjects()
 {
 
@@ -222,11 +217,11 @@ void GUI::updateObjects()
 		objects[i].scale = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale();
 		objects[i].eulers = glm::degrees(glm::eulerAngles(m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate()));
 
-		_snprintf(objects[i].name, sizeof(objects[i].name), "%d", i+1); //Create a unique name;
+		objects[i].name =  std::to_string(i+1);
 
 		std::string grouping = "group="+m_scene->GetGameObjects().at(i)->getEntityType();
-		TwAddVarRW(bar, objects[i].name, modelType, &objects[i], grouping.c_str());//Creates Type Grouping.
-		TwSetParam(bar, objects[i].name, "label", TW_PARAM_CSTRING, 1, m_scene->GetGameObjects().at(i)->getName().c_str()); // Set label
+		TwAddVarRW(bar, objects[i].name.c_str(), modelType, &objects[i], grouping.c_str());//Creates Type Grouping.
+		TwSetParam(bar, objects[i].name.c_str(), "label", TW_PARAM_CSTRING, 1, m_scene->GetGameObjects().at(i)->getName().c_str()); // Set label
 
 		/////////LOAD TEXTURE BUTTON
 		TwAddButton(bar,  "Texture" , TextureCB, m_scene->GetGameObjects().at(i),"" );
@@ -261,6 +256,7 @@ void GUI::updateLights()
 
 	}
 }
+
 bool GUI::setup(int w, int h, Scene* nScene ) {
 	width = w;
 	height = h;
@@ -300,6 +296,7 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 	TwWindowSize(width, height);
 	return true;
 }
+
 void GUI::createScene()
 {
 	sceneBar = TwNewBar("New Scene");
@@ -314,6 +311,7 @@ void GUI::createScene()
 	TwAddButton(sceneBar,"Quit",DeleteBar,sceneBar,"");
 
 }
+
 void GUI::addToScene()
 {
 	m_scenes->push_back(n_scene);
@@ -323,11 +321,13 @@ void GUI::addToScene()
 	TwRemoveAllVars(bar);
 	updateBar(m_scenes->at(*m_activeScene)->getSceneData().name);
 }
+
 void TW_CALL GUI::AddtoScene(void *clientData)
 {
 	GUI *ui = static_cast<GUI *>(clientData);
 	ui->addToScene();
 }
+
 void TW_CALL GUI::NewScene(void *clientData)
 {
 	checkEnum = NEWSCENE;
@@ -371,6 +371,7 @@ void GUI::onKeyPressed(int key, int mod) {
 
 	TwKeyPressed(key, TW_KMOD_NONE);
 }
+
 void GUI::checkEnums(std::vector<Scene*>& scene, int& activeScene)
 {
 	if(checkEnum == OPEN)
@@ -386,11 +387,11 @@ void GUI::checkEnums(std::vector<Scene*>& scene, int& activeScene)
 		checkEnum = DONTOPEN;
 	}
 }
+
 void GUI::update(Scene* nscene)
 {
 
 	m_scene=nscene;
-	int j =0;
 	for(unsigned int i = 0; i < m_scene->GetGameObjects().size(); ++i)
 	{   
 		if(!objects[i].useRotBall)
@@ -416,6 +417,7 @@ void GUI::update(Scene* nscene)
 
 
 }
+
 void GUI::draw() {
 
 	TwDraw();

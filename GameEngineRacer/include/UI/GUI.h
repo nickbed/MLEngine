@@ -1,6 +1,5 @@
 #ifndef GUI_H
 #define GUI_H
-#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <AntTweakBar.h>
@@ -28,7 +27,7 @@ private:
 		glm::quat rot;
 		glm::vec3 eulers;
 		glm::vec3 scale;
-		char    name[4];
+		std::string name;
 	};
 
 	struct GUILight{
@@ -54,7 +53,6 @@ private:
 	Scene* m_scene;
 	
 	Json::StyledWriter writer;
-	int j;
 	void saveData();
 	void loadTexture(GameObject* g);
 	void addToLights();
@@ -73,7 +71,6 @@ public:
 	void onMouseClicked(int bt, int action);
 	void onKeyPressed(int key, int mod);
 	void draw();
-
 
 	void checkEnums(std::vector<Scene*>& scene, int& activeScene);
 	void update(Scene* scene);
