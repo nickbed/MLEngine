@@ -96,9 +96,10 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			Scene* newScene = new Scene();
 			std::cout << "Before: " << activeScene;
 			
-			std::cout << "  After: " << activeScene << std::endl;
+			
 			scene.push_back(newScene);
 			activeScene = scene.size()-1;
+			std::cout << "  After: " << activeScene << std::endl;
 			scene.at(activeScene)->InitScene(checkName);
 			m_scene = scene[activeScene];
 			TwRemoveAllVars(bar);
@@ -224,9 +225,11 @@ void GUI::updateObjects()
 		TwSetParam(bar, objects[i].name.c_str(), "label", TW_PARAM_CSTRING, 1, m_scene->GetGameObjects().at(i)->getName().c_str()); // Set label
 
 		/////////LOAD TEXTURE BUTTON
-		TwAddButton(bar,  "Texture" , TextureCB, m_scene->GetGameObjects().at(i),"" );
+		std::string texture = "Texture"+std::to_string(i);
+		TwAddButton(bar,  texture.c_str() , TextureCB, m_scene->GetGameObjects().at(i),"" );
+		TwSetParam(bar, texture.c_str(), "label" , TW_PARAM_CSTRING , 1, "Load texture");
 		std::string buttongroup = objects[i].name;
-		std::string grouping2 = " Editor/Texture  group="+buttongroup;
+		std::string grouping2 = " Editor/"+texture+"  group="+buttongroup;
 		std::string grouping3 =	" Editor/"+buttongroup+" group="+m_scene->GetGameObjects().at(i)->getEntityType();
 		TwDefine(grouping2.c_str());  
 		TwDefine(grouping3.c_str());  
