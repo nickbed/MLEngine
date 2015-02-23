@@ -5,6 +5,35 @@ RenderComponent::RenderComponent()
 	rManager = ResourceManager::getInstance();
 };
 
+void RenderComponent::loadTexture(GameObject* g)
+{
+	OPENFILENAME ofn={0};
+	char szFileName[MAX_PATH]={0};
+	ofn.lStructSize=sizeof(OPENFILENAME);
+	ofn.Flags=OFN_EXPLORER|OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST|OFN_NOCHANGEDIR;
+	ofn.lpstrFilter = "Images (*.jpg;*.png;*.bmp;*.tga;*.tif)\0*.jpg;*.png;*.bmp;*.tga;*.tif;\0";
+	ofn.lpstrFile=szFileName;
+	ofn.nMaxFile=MAX_PATH;
+	
+	if(GetOpenFileName(&ofn))
+	{
+		std::string filename = ofn.lpstrFile;
+		filename = filename.substr(filename.find("data"));
+		TextureLoader* tLoader = new TextureLoader();
+		if (rManager->getTextures_const().find(filename) == rManager->getTextures_const().end() ) 
+		{
+			
+			tLoader->LoadTexture(filename);
+			tLoader->FlipImage();
+			tLoader->setName(filename);
+			rManager->addToTexture(std::pair<std::string, Texture*>(filename,tLoader->getTexture()));
+		}
+		
+		setTexture(rManager->getTexture().at(filename));
+		glBindTexture(GL_TEXTURE_2D,texture->object());
+		g->addToComponentTextureFiles(filename);
+	}
+}
 void RenderComponent::init(Model* model, Texture* nTexture)
 {
 	texture = nTexture;
@@ -53,11 +82,7 @@ void RenderComponent::init(Model* model, Texture* nTexture)
 	//glDepthGL_nc(glLESS);
 	glEnable(GL_BLEND);
 
-	
-	//glDrawArrays(glTRIANGLES, 0,indicesCount );
-	/*glTexParameteri(glTEXTURE_2D, glTEXTURE_WRAP_S, glREPEAT);
-	glTexParameteri(glTEXTURE_2D, glTEXTURE_WRAP_R, glREPEAT);
-	glTexParameteri(glTEXTURE_2D, glTEXTURE_WRAP_T, glREPEAT);*/
+
 	
 	
 }

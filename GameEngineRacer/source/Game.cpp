@@ -23,9 +23,6 @@ Game::~Game()
 }
 void Game::Run()
 {
-
-
-
 	Initialise();
 	glfwSetTime(0.0);
 	double refresh_rate = 1.0/60.0;
@@ -61,7 +58,7 @@ void Game::Initialise()
 		exit(EXIT_FAILURE);
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 0 );
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 	//glfwWindowHint(GLFW_RESIZABLE, FALSE);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
@@ -140,7 +137,14 @@ void Game::Update()
 
 		}
 	}
-
+	double lastX = x, lastY = y;
+	
+	glfwGetCursorPos(window,&x,&y);
+	/*if(lastX != x && lastY != y)
+	{
+		std::cout << x << "  " << y << std::endl;
+	}*/
+	
 	scene[activeScene]->Update(keys);
 	gui->checkEnums(scene,activeScene);
 	gui->update(scene[activeScene]);

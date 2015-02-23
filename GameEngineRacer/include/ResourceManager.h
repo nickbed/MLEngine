@@ -19,8 +19,6 @@ struct Shader
 class ResourceManager
 {
 private:
-	//enum FileType { OBJ, TEX, SHA, UNKN};
-
 
 	static bool instanceFlag;
 	static ResourceManager *m_rManager;
@@ -29,6 +27,7 @@ private:
 	std::unordered_map<std::string, Shader*> m_shaders;
 	std::unordered_map<std::string, Model*> m_model;
 	std::unordered_map<std::string, Texture*> m_textures;
+
 public:
 	~ResourceManager();
 	static ResourceManager* getInstance();

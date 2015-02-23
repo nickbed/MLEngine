@@ -56,6 +56,7 @@ private:
 	Json::StyledWriter writer;
 	int j;
 	void saveData();
+	void loadTexture(GameObject* g);
 	void addToLights();
 	void addToScene();
 	void createLight();
@@ -78,6 +79,7 @@ public:
 	void update(Scene* scene);
 
 	Scene* getScene(){return m_scene;};
+	static void TW_CALL TextureCB(void *clientData);
 	static void TW_CALL DeleteBar(void *clientData);
 	static void TW_CALL AddtoLights(void *clientData);
 	static void TW_CALL AddtoScene(void *clientData);

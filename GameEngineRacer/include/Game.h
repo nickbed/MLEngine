@@ -24,8 +24,8 @@ class Game
 {
 private:
 	UI ui;
+	double x,y;
 	ResourceManager* rManager;
-	float x1,y1,z1,rot,speed, turnSpeed;
 	std::vector<Scene*> scene;
 	int activeScene;
 	static bool keys[1024];
@@ -42,6 +42,7 @@ private:
 	static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods); //Mouse callback
 	static void scroll_callback(GLFWwindow *window, double x, double y);
 	static void WindowSizeCB(GLFWwindow* window, int width, int height);
+
 
 	void handleInput();
 	bool keyPressedOnce(int key);

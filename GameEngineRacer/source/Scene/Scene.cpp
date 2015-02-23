@@ -206,14 +206,6 @@ bool Scene::LoadScene(const std::string& filename)
 										rManager->addToModel(std::pair<std::string, Model*>(objString,m));
 									}
 
-									/*if(!rManager->getModel().at(objString))
-									{
-									Model* m = new Model();
-									std::pair<std::string,Model*> modelPair;
-									modelPair.first = objString;
-									}*/
-
-
 									g->addToComponentModelFiles(compVal2.asString());
 								}
 								if(compValKey.asString() == "TextureFile")
@@ -469,7 +461,7 @@ void Scene::Update(bool keys[])//Updates the scene running in a loop
 		glm::vec3 forward = glm::normalize(cameras.at(activeCamera)->position() - (*it)->getTransformComp()->getTranslate());
 		glm::vec3 right = glm::normalize(glm::cross(forward,glm::vec3(0,1,0)));
 		glm::vec3 up = glm::normalize(glm::cross(forward,right));
-
+		//right = glm::normalize(glm::cross(forward,up));
 		//Rotate to look at camera.
 		glm::mat4 transform;
 		transform[0] = glm::vec4(right, 0);

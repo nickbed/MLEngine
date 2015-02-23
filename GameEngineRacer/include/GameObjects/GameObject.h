@@ -9,7 +9,7 @@
 #include "ResourceManager.h"
 
 
-//class ResourceManager;
+class RenderComponent;
 class GameObject
 {
 private:
@@ -36,10 +36,11 @@ public:
 	GameObject();
 	GameObject(std::string nName);
 	~GameObject();
-	virtual void init(const std::string& nShaderName);//Initialises the game objects
-	virtual void update(bool keys[]);//Updates the Game objects
-	virtual void render();
+	void init(const std::string& nShaderName);//Initialises the game objects
+	void update(bool keys[]);//Updates the Game objects
+	void render();
 
+	
 	void setName(const std::string& nName);
 	const std::string& getName()const {return m_name;};
 

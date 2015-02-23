@@ -34,7 +34,8 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 	char szFileName[MAX_PATH]={0};
 	ofn.lStructSize=sizeof(OPENFILENAME);
 	ofn.Flags=OFN_EXPLORER|OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST|OFN_NOCHANGEDIR;
-	ofn.lpstrFilter = "Obj Files\0*.OBJ\0Scene Files\0*.scn\0";
+	ofn.lpstrFilter = "Obj Files (*obj)\0*.OBJ\0Scene Files (*.scn)\0*.scn\0";
+
 	ofn.lpstrFile=szFileName;
 	ofn.nMaxFile=MAX_PATH;
 	if(GetOpenFileName(&ofn))
@@ -46,33 +47,37 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 
 		if(newstring == ".obj")
 		{
-			ModelLoader mLoader;
-			GameObject* g = new GameObject();
-			Model* m = new Model();
+			/////TODO NEED TO CHECK IF MODEL IS ALREADY LOADED
+
+
 			filename = filename.substr(filename.find("data"));
 			std::string name = filename.substr(filename.find_last_of("/\\")+1);
-			mLoader.loadFromfile(filename);
-			m->normals = mLoader.getNormals();
-			m->verts = mLoader.getVerts();
-			m->textureCoords = mLoader.getTextureCoords();
-			rManager->addToModel(std::pair<std::string, Model*>(filename,m));
+			if (rManager->getModel_const().find(filename) == rManager->getModel_const().end() ) 
+			{
+				ModelLoader mLoader;
+				Model* m = new Model();
+				mLoader.loadFromfile(filename);
+				m->normals = mLoader.getNormals();
+				m->verts = mLoader.getVerts();
+				m->textureCoords = mLoader.getTextureCoords();
+				rManager->addToModel(std::pair<std::string, Model*>(filename,m));
+			}
+			GameObject* g = new GameObject();
 			g->setEntityType("generalentity");
 			g->getTransformComp()->setTranslate(glm::vec3(0,0,0));
 			g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
 			g->getTransformComp()->setRotate(glm::quat(0.0, 0.0, 0.0,0.0));
-
 			g->setName(name);
 			g->addToComponentID(name);
 			g->addToComponentTYPE("mesh");
 			g->addToComponentModelFiles(filename);
-			g->addToComponentTextureFiles("data\\images\\default.png");
-			g->getRenderComp()->init(m,rManager->getTexture().at("data\\images\\default.png"));
+			g->getRenderComp()->init(rManager->getModel().at(filename),rManager->getTexture().at("data\\images\\default.png"));
 			g->getRenderComp()->update();
 			m_scene->addGameObject(g);
 			TwRemoveAllVars(bar);
 			updateBar(m_scene->getSceneData().name);
 			updateObjects();
-			
+			updateLights();
 		}
 		else if(newstring == ".scn")
 		{
@@ -103,7 +108,7 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			updateBar(m_scene->getSceneData().name);
 			updateObjects();
 			updateLights();
-			
+
 			TwRefreshBar(bar);
 		}
 
@@ -131,15 +136,14 @@ void GUI::saveData()
 		myfile << writer.write( m_scene->createJson() );
 		myfile.close();
 	}
-
-
-
 }
+
 void TW_CALL GUI::Save(void *clientData)
 { 
 	GUI *ui = static_cast<GUI *>(clientData);
 	ui->saveData();
 }
+
 void TW_CALL GUI::DeleteBar(void *clientData)
 {
 	TwBar *t = static_cast<TwBar *>(clientData);
@@ -155,6 +159,11 @@ void TW_CALL GUI::CreateLight(void *clientData)
 {
 	GUI *ui = static_cast<GUI *>(clientData);
 	ui->createLight();
+}
+void TW_CALL GUI::TextureCB(void *clientData)
+{
+	GameObject *g = static_cast<GameObject *>(clientData);
+	g->getRenderComp()->loadTexture(g);
 }
 
 void GUI::addToLights()
@@ -178,7 +187,7 @@ void GUI::createLight()
 	TwCopyStdStringToClientFunc(CopyStdStringToClient);
 	TwAddVarRW(lightbar, "Name", TW_TYPE_STDSTRING, &light.name, "");
 	TwAddVarRW(lightbar, "Colour", TW_TYPE_COLOR3F, &light.diffuse, "");
-	light.position = glm::vec3(0,0,0);
+	light.position = glm::vec3(0,2,0);
 	light.specular = glm::vec3(0,0,0);
 	light.ambient = glm::vec3(0.2,0.2,0.2);
 	light.linear = 0.014f;
@@ -188,6 +197,7 @@ void GUI::createLight()
 	TwAddButton(lightbar,"Quit",DeleteBar,this->lightbar,"");
 	i++;
 }
+
 void GUI::updateBar(const std::string& name)
 {
 	std::string def =  " label='Scene Name: "+name+"' ";
@@ -199,28 +209,33 @@ void GUI::updateBar(const std::string& name)
 }
 void GUI::updateObjects()
 {
-	
-	
-	for(unsigned int i=0; i<m_scene->GetGameObjects().size(); ++i)  // Add 'maxLights' variables of type lightType; 
-	{                               // unused lights variables (over NumLights) will hidden by Scene::Update( )
+
+
+	for(unsigned int i=0; i<m_scene->GetGameObjects().size(); ++i) 
+	{           
+
+
+
 		objects[i].useRotBall = false;
 		objects[i].pos = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate();
 		objects[i].rot = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate();
 		objects[i].scale = m_scene->GetGameObjects().at(i)->getTransformComp()->getScale();
 		objects[i].eulers = glm::degrees(glm::eulerAngles(m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate()));
 
-
-		//_snprintf(objects[i].type, sizeof(objects[i].type), "%s", m_scene->GetGameObjects().at(i)->getEntityType().c_str());//Copy data into objects.
 		_snprintf(objects[i].name, sizeof(objects[i].name), "%d", i+1); //Create a unique name;
-
 
 		std::string grouping = "group="+m_scene->GetGameObjects().at(i)->getEntityType();
 		TwAddVarRW(bar, objects[i].name, modelType, &objects[i], grouping.c_str());//Creates Type Grouping.
 		TwSetParam(bar, objects[i].name, "label", TW_PARAM_CSTRING, 1, m_scene->GetGameObjects().at(i)->getName().c_str()); // Set label
 
-
-		//std::string entityType = "Editor/"+m_scene->GetGameObjects().at(i)->getName()+" group="+m_scene->GetGameObjects().at(i)->getEntityType()+" opened='false'";//Creates the string for grouping.
-		//TwDefine(entityType.c_str());
+		/////////LOAD TEXTURE BUTTON
+		TwAddButton(bar,  "Texture" , TextureCB, m_scene->GetGameObjects().at(i),"" );
+		std::string buttongroup = objects[i].name;
+		std::string grouping2 = " Editor/Texture  group="+buttongroup;
+		std::string grouping3 =	" Editor/"+buttongroup+" group="+m_scene->GetGameObjects().at(i)->getEntityType();
+		TwDefine(grouping2.c_str());  
+		TwDefine(grouping3.c_str());  
+		////////////////////////////////
 
 
 		std::string fold = "Editor/"+m_scene->GetGameObjects().at(i)->getEntityType()+" opened='false'";
@@ -266,7 +281,7 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 		{ "Rotate Z", TW_TYPE_FLOAT,        offsetof(Object, eulers.z), "readonly=false precision=2" },
 		{ "Scale X", TW_TYPE_FLOAT,        offsetof(Object, scale.x), " help='Scale in the X.' step=0.01" },  
 		{ "Scale Y",     TW_TYPE_FLOAT,   offsetof(Object, scale.y),    " help='Scale in the Y.' step=0.01" },
-		{ "Scale Z",     TW_TYPE_FLOAT,   offsetof(Object, scale.z),    " help='Scale in the Z.' step=0.01" } 
+		{ "Scale Z", TW_TYPE_FLOAT,   offsetof(Object, scale.z),    " help='Scale in the Z.' step=0.01" } 
 	};
 	TwStructMember lightMembers[] = 
 	{
@@ -281,7 +296,7 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 	TwAddButton(bar, "NewScene", NewScene, this,"label='New Scene'");
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
 	TwDefine("GLOBAL help='Press N to change camera.\nHold alt to move the camera.'");
-	
+
 	TwWindowSize(width, height);
 	return true;
 }
@@ -290,7 +305,7 @@ void GUI::createScene()
 	sceneBar = TwNewBar("New Scene");
 	TwDefine("'New Scene' position='260 40' color='254 92 99' ");
 	n_scene = new Scene();
-	
+
 	//n_scene->setSceneData().menu = false;
 	TwCopyStdStringToClientFunc(CopyStdStringToClient);
 	TwAddVarRW(sceneBar, "Name", TW_TYPE_STDSTRING, &n_scene->setSceneData().name, "");

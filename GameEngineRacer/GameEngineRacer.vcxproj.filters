@@ -46,7 +46,7 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{3d4d99d0-cd0a-44cf-a198-56237b7b72de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\UI\GameObjects">
+    <Filter Include="Header Files\GameObjects">
       <UniqueIdentifier>{2203c748-bd27-4fe3-a9ba-e03d6ad11889}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -67,7 +67,7 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\GameObjects\GameObject.h">
-      <Filter>Header Files\UI\GameObjects</Filter>
+      <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="include\Loaders\ModelLoader.h">
       <Filter>Header Files\Loaders</Filter>

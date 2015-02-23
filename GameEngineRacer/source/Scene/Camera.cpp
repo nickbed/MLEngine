@@ -116,12 +116,22 @@ void Camera::rotate(const float x, const float y)
 	if ((_yaw>360) || (_yaw<-360)) _yaw=0;
 
 
-	glm::vec3 ForwardVector =  _target - _position;//Finds forwar vector
-	glm::vec3 right = glm::cross(ForwardVector, glm::vec3(0,1,0));//Finds right vector
-	glm::vec3 up = glm::cross(ForwardVector, right);//Finds finds relative up vector
+	glm::vec3 ForwardVector =  glm::normalize( _target - _position);//Finds forwar vector
+	glm::vec3 right =  glm::normalize(glm::cross(ForwardVector, glm::vec3(0,1,0)));//Finds right vector
+	glm::vec3 up =  glm::normalize(glm::cross(ForwardVector, right));//Finds finds relative up vector
 
 	_position = glm::rotate(_position,-x,up);//rotates around the up, Y
 	_position = glm::rotate(_position,y,right);//rotates around the right, x
+
+	//Rotate to look at camera.
+	/*glm::mat4 transform;
+	transform[0] = glm::vec4(right, 0);
+	transform[1] = glm::vec4(up, 0);
+	transform[2] = glm::vec4(ForwardVector, 0);
+	glm::quat rotation = glm::quat_cast(transform);
+	glm::quat rott = glm::rotate(rotation,x,up);
+	rott = glm::rotate(rotation, y,right);
+	_position = glm::eulerAngles(rott);*/
 	//Finally call update()
 	update();
 }
@@ -177,12 +187,12 @@ void Camera::update()
 
 	double dArray[16] = {0.0};
 
-	
+
 	_right = glm::cross(_up,_forward);
 	glm::vec3 up = glm::normalize(glm::cross(_forward,_right));
 	_view = glm::lookAt(_position,_target  ,up);
 
-		
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -207,7 +217,7 @@ void Camera::init()
 	_view = glm::lookAt(_position, glm::vec3(0.0f,1.0f,0.0f), glm::vec3(0.0f,-1.0f,0.0f));
 	_projection = glm::perspective(_fieldOfView,_aspectRatio,_nearPlane,_farPlane);
 
-	
+
 }
 void Camera::lookAt(const glm::vec3& lookAt)
 {
