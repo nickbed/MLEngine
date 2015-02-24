@@ -13,6 +13,8 @@
 #include "..\Components\BasicKeyMovement.h"
 #include "..\Components\BoundingBox.h"
 #include "..\Components\BoundingBoxO.h"
+#include "..\Components\BoundingSphere.h"
+#include "..\Components\BoundingCapsule.h"
 #include "..\Components\MousePoller.h"
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\StaticMesh.h"
@@ -72,6 +74,7 @@ private:
 
 	void AddBoundingBox(Json::Value contents, IEntity* entToCreate);
 	void AddBoundingBoxO(Json::Value contents, IEntity* entToCreate);
+	void AddBoundingCapsule(Json::Value contents, IEntity* entToCreate);
 
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	std::unique_ptr<SceneConfig> currentScene;

@@ -4,7 +4,7 @@ BoundingVolume::BoundingVolume(std::string id) : IComponent(id)
 {
 }
 
-int BoundingVolume::getType()
+int BoundingVolume::GetType()
 {
 	return type;
 }
@@ -14,12 +14,22 @@ bool BoundingVolume::IsStatic()
 	return isStatic;
 }
 
-TransformComponent* BoundingVolume::getTransform()
+bool BoundingVolume::IsCollided()
+{
+	return collided;
+}
+
+void BoundingVolume::SetCollided(bool hasCollided)
+{
+	collided = hasCollided;
+}
+
+TransformComponent* BoundingVolume::GetTransform()
 {
 	return transform;
 }
 
-void BoundingVolume::setTransform(TransformComponent* trans)
+void BoundingVolume::SetTransform(TransformComponent* trans)
 {
 	transform = trans;
 }
@@ -38,4 +48,5 @@ void BoundingVolume::Destroy()
 
 BoundingVolume::~BoundingVolume()
 {
+	IComponent::~IComponent();
 }

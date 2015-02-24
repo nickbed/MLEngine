@@ -61,11 +61,3 @@ const GPUTexture StaticMesh::GetTexture()
 {
 	return texture;
 }
-
-
-
-
-
-
-
-

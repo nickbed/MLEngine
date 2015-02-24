@@ -158,6 +158,7 @@
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
     <ClCompile Include="Code\Components\BoundingBox.cpp" />
     <ClCompile Include="Code\Components\BoundingBoxO.cpp" />
+    <ClCompile Include="Code\Components\BoundingCapsule.cpp" />
     <ClCompile Include="Code\Components\BoundingSphere.cpp" />
     <ClCompile Include="Code\Components\BoundingVolume.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
     <ClInclude Include="Code\Components\BoundingBox.h" />
     <ClInclude Include="Code\Components\BoundingBoxO.h" />
+    <ClInclude Include="Code\Components\BoundingCapsule.h" />
     <ClInclude Include="Code\Components\BoundingSphere.h" />
     <ClInclude Include="Code\Components\BoundingVolume.h" />
     <ClInclude Include="Code\Components\MessageKeyMovement.h" />

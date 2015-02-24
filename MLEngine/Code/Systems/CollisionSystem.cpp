@@ -12,10 +12,6 @@ bool CollisionSystem::Update(float dt)
 	return true;
 }
 
-void CollisionSystem::Destroy()
-{
-}
-
 void CollisionSystem::AddStaticVolume(BoundingVolume* volume)
 {
 	NULLPTRCHECK(volume,"Static Volume is a null pointer");
@@ -32,20 +28,31 @@ void CollisionSystem::CheckCollisions()
 {
 	if(dynamics.size()>0)
 	{
-		for(auto volumei = dynamics.begin(); volumei != dynamics.end()-1; ++volumei)
+		for(auto volume = dynamics.begin(); volume != dynamics.end(); ++volume)
+		{
+			(*volume)->SetCollided(false);
+		}
+		for(auto volume = statics.begin(); volume != statics.end(); ++volume)
+		{
+			(*volume)->SetCollided(false);
+		}
+
+		for(auto volumei = dynamics.begin(); volumei != dynamics.end(); ++volumei)
 		{
 			for(auto volumej = volumei+1; volumej != dynamics.end(); ++volumej)
 			{
 				if(CheckVolumes(*volumei,*volumej))
 				{
-					std::cout << "Collision message spam activate!!!";
+					(*volumei)->SetCollided(true);
+					(*volumej)->SetCollided(true);
 				}
 			}
 			for(auto volumej = statics.begin(); volumej != statics.end(); ++volumej)
 			{
 				if(CheckVolumes(*volumei,*volumej))
 				{
-					std::cout << "Collision message spam activate!!!";
+					(*volumei)->SetCollided(true);
+					(*volumej)->SetCollided(true);
 				}
 			}
 		}
@@ -57,17 +64,29 @@ bool CollisionSystem::CheckVolumes(BoundingVolume* volumea, BoundingVolume* volu
 	NULLPTRCHECK(volumea,"volumea passed into CheckVolumes is a null pointer");
 	NULLPTRCHECK(volumeb,"volumeb passed into CheckVolumes is a null pointer");
 
-	if(volumea->getType()==BOUNDING_TYPE_AABBOX && volumeb->getType()==BOUNDING_TYPE_AABBOX)
+	if(volumea->GetType()==BOUNDING_TYPE_AABBOX && volumeb->GetType()==BOUNDING_TYPE_AABBOX)
 	{
 		BoundingBox* boxa = static_cast<BoundingBox*>(volumea);
 		BoundingBox* boxb = static_cast<BoundingBox*>(volumeb);
 		return HasCollided(boxa,boxb);
 	}
-	else if(volumea->getType()==BOUNDING_TYPE_OBBOX && volumeb->getType()==BOUNDING_TYPE_OBBOX)
+	else if(volumea->GetType()==BOUNDING_TYPE_OBBOX && volumeb->GetType()==BOUNDING_TYPE_OBBOX)
 	{
 		BoundingBoxO* boxa = static_cast<BoundingBoxO*>(volumea);
 		BoundingBoxO* boxb = static_cast<BoundingBoxO*>(volumeb);
 		return HasCollided(boxa,boxb);
+	}
+	else if(volumea->GetType()==BOUNDING_TYPE_CAPSULE && volumeb->GetType()==BOUNDING_TYPE_OBBOX)
+	{
+		BoundingCapsule* cap = static_cast<BoundingCapsule*>(volumea);
+		BoundingBoxO* box = static_cast<BoundingBoxO*>(volumeb);
+		return HasCollided(box,cap);
+	}
+	else if(volumea->GetType()==BOUNDING_TYPE_OBBOX && volumeb->GetType()==BOUNDING_TYPE_CAPSULE)
+	{
+		BoundingBoxO* box = static_cast<BoundingBoxO*>(volumea);
+		BoundingCapsule* cap = static_cast<BoundingCapsule*>(volumeb);
+		return HasCollided(box,cap);
 	}
 	return false;
 }
@@ -77,10 +96,10 @@ bool CollisionSystem::HasCollided(BoundingBox* boxa, BoundingBox* boxb)
 	NULLPTRCHECK(boxa,"boxa passed into HasCollided is a null pointer");
 	NULLPTRCHECK(boxb,"boxb passed into HasCollided is a null pointer");
 
-	glm::vec3 amin = boxa->GetLeftBotFore() +  boxa->getTransform()->GetPosition();
-	glm::vec3 amax = boxa->GetRightTopRear() + boxa->getTransform()->GetPosition();
-	glm::vec3 bmin = boxb->GetLeftBotFore() +  boxb->getTransform()->GetPosition();
-	glm::vec3 bmax = boxb->GetRightTopRear() + boxb->getTransform()->GetPosition();
+	glm::vec3 amin = boxa->GetLeftBotFore() +  boxa->GetTransform()->GetPosition();
+	glm::vec3 amax = boxa->GetRightTopRear() + boxa->GetTransform()->GetPosition();
+	glm::vec3 bmin = boxb->GetLeftBotFore() +  boxb->GetTransform()->GetPosition();
+	glm::vec3 bmax = boxb->GetRightTopRear() + boxb->GetTransform()->GetPosition();
 	
 	return(amax.x >= bmin.x &&
 		amin.x <= bmax.x &&
@@ -95,132 +114,215 @@ bool CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb)
 	NULLPTRCHECK(boxa,"boxa passed into HasCollided is a null pointer");
 	NULLPTRCHECK(boxb,"boxb passed into HasCollided is a null pointer");
 
-	glm::vec3 cena = boxa->GetCenter()+boxa->getTransform()->GetPosition();
-	glm::mat4 rota = glm::rotate(boxa->getTransform()->GetRotation().x,glm::vec3(1,0,0));
-	rota = glm::rotate(rota,boxa->getTransform()->GetRotation().y,glm::vec3(0,1,0));
-	rota = glm::rotate(rota,boxa->getTransform()->GetRotation().z,glm::vec3(0,0,1));
-	glm::vec3 axisax = glm::vec3(glm::vec4(1,0,0,1)*rota); 
-	glm::vec3 axisay = glm::vec3(glm::vec4(0,1,0,1)*rota);
-	glm::vec3 axisaz = glm::vec3(glm::vec4(0,0,1,1)*rota);
+	//Get transform and rotation of box a
 
-	glm::vec3 cenb = boxb->GetCenter()+boxb->getTransform()->GetPosition();
-	glm::mat4 rotb = glm::rotate(boxb->getTransform()->GetRotation().x,glm::vec3(1,0,0));
-	glm::rotate(rotb,boxb->getTransform()->GetRotation().y,glm::vec3(0,1,0));
-	glm::rotate(rotb,boxb->getTransform()->GetRotation().z,glm::vec3(0,0,1));
-	glm::vec3 axisbx = glm::vec3(glm::vec4(1,0,0,1)*rotb); 
-	glm::vec3 axisby = glm::vec3(glm::vec4(0,1,0,1)*rotb);
-	glm::vec3 axisbz = glm::vec3(glm::vec4(0,0,1,1)*rotb);
+	glm::vec3 cena = boxa->GetCenter()+boxa->GetTransform()->GetPosition();
+	glm::mat4 rota = glm::rotate(glm::mat4(1.0),boxa->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
+	rota *= glm::rotate(boxa->GetTransform()->GetRotation().y,glm::vec3(0,1,0));							
+	rota *= glm::rotate(boxa->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
 
-	glm::vec3 v = cenb - cena;
-	glm::vec3 T(glm::dot(v,axisax),glm::dot(v,axisay),glm::dot(v,axisaz));
+	//Get transform and rotation of box b
 
-	glm::mat3 R;
-	float ra, rb, t;
+	glm::vec3 cenb = boxb->GetCenter()+boxb->GetTransform()->GetPosition();
+	glm::mat4 rotb = glm::rotate(glm::mat4(1.0),boxb->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
+	rotb *= glm::rotate(boxb->GetTransform()->GetRotation().y,glm::vec3(0,1,0));
+	rotb *= glm::rotate(boxb->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
 
-	R[0][0] = glm::dot(axisax,axisbx);
-	R[0][1] = glm::dot(axisax,axisby);
-	R[0][2]	= glm::dot(axisax,axisbz);
-	R[1][0]	= glm::dot(axisay,axisbx);
-	R[1][1]	= glm::dot(axisay,axisby);
-	R[1][2]	= glm::dot(axisay,axisbz);
-	R[2][0]	= glm::dot(axisaz,axisbx);
-	R[2][1]	= glm::dot(axisaz,axisby);
-	R[2][2]	= glm::dot(axisaz,axisbz);
-
+	//Get extents of boxes
 	glm::vec3 a = boxa->GetExtent();
-	glm::vec3 b = boxa->GetExtent();
+	glm::vec3 b = boxb->GetExtent();
 
-	for(int i=0 ; i<3 ; i++ )
+	//Get the transpose of the combined rotation matrices
+	glm::mat4 Rt = glm::transpose(rota*rotb);
+
+	glm::mat4 Rabs;
+	bool axesParallel;
+
+	for ( unsigned int i = 0; i < 3; ++i )
 	{
-		ra = a[i];
-		rb = b[0]*fabs(R[i][0]) + b[1]*fabs(R[i][1]) + b[2]*fabs(R[i][2]);
-		t = fabs( T[i] );
-		if( t > ra + rb )
+		for ( unsigned int j = 0; j < 3; ++j )
 		{
-			return false;
+			Rabs[i][j] = fabs(Rt[i][j]);
+			if ( Rabs[i][j] + 0.01f >= 1.0f )
+            {
+                // box A and box B have nearly parallel axes
+                axesParallel = true;
+            }
 		}
 	}
 
-	for(int k=0 ; k<3 ; k++ )
-	{
-		ra = a[0]*fabs(R[0][k]) + a[1]*fabs(R[1][k]) + a[2]*fabs(R[2][k]); 
-		rb = b[k];
-		t =	fabs( T[0]*R[0][k] + T[1]*R[1][k] + T[2]*R[2][k] );
-		if( t > ra + rb )
-		{
-			return false;
-		}
-	}
 
-	ra = a[1]*fabs(R[2][0]) + a[2]*fabs(R[1][0]);
-	rb = b[1]*fabs(R[0][2]) + b[2]*fabs(R[0][1]);
-	t =	fabs(T[2]*R[1][0] - T[1]*R[2][0]);
-	if( t > ra + rb )
+	glm::vec4 c = glm::vec4(cenb - cena,1.0)*rota;
+
+	float aTest, bTest, cTest;
+
+	 // separating axis A0
+    cTest = abs(c.x);
+    aTest = a.x;
+    bTest = b.x*Rabs[0][0]+b.y*Rabs[0][1]+b.z*Rabs[0][2];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A1
+    cTest = abs(c.y);
+    aTest = a.y;
+    bTest = b.x*Rabs[1][0]+b.y*Rabs[1][1]+b.z*Rabs[1][2];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A2
+    cTest = abs(c.z);
+    aTest = a.z;
+    bTest = b.x*Rabs[2][0]+b.y*Rabs[2][1]+b.z*Rabs[2][2];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis B0
+    cTest = abs( c.x*Rt[0][0] + c.y*Rt[1][0] + c.z*Rt[2][0] );
+    aTest = a.x*Rabs[0][0]+a.y*Rabs[1][0]+a.z*Rabs[2][0];
+    bTest = b.x;
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis B1
+    cTest = abs( c.x*Rt[0][1] + c.y*Rt[1][1] + c.z*Rt[2][1] );
+    aTest = a.x*Rabs[0][1]+a.y*Rabs[1][1]+a.z*Rabs[2][1];
+    bTest = b.y;
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis B2
+    cTest = abs( c.x*Rt[0][2] + c.y*Rt[1][2] + c.z*Rt[2][2] );
+    aTest = a.x*Rabs[0][2]+a.y*Rabs[1][2]+a.z*Rabs[2][2];
+    bTest = b.z;
+    if ( cTest > aTest + bTest )
+        return false;
+
+	// if the two boxes have parallel axes, then there's an intersection
+    if ( axesParallel )
+        return true;
+
+
+    // separating axis A0 x B0
+    cTest = abs(c.z*Rt[1][0]-c.y*Rt[2][0]);
+    aTest = a.y*Rabs[2][0] + a.z*Rabs[1][0];
+    bTest = b.y*Rabs[0][2] + b.z*Rabs[0][1];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A0 x B1
+    cTest = abs(c.z*Rt[1][1]-c.y*Rt[2][1]);
+    aTest = a.y*Rabs[2][1] + a.z*Rabs[1][1];
+    bTest = b.x*Rabs[0][2] + b.z*Rabs[0][0];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A0 x B2
+    cTest = abs(c.z*Rt[1][2]-c.y*Rt[2][2]);
+    aTest = a.y*Rabs[2][2] + a.z*Rabs[1][2];
+    bTest = b.x*Rabs[0][1] + b.y*Rabs[0][0];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A1 x B0
+    cTest = abs(c.x*Rt[2][0]-c.z*Rt[0][0]);
+    aTest = a.x*Rabs[2][0] + a.z*Rabs[0][0];
+    bTest = b.y*Rabs[1][2] + b.z*Rabs[1][1];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A1 x B1
+    cTest = abs(c.x*Rt[2][1]-c.z*Rt[0][1]);
+    aTest = a.x*Rabs[2][1] + a.z*Rabs[0][1];
+    bTest = b.x*Rabs[1][2] + b.z*Rabs[1][0];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A1 x B2
+    cTest = abs(c.x*Rt[2][2]-c.z*Rt[0][2]);
+    aTest = a.x*Rabs[2][2] + a.z*Rabs[0][2];
+    bTest = b.x*Rabs[1][1] + b.y*Rabs[1][0];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A2 x B0
+    cTest = abs(c.y*Rt[0][0]-c.x*Rt[1][0]);
+    aTest = a.x*Rabs[1][0] + a.y*Rabs[0][0];
+    bTest = b.y*Rabs[2][2] + b.z*Rabs[2][1];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A2 x B1
+    cTest = abs(c.y*Rt[0][1]-c.x*Rt[1][1]);
+    aTest = a.x*Rabs[1][1] + a.y*Rabs[0][1];
+    bTest = b.x*Rabs[2][2] + b.z*Rabs[2][0];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // separating axis A2 x B2
+    cTest = abs(c.y*Rt[0][2]-c.x*Rt[1][2]);
+    aTest = a.x*Rabs[1][2] + a.y*Rabs[0][2];
+    bTest = b.x*Rabs[2][1] + b.y*Rabs[2][0];
+    if ( cTest > aTest + bTest )
+        return false;
+
+    // all tests failed, have intersection
+    return true;
+} 
+
+bool CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsule* capsule)
+{
+	NULLPTRCHECK(box,"box passed into HasCollided is a null pointer");
+	NULLPTRCHECK(capsule,"capsule passed into HasCollided is a null pointer");
+
+	//Get transform and rotation of box
+
+	glm::vec3 cena = box->GetCenter()+box->GetTransform()->GetPosition();
+	glm::mat4 rota = glm::rotate(glm::mat4(1.0),box->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
+	rota *= glm::rotate(box->GetTransform()->GetRotation().y,glm::vec3(0,1,0));							
+	rota *= glm::rotate(box->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
+
+	//Get transform and rotation of capsule
+
+	glm::vec3 cenb = capsule->GetCenter()+capsule->GetTransform()->GetPosition();
+	glm::mat4 rotb = glm::rotate(glm::mat4(1.0),capsule->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
+	rotb *= glm::rotate(capsule->GetTransform()->GetRotation().y,glm::vec3(0,1,0));
+	rotb *= glm::rotate(capsule->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
+
+	glm::vec3 l = glm::vec3(glm::vec4(0.0,1.0,0.0,1.0) * rotb);
+	float radius = capsule->GetRadius();
+	glm::vec3 a = box->GetExtent()+glm::vec3(radius,radius,radius);
+	float b = capsule->GetExtent();
+	
+	glm::vec4 c = glm::vec4(cenb - cena,1.0)*rota;
+
+	if( fabs(c.x) > a.x + b*fabs(l.x))
 	{
 		return false;
 	}
-
-	ra = a[1]*fabs(R[2][1]) + a[2]*fabs(R[1][1]);
-	rb = b[0]*fabs(R[0][2]) + b[2]*fabs(R[0][0]);
-	t =	fabs(T[2]*R[1][1] - T[1]*R[2][1]);
-	if( t > ra + rb )
+	if( fabs(c.y) > a.y + b*fabs(l.y))
 	{
 		return false;
 	}
-
-	ra = a[1]*fabs(R[2][2]) + a[2]*fabs(R[1][2]);
-	rb = b[0]*fabs(R[0][1]) + b[1]*fabs(R[0][0]);
-	t =	fabs(T[2]*R[1][2] - T[1]*R[2][2]);
-	if( t > ra + rb )
-	{
-		return false;
-	}
-
-	ra = a[0]*fabs(R[2][0]) + a[2]*fabs(R[0][0]);
-	rb = b[1]*fabs(R[1][2]) + b[2]*fabs(R[1][1]);
-	t =	fabs(T[0]*R[2][0] - T[2]*R[0][0]);
-	if( t > ra + rb )
-	{
-		return false;
-	}
-
-	ra = a[0]*fabs(R[2][1]) + a[2]*fabs(R[0][1]);
-	rb = b[0]*fabs(R[1][2]) + b[2]*fabs(R[1][0]);
-	t =	fabs(T[0]*R[2][1] - T[2]*R[0][1]);
-	if( t > ra + rb )
-	{
-		return false;
-	}
-
-	ra = a[0]*fabs(R[2][2]) + a[2]*fabs(R[0][2]);
-	rb = b[0]*fabs(R[1][1]) + b[1]*fabs(R[1][0]);
-	t =	fabs(T[0]*R[2][2] - T[2]*R[0][2]);
-	if( t > ra + rb )
-	{
-		return false;
-	}
-
-	ra = a[0]*fabs(R[1][0]) + a[1]*fabs(R[0][0]);
-	rb = b[1]*fabs(R[2][2]) + b[2]*fabs(R[2][1]);
-	t =	fabs(T[1]*R[0][0] - T[0]*R[1][0]);
-
-	if( t > ra + rb )
-	{
-		return false;
-	}
-
-	ra = a[0]*fabs(R[1][1]) + a[1]*fabs(R[0][1]);
-	rb = b[0] *fabs(R[2][2]) + b[2]*fabs(R[2][0]);
-	t =	fabs(T[1]*R[0][1] - T[0]*R[1][1]);
-	if( t > ra + rb )
+	if( fabs(c.z) > a.z + b*fabs(l.z))
 	{
 		return false;
 	}
 	
-	ra = a[0]*fabs(R[1][2]) + a[1]*fabs(R[0][2]);
-	rb = b[0]*fabs(R[2][1]) + b[1]*fabs(R[2][0]);
-	t =	fabs(T[1]*R[0][2] - T[0]*R[1][2]);
-	if( t > ra + rb )
+	float r = a.y*fabs(l.z) + a.z*fabs(l.y);
+	if( fabs(c.y*l.z - c.z*l.y) > r )
+	{
+		return false;
+	}
+
+	r = a.x*fabs(l.z) + a.z*fabs(l.x);
+	if( fabs(c.z*l.x - c.x*l.z) > r )
+	{
+		return false;
+	}
+
+	r = a.x*fabs(l.y) + a.y*fabs(l.x);
+	if( fabs(c.x*l.y - c.y*l.x) > r )
 	{
 		return false;
 	}

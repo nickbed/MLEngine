@@ -659,12 +659,12 @@
 		  "boundingboxo": {
 		    "type":"boundingboxo",
 			"centerX": 0.0,
-			"centerY": 0.0,
+			"centerY": 3.1,
 			"centerZ": 0.0,
-			"extentX": 10.0,
-			"extentY": 10.0,
-			"extentZ": 10.0,
-			"static": false
+			"extentX": 3.5,
+			"extentY": 3.1,
+			"extentZ": 7.0,
+			"static": true
 		  }
         }
       },
@@ -776,14 +776,13 @@
             "OBJModel": "data\\models\\robbody.obj",
             "TextureFile": "data\\images\\rainbow.png"
           },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
+		  "boundingcapsule": {
+		    "type":"boundingcapsule",
 			"centerX": 0.0,
-			"centerY": 1.0,
+			"centerY": 0.0,
 			"centerZ": 0.0,
-			"extentX": 3.0,
-			"extentY": 3.0,
-			"extentZ": 3.0,
+			"radius": 0.5,
+			"extent": 0.5,
 			"static": false
 		  },
           "robotlleg": {

@@ -6,6 +6,7 @@
 #include "..\Components\BoundingBox.h"
 #include "..\Components\BoundingBoxO.h"
 #include "..\Components\BoundingSphere.h"
+#include "..\Components\BoundingCapsule.h"
 
 class CollisionSystem : public IEntity
 {
@@ -31,6 +32,7 @@ private:
 
 	static bool HasCollided(BoundingBox* boxa, BoundingBox* boxb);
 	static bool HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb);
+	static bool HasCollided(BoundingBoxO* box, BoundingCapsule* capsule);
 };
 
 #endif

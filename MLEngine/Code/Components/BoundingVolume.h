@@ -4,7 +4,7 @@
 #define BOUNDING_TYPE_AABBOX 1
 #define BOUNDING_TYPE_OBBOX 2
 #define BOUNDING_TYPE_SPHERE 3
-#define BOUNDING_TYPE_CYLINDER 4
+#define BOUNDING_TYPE_CAPSULE 4
 
 #include "..\Assert\Assert.h"
 #include "..\Interfaces\IComponent.h"
@@ -21,17 +21,21 @@ public:
 	virtual void Update(float dt);
 	virtual void Destroy();
 	
-	int getType();
+	int GetType();
 
 	void SetStatic(bool isStatic);
 	bool IsStatic();
 
-	TransformComponent* getTransform();
-	void setTransform(TransformComponent*);
+	void SetCollided(bool hasCollided);
+	bool IsCollided();
+
+	TransformComponent* GetTransform();
+	void SetTransform(TransformComponent*);
 
 protected:
 	int type;
 	bool isStatic;
+	bool collided;
 	TransformComponent* transform;
 };
 #endif

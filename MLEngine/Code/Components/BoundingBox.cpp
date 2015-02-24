@@ -51,4 +51,5 @@ void BoundingBox::Destroy()
 
 BoundingBox::~BoundingBox()
 {
+	IComponent::~IComponent();
 }

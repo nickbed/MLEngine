@@ -50,4 +50,5 @@ void BoundingSphere::Destroy()
 
 BoundingSphere::~BoundingSphere()
 {
+	IComponent::~IComponent();
 }

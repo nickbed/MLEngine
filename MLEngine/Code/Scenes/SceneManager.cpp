@@ -209,6 +209,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 								{
 									AddBoundingBoxO(componentContents,entToCreate);
 								}
+								if (componentContents["type"] == "boundingcapsule")
+								{
+									AddBoundingCapsule(componentContents,entToCreate);
+								}
 							}
 						}
 
@@ -359,7 +363,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	if(gotConfig->sceneEntities->find("robot1") != gotConfig->sceneEntities->end())
 	{
-		//AddMessageListner("mouseMovement",(Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, _1));
+		AddMessageListner("mouseMovement",(Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, _1));
 	}
 
 	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, _1));
@@ -397,7 +401,7 @@ void SceneManager::AddBoundingBox(Json::Value contents, IEntity* entToCreate)
 	glm::vec3 gotMin = glm::vec3(contents["minX"].asFloat(), contents["minY"].asFloat(), contents["minZ"].asFloat());
 	glm::vec3 gotMax = glm::vec3(contents["maxX"].asFloat(), contents["maxY"].asFloat(), contents["maxZ"].asFloat());
 	BoundingBox* gotComponent = new BoundingBox("boundingbox",gotMin,gotMax,gotStatic);
-	gotComponent->setTransform(entToCreate->Transform);
+	gotComponent->SetTransform(entToCreate->Transform);
 	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
 	if(gotStatic==true)
 	{
@@ -415,7 +419,7 @@ void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
 	glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
 	glm::vec3 gotExtent = glm::vec3(contents["extentX"].asFloat(), contents["extentY"].asFloat(), contents["extentZ"].asFloat());
 	BoundingBoxO* gotComponent = new BoundingBoxO("boundingbox",gotCenter,gotExtent,gotStatic);
-	gotComponent->setTransform(entToCreate->Transform);
+	gotComponent->SetTransform(entToCreate->Transform);
 	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
 	if(gotStatic==true)
 	{
@@ -426,6 +430,26 @@ void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
 		CollisionSystem::AddDynamicVolume(gotComponent);
 	}
 }
+
+void SceneManager::AddBoundingCapsule(Json::Value contents, IEntity* entToCreate)
+{
+	bool gotStatic = contents["static"].asBool();
+	glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
+	float gotExtent = contents["extent"].asFloat();
+	float gotRadius = contents["radius"].asFloat();
+	BoundingCapsule* gotComponent = new BoundingCapsule("boundingcapsule",gotCenter,gotRadius,gotExtent,gotStatic);
+	gotComponent->SetTransform(entToCreate->Transform);
+	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
+	if(gotStatic==true)
+	{
+		CollisionSystem::AddStaticVolume(gotComponent);
+	}
+	else
+	{
+		CollisionSystem::AddDynamicVolume(gotComponent);
+	}
+}
+
 
 bool SceneManager::InitSceneManager()
 {

@@ -1,6 +1,5 @@
 #include "InputSystem.h"
 
-
 void InputSystem::Init()
 {
 }
