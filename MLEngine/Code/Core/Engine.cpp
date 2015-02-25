@@ -10,6 +10,7 @@ Engine::~Engine()
 	currentState.release();
 	sceneManager->DestroyCurrentSceneEntities();
 	scriptManager.Close();
+	keyboard.Destroy();
 }
 
 void Engine::Init(EngineConfig conf)
@@ -29,7 +30,7 @@ void Engine::Init(EngineConfig conf)
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
 	graphicsMan->Init(3,3);
 	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Mauve Engine");
-
+	keyboard.Initialize(graphicsMan->GetCurrentWindow());
 
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));

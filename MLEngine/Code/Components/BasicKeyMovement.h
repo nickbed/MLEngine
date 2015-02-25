@@ -7,6 +7,8 @@
 #include "GLFW\glfw3.h"
 #include <map>
 
+#include "../Core/Keyboard.h"
+
 class BasicKeyMovement : public IComponent
 {
 public:
@@ -18,16 +20,12 @@ public:
 
 	virtual void Destroy();
 
-	//Sends a test message
-	void TestMessage();
-
 	virtual ~BasicKeyMovement();
 
 private:
 	//The window that will be used to handle input events
 	GLFWwindow* window;
-	static void keyFunc(GLFWwindow* win, int key, int scanCode, int action, int mods);
-	static bool keyBuffer[400];  //1->1 mapping with keycodes
+
 	void SendMovementMessage(glm::vec3 msg, const char* messageType);
 	bool used;
 };

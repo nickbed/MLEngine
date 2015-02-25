@@ -161,6 +161,7 @@
     <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
+    <ClCompile Include="Code\Core\Keyboard.cpp" />
     <ClCompile Include="Code\Entities\Camera.cpp" />
     <ClCompile Include="Code\Entities\GeneralEntity.cpp" />
     <ClCompile Include="Code\entities\Robot.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Code\Components\DebugComponent.h" />
     <ClInclude Include="Code\Components\Transform.h" />
     <ClInclude Include="Code\Core\Engine.h" />
+    <ClInclude Include="Code\Core\Keyboard.h" />
     <ClInclude Include="Code\Entities\Camera.h" />
     <ClInclude Include="Code\Entities\GeneralEntity.h" />
     <ClInclude Include="Code\entities\Robot.h" />

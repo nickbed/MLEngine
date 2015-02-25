@@ -80,7 +80,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						AddMessageListner("robotMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, std::placeholders::_1));
 					}
 
-					//Iterate over data inside the entity (components, transform)
+					//Iterate over data inside the entity (components, transform, script)
 					for (Json::Value::iterator it2 = value.begin(); it2 != value.end(); ++it2)
 					{
 						Json::Value key2 = it2.key();
@@ -249,6 +249,11 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					std::string cameraIDtoadd = cameraID;
 					gotConfig->sceneCameras->insert(std::pair<std::string, CameraEntity*>(cameraIDtoadd, camToCreate));
 
+					if (value.isMember("script"))
+					{
+						Json::Value value2 = value["script"];
+						camToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
+					}
 				}
 
 			}
