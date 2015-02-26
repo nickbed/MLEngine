@@ -318,7 +318,7 @@ void GUI::createScene()
 void GUI::addToScene()
 {
 	m_scenes->push_back(n_scene);
-	(*m_activeScene)++;
+	(*m_activeScene)= m_scenes->size()-1;
 	m_scenes->at(*m_activeScene)->InitScene(n_scene->setSceneData().name);
 	TwDeleteBar(sceneBar);
 	TwRemoveAllVars(bar);

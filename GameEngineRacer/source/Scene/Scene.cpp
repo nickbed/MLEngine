@@ -493,12 +493,8 @@ void Scene::Render()
 		glm::mat4 rotationMatrix = glm::mat4_cast((*it)->getTransformComp()->getRotate());
 		glm::mat4 translationMatrix = glm::translate(model,(*it)->getTransformComp()->getTranslate());
 		glm::mat4 scaleMatrix =  glm::scale(model,(*it)->getTransformComp()->getScale()); 
-		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().x),glm::vec3(1.0f,0.0f,0.0f));
-		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().y),glm::vec3(0.0f,1.0f,0.0f));
-		//model = glm::rotate(model,glm::radians((*it)->getTransformComp()->getRotate().z),glm::vec3(0.0f,0.0f,1.0f));
 
 		model = translationMatrix * rotationMatrix * scaleMatrix;
-
 
 		setUpMatricies();
 		(*it)->render();
