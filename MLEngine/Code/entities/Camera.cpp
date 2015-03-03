@@ -147,6 +147,11 @@ const glm::vec3 CameraEntity::GetCameraPosition()
 	return Transform->GetPosition();
 }
 
+const glm::vec3 CameraEntity::GetCameraCenterPosition()
+{
+	return Transform->GetPosition() + cameraDirection;
+}
+
 const float CameraEntity::GetCameraFov()
 {
 	return cameraFOV;
@@ -155,6 +160,11 @@ const float CameraEntity::GetCameraFov()
 const glm::vec3 CameraEntity::GetLookPosition()
 {
 	return cameraLookPosition;
+}
+
+const glm::vec3 CameraEntity::GetUpVector()
+{
+	return upVector;
 }
 
 const glm::mat4 CameraEntity::GetViewMatrix()

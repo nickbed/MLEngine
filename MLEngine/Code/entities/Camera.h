@@ -31,7 +31,9 @@ public:
 
 	const glm::mat4 GetCameraMatrix();
 	const glm::vec3 GetCameraPosition();
+	const glm::vec3 GetCameraCenterPosition();
 	const float GetCameraFov();
+	const glm::vec3 GetUpVector();
 	const glm::vec3 GetLookPosition();
 	const glm::mat4 GetViewMatrix();
 	const glm::mat4 GetViewProjMatrix();
