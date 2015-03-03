@@ -118,7 +118,7 @@ void GUI::saveData()
 	OPENFILENAME ofn={0};
 	char szFileName[MAX_PATH]={0};
 	ofn.lStructSize=sizeof(OPENFILENAME);
-	ofn.Flags=OFN_EXPLORER|OFN_OVERWRITEPROMPT;
+	ofn.Flags=OFN_EXPLORER|OFN_OVERWRITEPROMPT|OFN_NOCHANGEDIR;
 	ofn.lpstrFilter="Scene Files (*.scn)\0";
 	ofn.lpstrFile=szFileName;
 	ofn.nMaxFile=MAX_PATH;

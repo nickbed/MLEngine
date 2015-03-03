@@ -1,17 +1,17 @@
 {
    "scene" : {
-      "activeentities" : [ "plane2.obj" ],
+      "activeentities" : [ "floor.obj" ],
       "cameras" : {
          "default" : {
             "camerasetup" : {
                "fov" : 50,
                "lookX" : 0,
-               "lookY" : 0,
-               "lookZ" : 0,
+               "lookY" : 35,
+               "lookZ" : 70,
                "pitch" : 0,
                "posX" : 0,
-               "posY" : 10,
-               "posZ" : 20,
+               "posY" : 45,
+               "posZ" : 90,
                "yaw" : 0
             }
          }
@@ -19,19 +19,19 @@
       "currentcamera" : "default",
       "currentlight" : "default",
       "entities" : {
-         "plane2.obj" : {
+         "floor.obj" : {
             "components" : {
-               "plane2.obj" : {
-                  "OBJModel" : "data\\models\\plane2.obj",
-                  "TextureFile" : "data\\images\\default.png",
-                  "id" : "plane2.obj",
+               "floor.obj" : {
+                  "OBJModel" : "data\\models\\floor.obj",
+                  "TextureFile" : "data\\images\\forestfloor.tga",
+                  "id" : "floor.obj",
                   "type" : "mesh"
                }
             },
             "transform" : {
                "posX" : 0,
-               "posY" : 0,
-               "posZ" : 0.300000011920929,
+               "posY" : -4.5,
+               "posZ" : 0,
                "rotateX" : 0,
                "rotateY" : -0,
                "rotateZ" : 0,
@@ -43,13 +43,13 @@
          }
       },
       "lights" : {
-         "NewLight" : {
+         "" : {
             "lightparams" : {
-               "intensityB" : 0.7058823704719544,
-               "intensityG" : 0.5568627715110779,
-               "intensityR" : 0.4431372880935669,
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
                "posX" : 0,
-               "posY" : 2.600000143051148,
+               "posY" : 6.099999904632568,
                "posZ" : 0,
                "surfaceReflectivityB_TEMP" : 0,
                "surfaceReflectivityG_TEMP" : 0,
@@ -59,7 +59,7 @@
       },
       "menu" : false,
       "messagehandlers" : false,
-      "name" : "Default",
+      "name" : "",
       "sceneshader" : "data\\shaders\\basic3"
    }
 }
