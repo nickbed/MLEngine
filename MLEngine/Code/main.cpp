@@ -22,7 +22,7 @@ int main()
 	}
 #ifdef _DEBUG
 	DEBUGWRITEINFO("Closed with no errors", "");
-	system("pause");
+	std::cin.get();
 #endif
 	return 0;
 }

@@ -10,6 +10,7 @@ Engine::~Engine()
 	currentState.release();
 	delete sceneManager;
 	delete inputManager;
+	CollisionSystem::Destroy();
 }
 
 void Engine::Init(EngineConfig conf)

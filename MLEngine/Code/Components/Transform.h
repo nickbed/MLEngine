@@ -1,13 +1,12 @@
-#ifndef DebugComponent_H
-#define DebugComponent_H
-#include "../Interfaces/IComponent.h"
+#ifndef TRANFORMCOMPONENT_H
+#define TRANFORMCOMPONENT_H
 #include "../Messages/BaseMessage.h"
 #include "../Messages/PositionMessage.h"
 #include "GLM\glm.hpp"
 #include <iostream>
 
 //For transforming/positioning stuff
-class TransformComponent : public IComponent
+class TransformComponent 
 {
 public:
 	//Constructor for the component

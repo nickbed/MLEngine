@@ -3,6 +3,12 @@
 std::vector<BoundingVolume*> CollisionSystem::dynamics;
 std::vector<BoundingVolume*> CollisionSystem::statics;
 
+
+CollisionSystem::~CollisionSystem()
+{
+
+}
+
 void CollisionSystem::Init()
 {
 }
@@ -10,6 +16,12 @@ void CollisionSystem::Init()
 bool CollisionSystem::Update(float dt)
 {
 	return true;
+}
+
+void CollisionSystem::Destroy()
+{
+	dynamics.clear();
+	statics.clear();
 }
 
 void CollisionSystem::AddStaticVolume(BoundingVolume* volume)
@@ -96,10 +108,10 @@ bool CollisionSystem::HasCollided(BoundingBox* boxa, BoundingBox* boxb)
 	NULLPTRCHECK(boxa,"boxa passed into HasCollided is a null pointer");
 	NULLPTRCHECK(boxb,"boxb passed into HasCollided is a null pointer");
 
-	glm::vec3 amin = boxa->GetLeftBotFore() +  boxa->GetTransform()->GetPosition();
-	glm::vec3 amax = boxa->GetRightTopRear() + boxa->GetTransform()->GetPosition();
-	glm::vec3 bmin = boxb->GetLeftBotFore() +  boxb->GetTransform()->GetPosition();
-	glm::vec3 bmax = boxb->GetRightTopRear() + boxb->GetTransform()->GetPosition();
+	glm::vec3 amin = boxa->GetLeftBotFore() +  boxa->GetParentTransform()->GetPosition();
+	glm::vec3 amax = boxa->GetRightTopRear() + boxa->GetParentTransform()->GetPosition();
+	glm::vec3 bmin = boxb->GetLeftBotFore() +  boxb->GetParentTransform()->GetPosition();
+	glm::vec3 bmax = boxb->GetRightTopRear() + boxb->GetParentTransform()->GetPosition();
 	
 	return(amax.x >= bmin.x &&
 		amin.x <= bmax.x &&
@@ -116,17 +128,17 @@ bool CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb)
 
 	//Get transform and rotation of box a
 
-	glm::vec3 cena = boxa->GetCenter()+boxa->GetTransform()->GetPosition();
-	glm::mat4 rota = glm::rotate(glm::mat4(1.0),boxa->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
-	rota *= glm::rotate(boxa->GetTransform()->GetRotation().y,glm::vec3(0,1,0));							
-	rota *= glm::rotate(boxa->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
+	glm::vec3 cena = boxa->GetCenter() + boxa->GetParentTransform()->GetPosition();
+	glm::mat4 rota = glm::rotate(glm::mat4(1.0), boxa->GetParentTransform()->GetRotation().x, glm::vec3(1, 0, 0));
+	rota *= glm::rotate(boxa->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));							
+	rota *= glm::rotate(boxa->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 
 	//Get transform and rotation of box b
 
-	glm::vec3 cenb = boxb->GetCenter()+boxb->GetTransform()->GetPosition();
-	glm::mat4 rotb = glm::rotate(glm::mat4(1.0),boxb->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
-	rotb *= glm::rotate(boxb->GetTransform()->GetRotation().y,glm::vec3(0,1,0));
-	rotb *= glm::rotate(boxb->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
+	glm::vec3 cenb = boxb->GetCenter() + boxb->GetParentTransform()->GetPosition();
+	glm::mat4 rotb = glm::rotate(glm::mat4(1.0), boxb->GetParentTransform()->GetRotation().x, glm::vec3(1, 0, 0));
+	rotb *= glm::rotate(boxb->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));
+	rotb *= glm::rotate(boxb->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 
 	//Get extents of boxes
 	glm::vec3 a = boxa->GetExtent();
@@ -277,17 +289,17 @@ bool CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsule* capsule)
 
 	//Get transform and rotation of box
 
-	glm::vec3 cena = box->GetCenter()+box->GetTransform()->GetPosition();
-	glm::mat4 rota = glm::rotate(glm::mat4(1.0),box->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
-	rota *= glm::rotate(box->GetTransform()->GetRotation().y,glm::vec3(0,1,0));							
-	rota *= glm::rotate(box->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
+	glm::vec3 cena = box->GetCenter() + box->GetParentTransform()->GetPosition();
+	glm::mat4 rota = glm::rotate(glm::mat4(1.0), box->GetParentTransform()->GetRotation().x, glm::vec3(1, 0, 0));
+	rota *= glm::rotate(box->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));							
+	rota *= glm::rotate(box->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 
 	//Get transform and rotation of capsule
 
-	glm::vec3 cenb = capsule->GetCenter()+capsule->GetTransform()->GetPosition();
-	glm::mat4 rotb = glm::rotate(glm::mat4(1.0),capsule->GetTransform()->GetRotation().x,glm::vec3(1,0,0));
-	rotb *= glm::rotate(capsule->GetTransform()->GetRotation().y,glm::vec3(0,1,0));
-	rotb *= glm::rotate(capsule->GetTransform()->GetRotation().z,glm::vec3(0,0,1));
+	glm::vec3 cenb = capsule->GetCenter() + capsule->GetParentTransform()->GetPosition();
+	glm::mat4 rotb = glm::rotate(glm::mat4(1.0), capsule->GetParentTransform()->GetRotation().x, glm::vec3(1, 0, 0));
+	rotb *= glm::rotate(capsule->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));
+	rotb *= glm::rotate(capsule->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 
 	glm::vec3 l = glm::vec3(glm::vec4(0.0,1.0,0.0,1.0) * rotb);
 	float radius = capsule->GetRadius();
