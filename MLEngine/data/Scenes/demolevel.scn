@@ -824,7 +824,12 @@
           "fov": 80,
           "pitch": 0,
           "yaw": 0
-        }
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\jumpingflash.lua",
+			"identifier": "JFlash"
+		}
       },
       "camera1": {
         "camerasetup": {

@@ -75,7 +75,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;$(SolutionDir)Libs\lua\include;$(SolutionDir)Libs\LuaBridge\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);GLEW_STATIC;</PreprocessorDefinitions>
@@ -85,8 +85,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;$(SolutionDir)Libs\lua\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua.lib;opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -122,7 +122,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;$(SolutionDir)Libs\LuaBind\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -130,8 +130,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;$(SolutionDir)Libs\LuaBind\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>luabind.lib;lua.lib;opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <SubSystem>Windows</SubSystem>
@@ -165,10 +165,12 @@
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
     <ClCompile Include="Code\Components\MessageKeyMovement.cpp" />
     <ClCompile Include="Code\Components\MousePoller.cpp" />
+    <ClCompile Include="Code\Components\Script.cpp" />
     <ClCompile Include="Code\Components\StaticMesh.cpp" />
     <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
+    <ClCompile Include="Code\Core\Keyboard.cpp" />
     <ClCompile Include="Code\Entities\Camera.cpp" />
     <ClCompile Include="Code\Entities\GeneralEntity.cpp" />
     <ClCompile Include="Code\entities\Robot.cpp" />
@@ -194,6 +196,7 @@
     <ClCompile Include="Code\Resources\ResourceManager.cpp" />
     <ClCompile Include="Code\Resources\Shader.cpp" />
     <ClCompile Include="Code\Scenes\SceneManager.cpp" />
+    <ClCompile Include="Code\Scripts\ScriptManager.cpp" />
     <ClCompile Include="Code\States\TestState.cpp" />
     <ClCompile Include="Code\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Code\Systems\InputSystem.cpp" />
@@ -211,12 +214,14 @@
     <ClInclude Include="Code\Components\BoundingVolume.h" />
     <ClInclude Include="Code\Components\MessageKeyMovement.h" />
     <ClInclude Include="Code\Components\MousePoller.h" />
+    <ClInclude Include="Code\Components\Script.h" />
     <ClInclude Include="Code\Components\StaticMesh.h" />
     <ClInclude Include="Code\Components\StaticMeshNoIndices.h" />
     <ClInclude Include="Code\Components\ComponentManager.h" />
     <ClInclude Include="Code\Components\DebugComponent.h" />
     <ClInclude Include="Code\Components\Transform.h" />
     <ClInclude Include="Code\Core\Engine.h" />
+    <ClInclude Include="Code\Core\Keyboard.h" />
     <ClInclude Include="Code\Entities\Camera.h" />
     <ClInclude Include="Code\Entities\GeneralEntity.h" />
     <ClInclude Include="Code\entities\Robot.h" />
@@ -243,6 +248,8 @@
     <ClInclude Include="Code\Resources\Shader.h" />
     <ClInclude Include="Code\Scenes\SceneManager.h" />
     <ClInclude Include="Code\Scenes\SceneTypes.h" />
+    <ClInclude Include="Code\Scripts\ClassHelpers.h" />
+    <ClInclude Include="Code\Scripts\ScriptManager.h" />
     <ClInclude Include="Code\States\TestState.h" />
     <ClInclude Include="Code\Systems\CollisionSystem.h" />
     <ClInclude Include="Code\Systems\InputSystem.h" />

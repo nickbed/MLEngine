@@ -8,8 +8,12 @@ Engine::Engine()
 Engine::~Engine()
 {
 	currentState.release();
+
 	delete sceneManager;
 	delete inputManager;
+
+	scriptManager.Close();
+
 }
 
 void Engine::Init(EngineConfig conf)
@@ -19,6 +23,12 @@ void Engine::Init(EngineConfig conf)
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
 	mauvemessage::MessageManager::LoadMap(listners);
 
+
+	//Init script system
+	if (!scriptManager.Init())
+	{
+		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Unable to initialize Lua scripting environment.");
+	}
 
 	//Init graphics here
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);

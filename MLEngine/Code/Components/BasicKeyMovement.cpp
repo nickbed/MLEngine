@@ -2,7 +2,7 @@
 
 bool BasicKeyMovement::keyBuffer[400];
 
-BasicKeyMovement::BasicKeyMovement(std::string id, GLFWwindow* win) : window(win), IComponent(id) 
+BasicKeyMovement::BasicKeyMovement(std::string id, GLFWwindow* win) : window(win), IComponent(id)
 {
 }
 
@@ -10,7 +10,7 @@ void BasicKeyMovement::Init()
 {
 	//Setup callback here
 	glfwSetKeyCallback(window, &BasicKeyMovement::keyFunc);
-	
+
 	DEBUGWRITEINFO("Reserving 400 spaces in keyboard buffer", "");
 	for (int i = 0; i < 399; ++i)
 	{
@@ -124,12 +124,12 @@ void BasicKeyMovement::Update(float dt)
 
 	if (keyBuffer[GLFW_KEY_O])
 	{
-		SendMovementMessage(glm::vec3(1.0f,1.0f,1.0f), "showDebug");
+		SendMovementMessage(glm::vec3(1.0f, 1.0f, 1.0f), "showDebug");
 	}
 
 	if (keyBuffer[GLFW_KEY_P])
 	{
-		SendMovementMessage(glm::vec3(0.0f,0.0f,0.0f), "showDebug");
+		SendMovementMessage(glm::vec3(0.0f, 0.0f, 0.0f), "showDebug");
 	}
 
 	if (keyBuffer[GLFW_KEY_F1])
@@ -148,7 +148,7 @@ void BasicKeyMovement::Update(float dt)
 
 void BasicKeyMovement::SendMovementMessage(glm::vec3 msg, const char* movementName)
 {
-	
+
 	mauvemessage::PositionMessage posMsg = mauvemessage::PositionMessage(movementName, msg);
 	mauvemessage::MessageManager::SendListnerMessage(&posMsg, movementName);
 }
@@ -177,4 +177,34 @@ void BasicKeyMovement::keyFunc(GLFWwindow* win, int key, int scanCode, int actio
 		return;
 	}
 	keyBuffer[key] = ((action == GLFW_PRESS || action == GLFW_REPEAT));
+}
+
+
+bool BasicKeyMovement::getAscii(std::string charcode){
+	//converts and ascii key to Apex Key
+	std::transform(charcode.begin(), charcode.end(), charcode.begin(), ::tolower);
+	if (charcode.length() == 1)
+	{
+		char c = *charcode.c_str();
+		int code = c;
+		return keyBuffer[code];
+	}
+	else {
+		if (charcode == "up") return keyBuffer[GLFW_KEY_UP];
+		if (charcode == "down") return keyBuffer[GLFW_KEY_DOWN];
+		if (charcode == "left") return keyBuffer[GLFW_KEY_LEFT];
+		if (charcode == "right") return keyBuffer[GLFW_KEY_RIGHT];
+		if (charcode == "space") return keyBuffer[GLFW_KEY_SPACE];
+		if (charcode == "esc") return keyBuffer[GLFW_KEY_ESCAPE];
+	}
+	return 0;
+}
+
+bool BasicKeyMovement::get(unsigned int keyvalue){
+	if (keyvalue == GLFW_KEY_UNKNOWN || keyvalue > 399)
+	{
+		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_WARNING, "Key handler has rejected an invalid key");
+		return false;
+	}
+	return keyBuffer[keyvalue];
 }

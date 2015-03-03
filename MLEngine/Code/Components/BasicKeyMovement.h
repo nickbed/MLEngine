@@ -6,6 +6,8 @@
 #include "..\Messages\MessageManager.h"
 #include "GLFW\glfw3.h"
 #include <map>
+#include <algorithm>
+#include <string>
 
 class BasicKeyMovement : public IComponent
 {
@@ -22,6 +24,10 @@ public:
 	void TestMessage();
 
 	virtual ~BasicKeyMovement();
+
+
+	static bool getAscii(std::string);
+	static bool get(unsigned int);
 
 private:
 	//The window that will be used to handle input events

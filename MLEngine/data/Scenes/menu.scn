@@ -23,6 +23,11 @@
           "rotateY": 180,
           "rotateZ": 0
         },
+		"script":
+		{
+			"path": "data\\Scripts\\player.lua",
+			"identifier": "Player"
+		},
         "components": {
           "ent1mesh": {
             "id": "ent1mesh",
