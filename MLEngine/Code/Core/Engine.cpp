@@ -124,4 +124,3 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 		delete configJson;
 		return jsonConfig;
 }
-
