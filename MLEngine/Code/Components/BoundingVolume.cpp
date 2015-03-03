@@ -24,16 +24,6 @@ void BoundingVolume::SetCollided(bool hasCollided)
 	collided = hasCollided;
 }
 
-TransformComponent* BoundingVolume::GetTransform()
-{
-	return transform;
-}
-
-void BoundingVolume::SetTransform(TransformComponent* trans)
-{
-	transform = trans;
-}
-
 void BoundingVolume::Init()
 {
 }

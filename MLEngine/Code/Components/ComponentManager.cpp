@@ -8,10 +8,18 @@ ComponentManager::ComponentManager()
 	mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Cannot call default constructor on component manager");
 }
 
-ComponentManager::ComponentManager(std::unique_ptr<componentMapType> components)
+ComponentManager::ComponentManager(std::unique_ptr<componentMapType> components, TransformComponent* pTransform )
 {
 	//Move the pointer to be contained in this class
 	componentList = std::move(components);
+
+	//Set our parent
+	parentTransform = pTransform;
+}
+
+TransformComponent* ComponentManager::GetParentTransform()
+{
+	return parentTransform;
 }
 
 ComponentManager::~ComponentManager()
@@ -24,6 +32,9 @@ bool ComponentManager::AddComponent(std::string componentType, IComponent* compo
 {
 	bool result = mauveassert::Assert::AssertTrue("Component type is null", componentType != "", mauveassert::ENUM_severity::SEV_ERROR);
 	if(!result) return false;
+
+	//Set parent transform from stored one 
+	componentToAdd->SetParentTransform(parentTransform);
 
 	//Insert our component
 	componentList->insert(std::pair<std::string, IComponent*>(componentType, componentToAdd));

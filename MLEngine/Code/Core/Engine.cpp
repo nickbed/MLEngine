@@ -8,12 +8,10 @@ Engine::Engine()
 Engine::~Engine()
 {
 	currentState.release();
-
 	delete sceneManager;
 	delete inputManager;
-
 	scriptManager.Close();
-
+	CollisionSystem::Destroy();
 }
 
 void Engine::Init(EngineConfig conf)

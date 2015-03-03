@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include "..\Interfaces\IComponent.h"
+#include "..\Components\Transform.h"
 
 typedef std::unordered_multimap<std::string, IComponent*>::iterator componentMapIterator;
 typedef std::unordered_multimap<std::string, IComponent*> componentMapType;
@@ -15,7 +16,7 @@ class ComponentManager
 {
 public:
 	ComponentManager();
-	ComponentManager(std::unique_ptr<componentMapType> components);
+	ComponentManager(std::unique_ptr<componentMapType> components, TransformComponent* parentTransform);
 	~ComponentManager();
 
 	bool AddComponent(std::string componentType, IComponent* componentToAdd);
@@ -29,8 +30,11 @@ public:
 	void InitAllComponents();
 	void DestroyAllComponents();
 
+	TransformComponent* GetParentTransform();
+
 private:
 	std::unique_ptr<componentMapType> componentList;
+	TransformComponent* parentTransform;
 };
 
 #endif

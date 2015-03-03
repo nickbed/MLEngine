@@ -29,13 +29,9 @@ public:
 	void SetCollided(bool hasCollided);
 	bool IsCollided();
 
-	TransformComponent* GetTransform();
-	void SetTransform(TransformComponent*);
-
 protected:
 	int type;
 	bool isStatic;
 	bool collided;
-	TransformComponent* transform;
 };
 #endif

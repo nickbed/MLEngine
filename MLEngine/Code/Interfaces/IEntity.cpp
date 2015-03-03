@@ -6,22 +6,19 @@ IEntity::IEntity()
 {
 	//If no component list is specified, create it here.
 	std::unique_ptr<componentMapType> components(new componentMapType, std::default_delete<componentMapType>());
-	Components = new ComponentManager(std::move(components));
-	
 	Transform = new TransformComponent("defaultTransform");
-
 	Script = new ScriptComponent("defaultScript");
 	Script->owner = this;
+	Components = new ComponentManager(std::move(components), this->Transform);
 }
 
 IEntity::IEntity(std::unique_ptr<componentMapType> componentList)
-{
-	Components = new ComponentManager(std::move(componentList));
 	
+{
 	Transform = new TransformComponent("defaultTransform");
-
 	Script = new ScriptComponent("defaultScript");
 	Script->owner = this;
+	Components = new ComponentManager(std::move(componentList), this->Transform);
 }
 
 bool IEntity::Update(float dt)

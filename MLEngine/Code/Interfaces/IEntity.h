@@ -27,7 +27,6 @@ public:
 	//Gets called to bin us
 	virtual void Destroy();
 
-
 	//List of components
 	ComponentManager* Components;
 
