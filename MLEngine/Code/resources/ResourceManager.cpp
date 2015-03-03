@@ -1,6 +1,6 @@
 #include "ResourceManager.h"
 
-namespace mauveresource
+namespace mauvefileresource
 {
 	std::unique_ptr<ResourceMap> ResourceManager::resources = std::unique_ptr<ResourceMap>(new ResourceMap);
 

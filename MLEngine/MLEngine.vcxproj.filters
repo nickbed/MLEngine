@@ -204,6 +204,42 @@
     <ClCompile Include="Code\Core\Keyboard.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Interfaces\IGPUResource.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Resources\GPUResourceManager.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Resources\GPUModel.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Resources\GPUTexture.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\MessageKeyMovement.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Messages\KeyMessage.cpp">
+      <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingBox.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingVolume.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Systems\CollisionSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingSphere.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingBoxO.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingCapsule.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -322,6 +358,42 @@
     </ClInclude>
     <ClInclude Include="Code\Core\Keyboard.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Resources\GPUModel.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Resources\GPUResourceManager.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Interfaces\IGPUResource.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Resources\GPUTexture.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\MessageKeyMovement.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Messages\KeyMessage.h">
+      <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingBox.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingVolume.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Systems\CollisionSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingSphere.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingBoxO.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingCapsule.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

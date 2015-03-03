@@ -11,7 +11,7 @@ extern "C" {
 #include "ClassHelpers.h"
 #include "../Interfaces/IEntity.h"
 #include "../Components/Script.h"
-#include "../Core/Keyboard.h"
+#include "../Components/BasicKeyMovement.h"
 
 class ScriptManager
 {

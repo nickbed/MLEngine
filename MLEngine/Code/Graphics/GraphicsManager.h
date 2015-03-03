@@ -9,10 +9,13 @@
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\StaticMesh.h"
 #include "..\Components\BasicBone.h"
+#include "..\Components\BoundingBoxO.h"
+#include "..\Components\BoundingCapsule.h"
 #include "..\Resources\ResourceManager.h"
 #include "..\Entities\Camera.h"
 #include "..\Scenes\SceneTypes.h"
 #include "..\Graphics\TextRender.h"
+#include "..\Messages\MessageManager.h"
 #include <map>
 
 class GraphicsManager

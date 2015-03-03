@@ -11,7 +11,7 @@ Shader::~Shader()
 {
 	if(vertexSource != "" && fragmentSource != "")
 	{
-		glDeleteShader(loadedShaderProgramID);
+		glDeleteProgram(loadedShaderProgramID);
 	}
 }
 

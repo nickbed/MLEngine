@@ -655,7 +655,17 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\robco.obj",
             "TextureFile": "data\\images\\robco.tga"
-          }
+		  },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 3.1,
+			"centerZ": 0.0,
+			"extentX": 3.5,
+			"extentY": 3.1,
+			"extentZ": 7.0,
+			"static": true
+		  }
         }
       },
 	  "toilet": {
@@ -766,6 +776,15 @@
             "OBJModel": "data\\models\\robbody.obj",
             "TextureFile": "data\\images\\rainbow.png"
           },
+		  "boundingcapsule": {
+		    "type":"boundingcapsule",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"radius": 0.5,
+			"extent": 0.5,
+			"static": false
+		  },
           "robotlleg": {
             "id": "robotLeftLeg",
             "type": "basicbone",

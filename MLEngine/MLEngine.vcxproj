@@ -68,6 +68,8 @@
     <IntDir>$(SolutionDir)Builds\Generated\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Builds\</OutDir>
     <TargetName>$(ProjectName)_Debug</TargetName>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -76,9 +78,10 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;$(SolutionDir)Libs\lua\include;$(SolutionDir)Libs\LuaBridge\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);GLEW_STATIC;</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalOptions />
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -153,8 +156,14 @@
     <ClCompile Include="Code\Assert\Assert.cpp" />
     <ClCompile Include="Code\Components\BasicBone.cpp" />
     <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
+    <ClCompile Include="Code\Components\BoundingBox.cpp" />
+    <ClCompile Include="Code\Components\BoundingBoxO.cpp" />
+    <ClCompile Include="Code\Components\BoundingCapsule.cpp" />
+    <ClCompile Include="Code\Components\BoundingSphere.cpp" />
+    <ClCompile Include="Code\Components\BoundingVolume.cpp" />
     <ClCompile Include="Code\Components\ComponentManager.cpp" />
     <ClCompile Include="Code\Components\DebugComponent.cpp" />
+    <ClCompile Include="Code\Components\MessageKeyMovement.cpp" />
     <ClCompile Include="Code\Components\MousePoller.cpp" />
     <ClCompile Include="Code\Components\Script.cpp" />
     <ClCompile Include="Code\Components\StaticMesh.cpp" />
@@ -170,12 +179,17 @@
     <ClCompile Include="Code\Graphics\TextRender.cpp" />
     <ClCompile Include="Code\Interfaces\IComponent.cpp" />
     <ClCompile Include="Code\Interfaces\IEntity.cpp" />
+    <ClCompile Include="Code\Interfaces\IGPUResource.cpp" />
     <ClCompile Include="Code\Interfaces\IResource.cpp" />
     <ClCompile Include="Code\Interfaces\IState.cpp" />
     <ClCompile Include="Code\main.cpp" />
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
+    <ClCompile Include="Code\Messages\KeyMessage.cpp" />
     <ClCompile Include="Code\Messages\MessageManager.cpp" />
     <ClCompile Include="Code\Messages\PositionMessage.cpp" />
+    <ClCompile Include="Code\Resources\GPUModel.cpp" />
+    <ClCompile Include="Code\Resources\GPUResourceManager.cpp" />
+    <ClCompile Include="Code\Resources\GPUTexture.cpp" />
     <ClCompile Include="Code\Resources\ImageTexture.cpp" />
     <ClCompile Include="Code\Resources\JSONFile.cpp" />
     <ClCompile Include="Code\Resources\OBJModel.cpp" />
@@ -184,6 +198,7 @@
     <ClCompile Include="Code\Scenes\SceneManager.cpp" />
     <ClCompile Include="Code\Scripts\ScriptManager.cpp" />
     <ClCompile Include="Code\States\TestState.cpp" />
+    <ClCompile Include="Code\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Code\Systems\InputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +207,12 @@
     <ClInclude Include="Code\Assert\Assert.h" />
     <ClInclude Include="Code\Components\BasicBone.h" />
     <ClInclude Include="Code\Components\BasicKeyMovement.h" />
+    <ClInclude Include="Code\Components\BoundingBox.h" />
+    <ClInclude Include="Code\Components\BoundingBoxO.h" />
+    <ClInclude Include="Code\Components\BoundingCapsule.h" />
+    <ClInclude Include="Code\Components\BoundingSphere.h" />
+    <ClInclude Include="Code\Components\BoundingVolume.h" />
+    <ClInclude Include="Code\Components\MessageKeyMovement.h" />
     <ClInclude Include="Code\Components\MousePoller.h" />
     <ClInclude Include="Code\Components\Script.h" />
     <ClInclude Include="Code\Components\StaticMesh.h" />
@@ -208,13 +229,18 @@
     <ClInclude Include="Code\Graphics\GraphicsManager.h" />
     <ClInclude Include="Code\Graphics\TextRender.h" />
     <ClInclude Include="Code\Interfaces\IComponent.h" />
+    <ClInclude Include="Code\Interfaces\IGPUResource.h" />
     <ClInclude Include="Code\Interfaces\IResource.h" />
     <ClInclude Include="Code\Interfaces\IState.h" />
     <ClInclude Include="Code\Interfaces\IEntity.h" />
     <ClInclude Include="Code\Messages\BaseMessage.h" />
+    <ClInclude Include="Code\Messages\KeyMessage.h" />
     <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
     <ClInclude Include="Code\Messages\PositionMessage.h" />
+    <ClInclude Include="Code\Resources\GPUModel.h" />
+    <ClInclude Include="Code\Resources\GPUResourceManager.h" />
+    <ClInclude Include="Code\Resources\GPUTexture.h" />
     <ClInclude Include="Code\Resources\ImageTexture.h" />
     <ClInclude Include="Code\Resources\JSONFile.h" />
     <ClInclude Include="Code\Resources\OBJModel.h" />
@@ -225,6 +251,7 @@
     <ClInclude Include="Code\Scripts\ClassHelpers.h" />
     <ClInclude Include="Code\Scripts\ScriptManager.h" />
     <ClInclude Include="Code\States\TestState.h" />
+    <ClInclude Include="Code\Systems\CollisionSystem.h" />
     <ClInclude Include="Code\Systems\InputSystem.h" />
   </ItemGroup>
   <ItemGroup>

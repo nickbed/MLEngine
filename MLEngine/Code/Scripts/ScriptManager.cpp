@@ -49,7 +49,7 @@ void ScriptManager::bindElements()
 		.addProperty("z", &Vec3Helper::get<2>, &Vec3Helper::set<2>)
 		.endClass()
 
-		.beginClass<mauveinput::Keyboard>("key")
-		.addStaticFunction("Pressed", mauveinput::Keyboard::getAscii)
+		.beginClass<BasicKeyMovement>("key")
+		.addStaticFunction("Pressed", BasicKeyMovement::getAscii)
 		.endClass();
 }

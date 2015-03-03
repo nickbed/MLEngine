@@ -55,6 +55,25 @@ struct SceneConfig
 			}
 		}
 		sceneEntities->clear();
+
+		//for(auto it = sceneCameras->begin(); it != sceneCameras->end(); ++it)
+		//{
+		//	if(it->second != nullptr)
+		//	{
+		//		delete it->second;
+		//	}
+		//}
+		//sceneCameras->clear();
+
+		//for(auto it = sceneLights->begin(); it != sceneLights->end(); ++it)
+		//{
+		//	if(it->second != nullptr)
+		//	{
+		//		delete it->second;
+		//	}
+		//}
+		//sceneLights->clear();
+
 	}
 
 

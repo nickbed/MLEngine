@@ -8,9 +8,12 @@ Engine::Engine()
 Engine::~Engine()
 {
 	currentState.release();
-	sceneManager->DestroyCurrentSceneEntities();
+
+	delete sceneManager;
+	delete inputManager;
+
 	scriptManager.Close();
-	keyboard.Destroy();
+
 }
 
 void Engine::Init(EngineConfig conf)
@@ -18,7 +21,8 @@ void Engine::Init(EngineConfig conf)
 	currentConfig = conf;
 	//Init message manager
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
-	mauvemessage::MessageManager messageHandler = mauvemessage::MessageManager(listners);
+	mauvemessage::MessageManager::LoadMap(listners);
+
 
 	//Init script system
 	if (!scriptManager.Init())
@@ -30,7 +34,9 @@ void Engine::Init(EngineConfig conf)
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
 	graphicsMan->Init(3,3);
 	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Mauve Engine");
-	keyboard.Initialize(graphicsMan->GetCurrentWindow());
+
+	inputManager = new InputSystem();
+	inputManager->Init(graphicsMan->GetCurrentWindow());
 
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
@@ -43,7 +49,9 @@ void Engine::Init(EngineConfig conf)
 bool Engine::Update(float dt)
 {
 	bool result = true;
+	result &= inputManager->Update(dt);
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
+	CollisionSystem::CheckCollisions();
 	if(sceneManager->ShouldLoadLevel())
 	{
 			std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\loading.scn");
@@ -83,7 +91,7 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 
 		bool success = true;
 		EngineConfig jsonConfig;
-		JSONFile* configJson = mauveresource::ResourceManager::GetResource<JSONFile>(configFile);
+		JSONFile* configJson = mauvefileresource::ResourceManager::GetResource<JSONFile>(configFile);
 		if (configJson == nullptr)
 		{
 			success = false;
@@ -115,6 +123,7 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 			mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Error reading engine config json file, using default.");
 			return defaultConfig;
 		}
+		delete configJson;
 		return jsonConfig;
 }
 
