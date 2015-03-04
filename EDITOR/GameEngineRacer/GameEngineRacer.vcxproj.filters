@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Loaders">
+      <UniqueIdentifier>{56507037-40a1-4578-94c0-f0a59dcf4f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Loaders">
+      <UniqueIdentifier>{0b2bcb32-d9b5-4f46-bb6f-05d4b1909956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{2528bbaf-1fd0-44ba-9c24-2300d22e666e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{712d3ff8-8400-4f9d-93fe-53b6ee83b0c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{68098003-115f-4cb5-8856-5ed22ec6d650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3rd Party">
+      <UniqueIdentifier>{0fe482b5-16ff-43b1-8f8b-8cc22eaf8da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\3rd Party">
+      <UniqueIdentifier>{3d9d46eb-6abe-464a-97bd-3d91166957f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{9f582b44-28ef-4d45-9491-b0aadde83c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{742c770d-ef43-4a3e-b1f5-e4ad95350adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{6100ae1f-9679-44fe-8e01-f252d72d997b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{3d4d99d0-cd0a-44cf-a198-56237b7b72de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{2203c748-bd27-4fe3-a9ba-e03d6ad11889}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\3rdParty\Bitmap.h">
+      <Filter>Header Files\3rd Party</Filter>
+    </ClInclude>
+    <ClInclude Include="include\3rdParty\Texture.h">
+      <Filter>Header Files\3rd Party</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Components\AnimationComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Components\RenderComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Components\TransformComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameObjects\GameObject.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Loaders\ModelLoader.h">
+      <Filter>Header Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Loaders\ShaderLoader.h">
+      <Filter>Header Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Loaders\TextureLoader.h">
+      <Filter>Header Files\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\Camera.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\Scene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\GUI.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\UI.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\3rdParty\Bitmap.cpp">
+      <Filter>Source Files\3rd Party</Filter>
+    </ClCompile>
+    <ClCompile Include="source\3rdParty\Texture.cpp">
+      <Filter>Source Files\3rd Party</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Components\AnimationComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Components\RenderComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Components\TransformComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameObjects\GameObject.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Loaders\ModelLoader.cpp">
+      <Filter>Source Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Loaders\ShaderLoader.cpp">
+      <Filter>Source Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Loaders\TextureLoader.cpp">
+      <Filter>Source Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Scene\Camera.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Scene\Scene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\GUI.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\UI.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Tom\include\jsoncpp.cpp">
+      <Filter>Source Files\3rd Party</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\TextVertexShader.Frag" />
+    <None Include="data\shaders\TextVertexShader.vert" />
+    <None Include="data\shaders\basic3.Frag" />
+    <None Include="data\shaders\basic3.vert" />
+  </ItemGroup>
+</Project>

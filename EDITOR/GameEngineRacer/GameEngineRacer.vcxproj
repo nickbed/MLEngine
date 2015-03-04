@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\3rdParty\Bitmap.h" />
+    <ClInclude Include="include\3rdParty\Texture.h" />
+    <ClInclude Include="include\Components\AnimationComponent.h" />
+    <ClInclude Include="include\Components\RenderComponent.h" />
+    <ClInclude Include="include\Components\TransformComponent.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GameObjects\GameObject.h" />
+    <ClInclude Include="include\Loaders\ModelLoader.h" />
+    <ClInclude Include="include\Loaders\ShaderLoader.h" />
+    <ClInclude Include="include\Loaders\TextureLoader.h" />
+    <ClInclude Include="include\ResourceManager.h" />
+    <ClInclude Include="include\Scene\Camera.h" />
+    <ClInclude Include="include\Scene\Scene.h" />
+    <ClInclude Include="include\UI\GUI.h" />
+    <ClInclude Include="include\UI\UI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Tom\include\jsoncpp.cpp" />
+    <ClCompile Include="source\3rdParty\Bitmap.cpp" />
+    <ClCompile Include="source\3rdParty\Texture.cpp" />
+    <ClCompile Include="source\Components\AnimationComponent.cpp" />
+    <ClCompile Include="source\Components\RenderComponent.cpp" />
+    <ClCompile Include="source\Components\TransformComponent.cpp" />
+    <ClCompile Include="source\Game.cpp" />
+    <ClCompile Include="source\GameObjects\GameObject.cpp" />
+    <ClCompile Include="source\Loaders\ModelLoader.cpp" />
+    <ClCompile Include="source\Loaders\ShaderLoader.cpp" />
+    <ClCompile Include="source\Loaders\TextureLoader.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\ResourceManager.cpp" />
+    <ClCompile Include="source\Scene\Camera.cpp" />
+    <ClCompile Include="source\Scene\Scene.cpp" />
+    <ClCompile Include="source\UI\GUI.cpp" />
+    <ClCompile Include="source\UI\UI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\shaders\basic3.Frag" />
+    <None Include="data\shaders\basic3.vert" />
+    <None Include="data\shaders\TextVertexShader.Frag" />
+    <None Include="data\shaders\TextVertexShader.vert" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D884EF7F-C060-413E-9FAD-450C52447E00}</ProjectGuid>
+    <RootNamespace>GameEngineRacer</RootNamespace>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <SourcePath>$(SourcePath)</SourcePath>
+    <OutDir>$(SolutionDir)\Tom\bin\$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\Tom\bin\$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Tom\include;$(SolutionDir)\GameEngineRacer\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Tom\lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>openGL32.lib;glew32.lib;glu32.lib;glfw3.lib;AntTweakBar.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:MSVCRT %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Tom\include;$(SolutionDir)\GameEngineRacer\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;openGL32.lib;AntTweakBar.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Tom\lib;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
