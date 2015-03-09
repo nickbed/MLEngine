@@ -1,5 +1,7 @@
 #include "SceneManager.h"
 
+std::unique_ptr<SceneConfig> SceneManager::currentScene;
+
 SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 {
 	NULLPTRCHECK(graph, "Null graphicsmanager ptr passed to scene manager");
@@ -859,3 +861,21 @@ bool SceneManager::ShouldLoadLevel()
 
 
 
+
+
+IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
+{
+	IEntity* entToAdd = new IEntity;
+	currentScene->sceneEntities->insert(std::pair<std::string, IEntity*>(id, entToAdd));
+	if (isActive)
+	{
+		currentScene->activeEntities.push_back((currentScene->sceneEntities->find(id)->second));
+	}
+
+	return currentScene->sceneEntities->find(id)->second;
+}
+
+void SceneManager::DestroyEntity(IEntity* entToKill)
+{
+	//currentScene->sceneEntities->find(entToKill);
+}

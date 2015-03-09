@@ -12,8 +12,7 @@ IEntity::IEntity()
 	Components = new ComponentManager(std::move(components), this->Transform);
 }
 
-IEntity::IEntity(std::unique_ptr<componentMapType> componentList)
-	
+IEntity::IEntity(std::unique_ptr<componentMapType> componentList)	
 {
 	Transform = new TransformComponent("defaultTransform");
 	Script = new ScriptComponent("defaultScript");

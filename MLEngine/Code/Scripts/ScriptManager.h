@@ -8,10 +8,6 @@ extern "C" {
 }
 #include <LuaBridge/LuaBridge.h>
 
-#include "ClassHelpers.h"
-#include "../Interfaces/IEntity.h"
-#include "../Components/Script.h"
-#include "../Components/BasicKeyMovement.h"
 
 class ScriptManager
 {

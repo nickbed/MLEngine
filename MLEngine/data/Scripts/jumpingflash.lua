@@ -38,4 +38,8 @@ function JFlash.Update(dt)
 	JFlash.this.transform.position = Vector3(JFlash.this.transform.position.x, ypos, JFlash.this.transform.position.z)
 end
 
+function JFlash.Collision(other)
+
+end
+
 return JFlash

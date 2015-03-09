@@ -46,6 +46,7 @@ private:
 
 	std::shared_ptr<luabridge::LuaRef> luaDataTable;
 	std::shared_ptr<luabridge::LuaRef> updateFunc;
+	std::shared_ptr<luabridge::LuaRef> collisionFunc;
 	std::shared_ptr<luabridge::LuaRef> startFunc;
 
 	int error;

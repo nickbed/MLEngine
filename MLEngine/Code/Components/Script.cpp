@@ -25,6 +25,7 @@ void ScriptComponent::Init()
 void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 {
 	if (luaL_dofile(luaVM, filename.c_str()) == 0) {
+		DEBUGWRITEINFO("Successfully loaded script:", filename)
 		luabridge::LuaRef table = luabridge::getGlobal(luaVM, expectedNamespace.c_str());
 		luaDataTable = std::make_shared<luabridge::LuaRef>(table);
 		if (table.isTable()) {
@@ -33,6 +34,12 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 			}
 			else {
 				updateFunc.reset();
+			}
+			if (table["Collision"].isFunction()) {
+				collisionFunc = std::make_shared<luabridge::LuaRef>(table["Collision"]);
+			}
+			else {
+				collisionFunc.reset();
 			}
 			if (table["Start"].isFunction()) {
 				startFunc = std::make_shared<luabridge::LuaRef>(table["Start"]);

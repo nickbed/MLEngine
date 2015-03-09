@@ -39,7 +39,8 @@
 	  "toilet",
 	  "toilet1",
 	  "toiletwater1",
-	  "toiletwater2"
+	  "toiletwater2",
+	  "object_spawner"
     ],
     "entities": {
       "forestfloor": {
@@ -633,6 +634,33 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\moon.obj",
             "TextureFile": "data\\images\\moon.tga"
+          }
+        }
+      },
+	  "object_spawner": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 20,
+          "posY": 20,
+          "posZ": 20,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\object_spawner.lua",
+			"identifier": "OSpawner"
+		},
+        "components": {
+          "toiletwater1": {
+            "id": "toiletwater1",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\toiletwater.obj",
+            "TextureFile": "data\\images\\toiletwater.tga"
           }
         }
       },
