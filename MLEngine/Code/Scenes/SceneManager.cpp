@@ -500,11 +500,20 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//iterate through vector and update all entities and their components
 	//Iterate through vector and init all entities
 	bool result = true;
-	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
+
+	int entCount = currentScene->activeEntities.size();
+	auto it = currentScene->activeEntities.begin();
+	while (it != currentScene->activeEntities.end())
 	{
 		result &= (*it)->Update(dt);
+		if (entCount != currentScene->activeEntities.size())
+		{
+			it = currentScene->activeEntities.end();
+		}
+		else {
+			++it;
+		}
 	}
-
 	//for(std::map<std::string, CameraEntity*>::iterator it = currentScene->sceneCameras->begin(); it != currentScene->sceneCameras->end(); ++it)
 	//	{
 	//		CameraEntity* gotCamera = (*it).second;

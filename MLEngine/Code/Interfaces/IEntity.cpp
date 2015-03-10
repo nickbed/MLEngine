@@ -50,7 +50,6 @@ IEntity::~IEntity()
 {
 	if(Components != nullptr) delete Components;
 	if (Transform != nullptr) delete Transform;
-	if (Script != nullptr) delete Script;
 }
 
 void IEntity::setTransform(TransformComponent* t)

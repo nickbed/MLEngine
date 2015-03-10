@@ -637,33 +637,6 @@
           }
         }
       },
-	  "object_spawner": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 20,
-          "posY": 20,
-          "posZ": 20,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-		"script":
-		{
-			"path": "data\\Scripts\\object_spawner.lua",
-			"identifier": "OSpawner"
-		},
-        "components": {
-          "toiletwater1": {
-            "id": "toiletwater1",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\toiletwater.obj",
-            "TextureFile": "data\\images\\toiletwater.tga"
-          }
-        }
-      },
 	  "robco": {
         "type": "generalentity",
         "transform": {
@@ -838,6 +811,25 @@
             "TextureFile": "data\\images\\rainbow.png"
           }
         }
+      },
+	  "object_spawner": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\object_spawner.lua",
+			"identifier": "OSpawner"
+		}
       }
     },
     "cameras": {
