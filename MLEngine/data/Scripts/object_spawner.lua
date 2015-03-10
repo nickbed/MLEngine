@@ -6,7 +6,7 @@ OSpawner = {
 	end,
 
 	Update = function(dt)
-		if (key.Pressed("space")) 
+		if (key.Pressed("q")) 
 		then
 			print("instance_spawned " .. tostring(OSpawner.iCount))
 			t = scene.NewObject("spawned_" .. tostring(OSpawner.iCount), true)
