@@ -110,7 +110,6 @@ CollisionManifold CollisionSystem::CheckVolumes(BoundingVolume* volumea, Boundin
 		BoundingBoxO* boxb = static_cast<BoundingBoxO*>(volumeb);
 		return HasCollided(boxa,boxb);
 	}
-/*
 	if(volumea->GetType()==BOUNDING_TYPE_CAPSULE && volumeb->GetType()==BOUNDING_TYPE_OBBOX)
 	{
 		BoundingCapsule* cap = static_cast<BoundingCapsule*>(volumea);
@@ -123,7 +122,6 @@ CollisionManifold CollisionSystem::CheckVolumes(BoundingVolume* volumea, Boundin
 		BoundingCapsule* cap = static_cast<BoundingCapsule*>(volumeb);
 		return HasCollided(box,cap);
 	}
-*/
 	return CollisionManifold();
 }
 
@@ -194,7 +192,6 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 
 	float aTest, bTest, cTest;
 	float minPen =  0;
-	glm::vec3 point(1.0);
 
 	 // separating axis A0
     cTest = abs(c.x);
@@ -449,9 +446,6 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	NULLPTRCHECK(box,"box passed into HasCollided is a null pointer");
 	NULLPTRCHECK(capsule,"capsule passed into HasCollided is a null pointer");
 	
-	return CollisionManifold();
-
-	/*
 	//Get transform and rotation of box
 
 	glm::vec3 cena = box->GetCenter() + box->GetParentTransform()->GetPosition();
@@ -473,36 +467,70 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	
 	glm::vec4 c = glm::vec4(cenb - cena,1.0)*rota;
 
-	if( fabs(c.x) > a.x + b*fabs(l.x))
+	//Axis A2
+
+	float cTest = fabs(c.x);
+	float aTest = a.x;
+	float bTest = b*fabs(l.x);
+	if( cTest > aTest + bTest)
 	{
-		return false;
+		return CollisionManifold();
 	}
-	if( fabs(c.y) > a.y + b*fabs(l.y))
+	float minPen = ((aTest+bTest)-cTest);
+	glm::vec3 axis =  glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rota);
+	float sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+
+	//Axis A1
+
+	cTest = fabs(c.y);
+	aTest = a.y;
+	bTest = b*fabs(l.y);
+	if( cTest > aTest + bTest)
 	{
-		return false;
+		return CollisionManifold();
 	}
-	if( fabs(c.z) > a.z + b*fabs(l.z))
+	else if(minPen>(aTest+bTest)-cTest)
 	{
-		return false;
+		minPen = (aTest+bTest)-cTest;
+		axis =  glm::vec3(glm::vec4(0.f,1.f,0.f,1.0) * rota);
+		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+	}
+
+	//Axis A3
+
+	cTest = fabs(c.z);
+	aTest = a.z;
+	bTest = b*fabs(l.z);
+	if( cTest > aTest + bTest)
+	{
+		return CollisionManifold();
+	}
+	else if(minPen>(aTest+bTest)-cTest)
+	{
+		minPen = (aTest+bTest)-cTest;
+		axis =  glm::vec3(glm::vec4(0.f,0.f,1.f,1.0) * rota);
+		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
 	
 	float r = a.y*fabs(l.z) + a.z*fabs(l.y);
 	if( fabs(c.y*l.z - c.z*l.y) > r )
 	{
-		return false;
+		return CollisionManifold();
 	}
 
 	r = a.x*fabs(l.z) + a.z*fabs(l.x);
 	if( fabs(c.z*l.x - c.x*l.z) > r )
 	{
-		return false;
+		return CollisionManifold();
 	}
 
 	r = a.x*fabs(l.y) + a.y*fabs(l.x);
 	if( fabs(c.x*l.y - c.y*l.x) > r )
 	{
-		return false;
+		return CollisionManifold();
 	}
-	return true; 
-	*/
+	char ab = 'a';
+	BoundingVolume* boxa = box;
+	BoundingVolume* boxb = capsule;
+	return CollisionManifold(boxa,boxb,minPen,axis,ab,sign);
 }

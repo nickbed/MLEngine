@@ -48,7 +48,22 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 			//push box
 		}
 	}
-	
+	if(collision.VolumeA->GetType()==BOUNDING_TYPE_OBBOX && collision.VolumeB->GetType()==BOUNDING_TYPE_CAPSULE)
+	{
+		if(collision.VolumeA->IsStatic() && !collision.VolumeB->IsStatic())
+		{
+			BoundingVolume* capsule = collision.VolumeB;
+			glm::mat4 rota = glm::rotate(glm::mat4(1.0), capsule->GetParentTransform()->GetRotation().x, glm::vec3(1,0,0));
+			rota *= glm::rotate(capsule->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));
+			rota *= glm::rotate(capsule->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
+			glm::vec4 translation(1.0);
+			translation = glm::transpose(rota) * (glm::vec4(collision.Axis,1.f))*-collision.Sign*collision.Penetration;
+			//std::cout << collision.AxisBox << collision.Penetration << " " << collision.Sign;					// box axis belongs to and penetration depth
+			//std::cout << " " << translation.x << " " << translation.y << " " << translation.z << std::endl;	// translation
+			mauvemessage::PositionMessage posMsg("robotMovement",glm::vec3(translation));
+			mauvemessage::MessageManager::SendListnerMessage(&posMsg,"robotMovement");
+		}
+	}
 }
 
 void PhysicsSystem::Destroy()

@@ -776,8 +776,8 @@
             "OBJModel": "data\\models\\robbody.obj",
             "TextureFile": "data\\images\\rainbow.png"
           },
-		  "boundingcapsule (disabled)": {
-		    "type":"boundingcapsule (disabled)",
+		  "boundingcapsule": {
+		    "type":"boundingcapsule",
 			"centerX": 0.0,
 			"centerY": 0.0,
 			"centerZ": 0.0,
@@ -786,7 +786,7 @@
 			"static": false
 		  },
 		  "boundingboxo": {
-		    "type":"boundingboxo",
+		    "type":"boundingboxo(disabled)",
 			"centerX": 0.0,
 			"centerY": 0.0,
 			"centerZ": 0.0,
