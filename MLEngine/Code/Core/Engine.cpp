@@ -36,6 +36,9 @@ void Engine::Init(EngineConfig conf)
 	inputManager = new InputSystem();
 	inputManager->Init(graphicsMan->GetCurrentWindow());
 
+	physicsManager = new PhysicsSystem();
+	physicsManager->Init();
+
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
 	sceneManager->InitSceneManager();
@@ -60,6 +63,7 @@ bool Engine::Update(float dt)
 			sceneManager->LoadScene(std::move(newScene2));
 			loading = false;
 			timer = 0;
+			physicsManager->Init();
 	}
 	//else if(timer > 5.0f)
 	//{

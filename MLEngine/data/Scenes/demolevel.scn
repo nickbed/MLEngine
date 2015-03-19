@@ -776,13 +776,23 @@
             "OBJModel": "data\\models\\robbody.obj",
             "TextureFile": "data\\images\\rainbow.png"
           },
-		  "boundingcapsule": {
-		    "type":"boundingcapsule",
+		  "boundingcapsule (disabled)": {
+		    "type":"boundingcapsule (disabled)",
 			"centerX": 0.0,
 			"centerY": 0.0,
 			"centerZ": 0.0,
 			"radius": 0.5,
 			"extent": 0.5,
+			"static": false
+		  },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 0.75,
+			"extentY": 1.0,
+			"extentZ": 0.5,
 			"static": false
 		  },
           "robotlleg": {

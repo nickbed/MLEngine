@@ -240,6 +240,12 @@
     <ClCompile Include="Code\Components\BoundingCapsule.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Messages\CollisionMessage.cpp">
+      <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Systems\PhysicsSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -394,6 +400,12 @@
     </ClInclude>
     <ClInclude Include="Code\Components\BoundingCapsule.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Messages\CollisionMessage.h">
+      <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Systems\PhysicsSystem.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

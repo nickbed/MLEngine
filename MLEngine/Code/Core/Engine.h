@@ -14,6 +14,7 @@
 #include "..\Components\MousePoller.h"
 #include "..\Systems\CollisionSystem.h"
 #include "..\Systems\InputSystem.h"
+#include "..\Systems\PhysicsSystem.h"
 
 #include "json\json.h"
 #include "Keyboard.h"
@@ -61,6 +62,8 @@ private:
 	ScriptManager scriptManager;
 
 	InputSystem* inputManager;
+	PhysicsSystem* physicsManager;
+
 
 	//Load the next state into current state from the current state 
 	//(ie - put the next state into the current state and release the pointer for the old state)

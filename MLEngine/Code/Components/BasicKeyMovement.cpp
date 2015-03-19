@@ -25,7 +25,7 @@ void BasicKeyMovement::Update(float dt)
 	//A == 65
 	//S == 83
 	//D == 68
-	float movementConst = 10.0f;
+	float movementConst = 20.0f;
 	if (keyBuffer[GLFW_KEY_LEFT_SHIFT])
 	{
 		movementConst *= 2;
