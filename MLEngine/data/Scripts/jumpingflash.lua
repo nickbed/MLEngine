@@ -39,5 +39,7 @@ JFlash = {
 	end,
 
 	Collision = function(other)
+		JFlash.yvel = 0
+		JFlash.candouble = 1
 	end
 }
