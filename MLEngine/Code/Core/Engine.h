@@ -17,7 +17,6 @@
 #include "..\Systems\PhysicsSystem.h"
 
 #include "json\json.h"
-#include "Keyboard.h"
 
 struct EngineConfig
 {
@@ -56,7 +55,6 @@ private:
 	GeneralEntity* testEntity;
 
 	EngineConfig currentConfig;
-	mauveinput::Keyboard keyboard;
 
 	SceneManager* sceneManager;
 	ScriptManager scriptManager;
