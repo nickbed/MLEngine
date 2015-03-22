@@ -460,7 +460,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	rotb *= glm::rotate(capsule->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));
 	rotb *= glm::rotate(capsule->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 
-	glm::vec3 l = glm::vec3(glm::vec4(0.0,1.0,0.0,1.0) * rotb);
+	glm::vec3 l = glm::vec3(glm::vec4(0.0,1.0,0.0,1.0));
 	float radius = capsule->GetRadius();
 	glm::vec3 a = box->GetExtent()+glm::vec3(radius,radius,radius);
 	float b = capsule->GetExtent();
@@ -511,7 +511,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 		axis =  glm::vec3(glm::vec4(0.f,0.f,1.f,1.0) * rota);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
-	
+	/*
 	float r = a.y*fabs(l.z) + a.z*fabs(l.y);
 	if( fabs(c.y*l.z - c.z*l.y) > r )
 	{
@@ -519,7 +519,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	}
 
 	r = a.x*fabs(l.z) + a.z*fabs(l.x);
-	if( fabs(c.z*l.x - c.x*l.z) > r )
+	if( fabs(c.z*l.x - c.x*l.z) > r )		Cross products not yet reqiuired
 	{
 		return CollisionManifold();
 	}
@@ -529,6 +529,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	{
 		return CollisionManifold();
 	}
+	*/
 	char ab = 'a';
 	BoundingVolume* boxa = box;
 	BoundingVolume* boxb = capsule;

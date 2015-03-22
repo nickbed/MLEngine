@@ -1,5 +1,6 @@
 #ifndef PHYSICSSYSTEM_H
 #define PHYSICSSYSTEM_H
+#include "CollisionSystem.h"
 #include "..\Messages\CollisionMessage.h"
 #include "..\Messages\MessageManager.h"
 #include "..\Interfaces\IEntity.h"

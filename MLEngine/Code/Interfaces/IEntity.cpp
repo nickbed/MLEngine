@@ -25,7 +25,6 @@ bool IEntity::Update(float dt)
 {
 	Components->UpdateAllComponents(dt);
 	Transform->Update(dt);
-
 	Script->Update(dt);
 	return true;
 }
