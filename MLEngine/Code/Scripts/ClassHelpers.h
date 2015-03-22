@@ -103,6 +103,37 @@ struct StaticMeshHelper
 	}
 };
 
+
+struct BoundingVolumesHelper
+{
+	static BoundingVolume* _newBase(std::string id)
+	{
+		BoundingVolume* volume = new BoundingVolume(id);
+		return volume;
+	}
+	static BoundingSphere* _newSphere(std::string id)
+	{
+		BoundingSphere* volume = new BoundingSphere(id);
+		return volume;
+	}
+	static BoundingCapsule* _newCapsule(std::string id)
+	{
+		BoundingCapsule* volume = new BoundingCapsule(id);
+		return volume;
+	}
+	static BoundingBox* _newBox(std::string id)
+	{
+		BoundingBox* volume = new BoundingBox(id);
+		return volume;
+	}
+	static BoundingBoxO* _newBoxO(std::string id)
+	{
+		BoundingBoxO* volume = new BoundingBoxO(id);
+		return volume;
+	}
+
+};
+
 struct IEntityHelper
 {
 	static ComponentManager* getComponentManager(IEntity const* ent)

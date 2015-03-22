@@ -70,6 +70,26 @@ void ScriptManager::bindElements()
 		.addProperty("scale", &TransformComponent::GetScale, &TransformComponent::SetScale)
 		.endClass()
 
+		.deriveClass<BoundingVolume, IComponent>("boundingvolume")
+		.addStaticFunction("New", BoundingVolumesHelper::_newBase)
+		.endClass()
+
+		.deriveClass<BoundingSphere, BoundingVolume>("boundingsphere")
+		.addStaticFunction("New", BoundingVolumesHelper::_newSphere)
+		.endClass()
+
+		.deriveClass<BoundingCapsule, BoundingVolume>("boundingcapsule")
+		.addStaticFunction("New", BoundingVolumesHelper::_newCapsule)
+		.endClass()
+
+		.deriveClass<BoundingBox, BoundingVolume>("boundingbox")
+		.addStaticFunction("New", BoundingVolumesHelper::_newBox)
+		.endClass()
+
+		.deriveClass<BoundingBoxO, BoundingVolume>("boundingboxo")
+		.addStaticFunction("New", BoundingVolumesHelper::_newBoxO)
+		.endClass()
+
 
 		//Scenes
 		.beginClass<SceneManager>("scene")
