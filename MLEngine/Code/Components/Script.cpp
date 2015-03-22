@@ -36,12 +36,12 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 			else {
 				updateFunc.reset();
 			}
-			/*if (table["Collision"].isFunction()) {
+			if (table["Collision"].isFunction()) {
 				collisionFunc = std::make_shared<luabridge::LuaRef>(table["Collision"]);
 			}
 			else {
 				collisionFunc.reset();
-			}*/
+			}
 			if (table["Start"].isFunction()) {
 				startFunc = std::make_shared<luabridge::LuaRef>(table["Start"]);
 				try {
@@ -85,4 +85,18 @@ void ScriptComponent::Destroy()
 void ScriptComponent::setVM(lua_State* L)
 {
 	luaVM = L;
+}
+
+
+void ScriptComponent::msg_Collision(mauvemessage::BaseMessage* msg)
+{
+	if (collisionFunc) {
+		try{
+			(*collisionFunc)();
+		}
+		catch (luabridge::LuaException const& e) {
+			std::cout << "Lua Exception: " << e.what() << std::endl;
+		}
+	}
+
 }

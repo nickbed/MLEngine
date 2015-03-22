@@ -2,6 +2,7 @@
 #define ScriptComponent_H
 #include "../Interfaces/IComponent.h"
 #include "../Assert/Assert.h"
+#include "..\Messages\CollisionMessage.h"
 
 #include <iostream>
 #include <memory>
@@ -37,6 +38,8 @@ public:
 
 	static void setVM(lua_State*);
 
+	void msg_Collision(mauvemessage::BaseMessage* msg);
+
 	IEntity* owner;
 
 private:
@@ -49,6 +52,8 @@ private:
 	static lua_State* luaVM;
 	static int uid;
 	std::string uuid;
+
+
 
 
 	int error;

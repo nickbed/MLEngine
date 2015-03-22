@@ -38,4 +38,9 @@ function Jump.Update(dt)
 	Jump.this.transform.position = Vector3(Jump.this.transform.position.x, ypos, Jump.this.transform.position.z)
 end
 
+function Jump.Collision()
+		Jump.yvel = 0
+		print ("spoooky")
+end
+
 return Jump
