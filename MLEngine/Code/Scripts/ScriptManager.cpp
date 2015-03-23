@@ -1,6 +1,5 @@
 #include "ScriptManager.h"
 
-
 ScriptManager::ScriptManager()
 {
 
@@ -32,8 +31,9 @@ void ScriptManager::bindElements()
 	//Perform out actual bindings to Lua here
 	luabridge::getGlobalNamespace(luaVM)
 
+
 		.beginClass<IEntity>("gameobject")
-		.addConstructor<void(*)(void)>()
+		.addConstructor<void(*)()>()
 		.addData("transform", &IEntity::Transform)
 		.addProperty("transform", &IEntity::getTransform, &IEntity::setTransform)
 
@@ -45,18 +45,18 @@ void ScriptManager::bindElements()
 		.addProperty("scale", &TransformComponent::GetScale, &TransformComponent::SetScale)
 		.endClass()
 
-
-
 		.beginClass<glm::vec3>("Vector3")
 		.addConstructor<void(*)(float, float, float)>()
 		.addProperty("x", &Vec3Helper::get<0>, &Vec3Helper::set<0>)
 		.addProperty("y", &Vec3Helper::get<1>, &Vec3Helper::set<1>)
 		.addProperty("z", &Vec3Helper::get<2>, &Vec3Helper::set<2>)
 
+
 		.endClass()
 
 		.beginClass<BasicKeyMovement>("key")
 		.addStaticFunction("Pressed", BasicKeyMovement::getAscii)
 		.endClass();
+
 
 }

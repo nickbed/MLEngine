@@ -10,7 +10,6 @@
 #include "..\Messages\CollisionMessage.h"
 #include "..\Messages\MessageManager.h"
 
-
 class CollisionSystem 
 {
 public:

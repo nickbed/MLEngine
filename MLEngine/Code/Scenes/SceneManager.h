@@ -68,7 +68,6 @@ public:
 
 	bool ShouldLoadLevel();
 
-
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);
 	void GenerateLightsFromJson(const Json::Value& jsonLights, std::map<std::string, SceneLight*>& lights);

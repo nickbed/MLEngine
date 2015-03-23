@@ -8,7 +8,6 @@ extern "C" {
 }
 #include <LuaBridge/LuaBridge.h>
 
-
 #include "ClassHelpers.h"
 #include "../Interfaces/IEntity.h"
 #include "../Components/Script.h"

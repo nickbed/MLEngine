@@ -27,7 +27,9 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 	if (luaL_dofile(luaVM, filename.c_str()) == 0) {
 		luabridge::LuaRef table = luabridge::getGlobal(luaVM, expectedNamespace.c_str());
 
+
 		luaDataTable = std::make_shared<luabridge::LuaRef>(table);
+
 
 		if (table.isTable()) {
 			if (table["Update"].isFunction()) {
@@ -37,14 +39,18 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 				updateFunc.reset();
 			}
 
+
 			if (table["Start"].isFunction()) {
 				startFunc = std::make_shared<luabridge::LuaRef>(table["Start"]);
 				(*startFunc)(owner);
+
 
 			}
 			else {
 				startFunc.reset();
 			}
+
+
 
 
 		}
@@ -74,6 +80,5 @@ void ScriptComponent::Destroy()
 void ScriptComponent::setVM(lua_State* L)
 {
 	luaVM = L;
-
 
 }
