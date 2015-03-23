@@ -68,6 +68,10 @@ public:
 
 	bool ShouldLoadLevel();
 
+	//Lua
+	static IEntity* AddEntity(std::string id, bool isActive);
+	static void DestroyEntity(IEntity*);
+
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);
 	void GenerateLightsFromJson(const Json::Value& jsonLights, std::map<std::string, SceneLight*>& lights);
@@ -77,7 +81,7 @@ private:
 	void AddBoundingCapsule(Json::Value contents, IEntity* entToCreate);
 
 	std::unique_ptr<GraphicsManager> graphicsManager;
-	std::unique_ptr<SceneConfig> currentScene;
+	static std::unique_ptr<SceneConfig> currentScene;
 	bool isLoading;
 	bool showDebug;
 	bool shouldLoadLevel;
