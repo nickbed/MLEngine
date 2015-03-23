@@ -30,6 +30,7 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 
 std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
 {
+	CollisionSystem::ClearVolumes();
 	shouldLoadLevel = false;
 	bool menu;
 	graphicsManager->SetWindowTitle("Mauve Engine - Loading....");

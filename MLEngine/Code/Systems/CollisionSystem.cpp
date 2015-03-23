@@ -516,3 +516,9 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	BoundingVolume* boxb = capsule;
 	return CollisionManifold(boxa,boxb,minPen,axis,ab,sign);
 }
+
+void CollisionSystem::ClearVolumes()
+{
+	dynamics.clear();
+	statics.clear();
+}

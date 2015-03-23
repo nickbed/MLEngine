@@ -21,7 +21,6 @@ void Engine::Init(EngineConfig conf)
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
 	mauvemessage::MessageManager::LoadMap(listners);
 
-
 	//Init script system
 	if (!scriptManager.Init())
 	{
@@ -53,7 +52,6 @@ bool Engine::Update(float dt)
 	result &= inputManager->Update(dt);
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
 	result &= physicsManager->Update(dt);
-
 	CollisionSystem::CheckCollisions();
 	if(sceneManager->ShouldLoadLevel())
 	{

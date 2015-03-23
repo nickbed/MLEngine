@@ -29,6 +29,8 @@ public:
 	static std::vector<BoundingVolume*> statics;
 	static std::vector<BoundingVolume*> dynamics;
 
+	static void ClearVolumes();
+
 private:
 	static CollisionManifold HasCollided(BoundingBox* boxa, BoundingBox* boxb);
 	static CollisionManifold HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb);
