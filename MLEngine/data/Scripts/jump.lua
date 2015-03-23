@@ -21,7 +21,7 @@ function Jump.Update(dt)
 	
 	if (key.Pressed("space")) 
 	then
-		if (ypos == 1) 
+		if (Jump.yvel == 0) 
 		then
 			Jump.yvel = Jump.yvel + 1
 			Jump.candouble = 1
@@ -40,7 +40,6 @@ end
 
 function Jump.Collision()
 		Jump.yvel = 0
-		print ("spoooky")
 end
 
 return Jump

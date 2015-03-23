@@ -52,6 +52,8 @@ bool Engine::Update(float dt)
 	bool result = true;
 	result &= inputManager->Update(dt);
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
+	result &= physicsManager->Update(dt);
+
 	CollisionSystem::CheckCollisions();
 	if(sceneManager->ShouldLoadLevel())
 	{

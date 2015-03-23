@@ -511,25 +511,6 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 		axis =  glm::vec3(glm::vec4(0.f,0.f,1.f,1.0) * rota);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
-	/*
-	float r = a.y*fabs(l.z) + a.z*fabs(l.y);
-	if( fabs(c.y*l.z - c.z*l.y) > r )
-	{
-		return CollisionManifold();
-	}
-
-	r = a.x*fabs(l.z) + a.z*fabs(l.x);
-	if( fabs(c.z*l.x - c.x*l.z) > r )		Cross products not yet reqiuired
-	{
-		return CollisionManifold();
-	}
-
-	r = a.x*fabs(l.y) + a.y*fabs(l.x);
-	if( fabs(c.x*l.y - c.y*l.x) > r )
-	{
-		return CollisionManifold();
-	}
-	*/
 	char ab = 'a';
 	BoundingVolume* boxa = box;
 	BoundingVolume* boxb = capsule;
