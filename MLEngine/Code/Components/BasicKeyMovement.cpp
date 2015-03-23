@@ -25,7 +25,7 @@ void BasicKeyMovement::Update(float dt)
 	//A == 65
 	//S == 83
 	//D == 68
-	float movementConst = 20.0f;
+	float movementConst = 10.0f;
 	if (keyBuffer[GLFW_KEY_LEFT_SHIFT])
 	{
 		movementConst *= 2;
@@ -181,18 +181,13 @@ void BasicKeyMovement::keyFunc(GLFWwindow* win, int key, int scanCode, int actio
 
 
 bool BasicKeyMovement::getAscii(std::string charcode){
-
 	//converts and ascii key to Apex Key
-
 	std::transform(charcode.begin(), charcode.end(), charcode.begin(), ::tolower);
 	if (charcode.length() == 1)
 	{
 		char c = *charcode.c_str();
 		int code = c;
-
-
 		return keyBuffer[code];
-
 	}
 	else {
 		if (charcode == "up") return keyBuffer[GLFW_KEY_UP];

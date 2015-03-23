@@ -7,8 +7,6 @@
 #include "..\Components\BoundingBoxO.h"
 #include "..\Components\BoundingSphere.h"
 #include "..\Components\BoundingCapsule.h"
-#include "..\Messages\CollisionMessage.h"
-#include "..\Messages\MessageManager.h"
 
 class CollisionSystem 
 {
@@ -24,17 +22,15 @@ public:
 	static void AddDynamicVolume(BoundingVolume* volume);
 
 	static void CheckCollisions();
-	static CollisionManifold CheckVolumes(BoundingVolume* volumea, BoundingVolume* volumeb);
-
+	static bool CheckVolumes(BoundingVolume* volumea, BoundingVolume* volumeb);
 	
 private:
 	static std::vector<BoundingVolume*> statics;
 	static std::vector<BoundingVolume*> dynamics;
 
-	static CollisionManifold HasCollided(BoundingBox* boxa, BoundingBox* boxb);
-	static CollisionManifold HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb);
-	static CollisionManifold HasCollided(BoundingBoxO* box, BoundingCapsule* capsule);
-
+	static bool HasCollided(BoundingBox* boxa, BoundingBox* boxb);
+	static bool HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb);
+	static bool HasCollided(BoundingBoxO* box, BoundingCapsule* capsule);
 };
 
 #endif

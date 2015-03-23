@@ -77,7 +77,7 @@ private:
 	void AddBoundingCapsule(Json::Value contents, IEntity* entToCreate);
 
 	std::unique_ptr<GraphicsManager> graphicsManager;
-	static std::unique_ptr<SceneConfig> currentScene;
+	std::unique_ptr<SceneConfig> currentScene;
 	bool isLoading;
 	bool showDebug;
 	bool shouldLoadLevel;

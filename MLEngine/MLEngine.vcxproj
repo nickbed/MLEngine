@@ -170,6 +170,7 @@
     <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
+    <ClCompile Include="Code\Core\Keyboard.cpp" />
     <ClCompile Include="Code\Entities\Camera.cpp" />
     <ClCompile Include="Code\Entities\GeneralEntity.cpp" />
     <ClCompile Include="Code\entities\Robot.cpp" />
@@ -183,7 +184,6 @@
     <ClCompile Include="Code\Interfaces\IState.cpp" />
     <ClCompile Include="Code\main.cpp" />
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
-    <ClCompile Include="Code\Messages\CollisionMessage.cpp" />
     <ClCompile Include="Code\Messages\KeyMessage.cpp" />
     <ClCompile Include="Code\Messages\MessageManager.cpp" />
     <ClCompile Include="Code\Messages\PositionMessage.cpp" />
@@ -200,7 +200,6 @@
     <ClCompile Include="Code\States\TestState.cpp" />
     <ClCompile Include="Code\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Code\Systems\InputSystem.cpp" />
-    <ClCompile Include="Code\Systems\PhysicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libs\TextureLoader\Bitmap.h" />
@@ -235,7 +234,6 @@
     <ClInclude Include="Code\Interfaces\IState.h" />
     <ClInclude Include="Code\Interfaces\IEntity.h" />
     <ClInclude Include="Code\Messages\BaseMessage.h" />
-    <ClInclude Include="Code\Messages\CollisionMessage.h" />
     <ClInclude Include="Code\Messages\KeyMessage.h" />
     <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
@@ -255,7 +253,6 @@
     <ClInclude Include="Code\States\TestState.h" />
     <ClInclude Include="Code\Systems\CollisionSystem.h" />
     <ClInclude Include="Code\Systems\InputSystem.h" />
-    <ClInclude Include="Code\Systems\PhysicsSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

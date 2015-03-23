@@ -1,7 +1,5 @@
 #include "SceneManager.h"
 
-std::unique_ptr<SceneConfig> SceneManager::currentScene;
-
 SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 {
 	NULLPTRCHECK(graph, "Null graphicsmanager ptr passed to scene manager");
@@ -238,9 +236,6 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						else if (key2.asString() == "script")
 						{
 							entToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
-
-							//AddMessageListner("msg_collision", entToCreate, std::bind(&ScriptComponent::msg_Collision, entToCreate->Script, std::placeholders::_1));
-
 						}
 					}
 					//Put entity into our map
@@ -503,20 +498,11 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//iterate through vector and update all entities and their components
 	//Iterate through vector and init all entities
 	bool result = true;
-
-	int entCount = currentScene->activeEntities.size();
-	auto it = currentScene->activeEntities.begin();
-	while (it != currentScene->activeEntities.end())
+	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
 		result &= (*it)->Update(dt);
-		if (entCount != currentScene->activeEntities.size())
-		{
-			it = currentScene->activeEntities.end();
-		}
-		else {
-			++it;
-		}
 	}
+
 	//for(std::map<std::string, CameraEntity*>::iterator it = currentScene->sceneCameras->begin(); it != currentScene->sceneCameras->end(); ++it)
 	//	{
 	//		CameraEntity* gotCamera = (*it).second;
@@ -870,4 +856,6 @@ bool SceneManager::ShouldLoadLevel()
 {
 	return shouldLoadLevel;
 }
+
+
 

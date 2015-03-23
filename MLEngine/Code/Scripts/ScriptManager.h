@@ -13,7 +13,6 @@ extern "C" {
 #include "../Components/Script.h"
 #include "../Components/BasicKeyMovement.h"
 
-
 class ScriptManager
 {
 public:

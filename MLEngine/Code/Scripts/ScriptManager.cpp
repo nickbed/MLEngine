@@ -30,13 +30,10 @@ void ScriptManager::bindElements()
 
 	//Perform out actual bindings to Lua here
 	luabridge::getGlobalNamespace(luaVM)
-
-
 		.beginClass<IEntity>("gameobject")
-		.addConstructor<void(*)()>()
+		.addConstructor<void(*)(void)>()
 		.addData("transform", &IEntity::Transform)
 		.addProperty("transform", &IEntity::getTransform, &IEntity::setTransform)
-
 		.endClass()
 
 		.beginClass<TransformComponent>("transform")
@@ -50,13 +47,9 @@ void ScriptManager::bindElements()
 		.addProperty("x", &Vec3Helper::get<0>, &Vec3Helper::set<0>)
 		.addProperty("y", &Vec3Helper::get<1>, &Vec3Helper::set<1>)
 		.addProperty("z", &Vec3Helper::get<2>, &Vec3Helper::set<2>)
-
-
 		.endClass()
 
 		.beginClass<BasicKeyMovement>("key")
 		.addStaticFunction("Pressed", BasicKeyMovement::getAscii)
 		.endClass();
-
-
 }

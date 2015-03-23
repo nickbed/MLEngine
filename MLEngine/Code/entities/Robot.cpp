@@ -21,9 +21,6 @@ bool Robot::Update(float dt)
 {
 	Components->UpdateAllComponents(dt);
 
-	
-	Script->Update(dt);
-
 	if(!isAnimating) return true;
 	isAnimating = false;
 	const float rotAmount = 255.0f;

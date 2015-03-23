@@ -39,8 +39,7 @@
 	  "toilet",
 	  "toilet1",
 	  "toiletwater1",
-	  "toiletwater2",
-	  "object_spawner"
+	  "toiletwater2"
     ],
     "entities": {
       "forestfloor": {
@@ -759,10 +758,6 @@
       },
       "robot1": {
         "type": "robot",
-		"script": {
-		  "path": "data\\Scripts\\jump.lua",
-		  "identifier": "Jump"
-		},
         "transform": {
           "posX": 0,
           "posY": 1,
@@ -790,16 +785,6 @@
 			"extent": 0.5,
 			"static": false
 		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo(disabled)",
-			"centerX": 0.0,
-			"centerY": 0.0,
-			"centerZ": 0.0,
-			"extentX": 0.75,
-			"extentY": 1.0,
-			"extentZ": 0.5,
-			"static": false
-		  },
           "robotlleg": {
             "id": "robotLeftLeg",
             "type": "basicbone",
@@ -825,25 +810,6 @@
             "TextureFile": "data\\images\\rainbow.png"
           }
         }
-      },
-	  "object_spawner": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 0,
-          "posY": 0,
-          "posZ": 0,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-		"script":
-		{
-			"path": "data\\Scripts\\object_spawner.lua",
-			"identifier": "OSpawner"
-		}
       }
     },
     "cameras": {
@@ -858,7 +824,12 @@
           "fov": 80,
           "pitch": 0,
           "yaw": 0
-        }
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\jumpingflash.lua",
+			"identifier": "JFlash"
+		}
       },
       "camera1": {
         "camerasetup": {
