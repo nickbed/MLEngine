@@ -170,7 +170,6 @@
     <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
-    <ClCompile Include="Code\Core\Keyboard.cpp" />
     <ClCompile Include="Code\Entities\Camera.cpp" />
     <ClCompile Include="Code\Entities\GeneralEntity.cpp" />
     <ClCompile Include="Code\entities\Robot.cpp" />
