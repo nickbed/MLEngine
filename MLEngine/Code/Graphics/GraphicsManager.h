@@ -40,6 +40,7 @@ public:
 	static void WindowCloseCallback(GLFWwindow* window);
 
 	void DrawEntity(IEntity* ent);
+	void DrawDebug(IEntity* ent);
 
 	template <class IComponent>
 	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform);

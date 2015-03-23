@@ -587,6 +587,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 			s << it->first;
 			graphicsManager->RenderText(s.str().c_str(), 750, startpos, 15);
 			startpos -= 10;
+			graphicsManager->DrawDebug(it->second);
 		}
 	}
 	if(isLoading) ReloadScene();

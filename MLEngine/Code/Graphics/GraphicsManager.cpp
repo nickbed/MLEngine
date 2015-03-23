@@ -365,7 +365,6 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	for (auto& x: entities)
 	{
 		DrawEntity(x);
-		
 	}
 	return true;
 }
@@ -381,8 +380,6 @@ void GraphicsManager::DrawEntity(IEntity* ent)
 	std::vector<IComponent*> arrayComponents = ent->Components->GetComponentsOfType("testGraphics");
 	std::vector<IComponent*> meshComponents = ent->Components->GetComponentsOfType("staticmesh");
 	std::vector<IComponent*> boneComponents = ent->Components->GetComponentsOfType("basicbone");
-	std::vector<IComponent*> obbComponents = ent->Components->GetComponentsOfType("boundingboxo");
-	std::vector<IComponent*> capsuleComponents = ent->Components->GetComponentsOfType("boundingcapsule");
 
 	for (auto& x : arrayComponents)
 	{
@@ -398,6 +395,13 @@ void GraphicsManager::DrawEntity(IEntity* ent)
 		BasicBone* gotBone = (BasicBone*)z;
 		RenderComponents<BasicBone>(gotBone, ent->Transform, gotBone->BoneTransform);
 	}
+}
+
+void GraphicsManager::DrawDebug(IEntity* ent)
+{
+	std::vector<IComponent*> obbComponents = ent->Components->GetComponentsOfType("boundingboxo");
+	std::vector<IComponent*> capsuleComponents = ent->Components->GetComponentsOfType("boundingcapsule");
+
 	for (auto& w : obbComponents)
 	{
 		BoundingBoxO* gotBox = (BoundingBoxO*)w;

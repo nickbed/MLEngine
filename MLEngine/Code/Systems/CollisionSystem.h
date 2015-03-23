@@ -26,10 +26,10 @@ public:
 	static void CheckCollisions();
 	static CollisionManifold CheckVolumes(BoundingVolume* volumea, BoundingVolume* volumeb);
 	
-private:
 	static std::vector<BoundingVolume*> statics;
 	static std::vector<BoundingVolume*> dynamics;
 
+private:
 	static CollisionManifold HasCollided(BoundingBox* boxa, BoundingBox* boxb);
 	static CollisionManifold HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb);
 	static CollisionManifold HasCollided(BoundingBoxO* box, BoundingCapsule* capsule);

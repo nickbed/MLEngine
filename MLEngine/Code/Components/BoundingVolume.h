@@ -29,6 +29,10 @@ public:
 	void SetCollided(bool hasCollided);
 	bool IsCollided();
 
+	glm::vec3 Rigid_vel;	//temporary rigid body values
+	glm::vec3 Rigid_ang;
+	float Rigid_mass;
+
 protected:
 	int type;
 	bool isStatic;
