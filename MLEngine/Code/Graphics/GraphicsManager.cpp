@@ -105,9 +105,12 @@ void GraphicsManager::RenderComponents<BasicBone>(BasicBone* componentToRender, 
 
 }
 
-void GraphicsManager::RenderText(std::string text, int x, int y, int size, std::vector<IEntity*> entities)
+void GraphicsManager::RenderText(std::string text, int x, int y, int size, IEntity* entity)
 {
-	DrawAndUpdateWindow(entities, 0.1f, false);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
+	glClearDepth(1.0f);
+	if(entity != nullptr) DrawAndUpdateWindow(entity, 0.0f, false);
 	textRenderer->Draw2DText(text, x, y, size);
 	glfwSwapBuffers(currentWindow);
 	//Hack
@@ -231,20 +234,24 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	glDepthMask(GL_TRUE);
 
 	glfwSwapBuffers(currentWindow);
-	if(poll)
+	if (poll)
 	{
 		glfwPollEvents();
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
 	glClearDepth(1.0f);
-	
-	//Draw stuff
-	for (auto& x: entities)
+	bool result = true;
+	for (auto& e : entities)
 	{
-		DrawEntity(x);
-		
+		result &= DrawAndUpdateWindow(e, dt, poll);
 	}
+	return result;
+}
+
+bool GraphicsManager::DrawAndUpdateWindow(IEntity* entity, float dt, bool poll)
+{
+	DrawEntity(entity);
 	return true;
 }
 
@@ -301,13 +308,21 @@ bool GraphicsManager::UploadShaderDataForDraw(TransformComponent* modelTransform
 	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
 
 	//Lighting stuff - TODO make some kind of material out of this
-	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
+	currentShader->SendUniformVec3("lightposition", currentLights[0].lightPosition);
 
 	//Reflectivity
-	currentShader->SendUniformVec3("Kd", currentSceneLight->surfaceReflectivity);
+	currentShader->SendUniformVec3("Kd", currentLights[0].surfaceReflectivity);
 
 	//Light intensity
-	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
+	currentShader->SendUniformVec3("Ld", currentLights[0].lightIntensity);
+
+	//TEMP
+	currentShader->SendUniformVec3("Sd", glm::vec3(0.2, 0.2, 0.2));
+
+	currentShader->SendUniform1f("Sp", 35.0f);
+
+	//Camera position
+	currentShader->SendUniformVec3("cameraPos", currentCamera->GetCameraPosition());
 	return true;
 }
 
@@ -349,13 +364,13 @@ bool GraphicsManager::UploadBoneShaderDataForDraw(TransformComponent modelTransf
 	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
 
 	//Lighting stuff - TODO make some kind of material out of this
-	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
+	currentShader->SendUniformVec3("lightposition", currentLights[0].lightPosition);
 
 	//Reflectivity
-	currentShader->SendUniformVec3("Kd", currentSceneLight->surfaceReflectivity);
+	currentShader->SendUniformVec3("Kd", currentLights[0].surfaceReflectivity);
 
 	//Light intensity
-	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
+	currentShader->SendUniformVec3("Ld", currentLights[0].lightIntensity);
 	return true;
 }
 
@@ -381,10 +396,10 @@ CameraEntity* GraphicsManager::GetCurrentCamera()
 	return currentCamera;
 }
 
-SceneLight* GraphicsManager::GetCurrentSceneLight()
-{
-	return currentSceneLight;
-}
+//SceneLight* GraphicsManager::GetCurrentSceneLight()
+//{
+//	return currentSceneLight;
+//}
 
 //TODO - maybe more than one shader?
 Shader* GraphicsManager::GetCurrentShader()
@@ -397,9 +412,17 @@ void GraphicsManager::SetCurrentCamera(CameraEntity* cam)
 	currentCamera = cam;
 }
 
-void GraphicsManager::SetCurrentSceneLight(SceneLight* light)
+//void GraphicsManager::SetCurrentSceneLight(SceneLight* light)
+//{
+//	currentSceneLight = light;
+//}
+
+void GraphicsManager::SetActiveSceneLights(int numLights, SceneLight *lights)
 {
-	currentSceneLight = light;
+	for (int i = 0; i < numLights; ++i)
+	{
+		currentLights[i] = *lights++;
+	}
 }
 
 void GraphicsManager::SetCurrentShader(Shader* shader)

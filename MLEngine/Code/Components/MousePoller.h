@@ -23,6 +23,7 @@ private:
 	GLFWwindow* window;
 	int halfWindowHeight;
 	int halfWindowWidth;
+	bool enabled;
 };
 
 #endif

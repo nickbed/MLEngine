@@ -98,6 +98,7 @@ void ComponentManager::DestroyAllComponents()
 	componentMapIterator startIt;
 	for (startIt = componentList->begin(); startIt != componentList->end(); ++startIt)
 	{
+		if((*startIt).second == nullptr) break;
 		(*startIt).second->Destroy();
 		delete (*startIt).second;
 	}

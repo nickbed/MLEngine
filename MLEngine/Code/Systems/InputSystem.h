@@ -11,6 +11,8 @@ public:
 
 	DEFAULTENTITYCONSTRUCTOR(InputSystem);
 
+	~InputSystem();
+
 	void Init(GLFWwindow* inputWindow);
 
 	void Init();
@@ -21,6 +23,8 @@ public:
 
 private:
 	IEntity* inputComponent;
+	MessageKeyMovement* currentKeyboard;
+	MousePoller* currentMouse;
 };
 
 #endif

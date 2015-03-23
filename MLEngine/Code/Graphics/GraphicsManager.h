@@ -33,6 +33,7 @@ public:
 
 	//Draw window, poll events and swap buffers. Returns false if window should be closing
 	bool DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt, bool poll);
+	bool DrawAndUpdateWindow(IEntity* entity, float dt, bool poll);
 
 	//Handles the window close event
 	static void WindowCloseCallback(GLFWwindow* window);
@@ -45,19 +46,20 @@ public:
 	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform, TransformComponent boneTransform);
 
 	void RenderText(std::string text, int x, int y, int size);
-	void RenderText(std::string text, int x, int y, int size, std::vector<IEntity*> entities);
+	void RenderText(std::string text, int x, int y, int size, IEntity* entity);
 
 	//Getters
 	GLFWwindow* GetCurrentWindow();
 	const int GetXSize();
 	const int GetYSize();
 	CameraEntity* GetCurrentCamera();
-	SceneLight* GetCurrentSceneLight();
+	//SceneLight* GetCurrentSceneLight();
 	Shader* GetCurrentShader();
 
 	//Setters
 	void SetCurrentCamera(CameraEntity* camera);
-	void SetCurrentSceneLight(SceneLight* light);
+	//void SetCurrentSceneLight(SceneLight* light);
+	void SetActiveSceneLights(int numActive, SceneLight *lights);
 	void SetCurrentShader(Shader* shader);
 
 	
@@ -76,8 +78,9 @@ private:
 
 	Shader* currentShader;
 	CameraEntity* currentCamera;
-	SceneLight* currentSceneLight;
+	//SceneLight* currentSceneLight;
 	TextRender* textRenderer;
+	SceneLight currentLights[128];
 
 	static bool windowShouldBeClosed;	
 };

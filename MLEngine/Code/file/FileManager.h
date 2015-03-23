@@ -24,9 +24,12 @@ namespace mauvefile
 		static void CloseFile();
 
 		static bool ReadLineFromFile(std::string& line);
+		static bool ReadLineFromFileChar(char* line);
+
 
 	private:
 		static std::ifstream openFile; 
+		static FILE* openFilePTR;
 	};
 }
 

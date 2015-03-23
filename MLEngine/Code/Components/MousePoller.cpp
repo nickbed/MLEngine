@@ -5,6 +5,7 @@ MousePoller::MousePoller(const char* compID, GLFWwindow* win) : IComponent(compI
 	NULLPTRCHECK(win, "Window passed to mouse poller component is null!!");
 	NULLPTRCHECK(win, "ID passed to mouse poller component is null!!");
 	window = win;
+	enabled = true;
 }
 
 MousePoller::~MousePoller()
@@ -20,10 +21,13 @@ void MousePoller::Init()
 
 	halfWindowHeight = windowHeight / 2;
 	halfWindowWidth = windowWidth / 2;
+
+
 }
 
 void MousePoller::Update(float dt)
 {
+	if(!enabled) return;
 	NULLPTRCHECK(window, "Mouse poller called update on null window!");
 	//Could use a callback to read the mouse every time it moves, but the position will only be read once per update anyway
 	double mouseXPos = 0.0;
@@ -47,5 +51,5 @@ void MousePoller::Update(float dt)
 
 void MousePoller::Destroy()
 {
-
+		enabled = false;
 }

@@ -8,6 +8,10 @@ in vec2 texCoord;
 
 uniform vec3 Kd;            // Diffuse reflectivity
 uniform vec3 Ld;            // Diffuse light intensity
+uniform vec3 Sd;			// Specular intensity
+uniform float Sp;			// Specular power
+
+uniform vec3 cameraPos;
 uniform sampler2D tex;
 
 layout (location=0) out vec4 FragColour;
@@ -32,21 +36,25 @@ void main()
    vec4 Id = vec4(Ld,1.0) * max(dot(N,L), 0.0);
    Id = clamp(Id, 0.0, 1.0);
    
-   //vec4 diffuseLight = vec4(actualFragment, 1.0) + vec4(Kd,1.0) * Id;
    vec4 diffuseLight = vec4(attenuation) * vec4(texture(tex, texCoord).rgb, 1.0) + vec4(Kd,1.0) * Id;
-   //vec4 diffuseLight = vec4(attenuation) * vec4(1.0,0.5,0.5, 1.0) + vec4(Kd,1.0) * Id;
-   vec4 specularReflection;
-   if(dot(N,L) < 0.0)
-	{
-		specularReflection = vec4(0.0, 0.0, 0.0, 0.0);
-	}
-   else
-	{
-		specularReflection = vec4(attenuation) * vec4(pow( max(vec3(0.0), dot( reflect(-L, N), viewDirection ) ), vec3(25.0,25.0,25.0)),1.0);
-	}     
+
+   //calulate Specular light
+   vec3 viewVector = normalize(cameraPos - vertPos);
+   vec3 reflectionVector = normalize(reflect(-lightPos, N));
+   float specular = max(dot(viewVector, reflectionVector), 0.0);
+   specular = pow(specular, (Sp)); 
+   specular = clamp(specular, 0.0, 1.0);
+   vec3 finalSpec = vec3(vec3(Sd) * specular);
+   finalSpec = clamp(finalSpec, 0.0, 1.0);
+   if(dot(N, lightPos) < 0.0)
+   {
+		finalSpec = vec3(0.0);
+   }  
 
    //Multiply the Reflectivity by the Diffuse intensity
-   FragColour = (diffuseLight  + ambientLight) * vec4(intensity, 1.0) +  specularReflection;
+   //FragColour = (diffuseLight  + ambientLight + vec4(finalSpec, 1.0)) * vec4(intensity, 1.0) ;
+   FragColour = diffuseLight + vec4(finalSpec, 1.0);
+   //FragColour = vec4(finalSpec, 1.0);	 
    //FragColour = texture(tex, texCoord);
    //FragColour = vec4(vec3(gl_FragCoord.z), 1.0f);
 }

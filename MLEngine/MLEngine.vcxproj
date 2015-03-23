@@ -125,6 +125,8 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

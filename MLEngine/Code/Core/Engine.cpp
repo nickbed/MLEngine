@@ -112,7 +112,7 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 			mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Error reading engine config json file, using default.");
 			return defaultConfig;
 		}
-		delete configJson;
+		//delete configJson;
 		return jsonConfig;
 }
 
