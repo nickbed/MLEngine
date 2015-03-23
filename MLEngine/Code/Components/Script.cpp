@@ -3,21 +3,17 @@
 #include "../Interfaces/IEntity.h"
 
 lua_State* ScriptComponent::luaVM = nullptr;
-int ScriptComponent::uid = 0;
+std::map<std::string, LuaScriptFuncs> ScriptComponent::scriptFuncList;
 
 ScriptComponent::ScriptComponent(std::string id) : IComponent(id)
 {
 	this->error = -1;
-	this->uuid = "env_" + std::to_string(uid);
-	++uid;
 	owner = nullptr;
 }
 
 ScriptComponent::~ScriptComponent()
 {
 	this->owner = nullptr;
-	updateFunc.reset();
-	//collisionFunc.reset();
 }
 
 void ScriptComponent::Init()
@@ -26,36 +22,47 @@ void ScriptComponent::Init()
 
 void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 {
+	envName = expectedNamespace;
+	if (scriptFuncList.find(envName) != scriptFuncList.end())
+	{
+		ownFuncs = scriptFuncList[envName].ref();
+		try {
+			(*ownFuncs.startFunc)(owner);
+		}
+		catch (luabridge::LuaException const& e) {
+			std::cout << "Lua Exception: " << e.what() << std::endl;
+		}
+		return;
+	}
 	if (luaL_dofile(luaVM, filename.c_str()) == 0) {
 		luabridge::LuaRef table = luabridge::getGlobal(luaVM, expectedNamespace.c_str());
-		//luaDataTable = std::make_shared<luabridge::LuaRef>(table);
+		LuaScriptFuncs funcList;
 		if (table.isTable()) {
 			if (table["Update"].isFunction()) {
-				updateFunc = std::make_shared<luabridge::LuaRef>(table["Update"]);
+				funcList.updateFunc = std::make_shared<luabridge::LuaRef>(table["Update"]);
+			} else {
+				funcList.updateFunc.reset();
 			}
-			else {
-				updateFunc.reset();
-			}
+
 			if (table["Collision"].isFunction()) {
-				collisionFunc = std::make_shared<luabridge::LuaRef>(table["Collision"]);
+				funcList.collisionFunc = std::make_shared<luabridge::LuaRef>(table["Collision"]);
+			} else {
+				funcList.collisionFunc.reset();
 			}
-			else {
-				collisionFunc.reset();
-			}
+
 			if (table["Start"].isFunction()) {
-				startFunc = std::make_shared<luabridge::LuaRef>(table["Start"]);
+				funcList.startFunc = std::make_shared<luabridge::LuaRef>(table["Start"]);
 				try {
-					(*startFunc)(owner);
-					startFunc.reset();
+					(*funcList.startFunc)(owner);
 				}
 				catch (luabridge::LuaException const& e) {
 					std::cout << "Lua Exception: " << e.what() << std::endl;
 				}
+			} else {
+				funcList.startFunc.reset();
 			}
-			else {
-				startFunc.reset();
-			}
-
+			scriptFuncList[envName] = funcList;
+			ownFuncs = scriptFuncList[envName].ref();
 			
 			DEBUGWRITEINFO("Successfully loaded Lua Script:", filename)
 		}
@@ -67,9 +74,9 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 
 void ScriptComponent::Update(float dt)
 {
-	if (updateFunc) {
+	if (ownFuncs.updateFunc) {
 		try{
-			(*updateFunc)(dt);
+			(*ownFuncs.updateFunc)(owner, dt);
 		}
 		catch (luabridge::LuaException const& e) {
 			std::cout << "Lua Exception: " << e.what() << std::endl;
@@ -80,6 +87,7 @@ void ScriptComponent::Update(float dt)
 void ScriptComponent::Destroy()
 {
 	this->owner = nullptr;
+	ownFuncs.unref();
 }
 
 void ScriptComponent::setVM(lua_State* L)
@@ -90,9 +98,11 @@ void ScriptComponent::setVM(lua_State* L)
 
 void ScriptComponent::msg_Collision(mauvemessage::BaseMessage* msg)
 {
-	if (collisionFunc) {
+	mauvemessage::CollisionMessage* c = static_cast<mauvemessage::CollisionMessage*>(msg);
+	CollisionManifold m = (CollisionManifold)*c;
+	if (ownFuncs.collisionFunc) {
 		try{
-			(*collisionFunc)();
+			(*ownFuncs.collisionFunc)(owner, m);
 		}
 		catch (luabridge::LuaException const& e) {
 			std::cout << "Lua Exception: " << e.what() << std::endl;

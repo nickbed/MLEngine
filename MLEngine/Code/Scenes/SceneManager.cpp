@@ -79,10 +79,12 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					if (entType == "generalentity")
 					{
 						entToCreate = new GeneralEntity();
+						entToCreate->id = entID.c_str();
 					}
 					if (entType == "robot")
 					{
 						entToCreate = new Robot();
+						entToCreate->id = entID.c_str();
 						using namespace std::placeholders;
 						Robot* tempRobot = (Robot*)entToCreate;
 						AddMessageListner("robotMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, std::placeholders::_1));
@@ -244,6 +246,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					}
 					//Put entity into our map
 					std::string entIDtoadd = entID;
+					entToCreate->id = entIDtoadd.c_str();
 					gotConfig->sceneEntities->insert(std::pair<std::string, IEntity*>(entIDtoadd, entToCreate));
 				}
 			}
@@ -901,7 +904,10 @@ IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
 	return currentScene->sceneEntities->find(id)->second;
 }
 
-void SceneManager::DestroyEntity(IEntity* entToKill)
+void SceneManager::DestroyEntity(std::string id)
 {
-	//currentScene->sceneEntities->find(entToKill);
+	IEntity* entToRemove = currentScene->sceneEntities->find(id)->second;
+	std::vector<IEntity*>::iterator position = std::find(currentScene->activeEntities.begin(), currentScene->activeEntities.end(), entToRemove);
+	if (position != currentScene->activeEntities.end()) // == vector.end() means the element was not found
+		currentScene->activeEntities.erase(position);
 }
