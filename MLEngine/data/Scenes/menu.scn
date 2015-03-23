@@ -1,0 +1,85 @@
+{
+  "scene": {
+    "name": "testscene",
+    "sceneshader": "data\\shaders\\default",
+    "currentcamera": "cameraload",
+    "currentlight": "light0",
+	"messagehandlers": false,
+	"menu": true,
+    "activeentities": [
+      "ent1"
+    ],
+    "entities": {
+      "ent1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 3.3,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 180,
+          "rotateZ": 0
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\player.lua",
+			"identifier": "Player"
+		},
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\splash.obj",
+            "TextureFile": "data\\images\\Menu.tga"
+          }
+        }
+      }
+    },
+    "cameras": {
+      "cameraload": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": -10,
+          "fov": 90,
+          "pitch": 0,
+          "yaw": 0
+        }
+      },
+      "cameraload1": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 10,
+          "posZ": 3,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 50,
+          "pitch": 0,
+          "yaw": 0
+        }
+      }
+    },
+    "lights": {
+      "light0": {
+        "lightparams": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "intensityR": 0.5,
+          "intensityG": 0.1,
+          "intensityB": 0.1,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Test|Win32">
+      <Configuration>Test</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E146819A-1AB6-4C79-A6F4-1A55E8B0976C}</ProjectGuid>
+    <RootNamespace>MLEngine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)Builds\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Builds\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(SolutionDir)Builds\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Builds\</OutDir>
+    <TargetName>$(ProjectName)_Release</TargetName>
+    <CustomBuildAfterTargets>
+    </CustomBuildAfterTargets>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)Builds\Generated\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)Builds\</OutDir>
+    <TargetName>$(ProjectName)_Debug</TargetName>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;$(SolutionDir)Libs\lua\include;$(SolutionDir)Libs\LuaBridge\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MinimalRebuild>false</MinimalRebuild>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);GLEW_STATIC;</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalOptions />
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;$(SolutionDir)Libs\lua\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua.lib;opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <Verbose>false</Verbose>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;$(SolutionDir)Libs\LuaBind\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;$(SolutionDir)Libs\LuaBind\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>luabind.lib;lua.lib;opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+    </Link>
+    <CustomBuildStep>
+      <Command>copy $(SolutionDir)\MLEngine\Data\*.* $(SolutionDir)\Builds /Y</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Data to Builds Folder</Message>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)MLEngine\Data\*.*" "$(SolutionDir)Builds" /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copying Data to Builds Folder</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Libs\jsoncpp\jsoncpp.cpp" />
+    <ClCompile Include="..\Libs\TextureLoader\Bitmap.cpp" />
+    <ClCompile Include="Code\Assert\Assert.cpp" />
+    <ClCompile Include="Code\Components\BasicBone.cpp" />
+    <ClCompile Include="Code\Components\BasicKeyMovement.cpp" />
+    <ClCompile Include="Code\Components\BoundingBox.cpp" />
+    <ClCompile Include="Code\Components\BoundingBoxO.cpp" />
+    <ClCompile Include="Code\Components\BoundingCapsule.cpp" />
+    <ClCompile Include="Code\Components\BoundingSphere.cpp" />
+    <ClCompile Include="Code\Components\BoundingVolume.cpp" />
+    <ClCompile Include="Code\Components\ComponentManager.cpp" />
+    <ClCompile Include="Code\Components\DebugComponent.cpp" />
+    <ClCompile Include="Code\Components\MessageKeyMovement.cpp" />
+    <ClCompile Include="Code\Components\MousePoller.cpp" />
+    <ClCompile Include="Code\Components\Script.cpp" />
+    <ClCompile Include="Code\Components\StaticMesh.cpp" />
+    <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
+    <ClCompile Include="Code\Components\Transform.cpp" />
+    <ClCompile Include="Code\Core\Engine.cpp" />
+    <ClCompile Include="Code\Core\Keyboard.cpp" />
+    <ClCompile Include="Code\Entities\Camera.cpp" />
+    <ClCompile Include="Code\Entities\GeneralEntity.cpp" />
+    <ClCompile Include="Code\entities\Robot.cpp" />
+    <ClCompile Include="Code\File\FIleManager.cpp" />
+    <ClCompile Include="Code\Graphics\GraphicsManager.cpp" />
+    <ClCompile Include="Code\Graphics\TextRender.cpp" />
+    <ClCompile Include="Code\Interfaces\IComponent.cpp" />
+    <ClCompile Include="Code\Interfaces\IEntity.cpp" />
+    <ClCompile Include="Code\Interfaces\IGPUResource.cpp" />
+    <ClCompile Include="Code\Interfaces\IResource.cpp" />
+    <ClCompile Include="Code\Interfaces\IState.cpp" />
+    <ClCompile Include="Code\main.cpp" />
+    <ClCompile Include="Code\Messages\BaseMessage.cpp" />
+    <ClCompile Include="Code\Messages\KeyMessage.cpp" />
+    <ClCompile Include="Code\Messages\MessageManager.cpp" />
+    <ClCompile Include="Code\Messages\PositionMessage.cpp" />
+    <ClCompile Include="Code\Resources\GPUModel.cpp" />
+    <ClCompile Include="Code\Resources\GPUResourceManager.cpp" />
+    <ClCompile Include="Code\Resources\GPUTexture.cpp" />
+    <ClCompile Include="Code\Resources\ImageTexture.cpp" />
+    <ClCompile Include="Code\Resources\JSONFile.cpp" />
+    <ClCompile Include="Code\Resources\OBJModel.cpp" />
+    <ClCompile Include="Code\Resources\ResourceManager.cpp" />
+    <ClCompile Include="Code\Resources\Shader.cpp" />
+    <ClCompile Include="Code\Scenes\SceneManager.cpp" />
+    <ClCompile Include="Code\Scripts\ScriptManager.cpp" />
+    <ClCompile Include="Code\States\TestState.cpp" />
+    <ClCompile Include="Code\Systems\CollisionSystem.cpp" />
+    <ClCompile Include="Code\Systems\InputSystem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Libs\TextureLoader\Bitmap.h" />
+    <ClInclude Include="..\Libs\TextureLoader\stb_image.h" />
+    <ClInclude Include="Code\Assert\Assert.h" />
+    <ClInclude Include="Code\Components\BasicBone.h" />
+    <ClInclude Include="Code\Components\BasicKeyMovement.h" />
+    <ClInclude Include="Code\Components\BoundingBox.h" />
+    <ClInclude Include="Code\Components\BoundingBoxO.h" />
+    <ClInclude Include="Code\Components\BoundingCapsule.h" />
+    <ClInclude Include="Code\Components\BoundingSphere.h" />
+    <ClInclude Include="Code\Components\BoundingVolume.h" />
+    <ClInclude Include="Code\Components\MessageKeyMovement.h" />
+    <ClInclude Include="Code\Components\MousePoller.h" />
+    <ClInclude Include="Code\Components\Script.h" />
+    <ClInclude Include="Code\Components\StaticMesh.h" />
+    <ClInclude Include="Code\Components\StaticMeshNoIndices.h" />
+    <ClInclude Include="Code\Components\ComponentManager.h" />
+    <ClInclude Include="Code\Components\DebugComponent.h" />
+    <ClInclude Include="Code\Components\Transform.h" />
+    <ClInclude Include="Code\Core\Engine.h" />
+    <ClInclude Include="Code\Core\Keyboard.h" />
+    <ClInclude Include="Code\Entities\Camera.h" />
+    <ClInclude Include="Code\Entities\GeneralEntity.h" />
+    <ClInclude Include="Code\entities\Robot.h" />
+    <ClInclude Include="Code\File\FileManager.h" />
+    <ClInclude Include="Code\Graphics\GraphicsManager.h" />
+    <ClInclude Include="Code\Graphics\TextRender.h" />
+    <ClInclude Include="Code\Interfaces\IComponent.h" />
+    <ClInclude Include="Code\Interfaces\IGPUResource.h" />
+    <ClInclude Include="Code\Interfaces\IResource.h" />
+    <ClInclude Include="Code\Interfaces\IState.h" />
+    <ClInclude Include="Code\Interfaces\IEntity.h" />
+    <ClInclude Include="Code\Messages\BaseMessage.h" />
+    <ClInclude Include="Code\Messages\KeyMessage.h" />
+    <ClInclude Include="Code\Messages\MessageManager.h" />
+    <ClInclude Include="Code\Messages\MessageTypes.h" />
+    <ClInclude Include="Code\Messages\PositionMessage.h" />
+    <ClInclude Include="Code\Resources\GPUModel.h" />
+    <ClInclude Include="Code\Resources\GPUResourceManager.h" />
+    <ClInclude Include="Code\Resources\GPUTexture.h" />
+    <ClInclude Include="Code\Resources\ImageTexture.h" />
+    <ClInclude Include="Code\Resources\JSONFile.h" />
+    <ClInclude Include="Code\Resources\OBJModel.h" />
+    <ClInclude Include="Code\Resources\ResourceManager.h" />
+    <ClInclude Include="Code\Resources\Shader.h" />
+    <ClInclude Include="Code\Scenes\SceneManager.h" />
+    <ClInclude Include="Code\Scenes\SceneTypes.h" />
+    <ClInclude Include="Code\Scripts\ClassHelpers.h" />
+    <ClInclude Include="Code\Scripts\ScriptManager.h" />
+    <ClInclude Include="Code\States\TestState.h" />
+    <ClInclude Include="Code\Systems\CollisionSystem.h" />
+    <ClInclude Include="Code\Systems\InputSystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="Data\Shaders\default.frag" />
+    <None Include="Data\Shaders\default.vert" />
+    <None Include="data\Shaders\text.frag" />
+    <None Include="data\Shaders\text.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
