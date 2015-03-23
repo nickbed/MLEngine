@@ -19,22 +19,6 @@ CollisionManifold::CollisionManifold(BoundingVolume* volumea, BoundingVolume* vo
 	Sign = sign;
 }
 
-CollisionManifold::CollisionManifold()
-{
-	Collision = false;
-}
-
-CollisionManifold::CollisionManifold(BoundingVolume* volumea, BoundingVolume* volumeb, float pen, glm::vec3 axis, char axisBox, float sign)
-{
-	Collision = true;
-	VolumeA = volumea;
-	VolumeB = volumeb;
-	Penetration = pen;
-	Axis = axis;
-	AxisBox = axisBox;
-	Sign = sign;
-}
-
 
 CollisionSystem::~CollisionSystem()
 {
