@@ -57,24 +57,24 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 	}
 	if(collision.VolumeA->GetType()==BOUNDING_TYPE_OBBOX && collision.VolumeB->GetType()==BOUNDING_TYPE_CAPSULE)
 	{
-		if(collision.VolumeA->IsStatic() && !collision.VolumeB->IsStatic())
-		{
-			BoundingVolume* capsule = collision.VolumeB;
-			glm::vec3 captranslate = collision.Axis*collision.Sign*collision.Penetration;
-			//std::cout << collision.AxisBox << collision.Penetration << " " << collision.Sign;						// box axis belongs to and penetration depth
-			//std::cout << " " << translation.x << " " << translation.y << " " << translation.z << std::endl;		// translation
-			collision.VolumeB->GetParentTransform()->SetPosition(collision.VolumeB->GetParentTransform()->GetPosition()+captranslate);
-		}
-		else if(!collision.VolumeA->IsStatic() && !collision.VolumeB->IsStatic())
-		{
-			BoundingCapsule* capsule = static_cast<BoundingCapsule*>(collision.VolumeB);
-			BoundingBoxO* box = static_cast<BoundingBoxO*>(collision.VolumeA);
-			glm::vec3 point = capsule->GetParentTransform()->GetPosition() + (collision.Axis * capsule->GetExtent()-collision.Penetration);
-			box->Rigid_vel = 1.0f / box->Rigid_mass * (box->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
-			box->Rigid_ang = 1.0f / box->Rigid_mass * glm::cross(point,box->GetParentTransform()->GetPosition()) * -collision.Sign * glm::vec3(0,1,0);
-			glm::vec3 captranslate = collision.Axis*collision.Sign*collision.Penetration;
-			collision.VolumeB->GetParentTransform()->SetPosition(collision.VolumeB->GetParentTransform()->GetPosition()+captranslate);
-		}
+		//if(collision.VolumeA->IsStatic() && !collision.VolumeB->IsStatic())
+		//{
+		//	BoundingVolume* capsule = collision.VolumeB;
+		//	glm::vec3 captranslate = collision.Axis*collision.Sign*collision.Penetration;
+		//	//std::cout << collision.AxisBox << collision.Penetration << " " << collision.Sign;						// box axis belongs to and penetration depth
+		//	//std::cout << " " << translation.x << " " << translation.y << " " << translation.z << std::endl;		// translation
+		//	collision.VolumeB->GetParentTransform()->SetPosition(collision.VolumeB->GetParentTransform()->GetPosition()+captranslate);
+		//}
+		/*else if(!collision.VolumeA->IsStatic() && !collision.VolumeB->IsStatic())
+		{*/
+		BoundingCapsule* capsule = static_cast<BoundingCapsule*>(collision.VolumeB);
+		BoundingBoxO* box = static_cast<BoundingBoxO*>(collision.VolumeA);
+		glm::vec3 point = capsule->GetParentTransform()->GetPosition() + (collision.Axis * capsule->GetExtent()-collision.Penetration);
+		box->Rigid_vel = box->Rigid_inverse * (box->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+		box->Rigid_ang = box->Rigid_inverse * glm::cross(point,box->GetParentTransform()->GetPosition()) * -collision.Sign * glm::vec3(0,1,0);
+		glm::vec3 captranslate = collision.Axis*collision.Sign*collision.Penetration;
+		collision.VolumeB->GetParentTransform()->SetPosition(collision.VolumeB->GetParentTransform()->GetPosition()+captranslate);
+		/*}*/
 	}
 }
 

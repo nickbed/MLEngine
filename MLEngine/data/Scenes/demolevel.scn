@@ -665,7 +665,7 @@
 			"extentX": 3.5,
 			"extentY": 3.1,
 			"extentZ": 7.0,
-			"static": false
+			"static": true
 		  }
         }
       },
