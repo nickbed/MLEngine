@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <memory>
+#include <map>
 
 extern "C" {
 #include "lua.h"
@@ -15,6 +16,34 @@ extern "C" {
 #include <LuaBridge/LuaBridge.h>
 
 class IEntity;
+
+struct LuaScriptFuncs{
+	//std::shared_ptr<luabridge::LuaRef> luaDataTable;
+	std::shared_ptr<luabridge::LuaRef> updateFunc;
+	std::shared_ptr<luabridge::LuaRef> collisionFunc;
+	std::shared_ptr<luabridge::LuaRef> startFunc;
+	unsigned short refCount;
+
+	LuaScriptFuncs(){
+		refCount = 1;
+	};
+
+	LuaScriptFuncs& ref()
+	{ 
+		refCount++; 
+		return *this; 
+	};
+	void unref()
+	{ 
+		refCount++; 
+		if (refCount == 0)
+		{
+			startFunc.reset();
+			collisionFunc.reset();
+			updateFunc.reset();
+		}
+	};
+};
 
 //For transforming/positioning stuff
 class ScriptComponent : public IComponent
@@ -43,15 +72,12 @@ public:
 	IEntity* owner;
 
 private:
+	static std::map<std::string, LuaScriptFuncs> scriptFuncList;
 	
-	std::shared_ptr<luabridge::LuaRef> luaDataTable;
-	std::shared_ptr<luabridge::LuaRef> updateFunc;
-	std::shared_ptr<luabridge::LuaRef> collisionFunc;
-	std::shared_ptr<luabridge::LuaRef> startFunc;
+	LuaScriptFuncs ownFuncs;
 
 	static lua_State* luaVM;
-	static int uid;
-	std::string uuid;
+	std::string envName;
 
 
 
