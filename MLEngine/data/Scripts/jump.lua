@@ -1,18 +1,16 @@
 --jump.lua
 Jump = {}
-Jump.this = nil
 Jump.yvel = 0
 Jump.candouble = 0
 
 function Jump.Start(self)
-	Jump.this = self
 end
 
-function Jump.Update(dt)
+function Jump.Update(this, dt)
 	Jump.yvel = Jump.yvel-(5*dt);
 	
 	
-	ypos = Jump.this.transform.position.y + Jump.yvel
+	ypos = this.transform.position.y + Jump.yvel
 	if (ypos < 1) 
 	then 
 		Jump.yvel = 0
@@ -21,7 +19,7 @@ function Jump.Update(dt)
 	
 	if (key.Pressed("space")) 
 	then
-		if (Jump.yvel == 0) 
+		if (ypos == 1) 
 		then
 			Jump.yvel = Jump.yvel + 1
 			Jump.candouble = 1
@@ -35,11 +33,13 @@ function Jump.Update(dt)
 		end
 	end
 	
-	Jump.this.transform.position = Vector3(Jump.this.transform.position.x, ypos, Jump.this.transform.position.z)
+	this.transform.position = Vector3(this.transform.position.x, ypos, this.transform.position.z)
 end
 
-function Jump.Collision()
+function Jump.Collision(this, collision)
 		Jump.yvel = 0
+		Jump.candouble = 1
+		print (collision.AxisBox)
 end
 
 return Jump

@@ -689,7 +689,12 @@
             "OBJModel": "data\\models\\toilet.obj",
             "TextureFile": "data\\images\\toilet.tga"
           }
-        }
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\coin.lua",
+			"identifier": "Coin"
+		}
       },
 	  "toiletwater1": {
         "type": "generalentity",
@@ -733,7 +738,12 @@
             "OBJModel": "data\\models\\toilet.obj",
             "TextureFile": "data\\images\\toilet.tga"
           }
-        }
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\coin.lua",
+			"identifier": "Coin"
+		}
       },
 	  "toiletwater2": {
         "type": "generalentity",
@@ -838,12 +848,7 @@
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
-        },
-		"script":
-		{
-			"path": "data\\Scripts\\object_spawner.lua",
-			"identifier": "OSpawner"
-		}
+        }
       }
     },
     "cameras": {

@@ -36,6 +36,9 @@ public:
 	//EVERYTHING has a script
 	ScriptComponent* Script;
 
+	//EVERYTHING has an Id
+	std::string id;
+
 	TransformComponent* getTransform() const { return Transform;};
 	void setTransform(TransformComponent*);
 };

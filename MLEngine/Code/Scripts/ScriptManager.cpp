@@ -44,7 +44,7 @@ void ScriptManager::bindElements()
 		.addData("transform", &IEntity::Transform)
 		.addProperty("transform", &IEntity::getTransform, &IEntity::setTransform)
 		.addData("components", &IEntity::Components)
-		//.addProperty("components", &IEntityHelper::getComponentManager, &IEntityHelper::setComponentManager)
+		.addData("name", &IEntity::id)
 		.endClass()
 
 
@@ -94,6 +94,7 @@ void ScriptManager::bindElements()
 		//Scenes
 		.beginClass<SceneManager>("scene")
 		.addStaticFunction("NewObject", SceneManager::AddEntity)
+		.addStaticFunction("RemoveObject", SceneManager::DestroyEntity)
 		.endClass()
 
 
@@ -103,7 +104,17 @@ void ScriptManager::bindElements()
 		.addProperty("x", &Vec3Helper::get<0>, &Vec3Helper::set<0>)
 		.addProperty("y", &Vec3Helper::get<1>, &Vec3Helper::set<1>)
 		.addProperty("z", &Vec3Helper::get<2>, &Vec3Helper::set<2>)
+		.endClass()
+
+
+		//Messages
+		.beginClass<CollisionManifold>("collisionmanifold")
+		.addData("Collision", &CollisionManifold::Collision)
+		.addData("Axis", &CollisionManifold::Axis)
+		.addData("AxisBox", &CollisionManifold::AxisBox)
+		.addData("Penetration", &CollisionManifold::Penetration)
+		.addData("Sign", &CollisionManifold::Sign)
+		.addData("VolumeA", &CollisionManifold::VolumeA)
+		.addData("VolumeB", &CollisionManifold::VolumeB)
 		.endClass();
-
-
 }
