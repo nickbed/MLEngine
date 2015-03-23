@@ -181,13 +181,15 @@ void BasicKeyMovement::keyFunc(GLFWwindow* win, int key, int scanCode, int actio
 
 
 bool BasicKeyMovement::getAscii(std::string charcode){
-	//converts an ascii key to Buffer Array Key
+
+	//converts and ascii key to Apex Key
 	std::transform(charcode.begin(), charcode.end(), charcode.begin(), ::tolower);
 	if (charcode.length() == 1)
 	{
 		char c = *charcode.c_str();
 		int code = c;
-		return keyBuffer[code-32];	//-32 to fit ascii int to GLFW values
+
+		return keyBuffer[code];
 	}
 	else {
 		if (charcode == "up") return keyBuffer[GLFW_KEY_UP];

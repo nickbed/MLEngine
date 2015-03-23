@@ -10,6 +10,7 @@
 #include "..\Messages\CollisionMessage.h"
 #include "..\Messages\MessageManager.h"
 
+
 class CollisionSystem 
 {
 public:
@@ -25,6 +26,7 @@ public:
 
 	static void CheckCollisions();
 	static CollisionManifold CheckVolumes(BoundingVolume* volumea, BoundingVolume* volumeb);
+
 	
 private:
 	static std::vector<BoundingVolume*> statics;
@@ -33,6 +35,7 @@ private:
 	static CollisionManifold HasCollided(BoundingBox* boxa, BoundingBox* boxb);
 	static CollisionManifold HasCollided(BoundingBoxO* boxa, BoundingBoxO* boxb);
 	static CollisionManifold HasCollided(BoundingBoxO* box, BoundingCapsule* capsule);
+
 };
 
 #endif

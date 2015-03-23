@@ -68,9 +68,6 @@ public:
 
 	bool ShouldLoadLevel();
 
-	//Lua
-	static IEntity* AddEntity(std::string id, bool isActive);
-	static void DestroyEntity(IEntity*);
 
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);

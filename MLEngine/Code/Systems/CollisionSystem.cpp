@@ -3,6 +3,7 @@
 std::vector<BoundingVolume*> CollisionSystem::dynamics;
 std::vector<BoundingVolume*> CollisionSystem::statics;
 
+
 CollisionManifold::CollisionManifold()
 {
 	Collision = false;
@@ -18,6 +19,7 @@ CollisionManifold::CollisionManifold(BoundingVolume* volumea, BoundingVolume* vo
 	AxisBox = axisBox;
 	Sign = sign;
 }
+
 
 CollisionSystem::~CollisionSystem()
 {
@@ -75,6 +77,7 @@ void CollisionSystem::CheckCollisions()
 					(*volumej)->SetCollided(true);
 					mauvemessage::CollisionMessage collisionMessage(MSG_COLLISION,check);
 					mauvemessage::MessageManager::SendListnerMessage(&collisionMessage, MSG_COLLISION);
+
 				}
 			}
 			for(auto volumej = statics.begin(); volumej != statics.end(); ++volumej)
@@ -86,6 +89,7 @@ void CollisionSystem::CheckCollisions()
 					(*volumej)->SetCollided(true);
 					mauvemessage::CollisionMessage collisionMessage(MSG_COLLISION,check);
 					mauvemessage::MessageManager::SendListnerMessage(&collisionMessage, MSG_COLLISION);
+
 				}
 			}
 		}
@@ -96,26 +100,31 @@ CollisionManifold CollisionSystem::CheckVolumes(BoundingVolume* volumea, Boundin
 {
 	NULLPTRCHECK(volumea,"volumea passed into CheckVolumes is a null pointer");
 	NULLPTRCHECK(volumeb,"volumeb passed into CheckVolumes is a null pointer");
-/*
+
+/*	
 	if(volumea->GetType()==BOUNDING_TYPE_AABBOX && volumeb->GetType()==BOUNDING_TYPE_AABBOX)
 	{
 		BoundingBox* boxa = static_cast<BoundingBox*>(volumea);
 		BoundingBox* boxb = static_cast<BoundingBox*>(volumeb);
 		return HasCollided(boxa,boxb);
 	}
+
 */
 	if(volumea->GetType()==BOUNDING_TYPE_OBBOX && volumeb->GetType()==BOUNDING_TYPE_OBBOX)
+
 	{
 		BoundingBoxO* boxa = static_cast<BoundingBoxO*>(volumea);
 		BoundingBoxO* boxb = static_cast<BoundingBoxO*>(volumeb);
 		return HasCollided(boxa,boxb);
 	}
+
 	if(volumea->GetType()==BOUNDING_TYPE_CAPSULE && volumeb->GetType()==BOUNDING_TYPE_OBBOX)
 	{
 		BoundingCapsule* cap = static_cast<BoundingCapsule*>(volumea);
 		BoundingBoxO* box = static_cast<BoundingBoxO*>(volumeb);
 		return HasCollided(box,cap);
 	}
+
 	if(volumea->GetType()==BOUNDING_TYPE_OBBOX && volumeb->GetType()==BOUNDING_TYPE_CAPSULE)
 	{
 		BoundingBoxO* box = static_cast<BoundingBoxO*>(volumea);
@@ -135,6 +144,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBox* boxa, BoundingBox* b
 	glm::vec3 bmin = boxb->GetLeftBotFore() +  boxb->GetParentTransform()->GetPosition();
 	glm::vec3 bmax = boxb->GetRightTopRear() + boxb->GetParentTransform()->GetPosition();
 	
+
 	if(amax.x >= bmin.x &&
 		amin.x <= bmax.x &&
 		amax.y >= bmin.y &&
@@ -155,6 +165,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 	//Get transform and rotation of box a
 
 	glm::vec3 cena = boxa->GetCenter() + boxa->GetParentTransform()->GetPosition();
+
 	glm::mat4 rota = glm::rotate(glm::mat4(1.0), boxa->GetParentTransform()->GetRotation().x, glm::vec3(1,0,0));
 	rota *= glm::rotate(boxa->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));							
 	rota *= glm::rotate(boxa->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
@@ -162,7 +173,9 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 	//Get transform and rotation of box b
 
 	glm::vec3 cenb = boxb->GetCenter() + boxb->GetParentTransform()->GetPosition();
+
 	glm::mat4 rotb = glm::rotate(glm::mat4(1.0), boxb->GetParentTransform()->GetRotation().x, glm::vec3(1,0,0));
+
 	rotb *= glm::rotate(boxb->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));
 	rotb *= glm::rotate(boxb->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 
@@ -170,11 +183,13 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 	glm::vec3 a = boxa->GetExtent();
 	glm::vec3 b = boxb->GetExtent();
 
+
 	//Transpose of the combined rotation matrices
 	glm::mat4 Rt = glm::transpose(glm::transpose(rota)*rotb);
 
 	glm::mat4 Rabs;
 	bool axesParallel = false;
+
 
 	for ( unsigned int i = 0; i < 3; ++i )
 	{
@@ -188,10 +203,12 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
             }
 		}
 	}
+
 	glm::vec4 c = glm::vec4(cenb - cena,1.0)*rota;
 
 	float aTest, bTest, cTest;
 	float minPen =  0;
+
 
 	 // separating axis A0
     cTest = abs(c.x);
@@ -206,11 +223,12 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 	glm::vec3 axis = glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rota);
 	float sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 
-	// separating axis A1
+
     cTest = abs(c.y);
     aTest = a.y;
     bTest = b.x*Rabs[1][0]+b.y*Rabs[1][1]+b.z*Rabs[1][2];
     if ( cTest > aTest + bTest )
+
 	{
 		return CollisionManifold(); 
 	}
@@ -222,11 +240,13 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
 
+
     // separating axis A2
     cTest = abs(c.z);
     aTest = a.z;
     bTest = b.x*Rabs[2][0]+b.y*Rabs[2][1]+b.z*Rabs[2][2];
     if ( cTest > aTest + bTest )
+
 	{
 		return CollisionManifold();
 	}
@@ -238,11 +258,13 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;		
 	}
 
+
     // separating axis B0
     cTest = abs( c.x*Rt[0][0] + c.y*Rt[1][0] + c.z*Rt[2][0] );
     aTest = a.x*Rabs[0][0]+a.y*Rabs[1][0]+a.z*Rabs[2][0];
     bTest = b.x;
     if ( cTest > aTest + bTest )
+
 	{
 		return CollisionManifold();
 	}
@@ -253,6 +275,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		axis =  glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rotb);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
+
 
     // separating axis B1
     cTest = abs( c.x*Rt[0][1] + c.y*Rt[1][1] + c.z*Rt[2][1] );
@@ -269,6 +292,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		axis =  glm::vec3(glm::vec4(0.f,1.f,0.f,1.0) * rotb);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
+
 
     // separating axis B2
     cTest = abs( c.x*Rt[0][2] + c.y*Rt[1][2] + c.z*Rt[2][2] );
@@ -292,6 +316,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
         return CollisionManifold(boxa,boxb,minPen,axis,ab,sign);
 	}
 
+
     // separating axis A0 x B0
     cTest = abs(c.z*Rt[1][0]-c.y*Rt[2][0]);
     aTest = a.y*Rabs[2][0] + a.z*Rabs[1][0];
@@ -307,6 +332,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		axis =  glm::cross(glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rota),glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rotb));
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
+
 
     // separating axis A0 x B1
     cTest = abs(c.z*Rt[1][1]-c.y*Rt[2][1]);
@@ -324,6 +350,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
 
+
     // separating axis A0 x B2
     cTest = abs(c.z*Rt[1][2]-c.y*Rt[2][2]);
     aTest = a.y*Rabs[2][2] + a.z*Rabs[1][2];
@@ -339,6 +366,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		axis =  glm::cross(glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rota),glm::vec3(glm::vec4(0.f,0.f,1.f,1.0) * rotb));
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
+
 
     // separating axis A1 x B0
     cTest = abs(c.x*Rt[2][0]-c.z*Rt[0][0]);
@@ -356,6 +384,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
 
+
     // separating axis A1 x B1
     cTest = abs(c.x*Rt[2][1]-c.z*Rt[0][1]);
     aTest = a.x*Rabs[2][1] + a.z*Rabs[0][1];
@@ -371,6 +400,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		axis =  glm::cross(glm::vec3(glm::vec4(0.f,1.f,0.f,1.0) * rota),glm::vec3(glm::vec4(0.f,1.f,0.f,1.0) * rotb));
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
+
 
     // separating axis A1 x B2
     cTest = abs(c.x*Rt[2][2]-c.z*Rt[0][2]);
@@ -388,6 +418,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
 
+
     // separating axis A2 x B0
     cTest = abs(c.y*Rt[0][0]-c.x*Rt[1][0]);
     aTest = a.x*Rabs[1][0] + a.y*Rabs[0][0];
@@ -404,6 +435,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
 
+
     // separating axis A2 x B1
     cTest = abs(c.y*Rt[0][1]-c.x*Rt[1][1]);
     aTest = a.x*Rabs[1][1] + a.y*Rabs[0][1];
@@ -419,6 +451,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		axis =  glm::cross(glm::vec3(glm::vec4(0.f,0.f,1.f,1.0) * rota),glm::vec3(glm::vec4(0.f,1.f,0.f,1.0) * rotb));
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
 	}
+
 
     // separating axis A2 x B2
     cTest = abs(c.y*Rt[0][2]-c.x*Rt[1][2]);
@@ -446,6 +479,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	NULLPTRCHECK(box,"box passed into HasCollided is a null pointer");
 	NULLPTRCHECK(capsule,"capsule passed into HasCollided is a null pointer");
 	
+
 	//Get transform and rotation of box
 
 	glm::vec3 cena = box->GetCenter() + box->GetParentTransform()->GetPosition();
@@ -461,11 +495,13 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	rotb *= glm::rotate(capsule->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 
 	glm::vec3 l = glm::vec3(glm::vec4(0.0,1.0,0.0,1.0));
+
 	float radius = capsule->GetRadius();
 	glm::vec3 a = box->GetExtent()+glm::vec3(radius,radius,radius);
 	float b = capsule->GetExtent();
 	
 	glm::vec4 c = glm::vec4(cenb - cena,1.0)*rota;
+
 
 	//Axis A2
 
@@ -522,11 +558,37 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* box, BoundingCapsul
 	if( fabs(c.z*l.x - c.x*l.z) > r )		Cross products not yet reqiuired
 	{
 		return CollisionManifold();
+=======
+	if( fabs(c.x) > a.x + b*fabs(l.x))
+	{
+		return false;
+	}
+	if( fabs(c.y) > a.y + b*fabs(l.y))
+	{
+		return false;
+	}
+	if( fabs(c.z) > a.z + b*fabs(l.z))
+	{
+		return false;
+	}
+	
+	float r = a.y*fabs(l.z) + a.z*fabs(l.y);
+	if( fabs(c.y*l.z - c.z*l.y) > r )
+	{
+		return false;
+	}
+
+	r = a.x*fabs(l.z) + a.z*fabs(l.x);
+	if( fabs(c.z*l.x - c.x*l.z) > r )
+	{
+		return false;
+>>>>>>> origin/master
 	}
 
 	r = a.x*fabs(l.y) + a.y*fabs(l.x);
 	if( fabs(c.x*l.y - c.y*l.x) > r )
 	{
+<<<<<<< HEAD
 		return CollisionManifold();
 	}
 	*/

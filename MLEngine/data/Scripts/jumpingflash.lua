@@ -1,45 +1,40 @@
---jumpingflash.lua
-JFlash = {
-	gameobject = nil,
-	yvel = 0,
-	candouble = 0,
+JFlash = {}
+JFlash.this = nil
+JFlash.yvel = 0
+JFlash.candouble = 0
 
-	Start = function(owner)
-		JFlash.gameobject = owner
-	end,
+function JFlash.Start(self)
+	JFlash.this = self
+end
 
-	Update = function(dt)
-		JFlash.yvel = JFlash.yvel - (5*dt)
+function JFlash.Update(dt)
+	JFlash.yvel = JFlash.yvel-(5*dt);
 	
 	
-		ypos = JFlash.gameobject.transform.position.y + JFlash.yvel
-		if (ypos < 0) 
-		then 
-			JFlash.yvel = 0
-			ypos = 0
-		end
+	ypos = JFlash.this.transform.position.y + JFlash.yvel
+	if (ypos < 0) 
+	then 
+		JFlash.yvel = 0
+		ypos = 0
+	end
 	
-		if (key.Pressed("space")) 
+	if (key.Pressed("space")) 
+	then
+		if (ypos == 0) 
 		then
-			if (ypos == 0) 
+			JFlash.yvel = JFlash.yvel + 1
+			JFlash.candouble = 1
+		elseif(JFlash.candouble == 1)
+		then
+			if (JFlash.yvel < 0 )
 			then
-				JFlash.yvel = JFlash.yvel + 1
-				JFlash.candouble = 1
-			elseif(JFlash.candouble == 1)
-			then
-				if (JFlash.yvel < 0 )
-				then
-					JFlash.yvel = 1
-					JFlash.candouble = 0
-				end
+				JFlash.yvel = 1
+				JFlash.candouble = 0
 			end
 		end
-	
-		JFlash.gameobject.transform.position = Vector3(JFlash.gameobject.transform.position.x, ypos, JFlash.gameobject.transform.position.z)
-	end,
-
-	Collision = function(other)
-		JFlash.yvel = 0
-		JFlash.candouble = 1
 	end
-}
+	
+	JFlash.this.transform.position = Vector3(JFlash.this.transform.position.x, ypos, JFlash.this.transform.position.z)
+end
+
+return JFlash

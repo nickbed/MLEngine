@@ -238,7 +238,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						else if (key2.asString() == "script")
 						{
 							entToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
-							AddMessageListner("msg_collision", entToCreate, std::bind(&ScriptComponent::msg_Collision, entToCreate->Script, std::placeholders::_1));
+
 						}
 					}
 					//Put entity into our map
