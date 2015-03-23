@@ -868,24 +868,3 @@ bool SceneManager::ShouldLoadLevel()
 {
 	return shouldLoadLevel;
 }
-
-
-
-
-
-IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
-{
-	IEntity* entToAdd = new IEntity;
-	currentScene->sceneEntities->insert(std::pair<std::string, IEntity*>(id, entToAdd));
-	if (isActive)
-	{
-		currentScene->activeEntities.push_back((currentScene->sceneEntities->find(id)->second));
-	}
-
-	return currentScene->sceneEntities->find(id)->second;
-}
-
-void SceneManager::DestroyEntity(IEntity* entToKill)
-{
-	//currentScene->sceneEntities->find(entToKill);
-}
