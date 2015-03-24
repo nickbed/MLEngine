@@ -22,19 +22,27 @@ public:
 	virtual bool LoadFromFile(std::string filename);
 
 	//Return all data by reference (speed)
-	void GetAllData(std::vector<GLfloat> &verts, std::vector<GLfloat> &UVs, std::vector<GLfloat> &normals, std::vector<GLuint> &indices);
+	//void GetAllData(std::vector<GLfloat> &verts, std::vector<GLfloat> &UVs, std::vector<GLfloat> &normals, std::vector<GLuint> &indices);
 
 	//Parsed data
-	const std::vector<GLfloat> GetVertices();
-	const std::vector<GLfloat> GetUVs();
-	const std::vector<GLfloat> GetNormals();
-	const std::vector<GLuint> GetIndicies();
+	GLfloat* GetVertices();
+	GLfloat* GetUVs();
+	GLfloat* GetNormals();
+	GLuint* GetIndicies();
+
+	const unsigned int GetVertexCount();
+	const unsigned int GetIndexCount();
+	const unsigned int GetNormalCount();
+	const unsigned int GetUVCount();
 	
 
 private:
-	std::vector<GLfloat> parsedVertices;
-	std::vector<GLfloat> parsedUVs;
-	std::vector<GLfloat> parsedNormals;
-	std::vector<GLuint> parsedIndices;
+	GLfloat parsedVertices[50000];
+	GLfloat parsedUVs[50000];
+	GLfloat parsedNormals[50000];
+	GLuint parsedIndices[50000];
+
+	unsigned int parsedUVCount, parsedNormalCount, parsedVertCount, parsedIndexCount;
+
 };
 #endif

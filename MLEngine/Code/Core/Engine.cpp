@@ -21,7 +21,6 @@ void Engine::Init(EngineConfig conf)
 	listners = new std::unordered_multimap<const char*, mauvemessage::RecieverInfo>();
 	mauvemessage::MessageManager::LoadMap(listners);
 
-
 	//Init script system
 	if (!scriptManager.Init())
 	{
@@ -36,6 +35,9 @@ void Engine::Init(EngineConfig conf)
 	inputManager = new InputSystem();
 	inputManager->Init(graphicsMan->GetCurrentWindow());
 
+	physicsManager = new PhysicsSystem();
+	physicsManager->Init();
+
 	//Init scene manager here
 	sceneManager = new SceneManager(std::move(graphicsMan));
 	sceneManager->InitSceneManager();
@@ -49,6 +51,7 @@ bool Engine::Update(float dt)
 	bool result = true;
 	result &= inputManager->Update(dt);
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
+	result &= physicsManager->Update(dt);
 	CollisionSystem::CheckCollisions();
 	if(sceneManager->ShouldLoadLevel())
 	{
@@ -60,6 +63,7 @@ bool Engine::Update(float dt)
 			sceneManager->LoadScene(std::move(newScene2));
 			loading = false;
 			timer = 0;
+			physicsManager->Init();
 	}
 	//else if(timer > 5.0f)
 	//{
@@ -121,6 +125,6 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 			mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Error reading engine config json file, using default.");
 			return defaultConfig;
 		}
-		delete configJson;
+		//delete configJson;
 		return jsonConfig;
 }

@@ -1,3 +1,5 @@
+#define WIN32_LEAN_AND_MEAN
+
 #include <memory>
 #include <thread>
 #include "Assert\Assert.h"
@@ -5,6 +7,7 @@
 #include "Messages\MessageManager.h"
 #include "Resources\GPUResourceManager.h"
 #include "Resources\ResourceManager.h"
+
 
 void ExceptionHandler(const char* message);
 int guardedMain();
@@ -22,6 +25,7 @@ int main()
 	}
 #ifdef _DEBUG
 	DEBUGWRITEINFO("Closed with no errors", "");
+	DEBUGWRITEINFO("Press any key to continue...", "");
 	std::cin.get();
 #endif
 	return 0;

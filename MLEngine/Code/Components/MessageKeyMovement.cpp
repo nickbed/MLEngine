@@ -44,7 +44,7 @@ void MessageKeyMovement::SendKeyMessage(int msg, const char* messageName)
 void MessageKeyMovement::Destroy()
 {
 	//Unbind callback here
-	glfwSetKeyCallback(window, NULL);
+	//glfwSetKeyCallback(window, NULL);
 }
 
 void MessageKeyMovement::TestMessage()

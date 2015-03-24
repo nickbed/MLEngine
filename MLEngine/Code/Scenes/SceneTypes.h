@@ -52,6 +52,7 @@ struct SceneConfig
 			if(it->second != nullptr)
 			{
 				delete it->second;
+				it->second = nullptr;
 			}
 		}
 		sceneEntities->clear();
@@ -88,9 +89,11 @@ struct SceneConfig
 
 	//Active in the scene
 	std::vector<IEntity*> activeEntities;
+	SceneLight activeLights[128];
+	int numActiveLights;
 	Shader* currentSceneShader;
 	CameraEntity* currentSceneCamera;
-	SceneLight* currentSceneLight;
+	//SceneLight* currentSceneLight;
 
 	//For storing stuff created by the JSON file
 	std::unique_ptr<std::map<std::string, IEntity*>> sceneEntities;

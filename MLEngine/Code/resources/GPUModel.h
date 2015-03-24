@@ -18,17 +18,17 @@ public:
 	virtual bool UploadData();
 	virtual bool DeleteData();
 
-	bool SetAllData(std::vector<GLfloat> vertices, std::vector<GLfloat> normals, std::vector<GLfloat> UVs, std::vector<GLuint> indices);
+	bool SetAllData(GLfloat *vertices, unsigned int vertSize, GLfloat *normals, unsigned int  normalsSize, GLfloat *UVs, unsigned int  UVsSize, GLuint *indices, unsigned int  indexSize);
 	//Custom model stuff
-	bool SetVertices(std::vector<GLfloat> vertices);
-	bool SetNormals(std::vector<GLfloat> normals);
-	bool SetUVs(std::vector<GLfloat> UVs);
-	bool SetIndices(std::vector<GLuint> indices);
+	bool SetVertices(GLfloat *vertices, unsigned int  vertSize);
+	bool SetNormals(GLfloat *normals, unsigned int  normalsSize);
+	bool SetUVs(GLfloat *UVs, unsigned int  UVsSize);
+	bool SetIndices(GLuint *indices, unsigned int  indexSize);
 
-	const std::vector<GLfloat> GetVertices();
-	const std::vector<GLfloat> GetNormals();
-	const std::vector<GLfloat> GetUVs();
-	const std::vector<GLuint> GetIndices();
+	GLfloat *GetVertices();
+	GLfloat *GetNormals();
+	GLfloat *GetUVs();
+	GLuint *GetIndices();
 
 	const GLuint GetVerticesID();
 	const GLuint GetNormalsID();
@@ -41,9 +41,9 @@ public:
 
 private:
 
-	bool BufferDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr, GLuint currentLoc);
-	bool BufferDataToGPU(std::vector<GLuint> data, GLuint &bufferAddr);
-	bool BufferUVDataToGPU(std::vector<GLfloat> data, GLuint &bufferAddr);
+	bool BufferDataToGPU(GLfloat *data, GLuint &bufferAddr, GLuint currentLoc, unsigned int size);
+	bool BufferDataToGPU(GLuint  *data, GLuint &bufferAddr, unsigned int size);
+	bool BufferUVDataToGPU(GLfloat *data, GLuint &bufferAddr, unsigned int size);
 	bool GenVertexArrays(GLuint bufferAddr, GLuint &arrayAddr);
 
 	GLuint verticesID;
@@ -53,13 +53,15 @@ private:
 	GLuint uvID;
 	GLuint indicesID;
 
-	std::vector<GLfloat> vertices;
-	std::vector<GLfloat> normals;
-	std::vector<GLfloat> UVs;
-	std::vector<GLuint> indices;
+	GLfloat vertices[50000];
+	GLfloat normals[50000];
+	GLfloat UVs[50000];
+	GLuint  indices[50000];
 	bool VAOGenerated;
-	unsigned int indicesCount;
-	unsigned int verticesCount;
+	unsigned int indicesSize;
+	unsigned int verticesSize;
+	unsigned int normalsSize;
+	unsigned int UVsSize;
 };
 
 #endif

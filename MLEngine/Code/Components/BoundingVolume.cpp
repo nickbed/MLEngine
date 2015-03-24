@@ -2,6 +2,10 @@
 
 BoundingVolume::BoundingVolume(std::string id) : IComponent(id)
 {
+	Rigid_mass = 1.f;
+	Rigid_vel = glm::vec3(0.f);
+	Rigid_ang = glm::vec3(0.f);
+	Rigid_density = 1.f;
 }
 
 int BoundingVolume::GetType()

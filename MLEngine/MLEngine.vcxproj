@@ -122,16 +122,18 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;$(SolutionDir)Libs\LuaBind\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libs\glm;$(SolutionDir)Libs\GLFW\include;$(SolutionDir)Libs\GLEW\include;$(SolutionDir)Libs\jsoncpp;$(SolutionDir)Libs\LuaBind\include;$(SolutionDir)Libs\lua\include;$(SolutionDir)Libs\LuaBridge\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;$(SolutionDir)Libs\LuaBind\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>luabind.lib;lua.lib;opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\GLFW\lib-msvc110;$(SolutionDir)Libs\GLEW\Win32\;$(SolutionDir)Libs\LuaBind\lib;$(SolutionDir)Libs\lua\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua.lib;opengl32.lib;glfw3.lib;glew32s.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <SubSystem>Windows</SubSystem>
@@ -170,7 +172,6 @@
     <ClCompile Include="Code\Components\StaticMeshNoIndices.cpp" />
     <ClCompile Include="Code\Components\Transform.cpp" />
     <ClCompile Include="Code\Core\Engine.cpp" />
-    <ClCompile Include="Code\Core\Keyboard.cpp" />
     <ClCompile Include="Code\Entities\Camera.cpp" />
     <ClCompile Include="Code\Entities\GeneralEntity.cpp" />
     <ClCompile Include="Code\entities\Robot.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Code\Interfaces\IState.cpp" />
     <ClCompile Include="Code\main.cpp" />
     <ClCompile Include="Code\Messages\BaseMessage.cpp" />
+    <ClCompile Include="Code\Messages\CollisionMessage.cpp" />
     <ClCompile Include="Code\Messages\KeyMessage.cpp" />
     <ClCompile Include="Code\Messages\MessageManager.cpp" />
     <ClCompile Include="Code\Messages\PositionMessage.cpp" />
@@ -200,6 +202,7 @@
     <ClCompile Include="Code\States\TestState.cpp" />
     <ClCompile Include="Code\Systems\CollisionSystem.cpp" />
     <ClCompile Include="Code\Systems\InputSystem.cpp" />
+    <ClCompile Include="Code\Systems\PhysicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Libs\TextureLoader\Bitmap.h" />
@@ -221,7 +224,6 @@
     <ClInclude Include="Code\Components\DebugComponent.h" />
     <ClInclude Include="Code\Components\Transform.h" />
     <ClInclude Include="Code\Core\Engine.h" />
-    <ClInclude Include="Code\Core\Keyboard.h" />
     <ClInclude Include="Code\Entities\Camera.h" />
     <ClInclude Include="Code\Entities\GeneralEntity.h" />
     <ClInclude Include="Code\entities\Robot.h" />
@@ -234,6 +236,7 @@
     <ClInclude Include="Code\Interfaces\IState.h" />
     <ClInclude Include="Code\Interfaces\IEntity.h" />
     <ClInclude Include="Code\Messages\BaseMessage.h" />
+    <ClInclude Include="Code\Messages\CollisionMessage.h" />
     <ClInclude Include="Code\Messages\KeyMessage.h" />
     <ClInclude Include="Code\Messages\MessageManager.h" />
     <ClInclude Include="Code\Messages\MessageTypes.h" />
@@ -253,6 +256,7 @@
     <ClInclude Include="Code\States\TestState.h" />
     <ClInclude Include="Code\Systems\CollisionSystem.h" />
     <ClInclude Include="Code\Systems\InputSystem.h" />
+    <ClInclude Include="Code\Systems\PhysicsSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
