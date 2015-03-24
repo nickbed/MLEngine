@@ -177,6 +177,11 @@ const glm::mat4 CameraEntity::GetViewProjMatrix()
 	return viewProjMatrix;
 }
 
+const glm::mat4 CameraEntity::GetViewProjSkyboxMatrix()
+{
+	return viewProjSkybox;
+}
+
 const float CameraEntity::GetPitch()
 {
 	return pitch;
@@ -194,4 +199,6 @@ void CameraEntity::RegenerateCameraMatrix()
 	cameraMatrix = glm::lookAt(Transform->GetPosition(), Transform->GetPosition() + cameraDirection, upVector);
 	viewMatrix = glm::perspective(cameraFOV, (float)1024/ (float)768, 0.1f, 1000.0f);
 	viewProjMatrix = viewMatrix * cameraMatrix;
+	//Shift the box around a bit here too
+	viewProjSkybox = viewMatrix * glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -0.13f, 0.0f) + cameraDirection, upVector);
 }

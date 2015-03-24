@@ -42,7 +42,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	IEntity* gotEntities = nullptr;
 	if(currentScene != nullptr)
 	{
-		gotEntities = currentScene->activeEntities.at(0);
+		gotEntities = currentScene->activeEntities[0];
 	}
 	std::unique_ptr<SceneConfig> gotConfig = std::unique_ptr<SceneConfig>(new SceneConfig, std::default_delete<SceneConfig>());
 	gotConfig->filename = filePath;
@@ -312,7 +312,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			{
 				std::string gotEntid = activeEntities[i].asString();
 				IEntity* gotEntPtr = gotConfig->sceneEntities->find(gotEntid)->second;
-				gotConfig->activeEntities.push_back(gotEntPtr);
+				gotConfig->activeEntities[gotConfig->numActiveEntities++] = gotEntPtr;
 			}
 
 			Json::Value activeLightsJSON = sceneData["activelights"];
@@ -507,7 +507,7 @@ bool SceneManager::InitCurrentScene()
 	{
 		return false;
 	}
-	if(currentScene->activeEntities.size() == 0)
+	if(currentScene->numActiveEntities== 0)
 	{
 		mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_ERROR, "Called init scene on an empty scene");
 		return false;
@@ -532,7 +532,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//Iterate through vector and init all entities
 	bool result = true;
 
-	int entCount = currentScene->activeEntities.size();
+	/*int entCount = currentScene->activeEntities.size();
 	auto it = currentScene->activeEntities.begin();
 	while (it != currentScene->activeEntities.end())
 	{
@@ -544,7 +544,13 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		else {
 			++it;
 		}
+	}*/
+
+	for (int i = 0; i < currentScene->numActiveEntities; ++i)
+	{
+		result &= currentScene->activeEntities[i]->Update(dt);
 	}
+
 	//for(std::map<std::string, CameraEntity*>::iterator it = currentScene->sceneCameras->begin(); it != currentScene->sceneCameras->end(); ++it)
 	//	{
 	//		CameraEntity* gotCamera = (*it).second;
@@ -573,7 +579,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 
 		//Num active ents
 		s.str(std::string());
-		s << "Active Ents: " << currentScene->activeEntities.size();
+		s << "Active Ents: " << currentScene->numActiveEntities;
 		graphicsManager->RenderText(s.str().c_str(), 5, 600, 30);
 		
 		//Camera pos
@@ -627,19 +633,18 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 	//send entities to graphics manager to have them drawn
 	//also send camera and light info
 	
-	return graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities,dt, true);
+	return graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities, currentScene->numActiveEntities,dt, true);
 }
 
 bool SceneManager::DestroyCurrentSceneEntities()
 {
 	if(currentScene == nullptr) return true;
-	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
+	for (int i = 0; i < currentScene->numActiveEntities; ++i)
 	{
-		(*it)->Destroy();
-		delete *it;
-		*it = nullptr;
+		currentScene->activeEntities[i]->Destroy();
+		delete currentScene->activeEntities[i];
+		currentScene->activeEntities[i] = nullptr;
 	}
-	currentScene->activeEntities.clear();
 	return true;
 }
 
@@ -758,16 +763,14 @@ bool SceneManager::ShouldLoadLevel()
 }
 
 
-
-
-
 IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
 {
 	IEntity* entToAdd = new IEntity;
 	currentScene->sceneEntities->insert(std::pair<std::string, IEntity*>(id, entToAdd));
 	if (isActive)
 	{
-		currentScene->activeEntities.push_back((currentScene->sceneEntities->find(id)->second));
+		//currentScene->activeEntities.push_back((currentScene->sceneEntities->find(id)->second));
+		currentScene->activeEntities[currentScene->numActiveEntities++] = currentScene->sceneEntities->find(id)->second;
 	}
 
 	return currentScene->sceneEntities->find(id)->second;
@@ -776,7 +779,19 @@ IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
 void SceneManager::DestroyEntity(std::string id)
 {
 	IEntity* entToRemove = currentScene->sceneEntities->find(id)->second;
-	std::vector<IEntity*>::iterator position = std::find(currentScene->activeEntities.begin(), currentScene->activeEntities.end(), entToRemove);
-	if (position != currentScene->activeEntities.end()) // == vector.end() means the element was not found
-		currentScene->activeEntities.erase(position);
+	for (int i = 0; i < currentScene->numActiveEntities; ++i)
+	{
+		if (currentScene->activeEntities[i] == entToRemove)
+		{
+			currentScene->numActiveEntities -= 1;
+			for (int j = 0; j < currentScene->numActiveEntities - i; ++j)
+			{
+				currentScene->activeEntities[i + j] = currentScene->activeEntities[i + j + 1];
+			}
+			return;
+		}
+	}
+	//std::vector<IEntity*>::iterator position = std::find(currentScene->activeEntities.begin(), currentScene->activeEntities.end(), entToRemove);
+	//if (position != currentScene->activeEntities.end()) // == vector.end() means the element was not found
+	//	currentScene->activeEntities.erase(position);
 }

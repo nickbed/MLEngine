@@ -14,7 +14,8 @@ out vec3 lightPos;
 out vec3 vertPos; //Vertex position in eye coords
 out vec3 viewDirection;
 out vec3 N;
-out vec2 texCoord; 
+out vec2 texCoord;
+out vec3 skyboxCoord; 
 
 void main(){
     gl_Position = viewprojmatrix * modelmatrix * vertexPosition_modelspace;
@@ -23,4 +24,5 @@ void main(){
 	N = normalize(normalmatrix * normals);
 	viewDirection = vec3(normalize(vertexPosition_modelspace));	
 	texCoord = fragTexCoord;
+	skyboxCoord = vec3(vertexPosition_modelspace);
 }

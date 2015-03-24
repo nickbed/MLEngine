@@ -243,6 +243,9 @@
     <ClCompile Include="Code\Systems\PhysicsSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="code\Graphics\SkyBox.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -401,6 +404,9 @@
     <ClInclude Include="Code\Systems\PhysicsSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="code\Graphics\SkyBox.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\default.frag" />
@@ -408,5 +414,7 @@
     <None Include="data\Shaders\text.frag" />
     <None Include="data\Shaders\text.vert" />
     <None Include="ClassDiagram.cd" />
+    <None Include="data\Shaders\skybox.frag" />
+    <None Include="data\Shaders\skybox.vert" />
   </ItemGroup>
 </Project>

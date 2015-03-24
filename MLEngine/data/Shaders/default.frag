@@ -4,7 +4,8 @@ in vec3 lightPos;
 in vec3 vertPos; //Vertex position in eye coords
 in vec3 N;
 in vec3 viewDirection;
-in vec2 texCoord; 
+in vec2 texCoord;
+in vec3 skyboxCoord; 
 
 uniform vec3 Kd;            // Diffuse reflectivity
 uniform vec3 Ld;            // Diffuse light intensity
@@ -13,6 +14,8 @@ uniform float Sp;			// Specular power
 
 uniform vec3 cameraPos;
 uniform sampler2D tex;
+uniform samplerCube gCubemapTexture;
+uniform vec3 isskybox;
 
 layout (location=0) out vec4 FragColour;
 

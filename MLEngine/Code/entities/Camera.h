@@ -37,6 +37,7 @@ public:
 	const glm::vec3 GetLookPosition();
 	const glm::mat4 GetViewMatrix();
 	const glm::mat4 GetViewProjMatrix();
+	const glm::mat4 GetViewProjSkyboxMatrix();
 	const float GetPitch();
 	const float GetYaw();
 
@@ -48,6 +49,7 @@ private:
 	glm::mat4 cameraMatrix;
 	glm::mat4 viewMatrix;
 	glm::mat4 viewProjMatrix;
+	glm::mat4 viewProjSkybox;
 	glm::vec3 cameraLookPosition;
 	glm::vec3 upVector;
 	glm::vec3 rightVector;

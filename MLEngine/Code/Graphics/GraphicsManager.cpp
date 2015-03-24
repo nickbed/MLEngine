@@ -249,6 +249,7 @@ GraphicsManager::GraphicsManager()
 	currentWindow = nullptr;
 	windowShouldBeClosed = false;
 	textRenderer = new TextRender();
+	
 }
 
 GraphicsManager::~GraphicsManager()
@@ -316,6 +317,17 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	success &= textRenderer->InitTextRender(xSize, ySize);
+	skyboxShader = mauvefileresource::ResourceManager::GetResource<Shader>("data\\shaders\\skybox");
+	skyboxShader->UseShader();
+	currentSkyBox = new SkyBox();
+	currentSkyBox->LoadFile("data\\images\\checkered_top.jpg", 0);
+	currentSkyBox->LoadFile("data\\images\\checkered_left.jpg", 1);
+	currentSkyBox->LoadFile("data\\images\\checkered_front.jpg", 2);
+	currentSkyBox->LoadFile("data\\images\\checkered_right.jpg", 3);
+	currentSkyBox->LoadFile("data\\images\\checkered_back.jpg", 4);
+	currentSkyBox->LoadFile("data\\images\\checkered_top.jpg", 5);
+	currentSkyBox->InitCubeMap();
+	currentSkyBox->InitSkybox();
 
 	if(!success) return false;
 	return true;
@@ -327,7 +339,7 @@ void GraphicsManager::SetWindowTitle(const char* windowTitle)
 	glfwSetWindowTitle(currentWindow, windowTitle);
 }
 
-bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt, bool poll)
+bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, float dt, bool poll)
 {
 	//Hook into the esc here to close the window - probably temp
 	if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE))
@@ -353,7 +365,7 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	// Less or equal depth appears to work best.
 	glDepthFunc(GL_LEQUAL);
 
-	glDepthMask(GL_TRUE);
+	
 
 	glfwSwapBuffers(currentWindow);
 	if (poll)
@@ -361,12 +373,16 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 		glfwPollEvents();
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
+	glDepthMask(GL_FALSE);
+	RenderSkybox();
+	glDepthMask(GL_TRUE);
+	//glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
+	
 	glClearDepth(1.0f);
 	bool result = true;
-	for (auto& e : entities)
+	for (int i = 0; i < numEntities; ++i)
 	{
-		result &= DrawAndUpdateWindow(e, dt, poll);
+		result &= DrawAndUpdateWindow(*entities++, dt, poll);
 	}
 	return result;
 }
@@ -420,6 +436,15 @@ void GraphicsManager::DrawDebug(IEntity* ent)
 		BoundingCapsule* gotCap = (BoundingCapsule*)w;
 		RenderComponents<BoundingCapsule>(gotCap, ent->Transform);
 	}
+}
+
+void GraphicsManager::RenderSkybox()
+{
+	skyboxShader->UseShader();
+	skyboxShader->SendUniformMat4("viewprojmatrix", currentCamera->GetViewProjSkyboxMatrix());
+	currentSkyBox->BindTexture();
+	currentSkyBox->RenderSkybox();
+	currentShader->UseShader();
 }
 
 bool GraphicsManager::UploadShaderDataForDraw(TransformComponent* modelTransform)
@@ -566,4 +591,9 @@ void GraphicsManager::SetActiveSceneLights(int numLights, SceneLight *lights)
 void GraphicsManager::SetCurrentShader(Shader* shader)
 {
 	currentShader = shader;
+}
+
+void GraphicsManager::SetCurrentSkybox(SkyBox* skybox)
+{
+	currentSkyBox = skybox;
 }
