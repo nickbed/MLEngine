@@ -39,7 +39,8 @@
 	  "toilet",
 	  "toilet1",
 	  "toiletwater1",
-	  "toiletwater2"
+	  "toiletwater2",
+	  "object_spawner"
     ],
     "entities": {
       "forestfloor": {
@@ -655,7 +656,17 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\robco.obj",
             "TextureFile": "data\\images\\robco.tga"
-          }
+		  },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 3.1,
+			"centerZ": 0.0,
+			"extentX": 3.5,
+			"extentY": 3.1,
+			"extentZ": 7.0,
+			"static": true
+		  }
         }
       },
 	  "toilet": {
@@ -678,7 +689,12 @@
             "OBJModel": "data\\models\\toilet.obj",
             "TextureFile": "data\\images\\toilet.tga"
           }
-        }
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\coin.lua",
+			"identifier": "Coin"
+		}
       },
 	  "toiletwater1": {
         "type": "generalentity",
@@ -722,7 +738,12 @@
             "OBJModel": "data\\models\\toilet.obj",
             "TextureFile": "data\\images\\toilet.tga"
           }
-        }
+        },
+		"script":
+		{
+			"path": "data\\Scripts\\coin.lua",
+			"identifier": "Coin"
+		}
       },
 	  "toiletwater2": {
         "type": "generalentity",
@@ -748,6 +769,10 @@
       },
       "robot1": {
         "type": "robot",
+		"script": {
+		  "path": "data\\Scripts\\jump.lua",
+		  "identifier": "Jump"
+		},
         "transform": {
           "posX": 0,
           "posY": 1,
@@ -766,6 +791,25 @@
             "OBJModel": "data\\models\\robbody.obj",
             "TextureFile": "data\\images\\rainbow.png"
           },
+		  "boundingcapsule": {
+		    "type":"boundingcapsule",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"radius": 0.5,
+			"extent": 0.5,
+			"static": false
+		  },
+		  "boundingboxo": {
+		    "type":"boundingboxo(disabled)",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 0.75,
+			"extentY": 1.0,
+			"extentZ": 0.5,
+			"static": false
+		  },
           "robotlleg": {
             "id": "robotLeftLeg",
             "type": "basicbone",
@@ -790,6 +834,20 @@
             "OBJModel": "data\\models\\roblarm.obj",
             "TextureFile": "data\\images\\rainbow.png"
           }
+        }
+      },
+	  "object_spawner": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
         }
       }
     },

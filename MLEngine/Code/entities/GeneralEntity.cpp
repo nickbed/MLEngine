@@ -12,6 +12,7 @@ void GeneralEntity::Init()
 bool GeneralEntity::Update(float dt)
 {
 	Components->UpdateAllComponents(dt);
+	Script->Update(dt);
 	return true;
 }
 

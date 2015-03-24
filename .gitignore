@@ -8,6 +8,8 @@ MLEngine/Test/**/*
 MLEngine/Test
 MLTest/Debug
 MLTest/Release
+EDITOR/GameEngineRacer/[Rr]elease
+EDITOR/GameEngineRacer/[Dd]ebug
 TestResults
 ipch
 *.sdf

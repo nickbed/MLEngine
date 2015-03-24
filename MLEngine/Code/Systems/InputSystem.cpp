@@ -6,6 +6,7 @@ InputSystem::~InputSystem()
 	if(currentMouse != nullptr) currentMouse->Destroy();
 }
 
+
 void InputSystem::Init()
 {
 	currentMouse = nullptr;

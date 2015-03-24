@@ -14,6 +14,16 @@ void IComponent::Destroy()
 {
 }
 
+TransformComponent* IComponent::GetParentTransform()
+{
+	return parentTransform;
+}
+
+void IComponent::SetParentTransform(TransformComponent* pTransform)
+{
+	parentTransform = pTransform;
+}
+
 IComponent::~IComponent()
 {
 }

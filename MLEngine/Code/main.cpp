@@ -25,7 +25,8 @@ int main()
 	}
 #ifdef _DEBUG
 	DEBUGWRITEINFO("Closed with no errors", "");
-	system("pause");
+	DEBUGWRITEINFO("Press any key to continue...", "");
+	std::cin.get();
 #endif
 	return 0;
 }

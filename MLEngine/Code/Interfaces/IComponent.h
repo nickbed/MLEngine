@@ -1,6 +1,7 @@
 #ifndef ICOMPONENT_H
 #define ICOMPONENT_H
 #include "../Messages/BaseMessage.h"
+#include "../Components/Transform.h"
 #include <string>
 
 //Interface (Abstract class) that defines how components interact with entities
@@ -21,8 +22,14 @@ public:
 	//Destructor
 	virtual ~IComponent();
 
+	void SetParentTransform(TransformComponent* pTransform);
+
+	TransformComponent* GetParentTransform();
 	//ID
 	std::string id;
+	
+private:
+	TransformComponent* parentTransform;
 };
 
 

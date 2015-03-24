@@ -79,11 +79,17 @@
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{9cfb4b6d-24f6-47c2-b088-39fba1ae8681}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{ee31f593-31da-44c2-b831-30b8b924bc51}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{8e95219e-05ea-4f92-bb90-b66d6ed93d56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts">
+      <UniqueIdentifier>{df061284-88f6-4ee7-86c1-39d0b76b0db4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scripts">
+      <UniqueIdentifier>{2daca971-054d-4bc4-9b3e-22b0a349a549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{ee31f593-31da-44c2-b831-30b8b924bc51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +195,12 @@
     <ClCompile Include="Code\Graphics\TextRender.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Scripts\ScriptManager.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\Script.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
     <ClCompile Include="Code\Interfaces\IGPUResource.cpp">
       <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
@@ -206,6 +218,30 @@
     </ClCompile>
     <ClCompile Include="Code\Messages\KeyMessage.cpp">
       <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingBox.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingVolume.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Systems\CollisionSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingSphere.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingBoxO.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Components\BoundingCapsule.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Messages\CollisionMessage.cpp">
+      <Filter>Source Files\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Systems\PhysicsSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -279,10 +315,10 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Code\Scenes\SceneManager.h">
-      <Filter>Scene</Filter>
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Code\Scenes\SceneTypes.h">
-      <Filter>Scene</Filter>
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Code\Resources\OBJModel.h">
       <Filter>Header Files\Resources</Filter>
@@ -314,6 +350,15 @@
     <ClInclude Include="Code\Graphics\TextRender.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Scripts\ScriptManager.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\Script.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Scripts\ClassHelpers.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
     <ClInclude Include="Code\Resources\GPUModel.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
@@ -331,6 +376,30 @@
     </ClInclude>
     <ClInclude Include="Code\Messages\KeyMessage.h">
       <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingBox.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingVolume.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Systems\CollisionSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingSphere.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingBoxO.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Components\BoundingCapsule.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Messages\CollisionMessage.h">
+      <Filter>Header Files\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Systems\PhysicsSystem.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

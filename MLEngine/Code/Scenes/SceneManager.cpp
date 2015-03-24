@@ -1,5 +1,7 @@
 #include "SceneManager.h"
 
+std::unique_ptr<SceneConfig> SceneManager::currentScene;
+
 SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 {
 	NULLPTRCHECK(graph, "Null graphicsmanager ptr passed to scene manager");
@@ -28,6 +30,7 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 
 std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
 {
+	CollisionSystem::ClearVolumes();
 	shouldLoadLevel = false;
 	bool menu;
 	graphicsManager->SetWindowTitle("Mauve Engine - Loading....");
@@ -76,16 +79,18 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					if (entType == "generalentity")
 					{
 						entToCreate = new GeneralEntity();
+						entToCreate->id = entID.c_str();
 					}
 					if (entType == "robot")
 					{
 						entToCreate = new Robot();
+						entToCreate->id = entID.c_str();
 						using namespace std::placeholders;
 						Robot* tempRobot = (Robot*)entToCreate;
-						AddMessageListner("robotMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, _1));
+						AddMessageListner("robotMovement", tempRobot, std::bind(&Robot::msg_SetMovePosition, tempRobot, std::placeholders::_1));
 					}
 
-					//Iterate over data inside the entity (components, transform)
+					//Iterate over data inside the entity (components, transform, script)
 					for (Json::Value::iterator it2 = value.begin(); it2 != value.end(); ++it2)
 					{
 						Json::Value key2 = it2.key();
@@ -201,6 +206,18 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 								//		}
 								//	}
 								//}
+								if (componentContents["type"] == "boundingbox")
+								{
+									AddBoundingBox(componentContents,entToCreate);
+								}
+								if (componentContents["type"] == "boundingboxo")
+								{
+									AddBoundingBoxO(componentContents,entToCreate);
+								}
+								if (componentContents["type"] == "boundingcapsule")
+								{
+									AddBoundingCapsule(componentContents,entToCreate);
+								}
 							}
 						}
 
@@ -217,9 +234,19 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 							entToCreate->Transform->SetRotation(gotRotation);
 							entToCreate->Transform->SetScale(gotScale);
 						}
+
+						//*************************SCRIPT HANDLING**************************************
+						//*************************SCRIPT HANDLING**************************************
+						//*************************SCRIPT HANDLING**************************************
+						else if (key2.asString() == "script")
+						{
+							entToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
+							AddMessageListner("msg_collision", entToCreate, std::bind(&ScriptComponent::msg_Collision, entToCreate->Script, std::placeholders::_1));
+						}
 					}
 					//Put entity into our map
 					std::string entIDtoadd = entID;
+					entToCreate->id = entIDtoadd.c_str();
 					gotConfig->sceneEntities->insert(std::pair<std::string, IEntity*>(entIDtoadd, entToCreate));
 				}
 			}
@@ -258,6 +285,11 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					std::string cameraIDtoadd = cameraID;
 					gotConfig->sceneCameras->insert(std::pair<std::string, CameraEntity*>(cameraIDtoadd, camToCreate));
 
+					if (value.isMember("script"))
+					{
+						Json::Value value2 = value["script"];
+						camToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
+					}
 				}
 
 			}
@@ -323,7 +355,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 				if (menu)
 				{
-					AddMessageListner("loadGame", this, std::bind(&SceneManager::msg_LoadGame, this, _1));
+					AddMessageListner("loadGame", this, std::bind(&SceneManager::msg_LoadGame, this, std::placeholders::_1));
 				}
 			}
 
@@ -335,7 +367,6 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 		return std::move(nullptr);
 	}
 
-	
 	using namespace std::placeholders;
 	
 	//TODO - fixthis
@@ -360,12 +391,12 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	if(gotConfig->sceneEntities->find("robot1") != gotConfig->sceneEntities->end())
 	{
-		AddMessageListner("mouseMovement",(Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, _1));
+		AddMessageListner("mouseMovement", (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::placeholders::_1));
 	}
 
-	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, _1));
+	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::placeholders::_1));
 
-	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, _1));
+	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, std::placeholders::_1));
 	
 	
 	
@@ -373,23 +404,94 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	CameraEntity* camToSetup = gotConfig->sceneCameras->find("camera1")->second;
 
-	AddMessageListner("cameraMovement", camToSetup, std::bind(&CameraEntity::msg_SetMovePosition, camToSetup, _1));
+	AddMessageListner("cameraMovement", camToSetup, std::bind(&CameraEntity::msg_SetMovePosition, camToSetup, std::placeholders::_1));
 
-	AddMessageListner("mouseMovement", camToSetup, std::bind(&CameraEntity::msg_SetLookPosition, camToSetup, _1));
+	AddMessageListner("mouseMovement", camToSetup, std::bind(&CameraEntity::msg_SetLookPosition, camToSetup, std::placeholders::_1));
 
-	AddMessageListner("cameraMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, _1));
+	AddMessageListner("cameraMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetMovePosition, gotConfig->currentSceneCamera, std::placeholders::_1));
 
-	AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, _1));
+	AddMessageListner("mouseMovement", gotConfig->currentSceneCamera, std::bind(&CameraEntity::msg_SetLookPosition, gotConfig->currentSceneCamera, std::placeholders::_1));
 
-	//For realoding the scene
-	AddMessageListner("reloadScene", this, std::bind(&SceneManager::msg_ReloadScene, this, _1));
+	//For reloading the scene
+	AddMessageListner("reloadScene", this, std::bind(&SceneManager::msg_ReloadScene, this, std::placeholders::_1));
 
-	AddMessageListner("showDebug", this, std::bind(&SceneManager::msg_ShowDebug, this, _1));
+	AddMessageListner("showDebug", this, std::bind(&SceneManager::msg_ShowDebug, this, std::placeholders::_1));
 
 	
 	delete gotJSON;
 	return std::move(gotConfig);
 }
+
+
+void SceneManager::AddBoundingBox(Json::Value contents, IEntity* entToCreate)
+{
+	bool gotStatic = contents["static"].asBool();
+    glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
+    float gotExtent = contents["extent"].asFloat();
+    float gotRadius = contents["radius"].asFloat();
+    BoundingCapsule* gotComponent = new BoundingCapsule("boundingcapsule",gotCenter,gotRadius,gotExtent,gotStatic);
+    //gotComponent->SetTransform(entToCreate->Transform);
+    entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
+    if(gotStatic==true)
+    {
+            CollisionSystem::AddStaticVolume(gotComponent);
+    }
+    else
+    {
+            CollisionSystem::AddDynamicVolume(gotComponent);
+    }
+}
+
+void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
+{
+	bool gotStatic = contents["static"].asBool();
+	float gotDensity;
+	if(contents.isMember("density"))
+	{
+		gotDensity = contents["density"].asFloat();
+	}
+	else
+	{
+		gotDensity = 1.f;
+	}
+	glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
+	glm::vec3 gotExtent = glm::vec3(contents["extentX"].asFloat(), contents["extentY"].asFloat(), contents["extentZ"].asFloat());
+	BoundingBoxO* gotComponent = new BoundingBoxO("boundingbox",gotCenter,gotExtent,gotStatic);
+	gotComponent->Rigid_density = gotDensity;
+	gotComponent->Rigid_mass = (gotExtent.x*gotExtent.y*gotExtent.z);
+	gotComponent->Rigid_inverse = 1.f / gotComponent->Rigid_mass * gotComponent->Rigid_density;
+
+	//gotComponent->SetTransform(entToCreate->Transform);
+	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
+	if(gotStatic==true)
+	{
+		CollisionSystem::AddStaticVolume(gotComponent);
+	}
+	else
+	{
+		CollisionSystem::AddDynamicVolume(gotComponent);
+	}
+}
+
+void SceneManager::AddBoundingCapsule(Json::Value contents, IEntity* entToCreate)
+{
+	bool gotStatic = contents["static"].asBool();
+	glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
+	float gotExtent = contents["extent"].asFloat();
+	float gotRadius = contents["radius"].asFloat();
+	BoundingCapsule* gotComponent = new BoundingCapsule("boundingcapsule",gotCenter,gotRadius,gotExtent,gotStatic);
+	//gotComponent->SetTransform(entToCreate->Transform);
+	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
+	if(gotStatic==true)
+	{
+		CollisionSystem::AddStaticVolume(gotComponent);
+	}
+	else
+	{
+		CollisionSystem::AddDynamicVolume(gotComponent);
+	}
+}
+
 
 bool SceneManager::InitSceneManager()
 {
@@ -429,11 +531,20 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//iterate through vector and update all entities and their components
 	//Iterate through vector and init all entities
 	bool result = true;
-	for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
+
+	int entCount = currentScene->activeEntities.size();
+	auto it = currentScene->activeEntities.begin();
+	while (it != currentScene->activeEntities.end())
 	{
 		result &= (*it)->Update(dt);
+		if (entCount != currentScene->activeEntities.size())
+		{
+			it = currentScene->activeEntities.end();
+		}
+		else {
+			++it;
+		}
 	}
-
 	//for(std::map<std::string, CameraEntity*>::iterator it = currentScene->sceneCameras->begin(); it != currentScene->sceneCameras->end(); ++it)
 	//	{
 	//		CameraEntity* gotCamera = (*it).second;
@@ -503,6 +614,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 			s << it->first;
 			graphicsManager->RenderText(s.str().c_str(), 750, startpos, 15);
 			startpos -= 10;
+			graphicsManager->DrawDebug(it->second);
 		}
 	}
 	if(isLoading) ReloadScene();
@@ -647,3 +759,24 @@ bool SceneManager::ShouldLoadLevel()
 
 
 
+
+
+IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
+{
+	IEntity* entToAdd = new IEntity;
+	currentScene->sceneEntities->insert(std::pair<std::string, IEntity*>(id, entToAdd));
+	if (isActive)
+	{
+		currentScene->activeEntities.push_back((currentScene->sceneEntities->find(id)->second));
+	}
+
+	return currentScene->sceneEntities->find(id)->second;
+}
+
+void SceneManager::DestroyEntity(std::string id)
+{
+	IEntity* entToRemove = currentScene->sceneEntities->find(id)->second;
+	std::vector<IEntity*>::iterator position = std::find(currentScene->activeEntities.begin(), currentScene->activeEntities.end(), entToRemove);
+	if (position != currentScene->activeEntities.end()) // == vector.end() means the element was not found
+		currentScene->activeEntities.erase(position);
+}

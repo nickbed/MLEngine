@@ -1,13 +1,12 @@
-#ifndef DebugComponent_H
-#define DebugComponent_H
-#include "../Interfaces/IComponent.h"
+#ifndef TRANFORMCOMPONENT_H
+#define TRANFORMCOMPONENT_H
 #include "../Messages/BaseMessage.h"
 #include "../Messages/PositionMessage.h"
 #include "GLM\glm.hpp"
 #include <iostream>
 
 //For transforming/positioning stuff
-class TransformComponent : public IComponent
+class TransformComponent 
 {
 public:
 	//Constructor for the component
@@ -17,9 +16,9 @@ public:
 	TransformComponent(std::string id, glm::vec3 pos, glm::vec3 rot, glm::vec3 scl);
 
 	//Getters/Setters
-	glm::vec3 GetPosition();
-	glm::vec3 GetRotation();
-	glm::vec3 GetScale();
+	glm::vec3 GetPosition() const { return position;};
+	glm::vec3 GetRotation() const {	return rotation;};
+	glm::vec3 GetScale() const { return scale; };
 
 	void SetPosition(glm::vec3 pos);
 	void SetRotation(glm::vec3 rot);

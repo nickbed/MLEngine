@@ -1,27 +1,27 @@
 #include "Transform.h"
 
-TransformComponent::TransformComponent(std::string id) : IComponent(id)
+TransformComponent::TransformComponent(std::string id)
 {
 	position = glm::vec3(0.0f);
 	rotation = glm::vec3(0.0f);
 	scale = glm::vec3(1.0f);
 }
 
-TransformComponent::TransformComponent(std::string id, glm::vec3 pos) : IComponent(id)
+TransformComponent::TransformComponent(std::string id, glm::vec3 pos)
 {
 	position = pos;
 	rotation = glm::vec3(0.0f);
 	scale = glm::vec3(1.0f);
 }
 
-TransformComponent::TransformComponent(std::string id, glm::vec3 pos, glm::vec3 rot) : IComponent(id)
+TransformComponent::TransformComponent(std::string id, glm::vec3 pos, glm::vec3 rot)
 {
 	position = pos;
 	rotation = rot;
 	scale = glm::vec3(1.0f);
 }
 
-TransformComponent::TransformComponent(std::string id, glm::vec3 pos, glm::vec3 rot, glm::vec3 scl) : IComponent(id)
+TransformComponent::TransformComponent(std::string id, glm::vec3 pos, glm::vec3 rot, glm::vec3 scl)
 {
 	position = pos;
 	rotation = rot;
@@ -45,21 +45,6 @@ void TransformComponent::SetRotation(glm::vec3 rot)
 void TransformComponent::SetScale(glm::vec3 scl)
 {
 	scale = scl;
-}
-
-glm::vec3 TransformComponent::GetPosition()
-{
-	return position;
-}
-
-glm::vec3 TransformComponent::GetRotation()
-{
-	return rotation;
-}
-
-glm::vec3 TransformComponent::GetScale()
-{
-	return scale;
 }
 
 void TransformComponent::Init()

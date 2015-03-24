@@ -9,6 +9,8 @@
 #include "..\Components\StaticMeshNoIndices.h"
 #include "..\Components\StaticMesh.h"
 #include "..\Components\BasicBone.h"
+#include "..\Components\BoundingBoxO.h"
+#include "..\Components\BoundingCapsule.h"
 #include "..\Resources\ResourceManager.h"
 #include "..\Entities\Camera.h"
 #include "..\Scenes\SceneTypes.h"
@@ -39,6 +41,7 @@ public:
 	static void WindowCloseCallback(GLFWwindow* window);
 
 	void DrawEntity(IEntity* ent);
+	void DrawDebug(IEntity* ent);
 
 	template <class IComponent>
 	void RenderComponents(IComponent* componentToRender, TransformComponent* modelTransform);
