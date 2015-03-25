@@ -26,6 +26,7 @@ public:
 	bool SendUniformVec3(const char* uniformName, const glm::vec3 vector);
 	bool SendUniformVec2(const char* uniformName, const glm::vec2 vector);
 	bool SendUniform1i(const char* uniformName, const GLint i);
+	bool SendUniform1f(const char* uniformName, const GLfloat i);
 
 	void UseShader();
 

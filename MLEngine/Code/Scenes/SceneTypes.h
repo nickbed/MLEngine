@@ -36,15 +36,16 @@ struct SceneConfig
 		sceneEntities = std::unique_ptr<std::map<std::string, IEntity*>>(new std::map<std::string, IEntity*>, std::default_delete<std::map<std::string, IEntity*>>());
 		sceneCameras = std::unique_ptr<std::map<std::string, CameraEntity*>>(new std::map<std::string, CameraEntity*>, std::default_delete<std::map<std::string, CameraEntity*>>());
 		sceneLights = std::unique_ptr<std::map<std::string, SceneLight*>>(new std::map<std::string, SceneLight*>, std::default_delete<std::map<std::string, SceneLight*>>());
+		numActiveEntities = 0;
+		numActiveLights = 0;
 	}
 
 	~SceneConfig()
 	{
-		for (std::vector<IEntity*>::iterator it = activeEntities.begin(); it != activeEntities.end(); ++it)
+		for (int i = 0; i < numActiveEntities; ++i)
 		{
-			(*it)->Destroy();
+			activeEntities[i]->Destroy();
 		}
-		activeEntities.clear();
 
 		std::map<std::string, IEntity*>::iterator startit = sceneEntities->begin();
 		for(auto it = sceneEntities->begin(); it != sceneEntities->end(); ++it)
@@ -52,6 +53,7 @@ struct SceneConfig
 			if(it->second != nullptr)
 			{
 				delete it->second;
+				it->second = nullptr;
 			}
 		}
 		sceneEntities->clear();
@@ -87,10 +89,14 @@ struct SceneConfig
 	//END Workaround for a VCC bug -_-
 
 	//Active in the scene
-	std::vector<IEntity*> activeEntities;
+	//std::vector<IEntity*> activeEntities;
+	IEntity* activeEntities[2000];
+	int numActiveEntities;
+	SceneLight activeLights[128];
+	int numActiveLights;
 	Shader* currentSceneShader;
 	CameraEntity* currentSceneCamera;
-	SceneLight* currentSceneLight;
+	//SceneLight* currentSceneLight;
 
 	//For storing stuff created by the JSON file
 	std::unique_ptr<std::map<std::string, IEntity*>> sceneEntities;

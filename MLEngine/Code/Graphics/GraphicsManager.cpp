@@ -227,9 +227,12 @@ void GraphicsManager::RenderComponents<BoundingCapsule>(BoundingCapsule* compone
 	glEnd();
 }
 
-void GraphicsManager::RenderText(std::string text, int x, int y, int size, std::vector<IEntity*> entities)
+void GraphicsManager::RenderText(std::string text, int x, int y, int size, IEntity* entity)
 {
-	DrawAndUpdateWindow(entities, 0.1f, false);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
+	glClearDepth(1.0f);
+	if(entity != nullptr) DrawAndUpdateWindow(entity, 0.0f, false);
 	textRenderer->Draw2DText(text, x, y, size);
 	glfwSwapBuffers(currentWindow);
 	//Hack
@@ -246,6 +249,7 @@ GraphicsManager::GraphicsManager()
 	currentWindow = nullptr;
 	windowShouldBeClosed = false;
 	textRenderer = new TextRender();
+	
 }
 
 GraphicsManager::~GraphicsManager()
@@ -313,6 +317,17 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	glfwSetInputMode(currentWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	success &= textRenderer->InitTextRender(xSize, ySize);
+	skyboxShader = mauvefileresource::ResourceManager::GetResource<Shader>("data\\shaders\\skybox");
+	skyboxShader->UseShader();
+	currentSkyBox = new SkyBox();
+	currentSkyBox->LoadFile("data\\images\\checkered_top.jpg", 0);
+	currentSkyBox->LoadFile("data\\images\\checkered_left.jpg", 1);
+	currentSkyBox->LoadFile("data\\images\\checkered_front.jpg", 2);
+	currentSkyBox->LoadFile("data\\images\\checkered_right.jpg", 3);
+	currentSkyBox->LoadFile("data\\images\\checkered_back.jpg", 4);
+	currentSkyBox->LoadFile("data\\images\\checkered_top.jpg", 5);
+	currentSkyBox->InitCubeMap();
+	currentSkyBox->InitSkybox();
 
 	if(!success) return false;
 	return true;
@@ -324,7 +339,7 @@ void GraphicsManager::SetWindowTitle(const char* windowTitle)
 	glfwSetWindowTitle(currentWindow, windowTitle);
 }
 
-bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float dt, bool poll)
+bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, float dt, bool poll)
 {
 	//Hook into the esc here to close the window - probably temp
 	if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE))
@@ -350,22 +365,31 @@ bool GraphicsManager::DrawAndUpdateWindow(std::vector<IEntity*> entities, float 
 	// Less or equal depth appears to work best.
 	glDepthFunc(GL_LEQUAL);
 
-	glDepthMask(GL_TRUE);
+	
 
 	glfwSwapBuffers(currentWindow);
-	if(poll)
+	if (poll)
 	{
 		glfwPollEvents();
 	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
-	glClearDepth(1.0f);
+	glDepthMask(GL_FALSE);
+	RenderSkybox();
+	glDepthMask(GL_TRUE);
+	//glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
 	
-	//Draw stuff
-	for (auto& x: entities)
+	glClearDepth(1.0f);
+	bool result = true;
+	for (int i = 0; i < numEntities; ++i)
 	{
-		DrawEntity(x);
+		result &= DrawAndUpdateWindow(*entities++, dt, poll);
 	}
+	return result;
+}
+
+bool GraphicsManager::DrawAndUpdateWindow(IEntity* entity, float dt, bool poll)
+{
+	DrawEntity(entity);
 	return true;
 }
 
@@ -414,6 +438,15 @@ void GraphicsManager::DrawDebug(IEntity* ent)
 	}
 }
 
+void GraphicsManager::RenderSkybox()
+{
+	skyboxShader->UseShader();
+	skyboxShader->SendUniformMat4("viewprojmatrix", currentCamera->GetViewProjSkyboxMatrix());
+	currentSkyBox->BindTexture();
+	currentSkyBox->RenderSkybox();
+	currentShader->UseShader();
+}
+
 bool GraphicsManager::UploadShaderDataForDraw(TransformComponent* modelTransform)
 {
 	currentShader->UseShader();
@@ -438,13 +471,21 @@ bool GraphicsManager::UploadShaderDataForDraw(TransformComponent* modelTransform
 	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
 
 	//Lighting stuff - TODO make some kind of material out of this
-	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
+	currentShader->SendUniformVec3("lightposition", currentLights[0].lightPosition);
 
 	//Reflectivity
-	currentShader->SendUniformVec3("Kd", currentSceneLight->surfaceReflectivity);
+	currentShader->SendUniformVec3("Kd", currentLights[0].surfaceReflectivity);
 
 	//Light intensity
-	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
+	currentShader->SendUniformVec3("Ld", currentLights[0].lightIntensity);
+
+	//TEMP
+	currentShader->SendUniformVec3("Sd", glm::vec3(0.2, 0.2, 0.2));
+
+	currentShader->SendUniform1f("Sp", 35.0f);
+
+	//Camera position
+	currentShader->SendUniformVec3("cameraPos", currentCamera->GetCameraPosition());
 	return true;
 }
 
@@ -486,13 +527,13 @@ bool GraphicsManager::UploadBoneShaderDataForDraw(TransformComponent modelTransf
 	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
 
 	//Lighting stuff - TODO make some kind of material out of this
-	currentShader->SendUniformVec3("lightposition", currentSceneLight->lightPosition);
+	currentShader->SendUniformVec3("lightposition", currentLights[0].lightPosition);
 
 	//Reflectivity
-	currentShader->SendUniformVec3("Kd", currentSceneLight->surfaceReflectivity);
+	currentShader->SendUniformVec3("Kd", currentLights[0].surfaceReflectivity);
 
 	//Light intensity
-	currentShader->SendUniformVec3("Ld", currentSceneLight->lightIntensity);
+	currentShader->SendUniformVec3("Ld", currentLights[0].lightIntensity);
 	return true;
 }
 
@@ -518,10 +559,10 @@ CameraEntity* GraphicsManager::GetCurrentCamera()
 	return currentCamera;
 }
 
-SceneLight* GraphicsManager::GetCurrentSceneLight()
-{
-	return currentSceneLight;
-}
+//SceneLight* GraphicsManager::GetCurrentSceneLight()
+//{
+//	return currentSceneLight;
+//}
 
 //TODO - maybe more than one shader?
 Shader* GraphicsManager::GetCurrentShader()
@@ -534,12 +575,25 @@ void GraphicsManager::SetCurrentCamera(CameraEntity* cam)
 	currentCamera = cam;
 }
 
-void GraphicsManager::SetCurrentSceneLight(SceneLight* light)
+//void GraphicsManager::SetCurrentSceneLight(SceneLight* light)
+//{
+//	currentSceneLight = light;
+//}
+
+void GraphicsManager::SetActiveSceneLights(int numLights, SceneLight *lights)
 {
-	currentSceneLight = light;
+	for (int i = 0; i < numLights; ++i)
+	{
+		currentLights[i] = *lights++;
+	}
 }
 
 void GraphicsManager::SetCurrentShader(Shader* shader)
 {
 	currentShader = shader;
+}
+
+void GraphicsManager::SetCurrentSkybox(SkyBox* skybox)
+{
+	currentSkyBox = skybox;
 }

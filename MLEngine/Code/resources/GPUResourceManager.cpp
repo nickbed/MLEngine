@@ -42,7 +42,8 @@ namespace mauvegpuresource
 		ReserveMapSpace();
 		//Does it already exist?
 		IGPUResource* gotResource = nullptr;
-		if (gpuresources->find(name) == gpuresources->end())
+		auto gotMapResource = gpuresources->find(name);
+		if (gotMapResource == gpuresources->end())
 		{
 			//Put it into the map
 			if (model->UploadData()) DEBUGWRITEINFO("Successfully loaded GPU Model:", name)
@@ -55,7 +56,7 @@ namespace mauvegpuresource
 		}
 		else
 		{
-			gotResource = gpuresources->find(name)->second;
+			gotResource = gotMapResource->second;
 		}
 		model->UploadData();
 		return model;
@@ -64,11 +65,12 @@ namespace mauvegpuresource
 	template <>
 	GPUModel* GPUResourceManager::GetResource<GPUModel>(std::string name)
 	{
-		if (gpuresources->find(name) == gpuresources->end())
+		auto gotMapResource = gpuresources->find(name);
+		if ( gotMapResource == gpuresources->end())
 		{
 			return nullptr;
 		}
-		IGPUResource* gotResource = gpuresources->find(name)->second;
+		IGPUResource* gotResource = gotMapResource->second;
 		return (GPUModel*)gotResource;
 		return nullptr;
 	}
