@@ -47,6 +47,8 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			/////TODO NEED TO CHECK IF MODEL IS ALREADY LOADED
 			filename = filename.substr(filename.find("data"));
 			std::string name = filename.substr(filename.find_last_of("/\\")+1);
+			GameObject* g = new GameObject();
+			int namecount = 0;
 			if (rManager->getModel_const().find(filename) == rManager->getModel_const().end() ) 
 			{
 				ModelLoader mLoader;
@@ -57,14 +59,26 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 				m->textureCoords = mLoader.getTextureCoords();
 				rManager->addToModel(std::pair<std::string, Model*>(filename,m));
 			}
-			GameObject* g = new GameObject();
+			else {
+				
+				for(int i=0; i < m_scene->GetGameObjects().size(); ++i)
+				{
+					
+					if( m_scene->GetGameObjects().at(i)->getName() == name+std::to_string(namecount))
+					{
+						++namecount;
+					}
+				}
+				
+			}
+			g->setName(name+std::to_string(namecount));
+			g->addToComponentID(name+std::to_string(namecount));
 			g->setEntityType("generalentity");
 			g->getTransformComp()->setTranslate(glm::vec3(0,0,0));
 			g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
 			g->getTransformComp()->setRotate(glm::quat(0.0, 0.0, 0.0,0.0));
-			g->setName(name);
-			g->addToComponentID(name);
-			g->addToComponentTYPE("mesh");
+			
+			g->addToComponentTYPE("staticmesh");
 			g->addToComponentModelFiles(filename);
 			g->getRenderComp()->init(rManager->getModel().at(filename),rManager->getTexture().at("data\\images\\default.png"));
 			g->getRenderComp()->update();
