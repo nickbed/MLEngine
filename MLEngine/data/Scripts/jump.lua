@@ -39,7 +39,6 @@ end
 function Jump.Collision(this, collision)
 		Jump.yvel = 0
 		Jump.candouble = 1
-		print (collision.AxisBox)
 end
 
 return Jump

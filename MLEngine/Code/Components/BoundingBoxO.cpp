@@ -6,6 +6,8 @@ BoundingBoxO::BoundingBoxO(std::string id) : BoundingVolume(id)
 	center = glm::vec3(0.0);
 	extent = glm::vec3(1.0);
 	isStatic = true;
+	Rigid_vel = glm::vec3(0.f);
+	Rigid_ang = glm::vec3(0.f);
 }
 
 BoundingBoxO::BoundingBoxO(std::string id, glm::vec3 center, glm::vec3 extend, bool isStatic) : BoundingVolume(id)
@@ -14,6 +16,8 @@ BoundingBoxO::BoundingBoxO(std::string id, glm::vec3 center, glm::vec3 extend, b
 	this->center = center;
 	this->extent = extend;
 	this->isStatic = isStatic;
+	Rigid_vel = glm::vec3(0.f);
+	Rigid_ang = glm::vec3(0.f);
 }
 
 void BoundingBoxO::SetCenter(glm::vec3 cen)

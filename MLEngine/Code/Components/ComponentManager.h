@@ -35,6 +35,7 @@ public:
 private:
 	std::unique_ptr<componentMapType> componentList;
 	TransformComponent* parentTransform;
+
 };
 
 #endif
