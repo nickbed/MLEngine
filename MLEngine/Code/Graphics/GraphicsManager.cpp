@@ -376,6 +376,9 @@ bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, f
 	glDepthMask(GL_FALSE);
 	RenderSkybox();
 	glDepthMask(GL_TRUE);
+	//Transparency
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
 	
 	glClearDepth(1.0f);
