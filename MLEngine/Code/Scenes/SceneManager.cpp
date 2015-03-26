@@ -401,7 +401,6 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	
 	
 	//bad
-
 	CameraEntity* camToSetup = gotConfig->sceneCameras->find("camera1")->second;
 
 	AddMessageListner("cameraMovement", camToSetup, std::bind(&CameraEntity::msg_SetMovePosition, camToSetup, std::placeholders::_1));

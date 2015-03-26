@@ -39,7 +39,7 @@ void main()
    vec4 Id = vec4(Ld,1.0) * max(dot(N,L), 0.0);
    Id = clamp(Id, 0.0, 1.0);
    
-   vec4 diffuseLight = vec4(attenuation) * vec4(texture(tex, texCoord).rgb, 1.0) + vec4(Kd,1.0) * Id;
+   vec4 diffuseLight = vec4(vec3(attenuation), 1.0) * texture(tex, texCoord) + vec4(Kd,0.0) * Id;
 
    //calulate Specular light
    vec3 viewVector = normalize(cameraPos - vertPos);
@@ -56,8 +56,8 @@ void main()
 
    //Multiply the Reflectivity by the Diffuse intensity
    //FragColour = (diffuseLight  + ambientLight + vec4(finalSpec, 1.0)) * vec4(intensity, 1.0) ;
-   FragColour = diffuseLight + vec4(finalSpec, 1.0);
-   //FragColour = vec4(finalSpec, 1.0);	 
+   FragColour = diffuseLight + vec4(finalSpec, 0.0);
+  // FragColour = vec4(finalSpec, 1.0);	 
    //FragColour = texture(tex, texCoord);
    //FragColour = vec4(vec3(gl_FragCoord.z), 1.0f);
 }

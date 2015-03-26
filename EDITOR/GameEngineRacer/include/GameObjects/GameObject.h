@@ -50,6 +50,8 @@ public:
 	void addToComponentTYPE(const std::string& type){componentTypes.push_back(type);};
 	void addToComponentModelFiles(const std::string& modelFileName){modelFiles.push_back(modelFileName);};
 	void addToComponentTextureFiles(const std::string& textureFileName){textureFiles.push_back(textureFileName);};
+	void replaceComponentTextureFile(const std::string& textureFileName){textureFiles.pop_back();textureFiles.push_back(textureFileName);};
+
 
 	const std::vector<std::string>& getComponentIDs()const{return componentIDs;};
 	const std::vector<std::string>& getComponentTypes()const{return componentTypes;};

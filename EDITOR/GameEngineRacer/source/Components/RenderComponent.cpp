@@ -31,7 +31,14 @@ void RenderComponent::loadTexture(GameObject* g)
 		
 		setTexture(rManager->getTexture().at(filename));
 		glBindTexture(GL_TEXTURE_2D,texture->object());
-		g->addToComponentTextureFiles(filename);
+		if(g->getComponentTextureFiles().size() != 0)
+		{
+			g->replaceComponentTextureFile(filename);
+		}else
+		{
+			g->addToComponentTextureFiles(filename);
+		}
+		
 	}
 }
 void RenderComponent::init(Model* model, Texture* nTexture)
@@ -77,10 +84,9 @@ void RenderComponent::init(Model* model, Texture* nTexture)
 
 
 	
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_DEPTH_TEST);
+	
 	//glDepthGL_nc(glLESS);
-	glEnable(GL_BLEND);
+
 
 
 	
@@ -89,7 +95,8 @@ void RenderComponent::init(Model* model, Texture* nTexture)
 void RenderComponent::update()
 {
 	
-
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D,texture->object());
 	
@@ -97,7 +104,11 @@ void RenderComponent::update()
 	glEnableVertexAttribArray(0);  // Vertex position
 	glEnableVertexAttribArray(1);  // Vertex normal
 	glEnableVertexAttribArray(2); //uv
+	
 	glDrawArrays(GL_TRIANGLES, 0,indicesCount );
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
 	glBindVertexArray(0);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
