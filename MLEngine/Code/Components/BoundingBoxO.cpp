@@ -10,7 +10,7 @@ BoundingBoxO::BoundingBoxO(std::string id) : BoundingVolume(id)
 	Rigid_ang = glm::vec3(0.f);
 }
 
-BoundingBoxO::BoundingBoxO(std::string id, glm::vec3 center, glm::vec3 extend, bool isStatic) : BoundingVolume(id)
+BoundingBoxO::BoundingBoxO(std::string id, glm::vec3 center, glm::vec3 extend, bool isStatic, std::string owner) : BoundingVolume(id)
 {
 	type = BOUNDING_TYPE_OBBOX;
 	this->center = center;
@@ -18,6 +18,7 @@ BoundingBoxO::BoundingBoxO(std::string id, glm::vec3 center, glm::vec3 extend, b
 	this->isStatic = isStatic;
 	Rigid_vel = glm::vec3(0.f);
 	Rigid_ang = glm::vec3(0.f);
+	this->owner = owner; 
 }
 
 void BoundingBoxO::SetCenter(glm::vec3 cen)

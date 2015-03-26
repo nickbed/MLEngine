@@ -2,6 +2,7 @@
 Jump = {}
 Jump.yvel = 0
 Jump.candouble = 0
+Jump.allowed = 1
 
 function Jump.Start(self)
 end
@@ -37,8 +38,14 @@ function Jump.Update(this, dt)
 end
 
 function Jump.Collision(this, collision)
-		Jump.yvel = 0
-		Jump.candouble = 1
+		if (collision.Top==true)
+		then
+			this.transform.position = Vector3(this.transform.position.x, ypos, this.transform.position.z)
+			Jump.yvel = 0
+			Jump.candouble = 1
+		else
+			Jump.allowed = 1
+		end
 end
 
 return Jump

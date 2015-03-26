@@ -100,13 +100,15 @@ void ScriptComponent::msg_Collision(mauvemessage::BaseMessage* msg)
 {
 	mauvemessage::CollisionMessage* c = static_cast<mauvemessage::CollisionMessage*>(msg);
 	CollisionManifold m = (CollisionManifold)*c;
-	if (ownFuncs.collisionFunc) {
-		try{
-			(*ownFuncs.collisionFunc)(owner, m);
-		}
-		catch (luabridge::LuaException const& e) {
-			std::cout << "Lua Exception: " << e.what() << std::endl;
+	if(m.VolumeA->GetOwnerId()==owner->id||m.VolumeB->GetOwnerId()==owner->id)
+	{
+		if (ownFuncs.collisionFunc) {
+			try{
+				(*ownFuncs.collisionFunc)(owner, m);
+			}
+			catch (luabridge::LuaException const& e) {
+				std::cout << "Lua Exception: " << e.what() << std::endl;
+			}
 		}
 	}
-
 }

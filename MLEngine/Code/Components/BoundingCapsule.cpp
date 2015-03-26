@@ -8,13 +8,14 @@ BoundingCapsule::BoundingCapsule(std::string id) : BoundingVolume(id)
 	isStatic = true;
 }
 
-BoundingCapsule::BoundingCapsule(std::string id, glm::vec3 center, float radius, float extent, bool isStatic) : BoundingVolume(id)
+BoundingCapsule::BoundingCapsule(std::string id, glm::vec3 center, float radius, float extent, bool isStatic,std::string owner) : BoundingVolume(id)
 {
 	type = BOUNDING_TYPE_CAPSULE;
 	this->center = center;
 	this->radius = radius;
 	this->extent = extent;
 	this->isStatic = isStatic;
+	this->owner = owner;
 }
 
 void BoundingCapsule::SetCenter(glm::vec3 cen)

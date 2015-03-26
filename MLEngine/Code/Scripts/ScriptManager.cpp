@@ -116,5 +116,6 @@ void ScriptManager::bindElements()
 		.addData("Sign", &CollisionManifold::Sign)
 		.addData("VolumeA", &CollisionManifold::VolumeA)
 		.addData("VolumeB", &CollisionManifold::VolumeB)
+		.addData("Top",&CollisionManifold::Top)
 		.endClass();
 }

@@ -10,7 +10,7 @@ class BoundingCapsule: public BoundingVolume
 {
 public:
 	BoundingCapsule(std::string id);
-	BoundingCapsule(std::string id, glm::vec3 center, float radius, float extent, bool isStatic);
+	BoundingCapsule(std::string id, glm::vec3 center, float radius, float extent, bool isStatic, std::string owner);
 	virtual ~BoundingCapsule();
 
 	virtual void Init();
