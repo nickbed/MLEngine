@@ -102,6 +102,7 @@ void ScriptComponent::msg_Collision(mauvemessage::BaseMessage* msg)
 	CollisionManifold m = (CollisionManifold)*c;
 	if(m.VolumeA->GetOwnerId()==owner->id||m.VolumeB->GetOwnerId()==owner->id)
 	{
+
 		if (ownFuncs.collisionFunc) {
 			try{
 				(*ownFuncs.collisionFunc)(owner, m);
