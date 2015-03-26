@@ -143,7 +143,7 @@ void Camera::rotate(const float x, const float y)
 void Camera::pan(const float x, const float y)
 {
 
-	float speedX= 0.2f, speedY = 0.02f;
+	float speedX= 0.02f, speedY = 0.0002f;
 	glm::vec3 ForwardVector =  _target - _position;//Finds forward vector
 	glm::vec3 right = glm::cross(ForwardVector, glm::vec3(0,1,0));//Finds right vector
 	glm::vec3 up = glm::cross(ForwardVector, right);//Finds the relative up vector

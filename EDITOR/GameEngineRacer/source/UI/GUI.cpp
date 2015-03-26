@@ -77,7 +77,7 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			g->getTransformComp()->setTranslate(glm::vec3(0,0,0));
 			g->getTransformComp()->setScale(glm::vec3(1.0, 1.0, 1.0));
 			g->getTransformComp()->setRotate(glm::quat(0.0, 0.0, 0.0,0.0));
-			
+			g->addToComponentTextureFiles("data\\images\\default.png");
 			g->addToComponentTYPE("staticmesh");
 			g->addToComponentModelFiles(filename);
 			g->getRenderComp()->init(rManager->getModel().at(filename),rManager->getTexture().at("data\\images\\default.png"));

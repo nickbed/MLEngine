@@ -7,25 +7,26 @@
          "MudBlock_Platform.obj0",
          "MudBlock_Platform1.obj",
          "Tree.obj",
+         "Tree_2.obj0",
          "Tree_bend.obj",
          "coin.obj0",
+         "coin.obj1",
          "coin1.obj",
          "floor.obj",
-         "coin.obj1",
-         "Tree_2.obj0"
+         "flower.obj0"
       ],
       "cameras" : {
          "camera1" : {
             "camerasetup" : {
                "fov" : 50,
-               "lookX" : -2.217853784561157,
-               "lookY" : 31.87533187866211,
-               "lookZ" : 76.06330871582031,
-               "pitch" : 0.1409999877214432,
-               "posX" : 1.719377398490906,
-               "posY" : 61.54661560058594,
-               "posZ" : 157.5581817626953,
-               "yaw" : 0.4670004844665527
+               "lookX" : 3.384367942810059,
+               "lookY" : 13.66171264648438,
+               "lookZ" : 59.29505920410156,
+               "pitch" : 0.1439999938011169,
+               "posX" : 6.97446346282959,
+               "posY" : 43.22360229492188,
+               "posZ" : 140.8468017578125,
+               "yaw" : 0.458000510931015
             }
          }
       },
@@ -112,7 +113,7 @@
                "posY" : 0,
                "posZ" : -10.19999980926514,
                "rotateX" : 0,
-               "rotateY" : -13.00000476837158,
+               "rotateY" : -13.00000858306885,
                "rotateZ" : 0,
                "scaleX" : 1.5,
                "scaleY" : 1.5,
@@ -177,9 +178,9 @@
                "posX" : -21.89999961853027,
                "posY" : 0,
                "posZ" : 8.300000190734863,
-               "rotateX" : 180,
-               "rotateY" : -34.99999618530273,
-               "rotateZ" : 180,
+               "rotateX" : -180,
+               "rotateY" : -34.99999237060547,
+               "rotateZ" : -180,
                "scaleX" : 1,
                "scaleY" : 1,
                "scaleZ" : 1
@@ -199,9 +200,9 @@
                "posX" : 4.299998283386231,
                "posY" : 0,
                "posZ" : 3.299999952316284,
-               "rotateX" : -180,
+               "rotateX" : 180,
                "rotateY" : -61.99999618530273,
-               "rotateZ" : -180,
+               "rotateZ" : 180,
                "scaleX" : 1,
                "scaleY" : 1,
                "scaleZ" : 1
@@ -293,6 +294,28 @@
                "scaleX" : 1,
                "scaleY" : 1,
                "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "flower.obj0" : {
+            "components" : {
+               "flower.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\flower.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\leaf.png",
+                  "id" : "flower.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -1.899999976158142,
+               "posY" : 0,
+               "posZ" : 23.70000076293945,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 5,
+               "scaleY" : 5,
+               "scaleZ" : 5
             },
             "type" : "generalentity"
          }

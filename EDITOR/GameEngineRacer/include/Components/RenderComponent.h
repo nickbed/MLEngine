@@ -18,6 +18,7 @@ class ResourceManager;
 class RenderComponent
 {
 private:
+	
 	Model m_model;
 	GLuint positionBufferHandle;
 	GLuint normalBufferHandle;

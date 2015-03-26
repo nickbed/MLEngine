@@ -75,7 +75,7 @@ bool ResourceManager::loadDefaults()
 
 	ShaderLoader m_sloader;
 	
-	if(!m_sloader.LoadShader("data\\shaders\\basic3.vert","data\\shaders\\basic3.Frag"))
+	if(!m_sloader.LoadShader("data\\shaders\\default.vert","data\\shaders\\default.Frag"))
 	{
 		printf("Error loading shader: (%s) \n", m_sloader.getName());
 		return false;

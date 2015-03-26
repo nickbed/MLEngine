@@ -1,0 +1,717 @@
+{
+   "scene" : {
+      "activeentities" : [
+         "Cliff.obj0",
+         "Cliff.obj1",
+         "Cliff.obj2",
+         "Cliff.obj4",
+         "Cliff.obj5",
+         "Cliff.obj6",
+         "GroupRock.obj0",
+         "MudBlock.obj",
+         "MudBlock_BigSlope.obj",
+         "MudBlock_BigSlope.obj0",
+         "MudBlock_Noise1.obj",
+         "MudBlock_Platform.obj0",
+         "MudBlock_Platform.obj1",
+         "MudBlock_Platform1.obj",
+         "Tree.obj",
+         "Tree_2.obj0",
+         "Tree_bend.obj",
+         "Tree_bend.obj0",
+         "coin.obj0",
+         "coin.obj1",
+         "coin1.obj",
+         "floor.obj",
+         "flower.obj0",
+         "flowergroup.obj0",
+         "flowergroup.obj1",
+         "groupTrees.obj0",
+         "River.obj0"
+      ],
+      "cameras" : {
+         "camera1" : {
+            "camerasetup" : {
+               "fov" : 50,
+               "lookX" : -158.8731079101563,
+               "lookY" : 100.0853424072266,
+               "lookZ" : -91.31956481933594,
+               "pitch" : 0.1490003019571304,
+               "posX" : -383.6401062011719,
+               "posY" : 257.8349609375,
+               "posZ" : -161.3026733398438,
+               "yaw" : -0.2549994587898254
+            }
+         }
+      },
+      "currentcamera" : "camera1",
+      "currentlight" : "default",
+      "entities" : {
+         "Cliff.obj0" : {
+            "components" : {
+               "Cliff.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\rock.png",
+                  "id" : "Cliff.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 63.80000305175781,
+               "posY" : 0,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "Cliff.obj1" : {
+            "components" : {
+               "Cliff.obj1" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\rock.png",
+                  "id" : "Cliff.obj1",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 56.60000228881836,
+               "posY" : 0,
+               "posZ" : 58.29999923706055,
+               "rotateX" : 0,
+               "rotateY" : -18.0000057220459,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2.069999933242798,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "Cliff.obj2" : {
+            "components" : {
+               "Cliff.obj2" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\rock.png",
+                  "id" : "Cliff.obj2",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 38.70000076293945,
+               "posY" : 0,
+               "posZ" : -57.5,
+               "rotateX" : 0,
+               "rotateY" : 48,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "Cliff.obj4" : {
+            "components" : {
+               "Cliff.obj4" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\rock.png",
+                  "id" : "Cliff.obj4",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 20.20000076293945,
+               "posY" : 0,
+               "posZ" : 109.3000030517578,
+               "rotateX" : 180,
+               "rotateY" : 57.99999237060547,
+               "rotateZ" : 180,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "Cliff.obj5" : {
+            "components" : {
+               "Cliff.obj5" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\rock.png",
+                  "id" : "Cliff.obj5",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -34.70000076293945,
+               "posY" : 0,
+               "posZ" : 126.7999954223633,
+               "rotateX" : 0,
+               "rotateY" : -87.00003814697266,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "Cliff.obj6" : {
+            "components" : {
+               "Cliff.obj6" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\rock.png",
+                  "id" : "Cliff.obj6",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -87.90000152587891,
+               "posY" : 0,
+               "posZ" : 126.7000045776367,
+               "rotateX" : -180,
+               "rotateY" : -85.00001525878906,
+               "rotateZ" : -180,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "GroupRock.obj0" : {
+            "components" : {
+               "GroupRock.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\GroupRock.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\rock.png",
+                  "id" : "GroupRock.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -7.40000057220459,
+               "posY" : 0,
+               "posZ" : 27.30000114440918,
+               "rotateX" : 0,
+               "rotateY" : -47.00000381469727,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "MudBlock.obj" : {
+            "components" : {
+               "MudBlock.obj" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -25.70000076293945,
+               "posY" : 0,
+               "posZ" : -16.39999961853027,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "MudBlock_BigSlope.obj" : {
+            "components" : {
+               "MudBlock_BigSlope.obj" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_BigSlope.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock_BigSlope.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -3.09999942779541,
+               "posY" : 3,
+               "posZ" : -1.199999928474426,
+               "rotateX" : -9.999998092651367,
+               "rotateY" : 51.00004577636719,
+               "rotateZ" : -2.034991666732822e-006,
+               "scaleX" : 1.5,
+               "scaleY" : 1.5,
+               "scaleZ" : 1.5
+            },
+            "type" : "generalentity"
+         },
+         "MudBlock_BigSlope.obj0" : {
+            "components" : {
+               "MudBlock_BigSlope.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_BigSlope.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock_BigSlope.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 12.19999980926514,
+               "posY" : 0,
+               "posZ" : 48.10000228881836,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 1.5,
+               "scaleY" : 1.5,
+               "scaleZ" : 1.5
+            },
+            "type" : "generalentity"
+         },
+         "MudBlock_Noise1.obj" : {
+            "components" : {
+               "MudBlock_Noise1.obj" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_Noise1.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock_Noise1.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -10.19999980926514,
+               "posY" : 0,
+               "posZ" : 25.5,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "MudBlock_Platform.obj0" : {
+            "components" : {
+               "MudBlock_Platform.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_Platform.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock_Platform.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -14.80000019073486,
+               "posY" : 0,
+               "posZ" : -10.19999980926514,
+               "rotateX" : 0,
+               "rotateY" : -13.00000858306885,
+               "rotateZ" : 0,
+               "scaleX" : 1.5,
+               "scaleY" : 1.5,
+               "scaleZ" : 1.5
+            },
+            "type" : "generalentity"
+         },
+         "MudBlock_Platform.obj1" : {
+            "components" : {
+               "MudBlock_Platform.obj1" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_Platform.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock_Platform.obj1",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 15.10000038146973,
+               "posY" : -0.1000000014901161,
+               "posZ" : 73.09999847412109,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "MudBlock_Platform1.obj" : {
+            "components" : {
+               "MudBlock_Platform1.obj" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_Platform.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock_Platform1.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -12.90000057220459,
+               "posY" : -0.1000000312924385,
+               "posZ" : 11.10000038146973,
+               "rotateX" : 0,
+               "rotateY" : -27,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "River.obj0" : {
+            "components" : {
+               "River.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\River.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\river.jpg",
+                  "id" : "River.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -13.40000057220459,
+               "posY" : -5.099999904632568,
+               "posZ" : -48.20000076293945,
+               "rotateX" : 180,
+               "rotateY" : -27.00000762939453,
+               "rotateZ" : 180,
+               "scaleX" : 0.5,
+               "scaleY" : 0.5,
+               "scaleZ" : 0.5
+            },
+            "type" : "generalentity"
+         },
+         "Tree.obj" : {
+            "components" : {
+               "Tree.obj" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
+                  "id" : "Tree.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 27.10000038146973,
+               "posY" : 0,
+               "posZ" : -19.89999961853027,
+               "rotateX" : 0,
+               "rotateY" : 18.9999942779541,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "Tree_2.obj0" : {
+            "components" : {
+               "Tree_2.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_2.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
+                  "id" : "Tree_2.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -21.89999961853027,
+               "posY" : 0,
+               "posZ" : 8.300000190734863,
+               "rotateX" : 180,
+               "rotateY" : -34.99999237060547,
+               "rotateZ" : 180,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "Tree_bend.obj" : {
+            "components" : {
+               "Tree_bend.obj" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_bend.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
+                  "id" : "Tree_bend.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 4.299998283386231,
+               "posY" : 0,
+               "posZ" : 3.299999952316284,
+               "rotateX" : -180,
+               "rotateY" : -61.99999618530273,
+               "rotateZ" : -180,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "Tree_bend.obj0" : {
+            "components" : {
+               "Tree_bend.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_bend.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
+                  "id" : "Tree_bend.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -5.5,
+               "posY" : 0,
+               "posZ" : 85.90000152587891,
+               "rotateX" : 0,
+               "rotateY" : 25.99999809265137,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+         "coin.obj0" : {
+            "components" : {
+               "coin.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                  "id" : "coin.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 22.79999923706055,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 0.5,
+               "scaleY" : 0.5,
+               "scaleZ" : 0.5
+            },
+            "type" : "generalentity"
+         },
+         "coin.obj1" : {
+            "components" : {
+               "coin.obj1" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                  "id" : "coin.obj1",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -16.20000076293945,
+               "posY" : 8.999999046325684,
+               "posZ" : -9.5,
+               "rotateX" : 0,
+               "rotateY" : -64,
+               "rotateZ" : 0,
+               "scaleX" : 0.5,
+               "scaleY" : 0.5,
+               "scaleZ" : 0.5
+            },
+            "type" : "generalentity"
+         },
+         "coin1.obj" : {
+            "components" : {
+               "coin1.obj" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                  "id" : "coin1.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 26.69999885559082,
+               "posY" : 21,
+               "posZ" : -17.69999885559082,
+               "rotateX" : 0,
+               "rotateY" : -20,
+               "rotateZ" : 0,
+               "scaleX" : 0.5,
+               "scaleY" : 0.5,
+               "scaleZ" : 0.5
+            },
+            "type" : "generalentity"
+         },
+         "floor.obj" : {
+            "components" : {
+               "floor.obj" : {
+                  "OBJModel" : "data\\Models\\floor.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\Floor.jpg",
+                  "id" : "floor.obj",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 0,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 0.5,
+               "scaleY" : 0.5,
+               "scaleZ" : 0.5
+            },
+            "type" : "generalentity"
+         },
+         "flower.obj0" : {
+            "components" : {
+               "flower.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\flower.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\leaf.png",
+                  "id" : "flower.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -1.899999976158142,
+               "posY" : 0,
+               "posZ" : 23.70000076293945,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 5,
+               "scaleY" : 5,
+               "scaleZ" : 5
+            },
+            "type" : "generalentity"
+         },
+         "flowergroup.obj0" : {
+            "components" : {
+               "flowergroup.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\flowergroup.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\leaf.png",
+                  "id" : "flowergroup.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -30.80000114440918,
+               "posY" : 0,
+               "posZ" : -3,
+               "rotateX" : 0,
+               "rotateY" : -86.00002288818359,
+               "rotateZ" : 0,
+               "scaleX" : 1.200000047683716,
+               "scaleY" : 1.200000047683716,
+               "scaleZ" : 1.200000047683716
+            },
+            "type" : "generalentity"
+         },
+         "flowergroup.obj1" : {
+            "components" : {
+               "flowergroup.obj1" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\flowergroup.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\leaf.png",
+                  "id" : "flowergroup.obj1",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -98.30000305175781,
+               "posY" : 0,
+               "posZ" : 13.40000057220459,
+               "rotateX" : 0,
+               "rotateY" : -51,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "groupTrees.obj0" : {
+            "components" : {
+               "groupTrees.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\groupTrees.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
+                  "id" : "groupTrees.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -85.50000762939453,
+               "posY" : 0,
+               "posZ" : 23.80000114440918,
+               "rotateX" : 0,
+               "rotateY" : -75,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         }
+      },
+      "lights" : {
+         "Light1" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : 0,
+               "posY" : 42.79999923706055,
+               "posZ" : 165.6999969482422,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
+         },
+         "Light2" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : 83.80000305175781,
+               "posY" : 45.69999694824219,
+               "posZ" : 99.09999847412109,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
+         },
+         "Light3" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : 94.60000610351563,
+               "posY" : 71.00000762939453,
+               "posZ" : 10.19999980926514,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
+         },
+         "Light4" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : -7.699999332427979,
+               "posY" : 69.5,
+               "posZ" : -94.30000305175781,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
+         },
+         "Light5" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : -80,
+               "posY" : 75.59999847412109,
+               "posZ" : -8.200000762939453,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
+         }
+      },
+      "menu" : false,
+      "messagehandlers" : true,
+      "name" : "",
+      "sceneshader" : "data\\shaders\\default"
+   }
+}

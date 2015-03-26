@@ -84,7 +84,7 @@ bool Scene::LoadScene(const std::string& filename)
 	}
 	else 
 	{
-		sceneData.sceneShader = "data\\shaders\\basic3";
+		sceneData.sceneShader = "data\\shaders\\default";
 	}
 
 	activeCamera = sceneData.currentCamera = root["scene"]["currentcamera"].asString();
@@ -281,11 +281,11 @@ bool Scene::LoadScene(const std::string& filename)
 			{
 				light.specular.b = lightParamVal.asFloat();
 			}
-			light.ambient.r = 0.2f;
-			light.ambient.g = 0.2f;
-			light.ambient.b = 0.2f;
-			light.linear = 0.014f;
-			light.quadratic = 0.0007f;
+			light.ambient.r = 0.6f;
+			light.ambient.g = 0.6f;
+			light.ambient.b = 0.6f;
+			light.linear = 0.0014f;
+			light.quadratic = 0.00007f;
 			light.constant = 1.0f;
 
 		}
@@ -417,11 +417,11 @@ void Scene::InitScene(const std::string& loadSceneName)//Loads gameobjects and s
 
 		std::cout << "error loading scene\n Default data is provided.\n";
 		//sceneData.name = "Default";
-		sceneData.currentCamera = "default";
+		sceneData.currentCamera = "camera1";
 		sceneData.currentLight = "default";
 		sceneData.menu = false;
-		sceneData.messageHandlers = false;
-		sceneData.sceneShader = "data\\shaders\\basic3";
+		sceneData.messageHandlers = true;
+		sceneData.sceneShader = "data\\shaders\\default";
 
 		//exit(EXIT_FAILURE);
 	}
@@ -431,7 +431,7 @@ void Scene::InitScene(const std::string& loadSceneName)//Loads gameobjects and s
 	}
 	else
 	{
-		programHandle = rManager->getShaders().at("data\\shaders\\basic3")->programhandle;
+		programHandle = rManager->getShaders().at("data\\shaders\\default")->programhandle;
 
 	}
 
