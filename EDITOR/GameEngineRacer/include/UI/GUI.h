@@ -28,6 +28,7 @@ private:
 		glm::vec3 eulers;
 		glm::vec3 scale;
 		std::string name;
+		bool boundingbox;
 	};
 
 	struct GUILight{

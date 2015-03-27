@@ -18,25 +18,25 @@ void RenderComponent::loadTexture(GameObject* g)
 	if(GetOpenFileName(&ofn))
 	{
 		std::string filename = ofn.lpstrFile;
-		filename = filename.substr(filename.find("data"));
+		std::string newfilename = filename.substr(filename.find("data"));
 		TextureLoader* tLoader = new TextureLoader();
 		if (rManager->getTextures_const().find(filename) == rManager->getTextures_const().end() ) 
 		{
 			
 			tLoader->LoadTexture(filename);
 			tLoader->FlipImage();
-			tLoader->setName(filename);
-			rManager->addToTexture(std::pair<std::string, Texture*>(filename,tLoader->getTexture()));
+			tLoader->setName(newfilename);
+			rManager->addToTexture(std::pair<std::string, Texture*>(newfilename,tLoader->getTexture()));
 		}
 		
-		setTexture(rManager->getTexture().at(filename));
+		setTexture(rManager->getTexture().at(newfilename));
 		glBindTexture(GL_TEXTURE_2D,texture->object());
 		if(g->getComponentTextureFiles().size() != 0)
 		{
-			g->replaceComponentTextureFile(filename);
+			g->replaceComponentTextureFile(newfilename);
 		}else
 		{
-			g->addToComponentTextureFiles(filename);
+			g->addToComponentTextureFiles(newfilename);
 		}
 		
 	}

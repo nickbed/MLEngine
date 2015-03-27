@@ -1,6 +1,10 @@
 #include "GameObjects\GameObject.h"
 
-GameObject::GameObject()
+GameObject::GameObject():boundingbox(false),
+	density(1.0f),
+	isStatic(true),
+	centre(0),
+	extents(0)
 {
 	m_renderer = NULL;
 	m_transform = NULL;
@@ -9,7 +13,11 @@ GameObject::GameObject()
 	m_renderer = new RenderComponent();
 	m_transform = new TransformComponent();
 }
-GameObject::GameObject(std::string nName)
+GameObject::GameObject(std::string nName):boundingbox(false),
+	density(1.0f),
+	isStatic(true),
+	centre(0),
+	extents(0)
 {
 	m_rManager = ResourceManager::getInstance();
 	m_name = nName;
@@ -53,6 +61,19 @@ void GameObject::update(bool keys[])
 		m_transform->Update();
 }
 
+void GameObject::createExtents()
+{
+	extents = (glm::abs((m_rManager->getModel().at(m_filename)->max - m_rManager->getModel().at(m_filename)->min )*0.5f));
+	
+	centre = (m_rManager->getModel().at(m_filename)->max - m_rManager->getModel().at(m_filename)->min) * 0.5f;
+
+	centre = (centre + m_rManager->getModel().at(m_filename)->min)*m_transform->getScale(); 
+
+
+	extents *= m_transform->getScale();
+	extents = extents * 0.95f;
+	
+}
 void GameObject::render()
 {
 	m_renderer->update();

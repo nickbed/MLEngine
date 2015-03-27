@@ -1,7 +1,7 @@
 #include "Loaders\ModelLoader.h"
 
 
-ModelLoader::ModelLoader()
+ModelLoader::ModelLoader():min(0),max(0)
 {
 }
 ModelLoader::ModelLoader(const std::string& nfileName)
@@ -16,6 +16,7 @@ ModelLoader::~ModelLoader()
 void ModelLoader::loadFromfile(const std::string& nfileName)
 {
 	m_filename = nfileName;
+	
 	input.open( m_filename);
 	allFaces_vertices_coords.resize(0);
 	allfaces_vertices_normals.resize(0);
@@ -67,6 +68,28 @@ void ModelLoader::loadFromfile(const std::string& nfileName)
 			//Extract Values from line v.
 			ss >> vertices[0] >> vertices[1] >> vertices[2];
 			//pushes them into a vector.
+			if(vertices[0] < min.x)
+			{
+				min.x = vertices[0];
+			}
+			else if(vertices[0] > max.x)
+			{
+				max.x = vertices[0];
+			}
+			if(vertices[1] < min.y)
+			{
+				min.y = vertices[0];
+			}else if(vertices[1] > max.y)
+			{
+				max.y = vertices[1];
+			}
+			if(vertices[2] < min.z)
+			{
+				min.z = vertices[2];
+			}else if(vertices[2] > max.z)
+			{
+				max.z = vertices[2];
+			}
 			vArray.push_back(vertices[0]);
 			vArray.push_back(vertices[1]);
 			vArray.push_back(vertices[2]);

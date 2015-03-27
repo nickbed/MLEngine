@@ -52,11 +52,14 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 			if (rManager->getModel_const().find(filename) == rManager->getModel_const().end() ) 
 			{
 				ModelLoader mLoader;
+				std::string moveDir = "..\\..\\MLEngine\\";
 				Model* m = new Model();
-				mLoader.loadFromfile(filename);
+				mLoader.loadFromfile(moveDir+filename);
 				m->normals = mLoader.getNormals();
 				m->verts = mLoader.getVerts();
 				m->textureCoords = mLoader.getTextureCoords();
+				m->min = mLoader.getMin();
+				m->max = mLoader.getMax();
 				rManager->addToModel(std::pair<std::string, Model*>(filename,m));
 			}
 			else {
@@ -71,7 +74,13 @@ void GUI::openFile(std::vector<Scene*>& scene, int& activeScene)
 				}
 				
 			}
+			g->setCentre(glm::vec3(0,0,0));
+			g->setStatic(true);
+			g->setBoundingbox(false);
+			g->setDensity(1.0);
 			g->setName(name+std::to_string(namecount));
+			g->setFilename(filename);
+			g->createExtents();
 			g->addToComponentID(name+std::to_string(namecount));
 			g->setEntityType("generalentity");
 			g->getTransformComp()->setTranslate(glm::vec3(0,0,0));
@@ -137,6 +146,13 @@ void GUI::saveData()
 	ofn.lpstrFile=szFileName;
 	ofn.nMaxFile=MAX_PATH;
 	ofn.lpstrDefExt = "scn";
+	for(unsigned int i = 0; i < m_scene->GetGameObjects().size(); ++i)
+	{ 
+		if(m_scene->GetGameObjects().at(i)->getBoundingbox())
+		{
+			m_scene->GetGameObjects().at(i)->createExtents();
+		}
+	}
 
 	if(GetSaveFileName(&ofn))
 	{
@@ -225,7 +241,7 @@ void GUI::updateObjects()
 	{           
 
 
-
+		objects[i].boundingbox = m_scene->GetGameObjects().at(i)->getBoundingbox();
 		objects[i].useRotBall = false;
 		objects[i].pos = m_scene->GetGameObjects().at(i)->getTransformComp()->getTranslate();
 		objects[i].rot = m_scene->GetGameObjects().at(i)->getTransformComp()->getRotate();
@@ -266,7 +282,7 @@ void GUI::updateLights()
 
 		std::string uniqueName = m_scene->getLights().at(i).name + std::to_string(i);
 		std::string grouping = "group=Lights";
-		TwAddVarRW(bar, uniqueName.c_str(), lightType, &lights[i], grouping.c_str());//Creates Type Grouping.
+		TwAddVarRW(bar, uniqueName.c_str(), lightType, &lights[i], grouping.c_str());//js Type Grouping.
 		TwSetParam(bar, uniqueName.c_str(), "label", TW_PARAM_CSTRING, 1, m_scene->getLights().at(i).name.c_str()); // Set label
 		std::string fold = "Editor/Lights opened='false'";
 		TwDefine(fold.c_str());
@@ -294,7 +310,8 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 		{ "Rotate Z", TW_TYPE_FLOAT,        offsetof(Object, eulers.z), "readonly=false precision=2" },
 		{ "Scale X", TW_TYPE_FLOAT,        offsetof(Object, scale.x), " help='Scale in the X.' step=0.01" },  
 		{ "Scale Y",     TW_TYPE_FLOAT,   offsetof(Object, scale.y),    " help='Scale in the Y.' step=0.01" },
-		{ "Scale Z", TW_TYPE_FLOAT,   offsetof(Object, scale.z),    " help='Scale in the Z.' step=0.01" } 
+		{ "Scale Z", TW_TYPE_FLOAT,   offsetof(Object, scale.z),    " help='Scale in the Z.' step=0.01" },
+		{ "Bounding Box",    TW_TYPE_BOOLCPP,   offsetof(Object, boundingbox),    "false='NO' true='YES' help='ss a bounding box in the jsoncpp'" }
 	};
 	TwStructMember lightMembers[] = 
 	{
@@ -304,7 +321,7 @@ bool GUI::setup(int w, int h, Scene* nScene ) {
 		{ "Colour",    TW_TYPE_COLOR3F, offsetof(GUILight, diffuse),    " help='Change the colour of the light.'" }
 	};
 
-	modelType = TwDefineStruct("Object", objectMembers, 11, sizeof(Object), NULL, NULL);
+	modelType = TwDefineStruct("Object", objectMembers, 12, sizeof(Object), NULL, NULL);
 	lightType = TwDefineStruct("Light", lightMembers,4,sizeof(GUILight),NULL,NULL);
 	TwAddButton(bar, "NewScene", NewScene, this,"label='New Scene'");
 	TwAddButton(bar, "OpenFiles", OpenFile, NULL , " label='Open File' ");
@@ -409,8 +426,13 @@ void GUI::update(Scene* nscene)
 {
 
 	m_scene=nscene;
+
 	for(unsigned int i = 0; i < m_scene->GetGameObjects().size(); ++i)
 	{   
+		if(objects[i].boundingbox != m_scene->GetGameObjects().at(i)->getBoundingbox())
+		{
+			m_scene->GetGameObjects().at(i)->setBoundingbox(objects[i].boundingbox);
+		}
 		if(!objects[i].useRotBall)
 		{
 			objects[i].rot = glm::quat(glm::radians(objects[i].eulers));

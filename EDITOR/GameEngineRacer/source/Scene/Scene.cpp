@@ -2,7 +2,7 @@
 #include <sstream>
 
 
-Scene::Scene():activeCamera("default")
+Scene::Scene():activeCamera("camera1")
 	,cameras()
 	,sceneData()
 	,m_filename()
@@ -16,11 +16,11 @@ Scene::Scene():activeCamera("default")
 {
 	rManager = ResourceManager::getInstance();
 	std::pair<std::string, Camera*> cameraPair;
-	cameraPair.first = "default";
+	cameraPair.first = "camera1";
 	cameraPair.second = new Camera();
 	cameras.insert(cameraPair);
-	cameras.at("default")->init();
-	cameras.find("default")->second->setName("default");
+	cameras.at("camera1")->init();
+	cameras.find("camera1")->second->setName("camera1");
 	for(auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
 	{
 		*it = NULL;
@@ -46,10 +46,10 @@ bool Scene::LoadScene(const std::string& filename)
 	Json::Value root;
 	std::fstream input;
 
-
+	std::string moveDir = "..\\..\\MLEngine\\";
 
 	//std::size_t found;
-	input.open(filename);
+	input.open(moveDir+filename);
 	if(!input.is_open())
 	{
 		std::cout << "file not found use .scn file extension" << std::endl;
@@ -171,16 +171,61 @@ bool Scene::LoadScene(const std::string& filename)
 					//ModelLoader modelLoader;
 					if(key.asString() == "components" )
 					{
+						std::string objString, textureString;
+						glm::vec3 centre, extents;
+
 						for(Json::ValueIterator compIter = value.begin(); compIter != value.end(); ++compIter)
 						{
 							Json::Value compKey = compIter.key();
 							Json::Value compVal = (*compIter);
-							std::string objString, textureString;
-
+							
+						
 							for(Json::ValueIterator compValIter = compVal.begin(); compValIter != compVal.end(); ++compValIter)
 							{
 								Json::Value compVal2 = (*compValIter);
 								Json::Value compValKey = compValIter.key();
+
+								
+								/*"centerY": 0.0,
+								"centerZ": 0.0,
+								"extentX": 90,
+								"extentY": 0.1,
+								"extentZ": 90,
+								"static": false,
+								"density": 0.01*/
+								if(compValKey.asString() == "centerX")
+								{
+									g->setBoundingbox(true);
+									centre.x = compVal2.asFloat();
+								}
+								if(compValKey.asString() == "centerY")
+								{
+									centre.y = compVal2.asFloat();
+								}
+								if(compValKey.asString() == "centerZ")
+								{
+									centre.z = compVal2.asFloat();
+								}
+								if(compValKey.asString() == "extentX")
+								{
+									extents.x = compVal2.asFloat();
+								}
+								if(compValKey.asString() == "extentY")
+								{
+									extents.y = compVal2.asFloat();
+								}
+								if(compValKey.asString() == "extentZ")
+								{
+									extents.z = compVal2.asFloat();
+								}
+								if(compValKey.asString() == "static")
+								{
+									g->setStatic(compVal2.asBool());
+								}
+								if(compValKey.asString() == "density")
+								{
+									g->setDensity(compVal2.asFloat());
+								}
 								if(compValKey.asString() == "id")
 								{
 									g->addToComponentID(compVal2.asString());
@@ -188,7 +233,9 @@ bool Scene::LoadScene(const std::string& filename)
 								}
 								if(compValKey.asString() == "type")
 								{
+									
 									g->addToComponentTYPE(compVal2.asString());
+									
 
 								}
 								if(compValKey.asString() == "OBJModel")
@@ -199,13 +246,16 @@ bool Scene::LoadScene(const std::string& filename)
 									{
 										ModelLoader* m_Loader = new ModelLoader();
 										Model* m = new Model();
-										m_Loader->loadFromfile(objString);
+										m_Loader->loadFromfile(moveDir+objString);
 										m->verts = m_Loader->getVerts();
 										m->normals = m_Loader->getNormals();
 										m->textureCoords = m_Loader->getTextureCoords();
+										m->min  = m_Loader->getMin();
+										m->max = m_Loader->getMax();
+										
 										rManager->addToModel(std::pair<std::string, Model*>(objString,m));
 									}
-
+									g->setFilename(objString);
 									g->addToComponentModelFiles(compVal2.asString());
 								}
 								if(compValKey.asString() == "TextureFile")
@@ -215,15 +265,18 @@ bool Scene::LoadScene(const std::string& filename)
 									if (rManager->getTextures_const().find(textureString) == rManager->getTextures_const().end() ) 
 									{
 										TextureLoader* t_Loader = new TextureLoader();
-										t_Loader->LoadTexture(textureString);
+										t_Loader->LoadTexture(moveDir+textureString);
 										t_Loader->FlipImage();
 										rManager->addToTexture(std::pair<std::string, Texture*>(textureString,t_Loader->getTexture()));
 									}
 								}
 							}
-							g->getRenderComp()->init(rManager->getModel().at(objString), rManager->getTexture().at(textureString));
+							
 							//g->getTransformComp()->Rotate(
 						}
+						g->setCentre(centre);
+						g->setExtents(extents);
+						g->getRenderComp()->init(rManager->getModel().at(objString), rManager->getTexture().at(textureString));
 					}
 					//cout << value.asString() << endl;
 				}
@@ -669,10 +722,25 @@ const Json::Value Scene::createJson()
 		for(unsigned int j=0; j < gameObjects.at(i)->getComponentIDs().size(); ++j)
 		{
 			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"][gameObjects.at(i)->getComponentIDs().at(j)]["id"] = gameObjects.at(i)->getComponentIDs().at(j);
-			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"][gameObjects.at(i)->getComponentIDs().at(j)]["type"] =  gameObjects.at(i)->getComponentTypes().at(j);
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"][gameObjects.at(i)->getComponentIDs().at(j)]["type"] =  "staticmesh";
 			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"][gameObjects.at(i)->getComponentIDs().at(j)]["OBJModel"] = gameObjects.at(i)->getComponentModelFiles().at(j);
 			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"][gameObjects.at(i)->getComponentIDs().at(j)]["TextureFile"] = gameObjects.at(i)->getComponentTextureFiles().at(j);
 
+		}
+		if(gameObjects.at(i)->getBoundingbox())
+		{
+			
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["type"] = "boundingboxo";
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["centerX"] = gameObjects.at(i)->getCentre().x;
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["centerY"] = gameObjects.at(i)->getCentre().y;
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["centerZ"] = gameObjects.at(i)->getCentre().z;
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["extentX"] = gameObjects.at(i)->getExtents().x;
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["extentY"] = gameObjects.at(i)->getExtents().y;
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["extentZ"] = gameObjects.at(i)->getExtents().z;
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["static"]  =  gameObjects.at(i)->getStatic();
+			root["scene"]["entities"][gameObjects.at(i)->getName()]["components"]["boundingboxo"]["density"] = gameObjects.at(i)->getDensity();
+
+			
 		}
 
 	}

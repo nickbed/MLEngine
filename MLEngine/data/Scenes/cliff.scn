@@ -1,0 +1,61 @@
+{
+   "scene" : {
+      "activeentities" : [ "Cliff.obj0" ],
+      "cameras" : {
+         "camera1" : {
+            "camerasetup" : {
+               "fov" : 50,
+               "lookX" : 0,
+               "lookY" : 82.5,
+               "lookZ" : 165,
+               "pitch" : 0,
+               "posX" : 0,
+               "posY" : 92.5,
+               "posZ" : 185,
+               "yaw" : 0
+            }
+         }
+      },
+      "currentcamera" : "camera1",
+      "currentlight" : "default",
+      "entities" : {
+         "Cliff.obj0" : {
+            "components" : {
+               "Cliff.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "Cliff.obj0",
+                  "type" : "staticmesh"
+               },
+               "boundingboxo" : {
+                  "centerX" : 0.247650146484375,
+                  "centerY" : 9.105849266052246,
+                  "centerZ" : -0.6312007904052734,
+                  "density" : 1,
+                  "extentX" : 9.752082824707031,
+                  "extentY" : 14.57019710540772,
+                  "extentZ" : 17.61157417297363,
+                  "static" : true,
+                  "type" : "boundingboxo"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 0,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         }
+      },
+      "menu" : false,
+      "messagehandlers" : true,
+      "name" : "",
+      "sceneshader" : "data\\shaders\\default"
+   }
+}

@@ -20,9 +20,15 @@ private:
 	std::vector<std::string> modelFiles;
 	std::vector<std::string> textureFiles;
 	///////////////////////////////////
-
+	bool boundingbox;
+	glm::vec3 centre;
+	glm::vec3 extents;
+	bool isStatic;
+	float density;
+	/////////////////////
 	enum ComponentType {ANIM, UNKN};
 	std::string m_name;
+	std::string m_filename;
 	std::string m_type;
 
 	ResourceManager* m_rManager;
@@ -40,10 +46,26 @@ public:
 	void update(bool keys[]);//Updates the Game objects
 	void render();
 
-	
+	const bool getBoundingbox(){return boundingbox;};
+	void setBoundingbox(bool isBoudingbox){boundingbox = isBoudingbox;};
+
+	void setFilename(const std::string& filename){m_filename = filename;};
 	void setName(const std::string& nName);
 	const std::string& getName()const {return m_name;};
+	const std::string& getFilename()const {return m_filename;};
+	/////////////////////
+	void setDensity(float ndensity){density = ndensity;};
+	void setStatic(bool b){isStatic = b;};
+	void setCentre(const glm::vec3& ncentre){centre = ncentre;};
+	void setExtents(const glm::vec3& nextents){extents = nextents;};
 
+	void createExtents();
+
+	const glm::vec3& getCentre(){return centre;};
+	const glm::vec3& getExtents(){return extents;};
+	const bool getStatic(){return isStatic;};
+	const float getDensity(){return density;};
+	/////////////////
 	bool addComponent(std::string nName);
 
 	void addToComponentID(const std::string& ID){ componentIDs.push_back(ID);};
