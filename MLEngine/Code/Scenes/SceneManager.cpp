@@ -804,3 +804,12 @@ void SceneManager::DestroyEntity(std::string id)
 	//if (position != currentScene->activeEntities.end()) // == vector.end() means the element was not found
 	//	currentScene->activeEntities.erase(position);
 }
+IEntity* SceneManager::FindEntity(std::string id)
+{
+	if (currentScene->sceneEntities->find(id) == currentScene->sceneEntities->end())
+	{
+		return nullptr;
+	}
+	IEntity* entToFind = currentScene->sceneEntities->find(id)->second;
+	return entToFind;
+}
