@@ -446,6 +446,7 @@ void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
 	bool gotStatic = contents["static"].asBool();
 	float gotDensity;
 	float gotFriction;
+	float gotPush;
 	if(contents.isMember("density"))
 	{
 		gotDensity = contents["density"].asFloat();
@@ -462,13 +463,23 @@ void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
 	{
 		gotFriction = 1.f;
 	}
+	if(contents.isMember("push"))
+	{
+		gotPush = contents["push"].asFloat();
+	}
+	else
+	{
+		gotPush = 0.f;
+	}
 	glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
 	glm::vec3 gotExtent = glm::vec3(contents["extentX"].asFloat(), contents["extentY"].asFloat(), contents["extentZ"].asFloat());
 	BoundingBoxO* gotComponent = new BoundingBoxO("boundingbox",gotCenter,gotExtent,gotStatic,entToCreate->id);
 	gotComponent->Rigid_density = gotDensity;
 	gotComponent->Rigid_friction = gotFriction;
+	gotComponent->Rigid_push = gotPush;
 	gotComponent->Rigid_mass = (gotExtent.x*gotExtent.y*gotExtent.z);
 	gotComponent->Rigid_inverse = 1.f / (gotComponent->Rigid_mass * gotComponent->Rigid_density);
+
 
 	//gotComponent->SetTransform(entToCreate->Transform);
 	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
@@ -484,11 +495,41 @@ void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
 
 void SceneManager::AddBoundingCapsule(Json::Value contents, IEntity* entToCreate)
 {
+	float gotFriction;
+	float gotPush;
+	float gotDensity;
 	bool gotStatic = contents["static"].asBool();
 	glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
 	float gotExtent = contents["extent"].asFloat();
 	float gotRadius = contents["radius"].asFloat();
+	if(contents.isMember("density"))
+	{
+		gotDensity = contents["density"].asFloat();
+	}
+	else
+	{
+		gotDensity = 1.f;
+	}
+	if(contents.isMember("friction"))
+	{
+		gotFriction = contents["friction"].asFloat();
+	}
+	else
+	{
+		gotFriction = 1.f;
+	}
+	if(contents.isMember("push"))
+	{
+		gotPush = contents["push"].asFloat();
+	}
+	else
+	{
+		gotPush = 0.f;
+	}
 	BoundingCapsule* gotComponent = new BoundingCapsule("boundingcapsule",gotCenter,gotRadius,gotExtent,gotStatic,entToCreate->id);
+	gotComponent->Rigid_density=gotDensity;
+	gotComponent->Rigid_friction=gotFriction;
+	gotComponent->Rigid_push=gotPush;
 	//gotComponent->SetTransform(entToCreate->Transform);
 	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
 	if(gotStatic==true)

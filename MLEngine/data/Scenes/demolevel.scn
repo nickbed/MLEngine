@@ -677,7 +677,8 @@
 			"extentY": 3.1,
 			"extentZ": 7.0,
 			"static": false,
-			"density": 0.01
+			"density": 0.01,
+			"push": 50.0
 		  }
         }
       },
@@ -811,7 +812,8 @@
 			"radius": 0.5,
 			"extent": 0.5,
 			"static": false,
-			"density": 50.0
+			"density": 50.0,
+			"friction": 0.1
 		  },
 		  "boundingboxo": {
 		    "type":"boundingboxo(disabled)",
