@@ -1,10 +1,10 @@
 #include "Loaders\ModelLoader.h"
 
 
-ModelLoader::ModelLoader():min(0),max(0)
+ModelLoader::ModelLoader():min(10000),max(-10000)
 {
 }
-ModelLoader::ModelLoader(const std::string& nfileName)
+ModelLoader::ModelLoader(const std::string& nfileName):min(10000),max(-10000)
 {
 	loadFromfile(nfileName);
 }
@@ -72,21 +72,23 @@ void ModelLoader::loadFromfile(const std::string& nfileName)
 			{
 				min.x = vertices[0];
 			}
-			else if(vertices[0] > max.x)
+			if(vertices[0] > max.x)
 			{
 				max.x = vertices[0];
 			}
 			if(vertices[1] < min.y)
 			{
-				min.y = vertices[0];
-			}else if(vertices[1] > max.y)
+				min.y = vertices[1];
+			}
+			if(vertices[1] > max.y)
 			{
 				max.y = vertices[1];
 			}
 			if(vertices[2] < min.z)
 			{
 				min.z = vertices[2];
-			}else if(vertices[2] > max.z)
+			}
+			if(vertices[2] > max.z)
 			{
 				max.z = vertices[2];
 			}

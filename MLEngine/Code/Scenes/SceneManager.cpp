@@ -467,8 +467,8 @@ void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
 	BoundingBoxO* gotComponent = new BoundingBoxO("boundingbox",gotCenter,gotExtent,gotStatic,entToCreate->id);
 	gotComponent->Rigid_density = gotDensity;
 	gotComponent->Rigid_friction = gotFriction;
-	gotComponent->Rigid_mass = (gotExtent.x*gotExtent.y*gotExtent.z);
-	gotComponent->Rigid_inverse = 1.f / (gotComponent->Rigid_mass * gotComponent->Rigid_density);
+	gotComponent->Rigid_mass = (gotExtent.x*gotExtent.y*gotExtent.z)*gotDensity;
+	gotComponent->Rigid_inverse = 1.f / (gotComponent->Rigid_mass);
 
 	//gotComponent->SetTransform(entToCreate->Transform);
 	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);

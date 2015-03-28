@@ -20,7 +20,15 @@ void Robot::Init()
 bool Robot::Update(float dt)
 {
 	Components->UpdateAllComponents(dt);
-
+	camdir.y = 0.0f;
+	camdir.x = sinf(glm::radians(Transform->GetRotation().y )) * (-1.0f * 0.33);
+	camdir.z = cosf(glm::radians(Transform->GetRotation().y )) * (-1.0f * 0.33);
+	followPos =Transform->GetPosition();
+	followPos.x -= camdir.x * 10.0f; 
+	followPos.z -= camdir.z * 10.0f; 
+	followPos.y +=0.8f;
+	mauvemessage::PositionMessage msg_cameraMove("robotPositionMove", followPos);
+	mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "robotPositionMove");
 	
 	Script->Update(dt);
 
@@ -103,6 +111,8 @@ void Robot::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
 	glm::vec3 moveSpeed(0.0f,0.0f,0.0f);
 	glm::vec3 messageToSend;
+
+	
 	//Determine which direction we're going in
 	if (messagePos.z != 0.0f)
 	{
@@ -112,6 +122,7 @@ void Robot::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 		moveVector.y = 0.0f; //Don't want to take y into account
 		moveVector.x = sinf(glm::radians(Transform->GetRotation().y)) * (moveSpeed.z * messagePos.z);
 		moveVector.z = cosf(glm::radians(Transform->GetRotation().y)) * (moveSpeed.z * messagePos.z);
+		
 		Transform->SetPosition(Transform->GetPosition() + moveVector);
 
 	}
@@ -122,15 +133,18 @@ void Robot::msg_SetMovePosition(mauvemessage::BaseMessage* msg)
 		moveVector.y = 0.0f; //Don't want to take y into account
 		moveVector.x = sinf(glm::radians(Transform->GetRotation().y + 90.0f)) * (moveSpeed.x * messagePos.x);
 		moveVector.z = cosf(glm::radians(Transform->GetRotation().y + 90.0f)) * (moveSpeed.x * messagePos.x);
+		
 		Transform->SetPosition(Transform->GetPosition() + moveVector);
 	}
+	if (messagePos.z != 0.0f)
 
+	
+		
 	isAnimating = true;
-	glm::vec3 followPos(0.0f, 0.8f, 0.0f);
-	followPos += Transform->GetPosition();
+	
+	
 
-	mauvemessage::PositionMessage msg_cameraMove("robotPositionMove", followPos);
-	mauvemessage::MessageManager::SendListnerMessage(&msg_cameraMove, "robotPositionMove");
+	
 }
 
 void Robot::msg_SetHeadPosition(mauvemessage::BaseMessage* msg)

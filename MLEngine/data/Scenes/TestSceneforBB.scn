@@ -27,9 +27,9 @@
          "MudBlock.obj1",
          "MudBlock.obj2",
          "MudBlock.obj3",
-         "MudBlock_BigSlope.obj",
-         "MudBlock_BigSlope.obj0",
-         "MudBlock_BigSlope.obj1",
+         "MudBlock.obj4",
+         "MudBlock.obj5",
+         "MudBlock.obj6",
          "MudBlock_Noise1.obj",
          "MudBlock_Noise1.obj0",
          "MudBlock_Noise2.obj0",
@@ -45,9 +45,9 @@
          "Tree.obj1",
          "Tree_2.obj0",
          "Tree_2.obj1",
-         "Tree_bend.obj",
-         "Tree_bend.obj0",
-         "Tree_bend.obj1",
+         "Tree.obj2",
+         "Tree_2.obj2",
+         "Tree.obj3",
          "Tree_twist.obj0",
          "Tree_twist.obj1",
          "cliffledge.obj0",
@@ -80,14 +80,14 @@
          "camera0" : {
             "camerasetup" : {
                "fov" : 80,
-               "lookX" : 119.9361267089844,
-               "lookY" : 72.92039489746094,
-               "lookZ" : 12.8932580947876,
-               "pitch" : 0.2180000990629196,
-               "posX" : 155.7909240722656,
-               "posY" : 84.67133331298828,
-               "posZ" : 6.398947715759277,
-               "yaw" : -0.2209998220205307
+               "lookX" : 198.6607666015625,
+               "lookY" : 111.6237335205078,
+               "lookZ" : 4.412932395935059,
+               "pitch" : 0.1860001087188721,
+               "posX" : 231.8079528808594,
+               "posY" : 127.9198608398438,
+               "posZ" : 0.8422689437866211,
+               "yaw" : -0.2339998185634613
             }
          },
          "camera1" : {
@@ -143,12 +143,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -176,11 +176,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.84910774230957,
+                  "centerY" : 23.7366886138916,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
                   "extentX" : 19.50416564941406,
-                  "extentY" : 30.16030693054199,
+                  "extentY" : 25.51710510253906,
                   "extentZ" : 35.22314834594727,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -209,12 +209,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -242,11 +242,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
                   "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
+                  "extentY" : 24.65420913696289,
                   "extentZ" : 35.22314834594727,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -275,12 +275,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -308,12 +308,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -341,12 +341,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -374,12 +374,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -407,12 +407,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -440,11 +440,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
                   "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
+                  "extentY" : 24.65420913696289,
                   "extentZ" : 35.22314834594727,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -473,12 +473,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -506,12 +506,12 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.49530029296875,
-                  "centerY" : 18.21169853210449,
+                  "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
-                  "extentY" : 29.14039421081543,
-                  "extentZ" : 35.22314834594727,
+                  "extentX" : 15,
+                  "extentY" : 24,
+                  "extentZ" : 32,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -644,7 +644,7 @@
                   "extentX" : 3.243680000305176,
                   "extentY" : 3.243680000305176,
                   "extentZ" : 3.243680000305176,
-                  "static" : true,
+                  "static" : false,
                   "type" : "boundingboxo"
                }
             },
@@ -803,11 +803,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.9104000329971314,
-                  "centerY" : 1.50285005569458,
+                  "centerY" : 0.4286999702453613,
                   "centerZ" : 0.1859002113342285,
                   "density" : 1,
                   "extentX" : 2.125149965286255,
-                  "extentY" : 0.3504075407981873,
+                  "extentY" : 1.403434872627258,
                   "extentZ" : 2.531180143356323,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -836,11 +836,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1033000946044922,
-                  "centerY" : 2.114650011062622,
+                  "centerY" : 2.118749856948853,
                   "centerZ" : 0.03425002098083496,
                   "density" : 1,
                   "extentX" : 3.778720140457153,
-                  "extentY" : 2.008917570114136,
+                  "extentY" : 2.005022287368774,
                   "extentZ" : 3.13751745223999,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -869,11 +869,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1033000946044922,
-                  "centerY" : 2.114650011062622,
+                  "centerY" : 2.118749856948853,
                   "centerZ" : 0.03425002098083496,
                   "density" : 1,
                   "extentX" : 3.778720140457153,
-                  "extentY" : 2.008917570114136,
+                  "extentY" : 2.005022287368774,
                   "extentZ" : 3.13751745223999,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -902,11 +902,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.2066001892089844,
-                  "centerY" : 4.229300022125244,
+                  "centerY" : 4.237499713897705,
                   "centerZ" : 0.06850004196166992,
                   "density" : 1,
                   "extentX" : 7.557440280914307,
-                  "extentY" : 4.017835140228272,
+                  "extentY" : 4.010044574737549,
                   "extentZ" : 6.275034904479981,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -935,11 +935,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1033000946044922,
-                  "centerY" : 2.114650011062622,
+                  "centerY" : 2.118749856948853,
                   "centerZ" : 0.03425002098083496,
                   "density" : 1,
                   "extentX" : 3.778720140457153,
-                  "extentY" : 2.008917570114136,
+                  "extentY" : 2.005022287368774,
                   "extentZ" : 3.13751745223999,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -968,11 +968,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.3099002838134766,
-                  "centerY" : 2.114650011062622,
+                  "centerY" : 2.118749856948853,
                   "centerZ" : 0.1027500629425049,
                   "density" : 1,
                   "extentX" : 11.33615970611572,
-                  "extentY" : 2.008917570114136,
+                  "extentY" : 2.005022287368774,
                   "extentZ" : 9.412551879882813,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -991,21 +991,21 @@
             },
             "type" : "generalentity"
          },
-         "MudBlock_BigSlope.obj" : {
+         "MudBlock.obj4" : {
             "components" : {
-               "MudBlock_BigSlope.obj" : {
-                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_BigSlope.obj",
+               "MudBlock.obj4" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
-                  "id" : "MudBlock_BigSlope.obj",
+                  "id" : "MudBlock.obj4",
                   "type" : "staticmesh"
                },
                "boundingboxo" : {
                   "centerX" : -0.01199984550476074,
-                  "centerY" : 3.76170015335083,
+                  "centerY" : 3.765900135040283,
                   "centerZ" : -0.2567253112792969,
                   "density" : 1,
                   "extentX" : 4.505707740783691,
-                  "extentY" : 3.573615074157715,
+                  "extentY" : 3.56962513923645,
                   "extentZ" : 5.719450950622559,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1024,21 +1024,21 @@
             },
             "type" : "generalentity"
          },
-         "MudBlock_BigSlope.obj0" : {
+         "MudBlock.obj5" : {
             "components" : {
-               "MudBlock_BigSlope.obj0" : {
-                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_BigSlope.obj",
+               "MudBlock.obj5" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
-                  "id" : "MudBlock_BigSlope.obj0",
+                  "id" : "MudBlock.obj5",
                   "type" : "staticmesh"
                },
                "boundingboxo" : {
                   "centerX" : -0.01199984550476074,
-                  "centerY" : 3.76170015335083,
+                  "centerY" : 3.765900135040283,
                   "centerZ" : -0.2567253112792969,
                   "density" : 1,
                   "extentX" : 4.505707740783691,
-                  "extentY" : 3.573615074157715,
+                  "extentY" : 3.56962513923645,
                   "extentZ" : 5.719450950622559,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1057,21 +1057,21 @@
             },
             "type" : "generalentity"
          },
-         "MudBlock_BigSlope.obj1" : {
+         "MudBlock.obj6" : {
             "components" : {
-               "MudBlock_BigSlope.obj1" : {
-                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_BigSlope.obj",
+               "MudBlock.obj6" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
-                  "id" : "MudBlock_BigSlope.obj1",
+                  "id" : "MudBlock.obj6",
                   "type" : "staticmesh"
                },
                "boundingboxo" : {
                   "centerX" : -0.01599979400634766,
-                  "centerY" : 3.711544275283814,
+                  "centerY" : 3.715688228607178,
                   "centerZ" : -0.3423004150390625,
                   "density" : 1,
                   "extentX" : 6.007609844207764,
-                  "extentY" : 3.525967121124268,
+                  "extentY" : 3.522030353546143,
                   "extentZ" : 7.625934600830078,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1100,11 +1100,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.01235008239746094,
-                  "centerY" : 0.5641500949859619,
+                  "centerY" : 2.028850078582764,
                   "centerZ" : -0.01734995841979981,
                   "density" : 1,
                   "extentX" : 3.102367401123047,
-                  "extentY" : 3.444747447967529,
+                  "extentY" : 2.053282499313355,
                   "extentZ" : 3.673412561416626,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1133,11 +1133,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.01852512359619141,
-                  "centerY" : 0.8462251424789429,
+                  "centerY" : 3.043275117874146,
                   "centerZ" : -0.02602493762969971,
                   "density" : 1,
                   "extentX" : 4.653551578521729,
-                  "extentY" : 5.167121410369873,
+                  "extentY" : 3.079923629760742,
                   "extentZ" : 5.510118961334229,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1166,11 +1166,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.2403998374938965,
-                  "centerY" : 0.52590012550354,
+                  "centerY" : 1.894150018692017,
                   "centerZ" : -0.1833500862121582,
                   "density" : 1,
                   "extentX" : 3.28975510597229,
-                  "extentY" : 3.638975143432617,
+                  "extentY" : 2.339137554168701,
                   "extentZ" : 3.664672613143921,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1199,11 +1199,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.2403998374938965,
-                  "centerY" : 0.5311591029167175,
+                  "centerY" : 1.913091540336609,
                   "centerZ" : -0.1833500862121582,
                   "density" : 1,
                   "extentX" : 3.28975510597229,
-                  "extentY" : 3.675364971160889,
+                  "extentY" : 2.362528800964356,
                   "extentZ" : 3.664672613143921,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1232,11 +1232,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.01477503776550293,
-                  "centerY" : 1.646775126457214,
+                  "centerY" : 3.095324993133545,
                   "centerZ" : -0.033599853515625,
                   "density" : 1,
                   "extentX" : 6.421548843383789,
-                  "extentY" : 4.416289329528809,
+                  "extentY" : 3.040166139602661,
                   "extentZ" : 7.862579345703125,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1265,11 +1265,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.01970005035400391,
-                  "centerY" : 2.195700168609619,
+                  "centerY" : 4.127099990844727,
                   "centerZ" : -0.0447998046875,
                   "density" : 1,
                   "extentX" : 8.562065124511719,
-                  "extentY" : 5.88838529586792,
+                  "extentY" : 4.053555011749268,
                   "extentZ" : 10.48344039916992,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1298,11 +1298,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.009850025177001953,
-                  "centerY" : 1.09785008430481,
+                  "centerY" : 2.063549995422363,
                   "centerZ" : -0.02239990234375,
                   "density" : 1,
                   "extentX" : 4.281032562255859,
-                  "extentY" : 2.94419264793396,
+                  "extentY" : 2.026777505874634,
                   "extentZ" : 5.241720199584961,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1331,11 +1331,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.0420001745223999,
-                  "centerY" : 1.409199953079224,
+                  "centerY" : 2.878639936447144,
                   "centerZ" : -0.1512748003005981,
                   "density" : 1,
                   "extentX" : 3.84379506111145,
-                  "extentY" : 4.323259830474854,
+                  "extentY" : 2.927291870117188,
                   "extentZ" : 4.501218318939209,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1364,11 +1364,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.01100003719329834,
-                  "centerY" : 10.96199989318848,
+                  "centerY" : 10.98174953460693,
                   "centerZ" : -0.02099990844726563,
                   "density" : 1,
                   "extentX" : 4.1486496925354,
-                  "extentY" : 10.4138994216919,
+                  "extentY" : 10.39513683319092,
                   "extentZ" : 5.061600208282471,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1397,11 +1397,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : -6.312648773193359,
+                  "centerY" : 18.96340179443359,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 56.95164489746094,
-                  "extentY" : 43.46957778930664,
+                  "extentY" : 19.45733070373535,
                   "extentZ" : 27.16287612915039,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1430,11 +1430,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1518998146057129,
-                  "centerY" : 9.293899536132813,
+                  "centerY" : 9.301349639892578,
                   "centerZ" : 1.172849655151367,
                   "density" : 1,
                   "extentX" : 5.789204597473145,
-                  "extentY" : 8.829204559326172,
+                  "extentY" : 8.822126388549805,
                   "extentZ" : 9.246586799621582,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1463,11 +1463,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1518998146057129,
-                  "centerY" : 9.293899536132813,
+                  "centerY" : 9.301349639892578,
                   "centerZ" : 1.172849655151367,
                   "density" : 1,
                   "extentX" : 5.789204597473145,
-                  "extentY" : 8.829204559326172,
+                  "extentY" : 8.822126388549805,
                   "extentZ" : 9.246586799621582,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1496,11 +1496,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1518998146057129,
-                  "centerY" : 9.293899536132813,
+                  "centerY" : 9.301349639892578,
                   "centerZ" : 1.172849655151367,
                   "density" : 1,
                   "extentX" : 5.789204597473145,
-                  "extentY" : 8.829204559326172,
+                  "extentY" : 8.822126388549805,
                   "extentZ" : 9.246586799621582,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1529,11 +1529,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.2130498886108398,
-                  "centerY" : 9.293899536132813,
+                  "centerY" : 9.301349639892578,
                   "centerZ" : 0.7829999923706055,
                   "density" : 1,
                   "extentX" : 5.450482368469238,
-                  "extentY" : 8.829204559326172,
+                  "extentY" : 8.822126388549805,
                   "extentZ" : 8.876230239868164,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1562,11 +1562,11 @@
                },
                "boundingboxo" : {
                   "centerX" : -0.2130498886108398,
-                  "centerY" : 9.293899536132813,
+                  "centerY" : 9.301349639892578,
                   "centerZ" : 0.7829999923706055,
                   "density" : 1,
                   "extentX" : 5.450482368469238,
-                  "extentY" : 8.829204559326172,
+                  "extentY" : 8.822126388549805,
                   "extentZ" : 8.876230239868164,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1585,21 +1585,21 @@
             },
             "type" : "generalentity"
          },
-         "Tree_bend.obj" : {
+         "Tree.obj2" : {
             "components" : {
-               "Tree_bend.obj" : {
-                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_bend.obj",
+               "Tree.obj2" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
-                  "id" : "Tree_bend.obj",
+                  "id" : "Tree.obj2",
                   "type" : "staticmesh"
                },
                "boundingboxo" : {
                   "centerX" : -1.229100227355957,
-                  "centerY" : 10.15775012969971,
+                  "centerY" : 10.16359996795654,
                   "centerZ" : -4.220950126647949,
                   "density" : 1,
                   "extentX" : 9.531538963317871,
-                  "extentY" : 9.649862289428711,
+                  "extentY" : 9.644305229187012,
                   "extentZ" : 7.349532604217529,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1618,21 +1618,21 @@
             },
             "type" : "generalentity"
          },
-         "Tree_bend.obj0" : {
+         "Tree_2.obj2" : {
             "components" : {
-               "Tree_bend.obj0" : {
-                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_bend.obj",
+               "Tree_2.obj2" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_2.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
-                  "id" : "Tree_bend.obj0",
+                  "id" : "Tree_2.obj2",
                   "type" : "staticmesh"
                },
                "boundingboxo" : {
                   "centerX" : -1.229100227355957,
-                  "centerY" : 10.15775012969971,
+                  "centerY" : 10.16359996795654,
                   "centerZ" : -4.220950126647949,
                   "density" : 1,
                   "extentX" : 9.531538963317871,
-                  "extentY" : 9.649862289428711,
+                  "extentY" : 9.644305229187012,
                   "extentZ" : 7.349532604217529,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1651,21 +1651,21 @@
             },
             "type" : "generalentity"
          },
-         "Tree_bend.obj1" : {
+         "Tree.obj3" : {
             "components" : {
-               "Tree_bend.obj1" : {
-                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_bend.obj",
+               "Tree.obj3" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
-                  "id" : "Tree_bend.obj1",
+                  "id" : "Tree.obj3",
                   "type" : "staticmesh"
                },
                "boundingboxo" : {
                   "centerX" : -1.229100227355957,
-                  "centerY" : 10.15775012969971,
+                  "centerY" : 10.16359996795654,
                   "centerZ" : -4.220950126647949,
                   "density" : 1,
                   "extentX" : 9.531538963317871,
-                  "extentY" : 9.649862289428711,
+                  "extentY" : 9.644305229187012,
                   "extentZ" : 7.349532604217529,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1694,11 +1694,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1231999397277832,
-                  "centerY" : 9.293899536132813,
+                  "centerY" : 9.301349639892578,
                   "centerZ" : -1.1968994140625,
                   "density" : 1,
                   "extentX" : 5.126864910125732,
-                  "extentY" : 8.829204559326172,
+                  "extentY" : 8.822126388549805,
                   "extentZ" : 9.375454902648926,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1727,11 +1727,11 @@
                },
                "boundingboxo" : {
                   "centerX" : 0.1231999397277832,
-                  "centerY" : 9.293899536132813,
+                  "centerY" : 9.301349639892578,
                   "centerZ" : -1.1968994140625,
                   "density" : 1,
                   "extentX" : 5.126864910125732,
-                  "extentY" : 8.829204559326172,
+                  "extentY" : 8.822126388549805,
                   "extentZ" : 9.375454902648926,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1754,11 +1754,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0.2138101160526276,
-                  "centerY" : -0.1967249512672424,
+                  "centerY" : 0.181755006313324,
                   "centerZ" : -0.2532300055027008,
                   "density" : 1,
                   "extentX" : 2.161554098129273,
-                  "extentY" : 1.248684763908386,
+                  "extentY" : 0.8891288042068481,
                   "extentZ" : 2.675637006759644,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1787,11 +1787,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0.2850801646709442,
-                  "centerY" : -0.2622999250888825,
+                  "centerY" : 0.2423399984836578,
                   "centerZ" : -0.3376400172710419,
                   "density" : 1,
                   "extentX" : 2.882071971893311,
-                  "extentY" : 1.664912939071655,
+                  "extentY" : 1.185505032539368,
                   "extentZ" : 3.567516088485718,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1808,8 +1808,8 @@
                "posY" : 14.39999961853027,
                "posZ" : -25.5,
                "rotateX" : 11.00001049041748,
-               "rotateY" : 3.000001907348633,
-               "rotateZ" : 2.270948698424036e-006,
+               "rotateY" : 3.000001668930054,
+               "rotateZ" : 2.538119133532746e-006,
                "scaleX" : 0.4000000059604645,
                "scaleY" : 0.4000000059604645,
                "scaleZ" : 0.4000000059604645
@@ -1820,11 +1820,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0.2850801646709442,
-                  "centerY" : -0.2622999250888825,
+                  "centerY" : 0.2423399984836578,
                   "centerZ" : -0.3376400172710419,
                   "density" : 1,
                   "extentX" : 2.882071971893311,
-                  "extentY" : 1.664912939071655,
+                  "extentY" : 1.185505032539368,
                   "extentZ" : 3.567516088485718,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1853,11 +1853,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0.4276202321052551,
-                  "centerY" : -0.3934499025344849,
+                  "centerY" : 0.363510012626648,
                   "centerZ" : -0.5064600110054016,
                   "density" : 1,
                   "extentX" : 4.323108196258545,
-                  "extentY" : 2.497369527816773,
+                  "extentY" : 1.778257608413696,
                   "extentZ" : 5.351274013519287,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1886,11 +1886,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0.5630332827568054,
-                  "centerY" : -0.8196872472763062,
+                  "centerY" : 0.7573124766349793,
                   "centerZ" : -0.869422972202301,
                   "density" : 1,
                   "extentX" : 5.692092418670654,
-                  "extentY" : 5.202853202819824,
+                  "extentY" : 3.704703092575073,
                   "extentZ" : 9.186352729797363,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1919,11 +1919,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1952,11 +1952,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -1985,11 +1985,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2018,11 +2018,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2051,11 +2051,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2084,11 +2084,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2117,11 +2117,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2150,11 +2150,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2183,11 +2183,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2216,11 +2216,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2249,11 +2249,11 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0.3051249980926514,
+                  "centerY" : 0,
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 0.8677774667739868,
-                  "extentY" : 0.5912562608718872,
+                  "extentY" : 0.8811249732971191,
                   "extentZ" : 0.110152505338192,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2282,13 +2282,13 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0,
+                  "centerY" : -0.5,
                   "centerZ" : 0,
                   "density" : 1,
-                  "extentX" : 101.1543884277344,
-                  "extentY" : 0,
-                  "extentZ" : 101.1543884277344,
-                  "static" : true,
+                  "extentX" : 106.1543884277344,
+                  "extentY" : 1,
+                  "extentZ" : 106.1543884277344,
+                  "static" : false,
                   "type" : "boundingboxo"
                },
                "floor.obj" : {
@@ -2315,13 +2315,13 @@
             "components" : {
                "boundingboxo" : {
                   "centerX" : 0,
-                  "centerY" : 0,
+                  "centerY" : -0.5,
                   "centerZ" : 0,
                   "density" : 1,
-                  "extentX" : 101.1543884277344,
-                  "extentY" : 0,
-                  "extentZ" : 101.1543884277344,
-                  "static" : true,
+                  "extentX" : 106.1543884277344,
+                  "extentY" : 1,
+                  "extentZ" : 106.1543884277344,
+                  "static" : false,
                   "type" : "boundingboxo"
                },
                "floor.obj0" : {
@@ -2476,64 +2476,77 @@
             },
             "type" : "generalentity"
          },
-         "robot1" : {
-            "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.09983626008033752,
-                  "centerY" : 0.1145117357373238,
-                  "centerZ" : -0.09893423318862915,
-                  "density" : 50,
-                  "extentX" : 0.09484444558620453,
-                  "extentY" : 0.06151647120714188,
-                  "extentZ" : 0.1601692140102387,
-                  "static" : false,
-                  "type" : "boundingboxo"
-               },
-               "robotBody" : {
-                  "OBJModel" : "data\\models\\robbody.obj",
-                  "TextureFile" : "data\\images\\rainbow.png",
-                  "id" : "robotBody",
-                  "type" : "staticmesh"
-               },
-               "robotLeftArm" : {
-                  "OBJModel" : "data\\models\\roblarm.obj",
-                  "TextureFile" : "data\\images\\rainbow.png",
-                  "id" : "robotLeftArm",
-                  "type" : "staticmesh"
-               },
-               "robotLeftLeg" : {
-                  "OBJModel" : "data\\models\\roblleg.obj",
-                  "TextureFile" : "data\\images\\rainbow.png",
-                  "id" : "robotLeftLeg",
-                  "type" : "staticmesh"
-               },
-               "robotRightArm" : {
-                  "OBJModel" : "data\\models\\robrarm.obj",
-                  "TextureFile" : "data\\images\\rainbow.png",
-                  "id" : "robotRightArm",
-                  "type" : "staticmesh"
-               },
-               "robotRightLeg" : {
-                  "OBJModel" : "data\\models\\robrleg.obj",
-                  "TextureFile" : "data\\images\\rainbow.png",
-                  "id" : "robotRightLeg",
-                  "type" : "staticmesh"
-               }
-            },
-            "transform" : {
-               "posX" : -20,
-               "posY" : 20,
-               "posZ" : 0,
-               "rotateX" : -180,
-               "rotateY" : -5.008956122765085e-006,
-               "rotateZ" : -180,
-               "scaleX" : 0.1500000059604645,
-               "scaleY" : 0.1500000059604645,
-               "scaleZ" : 0.1500000059604645
-            },
-            "type" : "robot"
-         }
-      },
+          "robot1": {
+        "type": "robot",
+		"script": {
+		  "path": "data\\Scripts\\jump.lua",
+		  "identifier": "Jump"
+		},
+        "transform": {
+          "posX": 0,
+          "posY": 1,
+          "posZ": 0,
+          "scaleX": 0.15,
+          "scaleY": 0.15,
+          "scaleZ": 0.15,
+          "rotateX": 0,
+          "rotateY": 180,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+		  "boundingcapsule": {
+		    "type":"boundingcapsule",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"radius": 0.5,
+			"extent": 0.5,
+			"static": false,
+			"density": 50.0
+		  },
+		  "boundingboxo": {
+		    "type":"boundingboxo(disabled)",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 0.75,
+			"extentY": 1.0,
+			"extentZ": 0.5,
+			"static": false
+		  },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      }
+	  },
       "lights" : {
          "Light1" : {
             "lightparams" : {

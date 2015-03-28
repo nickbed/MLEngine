@@ -12,8 +12,8 @@ void PhysicsSystem::Init()
 
 bool PhysicsSystem::Update(float dt)
 {
-	std::vector<BoundingVolume*> dynamics = CollisionSystem::dynamics;
-	for(auto volume = dynamics.begin(); volume != dynamics.end(); ++volume)
+	//std::vector<BoundingVolume*> dynamics = CollisionSystem::dynamics;
+	for(auto volume = CollisionSystem::dynamics.begin(); volume != CollisionSystem::dynamics.end(); ++volume)
 	{
 		float dragLinear = (*volume)->Rigid_vel.length();
 		glm::vec3 linearForce = (*volume)->Rigid_vel/dragLinear;

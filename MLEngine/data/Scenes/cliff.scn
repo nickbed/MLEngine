@@ -1,40 +1,40 @@
 {
    "scene" : {
-      "activeentities" : [ "Cliff.obj0" ],
+      "activeentities" : [ "coin.obj0", "Tree_bend.obj0" ],
       "cameras" : {
          "camera1" : {
             "camerasetup" : {
                "fov" : 50,
-               "lookX" : 0,
-               "lookY" : 82.5,
-               "lookZ" : 165,
-               "pitch" : 0,
-               "posX" : 0,
-               "posY" : 92.5,
-               "posZ" : 185,
-               "yaw" : 0
+               "lookX" : 0.366767168045044,
+               "lookY" : 33.86719512939453,
+               "lookZ" : 73.63726043701172,
+               "pitch" : 0.03600000217556953,
+               "posX" : 0.7859295606613159,
+               "posY" : 41.14398956298828,
+               "posZ" : 94.93698120117188,
+               "yaw" : 0.005000000353902578
             }
          }
       },
       "currentcamera" : "camera1",
       "currentlight" : "default",
       "entities" : {
-         "Cliff.obj0" : {
+         "Tree_bend.obj0" : {
             "components" : {
-               "Cliff.obj0" : {
-                  "OBJModel" : "data\\Models\\TomsWorld\\Cliff.obj",
-                  "TextureFile" : "data\\images\\default.png",
-                  "id" : "Cliff.obj0",
+               "Tree_bend.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Tree_bend.obj",
+                  "TextureFile" : "data\\Images\\TomsWorld\\tree.jpg",
+                  "id" : "Tree_bend.obj0",
                   "type" : "staticmesh"
                },
                "boundingboxo" : {
-                  "centerX" : 0.247650146484375,
-                  "centerY" : 9.105849266052246,
-                  "centerZ" : -0.6312007904052734,
+                  "centerX" : -1.229100227355957,
+                  "centerY" : 10.16359996795654,
+                  "centerZ" : -4.220950126647949,
                   "density" : 1,
-                  "extentX" : 9.752082824707031,
-                  "extentY" : 14.57019710540772,
-                  "extentZ" : 17.61157417297363,
+                  "extentX" : 9.531538963317871,
+                  "extentY" : 9.644305229187012,
+                  "extentZ" : 7.349532604217529,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -51,6 +51,54 @@
                "scaleZ" : 1
             },
             "type" : "generalentity"
+         },
+         "coin.obj0" : {
+            "components" : {
+               "boundingboxo" : {
+                  "centerX" : 0,
+                  "centerY" : 0,
+                  "centerZ" : 0,
+                  "density" : 1,
+                  "extentX" : 0.8677774667739868,
+                  "extentY" : 0.8811249732971191,
+                  "extentZ" : 0.110152505338192,
+                  "static" : true,
+                  "type" : "boundingboxo"
+               },
+               "coin.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                  "TextureFile" : "data\\Images\\TomsWorld\\coin.jpg",
+                  "id" : "coin.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 0,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 0.5,
+               "scaleY" : 0.5,
+               "scaleZ" : 0.5
+            },
+            "type" : "generalentity"
+         }
+      },
+      "lights" : {
+         "" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : 0,
+               "posY" : 10.10000038146973,
+               "posZ" : 14.90000057220459,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
          }
       },
       "menu" : false,

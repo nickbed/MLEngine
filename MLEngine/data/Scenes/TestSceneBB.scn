@@ -74,135 +74,65 @@
          "flowergroup.obj2",
          "flowergroup.obj3",
          "flowergroup.obj4",
-		 "robot1"
+         "robot1"
       ],
-       "cameras": {
-      "camera0": {
-        "camerasetup": {
-          "posX": 5,
-          "posY": 2.5,
-          "posZ": -1.9,
-          "lookX": 0,
-          "lookY": 0,
-          "lookZ": 0,
-          "fov": 80,
-          "pitch": 0,
-          "yaw": 0
-        }
+      "cameras" : {
+         "camera0" : {
+            "camerasetup" : {
+               "fov" : 80,
+               "lookX" : 0,
+               "lookY" : 0,
+               "lookZ" : 0,
+               "pitch" : 0,
+               "posX" : 5,
+               "posY" : 2.5,
+               "posZ" : -1.899999976158142,
+               "yaw" : 0
+            }
+         },
+         "camera1" : {
+            "camerasetup" : {
+               "fov" : 50,
+               "lookX" : 0,
+               "lookY" : 0,
+               "lookZ" : 0,
+               "pitch" : 0,
+               "posX" : 0,
+               "posY" : 1.799999952316284,
+               "posZ" : 0,
+               "yaw" : 0
+            }
+         },
+         "camera2" : {
+            "camerasetup" : {
+               "fov" : 120,
+               "lookX" : 0,
+               "lookY" : 0,
+               "lookZ" : 0,
+               "pitch" : 0,
+               "posX" : 0,
+               "posY" : 10,
+               "posZ" : -10,
+               "yaw" : 0
+            }
+         },
+         "camera3" : {
+            "camerasetup" : {
+               "fov" : 70,
+               "lookX" : 0,
+               "lookY" : 0,
+               "lookZ" : 0,
+               "pitch" : 0,
+               "posX" : 0,
+               "posY" : 20,
+               "posZ" : -80,
+               "yaw" : 0
+            }
+         }
       },
-      "camera1": {
-        "camerasetup": {
-          "posX": 0,
-          "posY": 1.8,
-          "posZ":  0,
-          "lookX": 0,
-          "lookY": 0,
-          "lookZ": 0,
-          "fov": 50,
-          "pitch": 0,
-          "yaw": 0
-		  }
-        },
-	"camera2": {
-        "camerasetup": {
-          "posX": 0,
-          "posY": 10,
-          "posZ":  -10,
-          "lookX": 0,
-          "lookY": 0,
-          "lookZ": 0,
-          "fov": 120,
-          "pitch": 0,
-          "yaw": 0
-		  }
-        },
-		"camera3": {
-        "camerasetup": {
-          "posX": 0,
-          "posY": 20,
-          "posZ": -80,
-          "lookX": 0,
-          "lookY": 0,
-          "lookZ": 0,
-          "fov": 70,
-          "pitch": 0,
-          "yaw": 0
-        }
-      }
-    },
-	"currentcamera": "camera0",
+      "currentcamera" : "camera0",
       "currentlight" : "default",
       "entities" : {
-	    "robot1": {
-        "type": "robot",
-		"script": {
-		  "path": "data\\Scripts\\jump.lua",
-		  "identifier": "Jump"
-		},
-        "transform": {
-          "posX": -20,
-          "posY": 20,
-          "posZ": 0,
-          "scaleX": 0.15,
-          "scaleY": 0.15,
-          "scaleZ": 0.15,
-          "rotateX": 0,
-          "rotateY": 180,
-          "rotateZ": 0
-        },
-        "components": {
-          "robotmesh": {
-            "id": "robotBody",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\robbody.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          },
-		  "boundingcapsule": {
-		    "type":"boundingcapsule",
-			"centerX": 0.0,
-			"centerY": 0.0,
-			"centerZ": 0.0,
-			"radius": 0.5,
-			"extent": 0.5,
-			"static": false,
-			"density": 50.0
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo(disabled)",
-			"centerX": 0.0,
-			"centerY": 0.0,
-			"centerZ": 0.0,
-			"extentX": 0.75,
-			"extentY": 1.0,
-			"extentZ": 0.5,
-			"static": false
-		  },
-          "robotlleg": {
-            "id": "robotLeftLeg",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\roblleg.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          },
-          "robotrleg": {
-            "id": "robotRightLeg",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\robrleg.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          },
-          "robotrarm": {
-            "id": "robotRightArm",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\robrarm.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          },
-          "robotlarm": {
-            "id": "robotLeftArm",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\roblarm.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          }
-        }
-      },
          "Cliff.obj0" : {
             "components" : {
                "Cliff.obj0" : {
@@ -210,17 +140,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -243,17 +162,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -7.304792404174805,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 31.7476921081543,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -276,17 +184,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj10",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -309,17 +206,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj11",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -342,17 +228,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj2",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -375,17 +250,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj3",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -408,17 +272,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj4",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -441,17 +294,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj5",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -474,17 +316,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj6",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -507,17 +338,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj7",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -540,17 +360,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj8",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -573,17 +382,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "Cliff.obj9",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -10.01770114898682,
-                  "centerY" : -6.231199264526367,
-                  "centerZ" : -19.16970062255859,
-                  "density" : 1,
-                  "extentX" : 20.53070068359375,
-                  "extentY" : 30.67409896850586,
-                  "extentZ" : 37.07699966430664,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -606,17 +404,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0,
-                  "centerY" : 1.707200050354004,
-                  "centerZ" : 0,
-                  "density" : 1,
-                  "extentX" : 1.707200050354004,
-                  "extentY" : 1.707200050354004,
-                  "extentZ" : 1.707200050354004,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -639,17 +426,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0,
-                  "centerY" : 1.707200050354004,
-                  "centerZ" : 0,
-                  "density" : 1,
-                  "extentX" : 1.707200050354004,
-                  "extentY" : 1.707200050354004,
-                  "extentZ" : 1.707200050354004,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -672,17 +448,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj2",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.707200050354004,
-                  "centerY" : 0,
-                  "centerZ" : -1.707200050354004,
-                  "density" : 1,
-                  "extentX" : 3.414400100708008,
-                  "extentY" : 3.414400100708008,
-                  "extentZ" : 3.414400100708008,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -705,17 +470,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj3",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.707200050354004,
-                  "centerY" : 0,
-                  "centerZ" : -1.707200050354004,
-                  "density" : 1,
-                  "extentX" : 3.414400100708008,
-                  "extentY" : 3.414400100708008,
-                  "extentZ" : 3.414400100708008,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -738,17 +492,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj4",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -0.853600025177002,
-                  "centerY" : 0.853600025177002,
-                  "centerZ" : -0.853600025177002,
-                  "density" : 1,
-                  "extentX" : 2.560800075531006,
-                  "extentY" : 2.560800075531006,
-                  "extentZ" : 2.560800075531006,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -771,17 +514,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj5",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -2.560800075531006,
-                  "centerY" : -0.853600025177002,
-                  "centerZ" : -2.560800075531006,
-                  "density" : 1,
-                  "extentX" : 4.26800012588501,
-                  "extentY" : 4.26800012588501,
-                  "extentZ" : 4.26800012588501,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -804,17 +536,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj6",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -0.853600025177002,
-                  "centerY" : 0.853600025177002,
-                  "centerZ" : -0.853600025177002,
-                  "density" : 1,
-                  "extentX" : 2.560800075531006,
-                  "extentY" : 2.560800075531006,
-                  "extentZ" : 2.560800075531006,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -837,17 +558,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\crate.png",
                   "id" : "Crate.obj7",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0,
-                  "centerY" : 1.707200050354004,
-                  "centerZ" : 0,
-                  "density" : 1,
-                  "extentX" : 1.707200050354004,
-                  "extentY" : 1.707200050354004,
-                  "extentZ" : 1.707200050354004,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -870,17 +580,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
                   "id" : "GroupRock.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.9103999137878418,
-                  "centerY" : 1.50285005569458,
-                  "centerZ" : 0.1858999729156494,
-                  "density" : 1,
-                  "extentX" : 2.236999988555908,
-                  "extentY" : 0.36885005235672,
-                  "extentZ" : 2.664400100708008,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -903,17 +602,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock.obj",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1033000946044922,
-                  "centerY" : 2.114650011062622,
-                  "centerZ" : 0.03425002098083496,
-                  "density" : 1,
-                  "extentX" : 3.97760009765625,
-                  "extentY" : 2.114650011062622,
-                  "extentZ" : 3.302649974822998,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -936,17 +624,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1033000946044922,
-                  "centerY" : 2.114650011062622,
-                  "centerZ" : 0.03425002098083496,
-                  "density" : 1,
-                  "extentX" : 3.97760009765625,
-                  "extentY" : 2.114650011062622,
-                  "extentZ" : 3.302649974822998,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -969,17 +646,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -3.874300003051758,
-                  "centerY" : 0,
-                  "centerZ" : -3.268399953842163,
-                  "density" : 1,
-                  "extentX" : 7.9552001953125,
-                  "extentY" : 4.229300022125244,
-                  "extentZ" : 6.605299949645996,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1002,17 +668,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock.obj2",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1033000946044922,
-                  "centerY" : 2.114650011062622,
-                  "centerZ" : 0.03425002098083496,
-                  "density" : 1,
-                  "extentX" : 3.97760009765625,
-                  "extentY" : 2.114650011062622,
-                  "extentZ" : 3.302649974822998,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1035,17 +690,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock.obj3",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -7.851900100708008,
-                  "centerY" : 2.114650011062622,
-                  "centerZ" : -6.571049690246582,
-                  "density" : 1,
-                  "extentX" : 11.93280029296875,
-                  "extentY" : 2.114650011062622,
-                  "extentZ" : 9.907949447631836,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1068,17 +712,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_BigSlope.obj",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.588950395584106,
-                  "centerY" : 1.253900051116943,
-                  "centerZ" : -2.177974939346314,
-                  "density" : 1,
-                  "extentX" : 4.742850303649902,
-                  "extentY" : 3.76170015335083,
-                  "extentZ" : 6.020474910736084,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1101,17 +734,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_BigSlope.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.588950395584106,
-                  "centerY" : 1.253900051116943,
-                  "centerZ" : -2.177974939346314,
-                  "density" : 1,
-                  "extentX" : 4.742850303649902,
-                  "extentY" : 3.76170015335083,
-                  "extentZ" : 6.020474910736084,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1134,17 +756,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_BigSlope.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -3.169900178909302,
-                  "centerY" : 1.30405592918396,
-                  "centerZ" : -4.184800148010254,
-                  "density" : 1,
-                  "extentX" : 6.323800086975098,
-                  "extentY" : 3.711544275283814,
-                  "extentZ" : 8.027299880981445,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1167,17 +778,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Noise1.obj",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.01235008239746094,
-                  "centerY" : 0.5641498565673828,
-                  "centerZ" : -0.01734995841979981,
-                  "density" : 1,
-                  "extentX" : 3.265650033950806,
-                  "extentY" : 3.626049995422363,
-                  "extentZ" : 3.866750001907349,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1200,17 +800,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Noise1.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.620475053787231,
-                  "centerY" : -1.248875141143799,
-                  "centerZ" : -1.950725078582764,
-                  "density" : 1,
-                  "extentX" : 4.898475170135498,
-                  "extentY" : 5.439074993133545,
-                  "extentZ" : 5.800125122070313,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1233,17 +822,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Noise2.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -0.2404000759124756,
-                  "centerY" : 0.5258998870849609,
-                  "centerZ" : -0.1833500862121582,
-                  "density" : 1,
-                  "extentX" : 3.462900161743164,
-                  "extentY" : 3.83050012588501,
-                  "extentZ" : 3.857550144195557,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1266,17 +844,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Noise2.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -0.2404000759124756,
-                  "centerY" : 0.4875948429107666,
-                  "centerZ" : -0.1833500862121582,
-                  "density" : 1,
-                  "extentX" : 3.462900161743164,
-                  "extentY" : 3.868805170059204,
-                  "extentZ" : 3.857550144195557,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1299,17 +866,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Platform.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -2.263025283813477,
-                  "centerY" : -0.4517254829406738,
-                  "centerZ" : -2.781199455261231,
-                  "density" : 1,
-                  "extentX" : 6.759525299072266,
-                  "extentY" : 4.648725509643555,
-                  "extentZ" : 8.276399612426758,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1332,17 +888,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Platform.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -4.516200065612793,
-                  "centerY" : -2.00130033493042,
-                  "centerZ" : -5.539999961853027,
-                  "density" : 1,
-                  "extentX" : 9.012700080871582,
-                  "extentY" : 6.198300361633301,
-                  "extentZ" : 11.03520011901856,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1365,17 +910,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Platform1.obj",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -0.009850025177001953,
-                  "centerY" : 1.097849845886231,
-                  "centerZ" : -0.02239990234375,
-                  "density" : 1,
-                  "extentX" : 4.506350040435791,
-                  "extentY" : 3.09915018081665,
-                  "extentZ" : 5.517600059509277,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1398,17 +932,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Ripple.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.320700168609619,
-                  "centerY" : -0.8257999420166016,
-                  "centerZ" : -1.680224895477295,
-                  "density" : 1,
-                  "extentX" : 4.04610013961792,
-                  "extentY" : 4.55079984664917,
-                  "extentZ" : 4.738124847412109,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1431,17 +954,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
                   "id" : "MudBlock_Slim.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -3.495799541473389,
-                  "centerY" : -6.577199935913086,
-                  "centerZ" : -4.266600131988525,
-                  "density" : 1,
-                  "extentX" : 4.366999626159668,
-                  "extentY" : 10.96199989318848,
-                  "extentZ" : 5.328000068664551,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1464,17 +976,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\river.jpg",
                   "id" : "River.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0,
-                  "centerY" : -6.312648773193359,
-                  "centerZ" : 0,
-                  "density" : 1,
-                  "extentX" : 59.94910049438477,
-                  "extentY" : 45.75745010375977,
-                  "extentZ" : 28.59250068664551,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1497,17 +998,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree.obj",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1519002914428711,
-                  "centerY" : 9.293899536132813,
-                  "centerZ" : 1.172850608825684,
-                  "density" : 1,
-                  "extentX" : 6.093899726867676,
-                  "extentY" : 9.293899536132813,
-                  "extentZ" : 9.733249664306641,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1530,17 +1020,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1519002914428711,
-                  "centerY" : 9.293899536132813,
-                  "centerZ" : 1.172850608825684,
-                  "density" : 1,
-                  "extentX" : 6.093899726867676,
-                  "extentY" : 9.293899536132813,
-                  "extentZ" : 9.733249664306641,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1563,17 +1042,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1519002914428711,
-                  "centerY" : 9.293899536132813,
-                  "centerZ" : 1.172850608825684,
-                  "density" : 1,
-                  "extentX" : 6.093899726867676,
-                  "extentY" : 9.293899536132813,
-                  "extentZ" : 9.733249664306641,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1596,17 +1064,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree_2.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -0.2130498886108398,
-                  "centerY" : 9.293899536132813,
-                  "centerZ" : 0.7829999923706055,
-                  "density" : 1,
-                  "extentX" : 5.737349987030029,
-                  "extentY" : 9.293899536132813,
-                  "extentZ" : 9.343400001525879,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1629,17 +1086,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree_2.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -0.2130498886108398,
-                  "centerY" : 9.293899536132813,
-                  "centerZ" : 0.7829999923706055,
-                  "density" : 1,
-                  "extentX" : 5.737349987030029,
-                  "extentY" : 9.293899536132813,
-                  "extentZ" : 9.343400001525879,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1662,17 +1108,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree_bend.obj",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.229099273681641,
-                  "centerY" : 10.15775012969971,
-                  "centerZ" : -4.220950126647949,
-                  "density" : 1,
-                  "extentX" : 10.03319931030273,
-                  "extentY" : 10.15775012969971,
-                  "extentZ" : 7.736350059509277,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1695,17 +1130,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree_bend.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.229099273681641,
-                  "centerY" : 10.15775012969971,
-                  "centerZ" : -4.220950126647949,
-                  "density" : 1,
-                  "extentX" : 10.03319931030273,
-                  "extentY" : 10.15775012969971,
-                  "extentZ" : 7.736350059509277,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1728,17 +1152,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree_bend.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : -1.229099273681641,
-                  "centerY" : 10.15775012969971,
-                  "centerZ" : -4.220950126647949,
-                  "density" : 1,
-                  "extentX" : 10.03319931030273,
-                  "extentY" : 10.15775012969971,
-                  "extentZ" : 7.736350059509277,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1761,17 +1174,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree_twist.obj0",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1231999397277832,
-                  "centerY" : 9.293899536132813,
-                  "centerZ" : -1.196900367736816,
-                  "density" : 1,
-                  "extentX" : 5.396699905395508,
-                  "extentY" : 9.293899536132813,
-                  "extentZ" : 9.868900299072266,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1794,17 +1196,6 @@
                   "TextureFile" : "data\\images\\TomsWorld\\tree.jpg",
                   "id" : "Tree_twist.obj1",
                   "type" : "staticmesh"
-               },
-               "boundingboxo" : {
-                  "centerX" : 0.1231999397277832,
-                  "centerY" : 9.293899536132813,
-                  "centerZ" : -1.196900367736816,
-                  "density" : 1,
-                  "extentX" : 5.396699905395508,
-                  "extentY" : 9.293899536132813,
-                  "extentZ" : 9.868900299072266,
-                  "static" : true,
-                  "type" : "boundingboxo"
                }
             },
             "transform" : {
@@ -1822,17 +1213,6 @@
          },
          "cliffledge.obj0" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 6.021780014038086,
-                  "centerY" : 2.411194801330566,
-                  "centerZ" : 5.727639675140381,
-                  "density" : 1,
-                  "extentX" : 2.275320053100586,
-                  "extentY" : 1.314405083656311,
-                  "extentZ" : 2.816460132598877,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "cliffledge.obj0" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\cliffledge.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
@@ -1855,17 +1235,6 @@
          },
          "cliffledge.obj1" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 5.263339996337891,
-                  "centerY" : 1.973060011863709,
-                  "centerZ" : 4.788819789886475,
-                  "density" : 1,
-                  "extentX" : 3.033760070800781,
-                  "extentY" : 1.752539992332459,
-                  "extentZ" : 3.755280017852783,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "cliffledge.obj1" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\cliffledge.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
@@ -1879,7 +1248,7 @@
                "posZ" : -25.5,
                "rotateX" : 11.00001049041748,
                "rotateY" : 2.999999761581421,
-               "rotateZ" : 9.885307008516975e-007,
+               "rotateZ" : 1.041964651449234e-006,
                "scaleX" : 0.4000000059604645,
                "scaleY" : 0.4000000059604645,
                "scaleZ" : 0.4000000059604645
@@ -1888,17 +1257,6 @@
          },
          "cliffledge.obj2" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 5.263339996337891,
-                  "centerY" : 1.973060011863709,
-                  "centerZ" : 4.788819789886475,
-                  "density" : 1,
-                  "extentX" : 3.033760070800781,
-                  "extentY" : 1.752539992332459,
-                  "extentZ" : 3.755280017852783,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "cliffledge.obj2" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\cliffledge.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
@@ -1921,17 +1279,6 @@
          },
          "cliffledge.obj3" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 3.7464599609375,
-                  "centerY" : 1.096789836883545,
-                  "centerZ" : 2.911179542541504,
-                  "density" : 1,
-                  "extentX" : 4.550640106201172,
-                  "extentY" : 2.628810167312622,
-                  "extentZ" : 5.632920265197754,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "cliffledge.obj3" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\cliffledge.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
@@ -1954,17 +1301,6 @@
          },
          "cliffledge.obj4" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 2.305423736572266,
-                  "centerY" : -1.751087427139282,
-                  "centerZ" : -1.12574577331543,
-                  "density" : 1,
-                  "extentX" : 5.991676330566406,
-                  "extentY" : 5.476687431335449,
-                  "extentZ" : 9.669845581054688,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "cliffledge.obj4" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\cliffledge.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\rock.png",
@@ -1987,17 +1323,6 @@
          },
          "coin.obj0" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj0" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2020,17 +1345,6 @@
          },
          "coin.obj1" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj1" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2053,17 +1367,6 @@
          },
          "coin.obj2" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj2" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2086,17 +1389,6 @@
          },
          "coin.obj3" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj3" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2119,17 +1411,6 @@
          },
          "coin.obj4" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj4" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2152,17 +1433,6 @@
          },
          "coin.obj5" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj5" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2185,17 +1455,6 @@
          },
          "coin.obj6" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj6" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2218,17 +1477,6 @@
          },
          "coin.obj7" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj7" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2251,17 +1499,6 @@
          },
          "coin.obj8" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj8" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2284,17 +1521,6 @@
          },
          "coin.obj9" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin.obj9" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\Images\\TomsWorld\\coin.jpg",
@@ -2317,17 +1543,6 @@
          },
          "coin1.obj" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0.9134500026702881,
-                  "centerY" : 1.232625007629395,
-                  "centerZ" : 0.1159500032663345,
-                  "density" : 1,
-                  "extentX" : 0.9134500026702881,
-                  "extentY" : 0.6223750114440918,
-                  "extentZ" : 0.1159500032663345,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "coin1.obj" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
@@ -2350,17 +1565,6 @@
          },
          "floor.obj" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0,
-                  "centerY" : -0.5,
-                  "centerZ" : 0,
-                  "density" : 1,
-                  "extentX" : 106.4783020019531,
-                  "extentY" : 1,
-                  "extentZ" : 106.4783020019531,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "floor.obj" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\floor.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\Floor.jpg",
@@ -2383,17 +1587,6 @@
          },
          "floor.obj0" : {
             "components" : {
-               "boundingboxo" : {
-                  "centerX" : 0,
-                  "centerY" : 0,
-                  "centerZ" : -0.5,
-                  "density" : 1,
-                  "extentX" : 106.4783020019531,
-                  "extentY" : 1,
-                  "extentZ" : 106.4783020019531,
-                  "static" : true,
-                  "type" : "boundingboxo"
-               },
                "floor.obj0" : {
                   "OBJModel" : "data\\Models\\TomsWorld\\floor.obj",
                   "TextureFile" : "data\\images\\TomsWorld\\Floor.jpg",
@@ -2545,6 +1738,52 @@
                "scaleZ" : 2
             },
             "type" : "generalentity"
+         },
+         "robot1" : {
+            "components" : {
+               "robotBody" : {
+                  "OBJModel" : "data\\models\\robbody.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotBody",
+                  "type" : "staticmesh"
+               },
+               "robotLeftArm" : {
+                  "OBJModel" : "data\\models\\roblarm.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotLeftArm",
+                  "type" : "staticmesh"
+               },
+               "robotLeftLeg" : {
+                  "OBJModel" : "data\\models\\roblleg.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotLeftLeg",
+                  "type" : "staticmesh"
+               },
+               "robotRightArm" : {
+                  "OBJModel" : "data\\models\\robrarm.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotRightArm",
+                  "type" : "staticmesh"
+               },
+               "robotRightLeg" : {
+                  "OBJModel" : "data\\models\\robrleg.obj",
+                  "TextureFile" : "data\\images\\rainbow.png",
+                  "id" : "robotRightLeg",
+                  "type" : "staticmesh"
+               }
+            },
+            "transform" : {
+               "posX" : -20,
+               "posY" : 20,
+               "posZ" : 0,
+               "rotateX" : -180,
+               "rotateY" : -5.008956122765085e-006,
+               "rotateZ" : -180,
+               "scaleX" : 0.1500000059604645,
+               "scaleY" : 0.1500000059604645,
+               "scaleZ" : 0.1500000059604645
+            },
+            "type" : "robot"
          }
       },
       "lights" : {
