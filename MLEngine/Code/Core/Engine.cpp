@@ -59,7 +59,7 @@ bool Engine::Update(float dt)
 			sceneManager->LoadScene(std::move(newScene));
 		    sceneManager->UpdateCurrentSceneEntities(dt);
 
-		    std::unique_ptr<SceneConfig> newScene2 = sceneManager->LoadSceneFromFile("data\\scenes\\TestSceneforBB.scn");
+		    std::unique_ptr<SceneConfig> newScene2 = sceneManager->LoadSceneFromFile("data\\scenes\\xc_sandyspines.scn");
 			sceneManager->LoadScene(std::move(newScene2));
 			loading = false;
 			timer = 0;

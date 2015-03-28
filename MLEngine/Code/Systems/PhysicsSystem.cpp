@@ -44,10 +44,11 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 		glm::mat4 rota = glm::rotate(glm::mat4(1.0), boxa->GetParentTransform()->GetRotation().x, glm::vec3(1,0,0));
 		rota *= glm::rotate(boxa->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));						
 		rota *= glm::rotate(boxa->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
+		float totalMass = boxa->Rigid_mass+boxb->Rigid_mass;
 		glm::vec4 translation(1.0);
 		glm::vec3 point = boxa->GetParentTransform()->GetPosition() + (collision.Axis * boxa->GetExtent());
-		boxb->Rigid_vel = boxb->Rigid_inverse * (boxb->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
-		boxa->Rigid_vel = boxa->Rigid_inverse * (boxa->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+		boxa->Rigid_vel = (boxa->Rigid_mass/totalMass) * boxa->Rigid_inverse * (boxa->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+		boxb->Rigid_vel = (boxb->Rigid_mass/totalMass) * boxb->Rigid_inverse * (boxb->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
 		float inertiaa = (1.f/12.f*boxa->Rigid_mass)*(pow((boxa->GetExtent().y*2),2)+pow((boxa->GetExtent().z*2),2));
 		float inertiab = (1.f/12.f*boxb->Rigid_mass)*(pow((boxb->GetExtent().y*2),2)+pow((boxb->GetExtent().z*2),2));
 		boxa->Rigid_ang = 1.f/inertiaa * glm::cross(point,boxa->GetParentTransform()->GetPosition()) * collision.Sign * glm::vec3(0,1,0);
@@ -70,6 +71,10 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 		rot *= glm::rotate(box->GetParentTransform()->GetRotation().y,glm::vec3(0,1,0));						
 		rot *= glm::rotate(box->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 		glm::vec3 point = capsule->GetParentTransform()->GetPosition() + (collision.Axis * capsule->GetExtent()-collision.Penetration);
+		if(collision.VolumeA->Rigid_push>0.f)
+		{
+			capsule->Rigid_vel = 1.f/capsule->Rigid_mass  * (capsule->GetParentTransform()->GetPosition()-point) *  glm::vec3(1,0,1) * box->Rigid_push * -collision.Sign; //knockback
+		}
 		if(!collision.Top)
 		{
 			box->Rigid_vel = box->Rigid_inverse * (box->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);

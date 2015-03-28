@@ -37,6 +37,7 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 	if (luaL_dofile(luaVM, filename.c_str()) == 0) {
 		luabridge::LuaRef table = luabridge::getGlobal(luaVM, expectedNamespace.c_str());
 		LuaScriptFuncs funcList;
+		funcList.id = envName;
 		if (table.isTable()) {
 			if (table["Update"].isFunction()) {
 				funcList.updateFunc = std::make_shared<luabridge::LuaRef>(table["Update"]);

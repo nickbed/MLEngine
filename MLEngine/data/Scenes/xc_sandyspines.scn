@@ -9,14 +9,29 @@
     "activeentities": [
       "forestfloor",
       "robot1",
+	  "wall_rear1",
+	  "wall_rear2",
+	  "wall_right1",
+	  "wall_right2",
+	  "wall_left1",
+	  "wall_left2",
+	  "wall_front1",
+	  "wall_front2",
+	  "pillar00",
 	  "pillar01",
 	  "pillar02",
 	  "pillar03",
 	  "pillar04",
-	  "pillar05",
 	  "pillar06",
-	  "pillar07",
-	  "pillar08"
+	  "pillar08",
+	  "pillar09",
+	  "pillar10",
+	  "pillar13",
+	  "pillar14",
+	  "pillar15",
+	  "pillar16",  
+	  "enemy1",
+	  "coin01"
     ],
     "entities": {
       "forestfloor": {
@@ -25,9 +40,9 @@
           "posX": 0,
           "posY": -0.15,
           "posZ": 0,
-          "scaleX": 3,
+          "scaleX": 1.5,
           "scaleY": 5,
-          "scaleZ": 3,
+          "scaleZ": 1.5,
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
@@ -38,7 +53,315 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\floor.obj",
             "TextureFile": "data\\images\\xc_sandy\\sand_01.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 90,
+			"extentY": 0.1,
+			"extentZ": 90,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_rear1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 55,
+          "posY": -0.15,
+          "posZ": 100,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_rear2": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -65,
+          "posY": -0.15,
+          "posZ": 100,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_right1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -140,
+          "posY": -0.15,
+          "posZ": 30,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 90,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_right2": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -140,
+          "posY": -0.15,
+          "posZ": -60,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 90,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_left1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 100,
+          "posY": -0.15,
+          "posZ": 30,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 90,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_left2": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 100,
+          "posY": -0.15,
+          "posZ": -60,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 90,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_front1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 55,
+          "posY": -0.15,
+          "posZ": -100,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "wall_front2": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -65,
+          "posY": -0.15,
+          "posZ": -100,
+          "scaleX": 80,
+          "scaleY": 50,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 80,
+			"extentY": 49.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
+        }
+      },
+      "pillar00": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 55,
+          "posY": -0.15,
+          "posZ": 15,
+          "scaleX": 30,
+          "scaleY": 12.5,
+          "scaleZ": 3,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 30,
+			"extentY": 12,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
       "pillar01": {
@@ -60,7 +383,18 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\crate.obj",
             "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 4.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
       "pillar02": {
@@ -82,7 +416,18 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\crate.obj",
             "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 7,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
       "pillar03": {
@@ -104,7 +449,18 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\crate.obj",
             "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 9.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
       "pillar04": {
@@ -112,10 +468,10 @@
         "transform": {
           "posX": 5,
           "posY": -0.15,
-          "posZ": 35,
+          "posZ": 62,
           "scaleX": 3,
           "scaleY": 12.5,
-          "scaleZ": 3,
+          "scaleZ": 30,
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
@@ -126,29 +482,18 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\crate.obj",
             "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
-        }
-      },
-      "pillar05": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 0,
-          "posY": -0.15,
-          "posZ": 30,
-          "scaleX": 3,
-          "scaleY": 15,
-          "scaleZ": 3,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\crate.obj",
-            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 12,
+			"extentZ": 30,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
       "pillar06": {
@@ -170,29 +515,18 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\crate.obj",
             "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
-        }
-      },
-      "pillar07": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -10,
-          "posY": -0.15,
-          "posZ": 20,
-          "scaleX": 3,
-          "scaleY": 20,
-          "scaleZ": 3,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\crate.obj",
-            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 17,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
       "pillar08": {
@@ -214,83 +548,28 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\crate.obj",
             "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 22,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
-      "tree1": {
+      "pillar09": {
         "type": "generalentity",
         "transform": {
-          "posX": 0,
-          "posY": 0,
+          "posX": -47,
+          "posY": -0.15,
           "posZ": 10,
-          "scaleX": 2,
-          "scaleY": 2,
-          "scaleZ": 2,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree2": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 2,
-          "posY": 0,
-          "posZ": 12,
-          "scaleX": 1.5,
-          "scaleY": 1.5,
-          "scaleZ": 1.5,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree3": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -3,
-          "posY": 0,
-          "posZ": 15,
-          "scaleX": 2,
-          "scaleY": 2,
-          "scaleZ": 2,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree4": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -10,
-          "posY": 0,
-          "posZ": 20,
-          "scaleX": 3,
-          "scaleY": 3,
+          "scaleX": 30,
+          "scaleY": 12.5,
           "scaleZ": 3,
           "rotateX": 0,
           "rotateY": 0,
@@ -300,262 +579,31 @@
           "ent1mesh": {
             "id": "ent1mesh",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 30,
+			"extentY": 12,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
-      "tree5": {
+      "pillar10": {
         "type": "generalentity",
         "transform": {
-          "posX": 20,
-          "posY": 0,
-          "posZ": 17,
-          "scaleX": 1.2,
-          "scaleY": 1.2,
-          "scaleZ": 1.2,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree6": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 6,
-          "posY": 0,
-          "posZ": 21,
-          "scaleX": 3.5,
-          "scaleY": 3.5,
-          "scaleZ": 3.5,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree7": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -20,
-          "posY": 0,
-          "posZ": 27,
-          "scaleX": 1.8,
-          "scaleY": 1.8,
-          "scaleZ": 1.8,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree8": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -18,
-          "posY": 0,
-          "posZ": 12,
-          "scaleX": 4,
-          "scaleY": 4,
-          "scaleZ": 4,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree9": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 29,
-          "posY": 0,
-          "posZ": 13,
-          "scaleX": 2,
-          "scaleY": 2,
-          "scaleZ": 2,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree10": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 20,
-          "posY": 0,
-          "posZ": 28,
-          "scaleX": 2.5,
-          "scaleY": 2.5,
-          "scaleZ": 2.5,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree11": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -23,
-          "posY": 0,
-          "posZ": 24,
-          "scaleX": 2.3,
-          "scaleY": 2.3,
-          "scaleZ": 2.3,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree12": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -10,
-          "posY": 0,
-          "posZ": 15,
-          "scaleX": 2.1,
-          "scaleY": 2.1,
-          "scaleZ": 2.1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree13": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 25,
-          "posY": 0,
-          "posZ": 24,
-          "scaleX": 1.2,
-          "scaleY": 1.2,
-          "scaleZ": 1.2,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree14": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -10,
-          "posY": 0,
-          "posZ": 18,
-          "scaleX": 1.7,
-          "scaleY": 1.7,
-          "scaleZ": 1.7,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree15": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -10,
-          "posY": 0,
-          "posZ": 27,
-          "scaleX": 1.9,
-          "scaleY": 1.9,
-          "scaleZ": 1.9,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-      "tree16": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -27,
-          "posY": 0,
+          "posX": -15,
+          "posY": -0.15,
           "posZ": 5,
-          "scaleX": 3.4,
-          "scaleY": 3.4,
-          "scaleZ": 3.4,
+          "scaleX": 3,
+          "scaleY": 27.5,
+          "scaleZ": 3,
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
@@ -564,393 +612,152 @@
           "ent1mesh": {
             "id": "ent1mesh",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 27,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
-      "tree17": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 10,
-          "posY": 0,
-          "posZ": 13,
-          "scaleX": 10,
-          "scaleY": 10,
-          "scaleZ": 10,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "ent1mesh": {
-            "id": "ent1mesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\tree.obj",
-            "TextureFile": "data\\images\\tree.tga"
-          }
-        }
-      },
-	  "house": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -0.45,
-          "posY": 0,
-          "posZ": -30,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": -90,
-          "rotateZ": 0
-        },
-        "components": {
-          "housemesh": {
-            "id": "housemesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\house.obj",
-            "TextureFile": "data\\images\\house.png"
-          }
-        }
-      },
-	  "path1": {
+      "pillar13": {
         "type": "generalentity",
         "transform": {
           "posX": 0,
-          "posY": 0,
-          "posZ": -5.7,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": -90,
-          "rotateZ": 0
-        },
-        "components": {
-          "pathmesh": {
-            "id": "pathmesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\path.obj",
-            "TextureFile": "data\\images\\path.tga"
-          }
-        }
-      },
-	  "path2": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 12.8,
-          "posY": 0,
-          "posZ": -5.7,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "pathmesh": {
-            "id": "pathmesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\path.obj",
-            "TextureFile": "data\\images\\path.tga"
-          }
-        }
-      },
-	  "path3": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -12.8,
-          "posY": 0,
-          "posZ": -5.7,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "pathmesh": {
-            "id": "pathmesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\path.obj",
-            "TextureFile": "data\\images\\path.tga"
-          }
-        }
-      },
-	  "crate1": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -22.8,
-          "posY": 1,
-          "posZ": -6.8,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": 25,
-          "rotateZ": 0
-        },
-        "components": {
-          "cratemesh": {
-            "id": "cratemesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\crate.obj",
-            "TextureFile": "data\\images\\crate.tga"
-          }
-        }
-      },
-	  "crate2": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -22.8,
-          "posY": 1,
-          "posZ": -3.7,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": -35,
-          "rotateZ": 0
-        },
-        "components": {
-          "cratemesh": {
-            "id": "cratemesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\crate.obj",
-            "TextureFile": "data\\images\\crate.tga"
-          }
-        }
-      },
-	  "crate3": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -22.8,
-          "posY": 3,
-          "posZ": -5.2,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 2,
-          "rotateY": 10,
-          "rotateZ": 0
-        },
-        "components": {
-          "cratemesh": {
-            "id": "cratemesh",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\crate.obj",
-            "TextureFile": "data\\images\\crate.tga"
-          }
-        }
-      },
-	  "sign": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 5,
-          "posY": 0,
-          "posZ": 0,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": -90,
-          "rotateZ": 0
-        },
-        "components": {
-          "sign": {
-            "id": "sign",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\sign.obj",
-            "TextureFile": "data\\images\\sign.tga"
-          }
-        }
-      },
-	  "moon": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -5,
-          "posY": 20,
+          "posY": -0.15,
           "posZ": -10,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
+          "scaleX": 3,
+          "scaleY": 35,
+          "scaleZ": 3,
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
         },
         "components": {
-          "moon": {
-            "id": "moon",
+          "ent1mesh": {
+            "id": "ent1mesh",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\moon.obj",
-            "TextureFile": "data\\images\\moon.tga"
-          }
-        }
-      },
-	  "robco": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 25.8,
-          "posY": 0,
-          "posZ": -5.7,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "robco": {
-            "id": "robco",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\robco.obj",
-            "TextureFile": "data\\images\\robco.tga"
-		  },
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
 		  "boundingboxo": {
 		    "type":"boundingboxo",
 			"centerX": 0.0,
-			"centerY": 3.1,
+			"centerY": 0.0,
 			"centerZ": 0.0,
-			"extentX": 3.5,
-			"extentY": 3.1,
-			"extentZ": 7.0,
-			"static": false,
+			"extentX": 3,
+			"extentY": 34.5,
+			"extentZ": 3,
+			"static": true,
 			"density": 0.01
 		  }
         }
       },
-	    "robco2": {
+      "pillar14": {
         "type": "generalentity",
         "transform": {
-          "posX": 35.8,
-          "posY": 0,
-          "posZ": -5.7,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
+          "posX": 35,
+          "posY": 0.25,
+          "posZ": -42,
+          "scaleX": 3,
+          "scaleY": 37.5,
+          "scaleZ": 3,
+          "rotateX": 90,
           "rotateY": 0,
-          "rotateZ": 0
+          "rotateZ": 45
         },
         "components": {
-          "robco2": {
-            "id": "robco2",
+          "ent1mesh": {
+            "id": "ent1mesh",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\robco.obj",
-            "TextureFile": "data\\images\\robco.tga"
-		  },
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
 		  "boundingboxo": {
 		    "type":"boundingboxo",
 			"centerX": 0.0,
-			"centerY": 3.1,
+			"centerY": 0.0,
 			"centerZ": 0.0,
-			"extentX": 3.5,
-			"extentY": 3.1,
-			"extentZ": 7.0,
-			"static": false,
+			"extentX": 3,
+			"extentY": 37,
+			"extentZ": 3,
+			"static": true,
 			"density": 0.01
 		  }
         }
       },
-	  "toilet": {
+      "pillar15": {
         "type": "generalentity",
         "transform": {
-          "posX": 20,
-          "posY": -12.1,
-          "posZ": -30.0,
-          "scaleX": 0.3,
-          "scaleY": 0.3,
-          "scaleZ": 0.3,
+          "posX": -8,
+          "posY": -0.15,
+          "posZ": -21,
+          "scaleX": 3,
+          "scaleY": 35,
+          "scaleZ": 3,
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
         },
         "components": {
-          "toilet": {
-            "id": "toilet",
+          "ent1mesh": {
+            "id": "ent1mesh",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\toilet.obj",
-            "TextureFile": "data\\images\\toilet.tga"
-          }
-        },
-		"script":
-		{
-			"path": "data\\Scripts\\coin.lua",
-			"identifier": "Coin"
-		}
-      },
-	  "toiletwater1": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 19.5,
-          "posY": 0.2,
-          "posZ": -27.5,
-          "scaleX": 1.28,
-          "scaleY": 1.28,
-          "scaleZ": 1.28,
-          "rotateX": 0,
-          "rotateY": 20,
-          "rotateZ": 0
-        },
-        "components": {
-          "toiletwater1": {
-            "id": "toiletwater1",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\toiletwater.obj",
-            "TextureFile": "data\\images\\toiletwater.tga"
-          }
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 34.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
-	  "toilet1": {
+      "pillar16": {
         "type": "generalentity",
         "transform": {
-          "posX": -20,
-          "posY": -12.1,
-          "posZ": -30.0,
-          "scaleX": 0.3,
-          "scaleY": 0.3,
-          "scaleZ": 0.3,
+          "posX": -22.5,
+          "posY": -0.15,
+          "posZ": -19,
+          "scaleX": 3,
+          "scaleY": 35,
+          "scaleZ": 3,
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
         },
         "components": {
-          "toilet": {
-            "id": "toilet",
+          "ent1mesh": {
+            "id": "ent1mesh",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\toilet.obj",
-            "TextureFile": "data\\images\\toilet.tga"
-          }
-        },
-		"script":
-		{
-			"path": "data\\Scripts\\coin.lua",
-			"identifier": "Coin"
-		}
-      },
-	  "toiletwater2": {
-        "type": "generalentity",
-        "transform": {
-          "posX": -19.5,
-          "posY": 0.2,
-          "posZ": -27.5,
-          "scaleX": 1.30,
-          "scaleY": 1.28,
-          "scaleZ": 1.28,
-          "rotateX": 0,
-          "rotateY": 20,
-          "rotateZ": 0
-        },
-        "components": {
-          "toiletwater2": {
-            "id": "toiletwater2",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\toiletwater.obj",
-            "TextureFile": "data\\images\\toiletwater.tga"
-          }
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 3,
+			"extentY": 34.5,
+			"extentZ": 3,
+			"static": true,
+			"density": 0.01
+		  }
         }
       },
       "robot1": {
@@ -1023,11 +830,48 @@
           }
         }
       },
-	  "object_spawner": {
+      "coin01" : {
+          "components" : {
+             "coin.obj0" : {
+                "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                "id" : "coin.obj0",
+                "type" : "staticmesh"
+             },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 1,
+			"extentY": 1,
+			"extentZ": 1,
+			"static": true,
+			"density": 0.01
+		  }
+          },
+		"script": {
+			  "path": "data\\Scripts\\coin.lua",
+			  "identifier": "Coin"
+			},
+          "transform" : {
+             "posX" : 0,
+             "posY" : 10,
+             "posZ" : 0,
+             "rotateX" : 0,
+             "rotateY" : -0,
+             "rotateZ" : 0,
+             "scaleX" : 0.5,
+             "scaleY" : 0.5,
+             "scaleZ" : 0.5
+          },
+          "type" : "generalentity"
+      },
+      "enemy1": {
         "type": "generalentity",
         "transform": {
-          "posX": 0,
-          "posY": 0,
+          "posX": 5,
+          "posY": 1,
           "posZ": 0,
           "scaleX": 1,
           "scaleY": 1,
@@ -1035,7 +879,30 @@
           "rotateX": 0,
           "rotateY": 0,
           "rotateZ": 0
-        }
+        },
+        "components": {
+          "ent1mesh": {
+            "id": "ent1mesh",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\crate.obj",
+            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 1,
+			"extentY": 1,
+			"extentZ": 1,
+			"static": false,
+			"density": 0.01
+		  }
+        },
+		"script": {
+		  "path": "data\\Scripts\\enemy.lua",
+		  "identifier": "Enemy"
+		}	
       }
     },
     "cameras": {

@@ -95,6 +95,7 @@ void ScriptManager::bindElements()
 		.beginClass<SceneManager>("scene")
 		.addStaticFunction("NewObject", SceneManager::AddEntity)
 		.addStaticFunction("RemoveObject", SceneManager::DestroyEntity)
+		.addStaticFunction("FindObject", SceneManager::FindEntity)
 		.endClass()
 
 

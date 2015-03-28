@@ -23,6 +23,7 @@ struct LuaScriptFuncs{
 	std::shared_ptr<luabridge::LuaRef> collisionFunc;
 	std::shared_ptr<luabridge::LuaRef> startFunc;
 	unsigned short refCount;
+	std::string id;
 
 	LuaScriptFuncs(){
 		refCount = 1;
@@ -70,6 +71,7 @@ public:
 	void msg_Collision(mauvemessage::BaseMessage* msg);
 
 	IEntity* owner;
+
 
 private:
 	static std::map<std::string, LuaScriptFuncs> scriptFuncList;
