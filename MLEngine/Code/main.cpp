@@ -38,13 +38,11 @@ int guardedMain()
 	currentConf.resX = 1024;
 	currentConf.resY = 768;
 
-//Oh dear :'(
-#ifdef _DEBUG
-	float sixtyFPS = (1.0f / 120.0f) * 1000;
-#else
-	float sixtyFPS = (1.0f / 60.0f) * 1000;
-#endif
-	double oldTime = 0;
+
+	float sixtyFPS = (1.0f / 60.0f);
+
+	double oldTime = 0; 
+	double oldTime2 = 0;
 	bool closed = false;
 
 	//Make our engine
@@ -56,16 +54,21 @@ int guardedMain()
 	double timeTaken = 0.0;
 	while(true)
 	{
-		timeToWait = (sixtyFPS - (float)((glfwGetTime() - oldTime) * 1000));
-		if (timeToWait <= 0.0l)
+		if (timeTaken >= sixtyFPS)
 		{
 			delta = (float)(glfwGetTime() - oldTime);
 			oldTime = glfwGetTime();
+			timeTaken = 0.0;
 			if (!currentEngine.Update(delta))
 			{
 				closed = true;
 				break;
 			}
+		}
+		else
+		{
+			timeTaken += glfwGetTime() - oldTime2;
+			oldTime2 = glfwGetTime();
 		}
 		if (closed) break;
 		currentEngine.Draw();
