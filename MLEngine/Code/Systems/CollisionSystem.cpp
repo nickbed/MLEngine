@@ -73,7 +73,7 @@ void CollisionSystem::RemoveObject(IEntity* parent)
 
 void CollisionSystem::CheckCollisions()
 {
-	CollisionEvent collisionsToHandle[128];
+	CollisionEvent collisionsToHandle[1000];
 	int collisionsToHandleCount = 0;
 	if(dynamics.size()>0)
 	{
