@@ -31,7 +31,10 @@
 	  "pillar15",
 	  "pillar16",  
 	  "enemy1",
-	  "coin01"
+	  "coin01",
+	  "coin02",
+	  "coin03",
+	  "coin04"
     ],
     "entities": {
       "forestfloor": {
@@ -631,7 +634,7 @@
       "pillar13": {
         "type": "generalentity",
         "transform": {
-          "posX": 0,
+          "posX": -4,
           "posY": -0.15,
           "posZ": -10,
           "scaleX": 3,
@@ -858,6 +861,117 @@
              "posX" : 0,
              "posY" : 10,
              "posZ" : 0,
+             "rotateX" : 0,
+             "rotateY" : -0,
+             "rotateZ" : 0,
+             "scaleX" : 0.5,
+             "scaleY" : 0.5,
+             "scaleZ" : 0.5
+          },
+          "type" : "generalentity"
+      },
+      "coin02" : {
+          "components" : {
+             "coin.obj0" : {
+                "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                "id" : "coin.obj0",
+                "type" : "staticmesh"
+             },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 1,
+			"extentY": 1,
+			"extentZ": 1,
+			"static": true,
+			"density": 0.01
+		  }
+          },
+		"script": {
+			  "path": "data\\Scripts\\coin.lua",
+			  "identifier": "Coin"
+			},
+          "transform" : {
+             "posX" : -4,
+             "posY" : 40,
+             "posZ" : -10,
+             "rotateX" : 0,
+             "rotateY" : -0,
+             "rotateZ" : 0,
+             "scaleX" : 0.5,
+             "scaleY" : 0.5,
+             "scaleZ" : 0.5
+          },
+          "type" : "generalentity"
+      },
+      "coin03" : {
+          "components" : {
+             "coin.obj0" : {
+                "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                "id" : "coin.obj0",
+                "type" : "staticmesh"
+             },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 1,
+			"extentY": 1,
+			"extentZ": 1,
+			"static": true,
+			"density": 0.01
+		  }
+          },
+		"script": {
+			  "path": "data\\Scripts\\coin.lua",
+			  "identifier": "Coin"
+			},
+          "transform" : {
+             "posX" : -8,
+             "posY" : 40,
+             "posZ" : -21,
+             "rotateX" : 0,
+             "rotateY" : -0,
+             "rotateZ" : 0,
+             "scaleX" : 0.5,
+             "scaleY" : 0.5,
+             "scaleZ" : 0.5
+          },
+          "type" : "generalentity"
+      },
+      "coin04" : {
+          "components" : {
+             "coin.obj0" : {
+                "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                "id" : "coin.obj0",
+                "type" : "staticmesh"
+             },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 1,
+			"extentY": 1,
+			"extentZ": 1,
+			"static": true,
+			"density": 0.01
+		  }
+          },
+		"script": {
+			  "path": "data\\Scripts\\coin.lua",
+			  "identifier": "Coin"
+			},
+          "transform" : {
+             "posX" : -22.5,
+             "posY" : 40,
+             "posZ" : -23,
              "rotateX" : 0,
              "rotateY" : -0,
              "rotateZ" : 0,

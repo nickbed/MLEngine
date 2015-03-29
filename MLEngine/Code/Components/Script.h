@@ -23,6 +23,7 @@ struct LuaScriptFuncs {
 		start(L),
 		collision(L),
 		update(L),
+		reset(L),
 		luaDataTable(L)
 	{
 		refCount = 1;
@@ -30,6 +31,7 @@ struct LuaScriptFuncs {
 	luabridge::LuaRef luaDataTable;
 	luabridge::LuaRef update;
 	luabridge::LuaRef collision;
+	luabridge::LuaRef reset;
 	luabridge::LuaRef start;
 	unsigned short refCount;
 	std::string id;

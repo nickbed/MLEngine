@@ -237,6 +237,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 	char ab = 'a';
 	glm::vec3 axis = glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rota);
 	float sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+	bool top = false;
 
 	// separating axis A1
     cTest = abs(c.y);
@@ -252,8 +253,9 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		ab = 'a';
 		axis =  glm::vec3(glm::vec4(0.f,1.f,0.f,1.0) * rota);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+		top = true;
 	}
-
+	
     // separating axis A2
     cTest = abs(c.z);
     aTest = a.z;
@@ -267,7 +269,8 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		minPen = (aTest+bTest)-cTest;
 		ab = 'a';
 		axis =  glm::vec3(glm::vec4(0.f,0.f,1.f,1.0) * rota);
-		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;		
+		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+		top = false;
 	}
 
     // separating axis B0
@@ -284,6 +287,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		ab = 'b';
 		axis =  glm::vec3(glm::vec4(1.f,0.f,0.f,1.0) * rotb);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+		top = false;
 	}
 
     // separating axis B1
@@ -300,6 +304,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		ab = 'b';
 		axis =  glm::vec3(glm::vec4(0.f,1.f,0.f,1.0) * rotb);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+		top = true;
 	}
 
     // separating axis B2
@@ -316,12 +321,13 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 		ab = 'b';
 		axis =  glm::vec3(glm::vec4(0.f,0.f,1.f,1.0) * rotb);
 		sign = (glm::dot(cenb-cena,axis) < 0.0f) ? -1.0f : 1.0f;
+		top = false;
 	}
 
 	//if the two boxes have parallel axes, then there's an intersection
     if (axesParallel)
 	{
-        return CollisionManifold(boxa,boxb,minPen,axis,ab,sign,false);
+        return CollisionManifold(boxa,boxb,minPen,axis,ab,sign,top);
 	}
 
     // separating axis A0 x B0
@@ -469,7 +475,7 @@ CollisionManifold CollisionSystem::HasCollided(BoundingBoxO* boxa, BoundingBoxO*
 	}
 
     // all tests failed, intersection
-    return CollisionManifold(boxa,boxb,minPen,axis,ab,sign,false);
+    return CollisionManifold(boxa,boxb,minPen,axis,ab,sign,top);
 } 
 
 
