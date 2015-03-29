@@ -18,7 +18,7 @@ public:
 	virtual bool UploadData();
 	virtual bool DeleteData();
 
-	bool SetAllData(GLfloat *vertices, unsigned int vertSize, GLfloat *normals, unsigned int  normalsSize, GLfloat *UVs, unsigned int  UVsSize, GLuint *indices, unsigned int  indexSize);
+	bool SetAllData(GLfloat *vertices, unsigned int vertSize, GLfloat *normals, unsigned int  normalsSize, GLfloat *UVs, unsigned int  UVsSize, unsigned int indexSize);
 	//Custom model stuff
 	bool SetVertices(GLfloat *vertices, unsigned int  vertSize);
 	bool SetNormals(GLfloat *normals, unsigned int  normalsSize);
@@ -42,7 +42,7 @@ public:
 private:
 
 	bool BufferDataToGPU(GLfloat *data, GLuint &bufferAddr, GLuint currentLoc, unsigned int size);
-	bool BufferDataToGPU(GLuint  *data, GLuint &bufferAddr, unsigned int size);
+	bool BufferIndexDataToGPU(GLuint &bufferAddr, unsigned int size);
 	bool BufferUVDataToGPU(GLfloat *data, GLuint &bufferAddr, unsigned int size);
 	bool GenVertexArrays(GLuint bufferAddr, GLuint &arrayAddr);
 
@@ -53,10 +53,9 @@ private:
 	GLuint uvID;
 	GLuint indicesID;
 
-	GLfloat vertices[50000];
-	GLfloat normals[50000];
-	GLfloat UVs[50000];
-	GLuint  indices[50000];
+	GLfloat vertices[100000];
+	GLfloat normals[70000];
+	GLfloat UVs[70000];
 	bool VAOGenerated;
 	unsigned int indicesSize;
 	unsigned int verticesSize;

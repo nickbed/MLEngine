@@ -27,7 +27,7 @@ void InputSystem::Init(GLFWwindow* inputWindow)
 	IEntity::Components->AddComponent("mouse", mouseReader);
 }
 
-bool InputSystem::Update(float dt)
+bool InputSystem::Update(double dt)
 {
 	IEntity::Update(dt);
 	return true;

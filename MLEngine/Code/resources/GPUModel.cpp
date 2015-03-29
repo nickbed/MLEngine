@@ -36,8 +36,7 @@ bool GPUModel::UploadData()
 	if (!result) return false;
 
 	//Indices
-	mauveassert::Assert::AssertTrue("Indices data null", (indicesSize > 0), mauveassert::ENUM_severity::SEV_FATAL);
-	result = BufferDataToGPU(indices, indicesID, indicesSize);
+	result = BufferIndexDataToGPU(indicesID, indicesSize);
 	if (result)
 	{
 		bufferloc = vaoID;
@@ -57,7 +56,7 @@ bool GPUModel::DeleteData()
 	return true;
 }
 
-bool GPUModel::SetAllData(GLfloat *verts, unsigned int vertSize, GLfloat *norms, unsigned int  normSize, GLfloat *UV, unsigned int  UVSize, GLuint *inds, unsigned int  indSize)
+bool GPUModel::SetAllData(GLfloat *verts, unsigned int vertSize, GLfloat *norms, unsigned int  normSize, GLfloat *UV, unsigned int  UVSize, unsigned int indSize)
 {
 	memcpy(vertices, verts, vertSize * sizeof(GLfloat));
 	//*vertices = *verts;
@@ -71,10 +70,7 @@ bool GPUModel::SetAllData(GLfloat *verts, unsigned int vertSize, GLfloat *norms,
 	//*UVs = *UV;
 	UVsSize = UVSize;
 
-	memcpy(indices, inds, indSize * sizeof(GLuint));
-	//*indices = *inds;
 	indicesSize = indSize;
-
 	return true;
 }
 
@@ -105,7 +101,7 @@ bool GPUModel::SetUVs(GLfloat  *UV, unsigned int size)
 bool GPUModel::SetIndices(GLuint * inds, unsigned int size)
 {
 	indicesSize = size;
-	memcpy(indices, inds, size * sizeof(GLuint));
+	//memcpy(indices, inds, size * sizeof(GLuint));
 	//*indices = *inds;
 	return true;
 }
@@ -127,7 +123,7 @@ GLfloat  *GPUModel::GetUVs()
 
 GLuint *GPUModel::GetIndices()
 {
-	return indices;
+	return nullptr;
 }
 
 const GLuint GPUModel::GetVerticesID()
@@ -184,23 +180,30 @@ bool GPUModel::BufferDataToGPU(GLfloat  * data, GLuint &bufferAddr, GLuint curre
 	return true;
 }
 
-bool GPUModel::BufferDataToGPU(GLuint * data, GLuint &bufferAddr, unsigned int size)
+bool GPUModel::BufferIndexDataToGPU(GLuint &bufferAddr, unsigned int size)
 {
+	GLuint* arrayPtr = new GLuint[size];
+	for (int i = 0; i < size; ++i)
+	{
+		arrayPtr[i] = i;
+	}
 	GenVertexArrays(bufferAddr, vaoID);
 	//Generate, bind and upload data
 	glGenBuffers(1, &bufferAddr);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferAddr);
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(GLuint), &(data)[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(GLuint), &(arrayPtr)[0], GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
+	delete[] arrayPtr;
 	return true;
 }
 
 bool GPUModel::BufferUVDataToGPU(GLfloat  * data, GLuint &bufferAddr, unsigned int size)
 {
 	GenVertexArrays(bufferAddr, vaoID);
+	
 	//Generate, bind and upload data
 	glEnableVertexAttribArray(2);
 	glGenBuffers(1, &bufferAddr);
@@ -212,6 +215,7 @@ bool GPUModel::BufferUVDataToGPU(GLfloat  * data, GLuint &bufferAddr, unsigned i
 
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
+
 	return true;
 }
 

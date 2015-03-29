@@ -26,7 +26,7 @@ public:
 
 	const std::unique_ptr<componentMapType>& GetComponentList();
 
-	void UpdateAllComponents(float dt);
+	void UpdateAllComponents(double dt);
 	void InitAllComponents();
 	void DestroyAllComponents();
 

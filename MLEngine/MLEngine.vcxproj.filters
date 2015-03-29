@@ -246,6 +246,9 @@
     <ClCompile Include="code\Graphics\SkyBox.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="code\Graphics\ParticleSystem.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -407,6 +410,9 @@
     <ClInclude Include="code\Graphics\SkyBox.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="code\Graphics\ParticleSystem.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\default.frag" />
@@ -416,5 +422,7 @@
     <None Include="ClassDiagram.cd" />
     <None Include="data\Shaders\skybox.frag" />
     <None Include="data\Shaders\skybox.vert" />
+    <None Include="data\Shaders\particles.frag" />
+    <None Include="data\Shaders\particles.vert" />
   </ItemGroup>
 </Project>

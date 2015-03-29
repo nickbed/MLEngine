@@ -20,10 +20,18 @@ namespace mauvefile
 		if(fileStream.is_open())
 		{
 			std::string Line = "";
-			while(getline(fileStream, Line))
+			if (shaderFormatting)
 			{
-				if(shaderFormatting) output += "\n"; 
-				output += Line;
+				std::stringstream shadercode;
+				shadercode << fileStream.rdbuf();
+				output = shadercode.str();
+			}
+			else
+			{
+				while (getline(fileStream, Line))
+				{
+					output += Line;
+				}
 			}
 			fileStream.close();
 		}

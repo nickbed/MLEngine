@@ -32,9 +32,10 @@ bool OBJModel::LoadFromFile(std::string filename)
 	parsedIndexCount = 0;
 	parsedNormalCount = 0;
 	parsedVertCount = 0;
-	GLfloat tempUVs[50000];
-	GLfloat tempNormals[50000];
-	GLfloat tempVerts[50000];
+
+	GLfloat tempUVs[70000];
+	GLfloat tempNormals[70000];
+	GLfloat tempVerts[100000];
 	char *next_token = NULL;
 
 
@@ -98,6 +99,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 			//Parse the vertex
 			for (int i = 0; i < 9; ++i)
 			{
+				++parsedIndexCount;
 				vertStart = strtok_s(NULL, " /", &next_token);
 				if (i == 0 || i == 3 || i == 6)
 				{
@@ -109,7 +111,6 @@ bool OBJModel::LoadFromFile(std::string filename)
 					parsedVertices[parsedVertCount++] = tempVerts[position];
 					parsedVertices[parsedVertCount++] = tempVerts[position + 1];
 					parsedVertices[parsedVertCount++] = tempVerts[position + 2];
-					parsedIndices[parsedIndexCount] = parsedIndexCount++;
 				}
 				//UVs
 				else if (i == 1 || i == 4 || i == 7)
@@ -133,6 +134,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 					parsedNormals[parsedNormalCount++] = tempNormals[normalloc];
 					parsedNormals[parsedNormalCount++] = tempNormals[normalloc + 1];
 					parsedNormals[parsedNormalCount++] = tempNormals[normalloc + 2];
+					
 				}
 			}
 		}
@@ -146,6 +148,9 @@ bool OBJModel::LoadFromFile(std::string filename)
 			continue;
 		}
 	}
+	mauveassert::Assert::AssertTrue("too many normals", (parsedNormalCount < 70000), mauveassert::ENUM_severity::SEV_FATAL);
+	mauveassert::Assert::AssertTrue("too many vertices", (parsedVertCount < 100000), mauveassert::ENUM_severity::SEV_FATAL);
+	mauveassert::Assert::AssertTrue("too many UVs", (parsedUVCount < 70000), mauveassert::ENUM_severity::SEV_FATAL);
 	//for (unsigned int i = 0; i < parsedIndexCount; ++i)
 	//{
 	//	parsedIndices[i] = i;
@@ -179,7 +184,7 @@ GLfloat* OBJModel::GetNormals()
 
 GLuint* OBJModel::GetIndicies()
 {
-	return parsedIndices;
+	return nullptr;
 }
 
 const unsigned int OBJModel::GetVertexCount()

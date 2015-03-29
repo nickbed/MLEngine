@@ -24,6 +24,7 @@ Shader::Shader(std::string file) : IResource(file)
 
 bool Shader::LoadFromFile(std::string filename)
 {
+	
 	std::string fragFile = filename + ".frag";
 	std::string vertFile = filename + ".vert";
 
@@ -40,8 +41,16 @@ bool Shader::LoadFromFile(std::string filename)
 
 	fragmentSource = fragResultStr;
 	vertexSource = vertResultStr;
-	
-	bool result3 = CompileAndLinkShader(vertexSource, fragmentSource, loadedShaderProgramID);
+	bool result3 = false;
+	if (filename == "data\\shaders\\particles")
+	{
+		result3 = CompileAndLinkShader(vertexSource, fragmentSource, loadedShaderProgramID, true);
+	}
+	else
+	{
+		result3 = CompileAndLinkShader(vertexSource, fragmentSource, loadedShaderProgramID, false);
+	}
+
 	return result3;
 }
 
@@ -106,6 +115,11 @@ void Shader::UseShader()
 	glUseProgram(loadedShaderProgramID);
 }
 
+GLuint Shader::GetShaderID()
+{
+	return loadedShaderProgramID;
+}
+
 GLint Shader::GetUniformLocation(const char* uniformName)
 {
 	if (uniformCache.find(uniformName) == uniformCache.end())
@@ -120,7 +134,7 @@ GLint Shader::GetUniformLocation(const char* uniformName)
 	return uniformCache.find(uniformName)->second;
 }
 
-bool Shader::CompileAndLinkShader(std::string vertShader, std::string fragShader, GLuint& programID)
+bool Shader::CompileAndLinkShader(std::string vertShader, std::string fragShader, GLuint& programID, bool extraBits)
 {
 	if(vertShader == "" || fragShader == "")
 	{
@@ -145,7 +159,15 @@ bool Shader::CompileAndLinkShader(std::string vertShader, std::string fragShader
 
 	loadedShaderProgramID = glCreateProgram();
 	glAttachShader(loadedShaderProgramID, vertexShaderID);
+	if (extraBits)
+	{
+		//HACK OMG
+		const char * outputNames[] = { "Position", "Velocity", "StartTime" };
+		glTransformFeedbackVaryings(loadedShaderProgramID, 3, outputNames, GL_SEPARATE_ATTRIBS);
+	}
 	glAttachShader(loadedShaderProgramID, fragmentShaderID);
+
+
 
 	glLinkProgram(loadedShaderProgramID);
 

@@ -177,6 +177,7 @@
     <ClCompile Include="Code\entities\Robot.cpp" />
     <ClCompile Include="Code\File\FIleManager.cpp" />
     <ClCompile Include="Code\Graphics\GraphicsManager.cpp" />
+    <ClCompile Include="code\Graphics\ParticleSystem.cpp" />
     <ClCompile Include="code\Graphics\SkyBox.cpp" />
     <ClCompile Include="Code\Graphics\TextRender.cpp" />
     <ClCompile Include="Code\Interfaces\IComponent.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Code\entities\Robot.h" />
     <ClInclude Include="Code\File\FileManager.h" />
     <ClInclude Include="Code\Graphics\GraphicsManager.h" />
+    <ClInclude Include="code\Graphics\ParticleSystem.h" />
     <ClInclude Include="code\Graphics\SkyBox.h" />
     <ClInclude Include="Code\Graphics\TextRender.h" />
     <ClInclude Include="Code\Interfaces\IComponent.h" />
@@ -264,6 +266,8 @@
     <None Include="ClassDiagram.cd" />
     <None Include="Data\Shaders\default.frag" />
     <None Include="Data\Shaders\default.vert" />
+    <None Include="data\Shaders\particles.frag" />
+    <None Include="data\Shaders\particles.vert" />
     <None Include="data\Shaders\skybox.frag" />
     <None Include="data\Shaders\skybox.vert" />
     <None Include="data\Shaders\text.frag" />

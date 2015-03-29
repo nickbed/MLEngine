@@ -68,6 +68,7 @@ private:
 	bool LoadNextState();
 	float timer;
 	bool loading;
+	bool shouldClose;
 };
 
 #endif

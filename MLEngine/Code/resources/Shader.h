@@ -29,10 +29,11 @@ public:
 	bool SendUniform1f(const char* uniformName, const GLfloat i);
 
 	void UseShader();
+	GLuint GetShaderID();
 
 private:
 	GLint GetUniformLocation(const char* uniformName);
-	bool CompileAndLinkShader(std::string vertShader, std::string fragShader, GLuint& programID);
+	bool CompileAndLinkShader(std::string vertShader, std::string fragShader, GLuint& programID, bool extraBits);
 
 	bool CompileShader(GLuint shaderID);
 	bool LinkShader(GLuint shaderID);

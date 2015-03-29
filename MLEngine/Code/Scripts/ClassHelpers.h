@@ -89,7 +89,7 @@ struct StaticMeshHelper
 			{
 				//Create and load in new gpu model
 				gotGPUModel = new GPUModel();
-				gotGPUModel->SetAllData(gotModel->GetVertices(), gotModel->GetVertexCount(), gotModel->GetNormals(), gotModel->GetNormalCount(), gotModel->GetUVs(), gotModel->GetUVCount(), gotModel->GetIndicies(), gotModel->GetIndexCount());
+				gotGPUModel->SetAllData(gotModel->GetVertices(), gotModel->GetVertexCount(), gotModel->GetNormals(), gotModel->GetNormalCount(), gotModel->GetUVs(), gotModel->GetUVCount(), gotModel->GetIndexCount());
 				gotGPUModel = mauvegpuresource::GPUResourceManager::LoadResource(gotGPUModel, path);
 			}
 			mesh->SetModel(*gotGPUModel);
@@ -99,7 +99,7 @@ struct StaticMeshHelper
 	static StaticMesh* _new(std::string id)
 	{
 		StaticMesh* mesh = new StaticMesh(id);
-		return mesh;
+		return nullptr;
 	}
 };
 

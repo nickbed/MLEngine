@@ -25,6 +25,7 @@ struct LuaScriptFuncs{
 	unsigned short refCount;
 
 	LuaScriptFuncs(){
+		updateFunc = nullptr;
 		refCount = 1;
 	};
 

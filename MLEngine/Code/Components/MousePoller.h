@@ -23,6 +23,8 @@ private:
 	GLFWwindow* window;
 	int halfWindowHeight;
 	int halfWindowWidth;
+	double oldMousePosX;
+	double oldMousePosY;
 	bool enabled;
 };
 

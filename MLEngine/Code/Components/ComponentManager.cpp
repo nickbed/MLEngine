@@ -85,7 +85,7 @@ const std::unique_ptr<componentMapType>& ComponentManager::GetComponentList()
 	return componentList;
 }
 
-void ComponentManager::UpdateAllComponents(float dt)
+void ComponentManager::UpdateAllComponents(double dt)
 {
 	componentMapIterator startIt;
 	for (startIt = componentList->begin(); startIt != componentList->end(); ++startIt)

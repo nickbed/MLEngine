@@ -54,8 +54,8 @@ private:
 	glm::vec3 upVector;
 	glm::vec3 rightVector;
 	glm::vec3 cameraDirection;
-	float pitch;
-	float yaw;
+	double pitch;
+	double yaw;
 	float cameraFOV;
 
 };

@@ -1,4 +1,4 @@
-#version 330 core
+#version 440
 
 in vec3 lightPos;
 in vec3 vertPos; //Vertex position in eye coords
