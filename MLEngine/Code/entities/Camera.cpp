@@ -11,8 +11,8 @@ void CameraEntity::Init()
 	cameraMatrix = glm::mat4(1.0);
 	cameraFOV = 50.0f;
 	viewMatrix = glm::perspective(cameraFOV, (float)1024 / (float)768, 0.1f, 10000.0f);
-	pitch = 0.0;
-	yaw = 0.0;
+	pitch = 0.0f;
+	yaw = 0.0f;
 	upVector = glm::vec3(0.0, 1.0, 0.0);
 	rightVector = glm::vec3(1.0, 0.0, 0.0);
 	cameraDirection = glm::vec3(0.0, 0.0, 1.0);
@@ -110,15 +110,15 @@ void CameraEntity::msg_SetLookPosition(mauvemessage::BaseMessage* msg)
 	yaw += messagePos.x;
 	pitch += messagePos.y;
 
-	if (pitch > glm::radians(85.0))
+	if (pitch > glm::radians(85.0f))
 	{
-		pitch = glm::radians(85.0);
+		pitch = glm::radians(85.0f);
 	}
-	if (pitch < glm::radians(-85.0))
+	if (pitch < glm::radians(-85.0f))
 	{
-		pitch = glm::radians(-85.0);
+		pitch = glm::radians(-85.0f);
 	}
-	if(yaw > glm::radians(360.0) || yaw < glm::radians(-360.0)) yaw = 0.0;
+	if(yaw > glm::radians(360.0f) || yaw < glm::radians(-360.0f)) yaw = 0.0f;
 
 	glm::vec3 lookDirection(glm::cos(pitch) * glm::sin(yaw), glm::sin(pitch), glm::cos(pitch) * glm::cos(yaw));
 	cameraDirection = glm::normalize(lookDirection);

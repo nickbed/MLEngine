@@ -30,7 +30,11 @@
             "OBJModel": "data\\models\\splash.obj",
             "TextureFile": "data\\images\\Menu.tga"
           }
-        }
+        },
+		"script": {
+			  "path": "data\\Scripts\\test.lua",
+			  "identifier": "Test"
+		}
       }
     },
     "cameras": {

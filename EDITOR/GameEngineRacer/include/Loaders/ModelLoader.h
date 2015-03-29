@@ -6,6 +6,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iostream>
+#include <glm\glm.hpp>
 
 #include <glfw3.h>
 
@@ -26,7 +27,8 @@ private:
 	int face[3];
 	int faceNormal[3];
 	int faceTexture[3];
-
+	glm::vec3 max;
+	glm::vec3 min;
 	
 	linetype thisline;
 	std::vector<float> vArray, vnArray, vtArray;
@@ -39,6 +41,10 @@ public:
 
 	void setName(const std::string& name){m_filename = name;}; 
 	const std::string& getName(){return m_filename;}; 
+	
+
+	const glm::vec3& getMin(){return min;};
+	const glm::vec3& getMax(){return max;};
 
 	const std::vector<GLfloat>& getVerts(){return allFaces_vertices_coords;};
 	const std::vector<GLfloat>& getNormals(){return allfaces_vertices_normals;};

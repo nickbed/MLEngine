@@ -10,7 +10,7 @@ class BoundingBoxO: public BoundingVolume
 {
 public:
 	BoundingBoxO(std::string id);
-	BoundingBoxO(std::string id, glm::vec3 center, glm::vec3 extent, bool isStatic);
+	BoundingBoxO(std::string id, glm::vec3 center, glm::vec3 extent, bool isStatic, std::string owner);
 	virtual ~BoundingBoxO();
 
 	virtual void Init();

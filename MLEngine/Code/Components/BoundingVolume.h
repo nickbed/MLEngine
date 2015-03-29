@@ -29,15 +29,20 @@ public:
 	void SetCollided(bool hasCollided);
 	bool IsCollided();
 
-	glm::vec3 Rigid_vel;	//temporary rigid body values
+	std::string GetOwnerId();
+
+	glm::vec3 Rigid_vel;	//temp rigid body values
 	glm::vec3 Rigid_ang;
 	float Rigid_mass;
 	float Rigid_inverse;
 	float Rigid_density;
+	float Rigid_friction;
+	float Rigid_push;
 
 protected:
 	int type;
 	bool isStatic;
 	bool collided;
+	std::string owner;
 };
 #endif

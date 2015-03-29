@@ -72,6 +72,13 @@ void ScriptManager::bindElements()
 
 		.deriveClass<BoundingVolume, IComponent>("boundingvolume")
 		.addStaticFunction("New", BoundingVolumesHelper::_newBase)
+		.addData("RigidVel", &BoundingVolume::Rigid_vel)
+		.addData("RigidAngle", &BoundingVolume::Rigid_ang)
+		.addData("RigidMass", &BoundingVolume::Rigid_mass)
+		.addData("RigidInverse", &BoundingVolume::Rigid_inverse)
+		.addData("RigidDensity", &BoundingVolume::Rigid_density)
+		.addData("RigidFriction", &BoundingVolume::Rigid_friction)
+		.addData("RigidPush", &BoundingVolume::Rigid_push)
 		.endClass()
 
 		.deriveClass<BoundingSphere, BoundingVolume>("boundingsphere")
@@ -95,6 +102,7 @@ void ScriptManager::bindElements()
 		.beginClass<SceneManager>("scene")
 		.addStaticFunction("NewObject", SceneManager::AddEntity)
 		.addStaticFunction("RemoveObject", SceneManager::DestroyEntity)
+		.addStaticFunction("FindObject", SceneManager::FindEntity)
 		.endClass()
 
 
@@ -116,5 +124,6 @@ void ScriptManager::bindElements()
 		.addData("Sign", &CollisionManifold::Sign)
 		.addData("VolumeA", &CollisionManifold::VolumeA)
 		.addData("VolumeB", &CollisionManifold::VolumeB)
+		.addData("Top",&CollisionManifold::Top)
 		.endClass();
 }

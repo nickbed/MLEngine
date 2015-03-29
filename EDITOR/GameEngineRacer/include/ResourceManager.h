@@ -9,6 +9,7 @@
 struct Model
 {
 	std::vector<GLfloat> verts, normals, textureCoords;
+	glm::vec3 min, max;
 };
 struct Shader
 {

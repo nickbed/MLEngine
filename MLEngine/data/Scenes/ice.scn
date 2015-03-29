@@ -1,0 +1,296 @@
+{
+  "scene": {
+    "name": "icescene",
+    "sceneshader": "data\\shaders\\default",
+    "currentcamera": "camera0",
+    "activelights": ["light0","light1"],
+	"messagehandlers": true,
+	"menu": false,
+	"activeentities": [
+      "robot1",
+	  "snowplane",
+	  "block1",
+	  "block2",
+	  "tree1",
+	  "tree2"
+    ],
+	"entities":{
+	  "robot1": {
+        "type": "robot",
+		"script": {
+		  "path": "data\\Scripts\\jump.lua",
+		  "identifier": "Jump"
+		},
+        "transform": {
+          "posX": 0,
+          "posY": 1,
+          "posZ": 0,
+          "scaleX": 0.15,
+          "scaleY": 0.15,
+          "scaleZ": 0.15,
+          "rotateX": 0,
+          "rotateY": 180,
+          "rotateZ": 0
+        },
+        "components": {
+          "robotmesh": {
+            "id": "robotBody",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\robbody.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+		  "boundingcapsule": {
+		    "type":"boundingcapsule",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"radius": 0.5,
+			"extent": 0.5,
+			"static": false,
+			"density": 50.0
+		  },
+          "robotlleg": {
+            "id": "robotLeftLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrleg": {
+            "id": "robotRightLeg",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrleg.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotrarm": {
+            "id": "robotRightArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\robrarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          },
+          "robotlarm": {
+            "id": "robotLeftArm",
+            "type": "basicbone",
+            "OBJModel": "data\\models\\roblarm.obj",
+            "TextureFile": "data\\images\\rainbow.png"
+          }
+        }
+      },
+	  "snowplane": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 0,
+          "posY": 0,
+          "posZ": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "snowplane": {
+            "id": "snowplane",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\snowplane.obj",
+            "TextureFile": "data\\images\\snowplane.tga"
+          }
+        }
+      },
+	   "tree1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -25.8,
+          "posY": 0,
+          "posZ": -5.7,
+          "scaleX": 2,
+          "scaleY": 2,
+          "scaleZ": 2,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "snowtree": {
+            "id": "snowtree",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\snowtree.obj",
+            "TextureFile": "data\\images\\snowtree.tga"
+		  }
+        }
+      },
+	  "tree2": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -24.8,
+          "posY": 0,
+          "posZ": -12.7,
+          "scaleX": 2.1,
+          "scaleY": 2.5,
+          "scaleZ": 2.1,
+          "rotateX": 0,
+          "rotateY": 30,
+          "rotateZ": 0
+        },
+        "components": {
+          "snowtree": {
+            "id": "snowtree",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\snowtree.obj",
+            "TextureFile": "data\\images\\snowtree.tga"
+		  }
+        }
+      },
+	  "block1": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -45.8,
+          "posY": 0,
+          "posZ": -5.7,
+          "scaleX": 1,
+          "scaleY": 1,
+          "scaleZ": 1,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "iceblock": {
+            "id": "iceblock",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\iceblock.obj",
+            "TextureFile": "data\\images\\iceblock.tga"
+		  },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 5.0,
+			"centerZ": 0.0,
+			"extentX": 5.0,
+			"extentY": 5.0,
+			"extentZ": 5.0,
+			"static": false,
+			"density": 0.001,
+			"friction": 0.03
+		  }
+        }
+		},
+		"block2": {
+        "type": "generalentity",
+        "transform": {
+          "posX": -15.8,
+          "posY": 0,
+          "posZ": -24.7,
+          "scaleX": 2,
+          "scaleY": 2,
+          "scaleZ": 2,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+        "components": {
+          "iceblock": {
+            "id": "iceblock",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\iceblock.obj",
+            "TextureFile": "data\\images\\iceblock.tga"
+		  },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 10.0,
+			"centerZ": 0.0,
+			"extentX": 10.0,
+			"extentY": 10.0,
+			"extentZ": 10.0,
+			"static": false,
+			"density": 0.001,
+			"friction": 0.03
+		  }
+        }
+      }
+	},
+	 "cameras": {
+      "camera0": {
+        "camerasetup": {
+          "posX": 5,
+          "posY": 2.5,
+          "posZ": -1.9,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 80,
+          "pitch": 0,
+          "yaw": 0
+        }
+      },
+      "camera1": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 1.8,
+          "posZ":  0,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 50,
+          "pitch": 0,
+          "yaw": 0
+		  }
+        },
+	"camera2": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 10,
+          "posZ":  -10,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 120,
+          "pitch": 0,
+          "yaw": 0
+		  }
+        },
+		"camera3": {
+        "camerasetup": {
+          "posX": 0,
+          "posY": 20,
+          "posZ": -80,
+          "lookX": 0,
+          "lookY": 0,
+          "lookZ": 0,
+          "fov": 70,
+          "pitch": 0,
+          "yaw": 0
+        }
+      }
+    },
+	"lights": {
+      "light0": {
+        "lightparams": {
+          "posX": -25,
+          "posY": 20,
+          "posZ": -25,
+          "intensityR": 0.5,
+          "intensityG": 0.5,
+          "intensityB": 0.5,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
+      },
+	  "light1": {
+        "lightparams": {
+          "posX": 25,
+          "posY": 20,
+          "posZ": 25,
+          "intensityR": 0.5,
+          "intensityG": 0.5,
+          "intensityB": 0.5,
+          "surfaceReflectivityR_TEMP": 1,
+          "surfaceReflectivityG_TEMP": 1,
+          "surfaceReflectivityB_TEMP": 1
+        }
+      }
+    }
+  }
+}

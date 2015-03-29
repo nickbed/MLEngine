@@ -18,20 +18,27 @@ void RenderComponent::loadTexture(GameObject* g)
 	if(GetOpenFileName(&ofn))
 	{
 		std::string filename = ofn.lpstrFile;
-		filename = filename.substr(filename.find("data"));
+		std::string newfilename = filename.substr(filename.find("data"));
 		TextureLoader* tLoader = new TextureLoader();
 		if (rManager->getTextures_const().find(filename) == rManager->getTextures_const().end() ) 
 		{
 			
 			tLoader->LoadTexture(filename);
 			tLoader->FlipImage();
-			tLoader->setName(filename);
-			rManager->addToTexture(std::pair<std::string, Texture*>(filename,tLoader->getTexture()));
+			tLoader->setName(newfilename);
+			rManager->addToTexture(std::pair<std::string, Texture*>(newfilename,tLoader->getTexture()));
 		}
 		
-		setTexture(rManager->getTexture().at(filename));
+		setTexture(rManager->getTexture().at(newfilename));
 		glBindTexture(GL_TEXTURE_2D,texture->object());
-		g->addToComponentTextureFiles(filename);
+		if(g->getComponentTextureFiles().size() != 0)
+		{
+			g->replaceComponentTextureFile(newfilename);
+		}else
+		{
+			g->addToComponentTextureFiles(newfilename);
+		}
+		
 	}
 }
 void RenderComponent::init(Model* model, Texture* nTexture)
@@ -77,10 +84,9 @@ void RenderComponent::init(Model* model, Texture* nTexture)
 
 
 	
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_DEPTH_TEST);
+	
 	//glDepthGL_nc(glLESS);
-	glEnable(GL_BLEND);
+
 
 
 	
@@ -89,7 +95,8 @@ void RenderComponent::init(Model* model, Texture* nTexture)
 void RenderComponent::update()
 {
 	
-
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D,texture->object());
 	
@@ -97,7 +104,11 @@ void RenderComponent::update()
 	glEnableVertexAttribArray(0);  // Vertex position
 	glEnableVertexAttribArray(1);  // Vertex normal
 	glEnableVertexAttribArray(2); //uv
+	
 	glDrawArrays(GL_TRIANGLES, 0,indicesCount );
+
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
 	glBindVertexArray(0);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

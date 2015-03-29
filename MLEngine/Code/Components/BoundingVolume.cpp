@@ -6,6 +6,7 @@ BoundingVolume::BoundingVolume(std::string id) : IComponent(id)
 	Rigid_vel = glm::vec3(0.f);
 	Rigid_ang = glm::vec3(0.f);
 	Rigid_density = 1.f;
+	Rigid_friction = 1.f;
 }
 
 int BoundingVolume::GetType()
@@ -26,6 +27,11 @@ bool BoundingVolume::IsCollided()
 void BoundingVolume::SetCollided(bool hasCollided)
 {
 	collided = hasCollided;
+}
+
+std::string BoundingVolume::GetOwnerId()
+{
+	return owner;
 }
 
 void BoundingVolume::Init()

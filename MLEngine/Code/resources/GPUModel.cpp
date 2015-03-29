@@ -183,7 +183,7 @@ bool GPUModel::BufferDataToGPU(GLfloat  * data, GLuint &bufferAddr, GLuint curre
 bool GPUModel::BufferIndexDataToGPU(GLuint &bufferAddr, unsigned int size)
 {
 	GLuint* arrayPtr = new GLuint[size];
-	for (int i = 0; i < size; ++i)
+	for (unsigned int i = 0; i < size; ++i)
 	{
 		arrayPtr[i] = i;
 	}

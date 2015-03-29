@@ -62,7 +62,18 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\floor.obj",
             "TextureFile": "data\\images\\forestfloor.tga"
-          }
+          },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 90,
+			"extentY": 0.1,
+			"extentZ": 90,
+			"static": false,
+			"density": 0.01
+		  }
         }
       },
       "tree1": {
@@ -666,40 +677,8 @@
 			"extentY": 3.1,
 			"extentZ": 7.0,
 			"static": false,
-			"density": 0.01
-		  }
-        }
-      },
-	    "robco2": {
-        "type": "generalentity",
-        "transform": {
-          "posX": 35.8,
-          "posY": 0,
-          "posZ": -5.7,
-          "scaleX": 1,
-          "scaleY": 1,
-          "scaleZ": 1,
-          "rotateX": 0,
-          "rotateY": 0,
-          "rotateZ": 0
-        },
-        "components": {
-          "robco2": {
-            "id": "robco2",
-            "type": "staticmesh",
-            "OBJModel": "data\\models\\robco.obj",
-            "TextureFile": "data\\images\\robco.tga"
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 3.1,
-			"centerZ": 0.0,
-			"extentX": 3.5,
-			"extentY": 3.1,
-			"extentZ": 7.0,
-			"static": false,
-			"density": 0.01
+			"density": 0.01,
+			"push": 50.0
 		  }
         }
       },
@@ -833,7 +812,8 @@
 			"radius": 0.5,
 			"extent": 0.5,
 			"static": false,
-			"density": 50.0
+			"density": 50.0,
+			"friction": 0.1
 		  },
 		  "boundingboxo": {
 		    "type":"boundingboxo(disabled)",

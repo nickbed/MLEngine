@@ -37,7 +37,13 @@ int guardedMain()
 	EngineConfig currentConf;
 	currentConf.resX = 1024;
 	currentConf.resY = 768;
+
+//Oh dear :'(
+#ifdef _DEBUG
+	float sixtyFPS = (1.0f / 120.0f) * 1000;
+#else
 	float sixtyFPS = (1.0f / 60.0f) * 1000;
+#endif
 	double oldTime = 0;
 	bool closed = false;
 
@@ -46,23 +52,24 @@ int guardedMain()
 	currentConf = currentEngine.ReadConfigFile("data\\config\\EngineConfig.json");
 	currentEngine.Init(currentConf);
 	float timeToWait = 0.0;
-	double delta = 0.0;
+	float delta = 0.0f;
 	double timeTaken = 0.0;
 	while(true)
 	{
-		timeToWait = (sixtyFPS - (float)(glfwGetTime() - oldTime) * 1000);
+		timeToWait = (sixtyFPS - (float)((glfwGetTime() - oldTime) * 1000));
 		if (timeToWait <= 0.0l)
 		{
-			delta = glfwGetTime() - oldTime;
+			delta = (float)(glfwGetTime() - oldTime);
+			oldTime = glfwGetTime();
 			if (!currentEngine.Update(delta))
 			{
 				closed = true;
 				break;
 			}
-			oldTime = glfwGetTime();
 		}
 		if (closed) break;
 		currentEngine.Draw();
+
 
 		//else
 		//{

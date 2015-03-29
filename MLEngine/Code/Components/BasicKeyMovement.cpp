@@ -31,28 +31,28 @@ void BasicKeyMovement::Update(float dt)
 		movementConst *= 2;
 	}
 	//Up
-	if (keyBuffer[GLFW_KEY_W])
+	if (keyBuffer[GLFW_KEY_UP])
 	{
 		//Forward in Z
 		SendMovementMessage(glm::vec3(0.0f, 0.0f, movementConst * dt), "cameraMovement");
 	}
 
 	//Down
-	if (keyBuffer[GLFW_KEY_S])
+	if (keyBuffer[GLFW_KEY_DOWN])
 	{
 		//Backwards in Z
 		SendMovementMessage(glm::vec3(0.0f, 0.0f, -movementConst * dt), "cameraMovement");
 	}
 
 	//Left
-	if (keyBuffer[GLFW_KEY_A])
+	if (keyBuffer[GLFW_KEY_LEFT])
 	{
 		//Left in X
 		SendMovementMessage(glm::vec3(-movementConst * dt, 0.0f, 0.0f), "cameraMovement");
 	}
 
 	//Right
-	if (keyBuffer[GLFW_KEY_D])
+	if (keyBuffer[GLFW_KEY_RIGHT])
 	{
 		//Right in X
 		SendMovementMessage(glm::vec3(movementConst * dt, 0.0f, 0.0f), "cameraMovement");
@@ -60,28 +60,28 @@ void BasicKeyMovement::Update(float dt)
 
 	//Robot
 	//Up
-	if (keyBuffer[GLFW_KEY_UP])
+	if (keyBuffer[GLFW_KEY_W])
 	{
 		//Forward in Z
 		SendMovementMessage(glm::vec3(0.0f, 0.0f, movementConst * dt), "robotMovement");
 	}
 
 	//Down
-	if (keyBuffer[GLFW_KEY_DOWN])
+	if (keyBuffer[GLFW_KEY_S])
 	{
 		//Backwards in Z
 		SendMovementMessage(glm::vec3(0.0f, 0.0f, -movementConst * dt), "robotMovement");
 	}
 
 	//Left
-	if (keyBuffer[GLFW_KEY_LEFT])
+	if (keyBuffer[GLFW_KEY_A])
 	{
 		//Left in X
 		SendMovementMessage(glm::vec3(-movementConst * dt, 0.0f, 0.0f), "robotMovement");
 	}
 
 	//Right
-	if (keyBuffer[GLFW_KEY_RIGHT])
+	if (keyBuffer[GLFW_KEY_D])
 	{
 		//Right in X
 		SendMovementMessage(glm::vec3(movementConst * dt, 0.0f, 0.0f), "robotMovement");

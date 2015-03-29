@@ -7,7 +7,7 @@
 struct CollisionManifold
 {
 	CollisionManifold();
-	CollisionManifold(BoundingVolume* volumea, BoundingVolume* volumeb, float pen, glm::vec3 axis, char axisBox, float sign);
+	CollisionManifold(BoundingVolume* volumea, BoundingVolume* volumeb, float pen, glm::vec3 axis, char axisBox, float sign, bool top);
 	bool Collision;
 	BoundingVolume* VolumeA;
 	BoundingVolume* VolumeB;
@@ -15,6 +15,7 @@ struct CollisionManifold
 	glm::vec3 Axis;
 	char AxisBox;
 	float Sign;
+	bool Top;
 };
 
 namespace mauvemessage

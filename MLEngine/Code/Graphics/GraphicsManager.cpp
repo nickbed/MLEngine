@@ -23,7 +23,7 @@ void GraphicsManager::RenderComponents<StaticMeshNoIndices>(StaticMeshNoIndices*
 
 	glBindVertexArray(0);
 
-
+	
 	//Reset the state
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
@@ -52,7 +52,7 @@ void GraphicsManager::RenderComponents<StaticMesh>(StaticMesh* componentToRender
 	glBindTexture(GL_TEXTURE_2D, componentToRender->GetTextureID());
 
 	UploadShaderDataForDraw(modelTransform);
-
+	
 	//Draw them
 	glDrawElements(GL_TRIANGLES, componentToRender->GetModelIndicesCount(), GL_UNSIGNED_INT, 0);
 
@@ -366,7 +366,7 @@ bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, f
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glDepthMask(GL_FALSE);
-	//RenderSkybox();
+	RenderSkybox();
 	glDepthMask(GL_TRUE);
 	//Transparency
 

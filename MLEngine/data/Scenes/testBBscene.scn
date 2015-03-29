@@ -1,0 +1,109 @@
+{
+   "scene" : {
+      "activeentities" : [ "Crate.obj0", "Crate.obj1" ],
+      "cameras" : {
+         "camera1" : {
+            "camerasetup" : {
+               "fov" : 50,
+               "lookX" : 0.4492702782154083,
+               "lookY" : 14.45888519287109,
+               "lookZ" : 30.25857925415039,
+               "pitch" : 0.02300000190734863,
+               "posX" : 1.168102622032166,
+               "posY" : 23.59309959411621,
+               "posZ" : 50.67230224609375,
+               "yaw" : 0.01700000092387199
+            }
+         }
+      },
+      "currentcamera" : "camera1",
+      "currentlight" : "default",
+      "entities" : {
+         "Crate.obj0" : {
+            "components" : {
+               "Crate.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Crate.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "Crate.obj0",
+                  "type" : "staticmesh"
+               },
+               "boundingboxo" : {
+                  "centerX" : 0,
+                  "centerY" : 3.414400100708008,
+                  "centerZ" : 0,
+                  "density" : 1,
+                  "extentX" : 3.243680000305176,
+                  "extentY" : 3.243680000305176,
+                  "extentZ" : 3.243680000305176,
+                  "static" : true,
+                  "type" : "boundingboxo"
+               }
+            },
+            "transform" : {
+               "posX" : 0,
+               "posY" : 0,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 2,
+               "scaleY" : 2,
+               "scaleZ" : 2
+            },
+            "type" : "generalentity"
+         },
+         "Crate.obj1" : {
+            "components" : {
+               "Crate.obj1" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\Crate.obj",
+                  "TextureFile" : "data\\images\\default.png",
+                  "id" : "Crate.obj1",
+                  "type" : "staticmesh"
+               },
+               "boundingboxo" : {
+                  "centerX" : 0,
+                  "centerY" : 1.707200050354004,
+                  "centerZ" : 0,
+                  "density" : 1,
+                  "extentX" : 1.621840000152588,
+                  "extentY" : 1.621840000152588,
+                  "extentZ" : 1.621840000152588,
+                  "static" : true,
+                  "type" : "boundingboxo"
+               }
+            },
+            "transform" : {
+               "posX" : -6.599999904632568,
+               "posY" : 0,
+               "posZ" : 0,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 1,
+               "scaleY" : 1,
+               "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         }
+      },
+      "lights" : {
+         "" : {
+            "lightparams" : {
+               "intensityB" : 1,
+               "intensityG" : 1,
+               "intensityR" : 1,
+               "posX" : 0.2999999821186066,
+               "posY" : 58.10000228881836,
+               "posZ" : 16.89999961853027,
+               "surfaceReflectivityB_TEMP" : 0,
+               "surfaceReflectivityG_TEMP" : 0,
+               "surfaceReflectivityR_TEMP" : 0
+            }
+         }
+      },
+      "menu" : false,
+      "messagehandlers" : true,
+      "name" : "",
+      "sceneshader" : "data\\shaders\\default"
+   }
+}

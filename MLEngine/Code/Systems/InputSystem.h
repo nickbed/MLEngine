@@ -17,7 +17,7 @@ public:
 
 	void Init();
 
-	bool Update(double dt);
+	bool Update(float dt);
 
 	void Destroy();
 

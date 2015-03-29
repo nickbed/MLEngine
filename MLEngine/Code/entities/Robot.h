@@ -24,7 +24,8 @@ public:
 private:
 	float currentRotationAngle0;
 	float currentRotationAngle1;
-
+	glm::vec3 followPos;
+	glm::vec3 camdir;
 	bool rotationDirection0;
 	bool rotationDirection1;
 

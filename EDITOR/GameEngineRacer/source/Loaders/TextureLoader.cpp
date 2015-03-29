@@ -23,6 +23,7 @@ void TextureLoader::LoadTexture(std::string filename)
 Texture* TextureLoader::getTexture()
 {
 	gTexture = new Texture(flip, GL_LINEAR, GL_REPEAT);
+	gTexture->TextureFormatForBitmapFormat(Bitmap::Format::Format_RGBA);
 	return gTexture;
 }
 void TextureLoader::FlipImage()
