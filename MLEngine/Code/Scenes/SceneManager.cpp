@@ -611,7 +611,6 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//}
 	currentScene->currentSceneCamera->Listning = true;
 	currentScene->currentSceneCamera->Update(dt);
-	graphicsManager->currentParticles->Update(dt, currentScene->currentSceneCamera->GetViewProjMatrix());
 	graphicsManager->PollWindow();
 	if(currentScene->sceneCameras->find("dummy") != currentScene->sceneCameras->end())
 	{
@@ -835,6 +834,7 @@ IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
 void SceneManager::DestroyEntity(std::string id)
 {
 	IEntity* entToRemove = currentScene->sceneEntities->find(id)->second;
+	entToRemove->Destroy();
 	for (int i = 0; i < currentScene->numActiveEntities; ++i)
 	{
 		if (currentScene->activeEntities[i] == entToRemove)

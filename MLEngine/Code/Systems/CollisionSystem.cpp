@@ -35,8 +35,46 @@ void CollisionSystem::AddDynamicVolume(BoundingVolume* volume)
 	dynamics.push_back(volume);
 }
 
+void CollisionSystem::RemoveObject(IEntity* parent)
+{
+	BoundingVolume* currentBox;
+	std::vector<IComponent*> gotVol = parent->Components->GetComponentsOfType("boundingvolume");
+	std::vector<IComponent*> gotVol1 = parent->Components->GetComponentsOfType("boundingsphere");
+	std::vector<IComponent*> gotVol2 = parent->Components->GetComponentsOfType("boundingcapsule");
+	std::vector<IComponent*> gotVol3 = parent->Components->GetComponentsOfType("boundingbox");
+	std::vector<IComponent*> gotVol4 = parent->Components->GetComponentsOfType("boundingboxo");
+	gotVol.insert(gotVol.begin(), gotVol1.begin(), gotVol1.end());
+	gotVol.insert(gotVol.begin(), gotVol2.begin(), gotVol2.end());
+	gotVol.insert(gotVol.begin(), gotVol3.begin(), gotVol3.end());
+	gotVol.insert(gotVol.begin(), gotVol4.begin(), gotVol4.end());
+	for (auto& vol : gotVol)
+	{
+		if ((currentBox = dynamic_cast<BoundingVolume*>(vol)) == 0) continue;
+		for (int i = 0; i < dynamics.size(); ++i)
+		{
+			if (dynamics[i] == currentBox)
+			{
+				dynamics.erase(dynamics.begin() + i);
+				return;
+			}
+		}
+
+		for (int i = 0; i < statics.size(); ++i)
+		{
+			if (statics[i] == currentBox)
+			{
+				statics.erase(statics.begin() + i);
+				return;
+			}
+		}
+	}
+
+}
+
 void CollisionSystem::CheckCollisions()
 {
+	CollisionEvent collisionsToHandle[128];
+	int collisionsToHandleCount = 0;
 	if(dynamics.size()>0)
 	{
 		for(auto volume = dynamics.begin(); volume != dynamics.end(); ++volume)
@@ -55,10 +93,11 @@ void CollisionSystem::CheckCollisions()
 				CollisionManifold check = CheckVolumes(*volumei,*volumej);
 				if(check.Collision)
 				{
-					(*volumei)->SetCollided(true);
-					(*volumej)->SetCollided(true);
-					mauvemessage::CollisionMessage collisionMessage(MSG_COLLISION,check);
-					mauvemessage::MessageManager::SendListnerMessage(&collisionMessage, MSG_COLLISION);
+					collisionsToHandle[collisionsToHandleCount++] = CollisionEvent(*volumei, *volumej, check);
+					//(*volumei)->SetCollided(true);
+					//(*volumej)->SetCollided(true);
+					//mauvemessage::CollisionMessage collisionMessage(MSG_COLLISION,check);
+					//mauvemessage::MessageManager::SendListnerMessage(&collisionMessage, MSG_COLLISION);
 				}
 			}
 			for(auto volumej = statics.begin(); volumej != statics.end(); ++volumej)
@@ -66,13 +105,22 @@ void CollisionSystem::CheckCollisions()
 				CollisionManifold check = CheckVolumes(*volumei,*volumej);
 				if(check.Collision)
 				{
-					(*volumei)->SetCollided(true);
-					(*volumej)->SetCollided(true);
-					mauvemessage::CollisionMessage collisionMessage(MSG_COLLISION,check);
-					mauvemessage::MessageManager::SendListnerMessage(&collisionMessage, MSG_COLLISION);
+					collisionsToHandle[collisionsToHandleCount++] = CollisionEvent(*volumei, *volumej, check);
+					//(*volumei)->SetCollided(true);
+					//(*volumej)->SetCollided(true);
+					//mauvemessage::CollisionMessage collisionMessage(MSG_COLLISION,check);
+					//mauvemessage::MessageManager::SendListnerMessage(&collisionMessage, MSG_COLLISION);
 				}
 			}
 		}
+	}
+	for (int i = 0; i < collisionsToHandleCount; ++i)
+	{
+		CollisionEvent gotEvent = collisionsToHandle[i];
+		gotEvent.volumei->SetCollided(true);
+		gotEvent.volumej->SetCollided(true);
+		mauvemessage::CollisionMessage collisionMessage(MSG_COLLISION, gotEvent.collision);
+		mauvemessage::MessageManager::SendListnerMessage(&collisionMessage, MSG_COLLISION);
 	}
 }
 

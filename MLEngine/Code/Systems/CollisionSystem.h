@@ -9,6 +9,24 @@
 #include "..\Components\BoundingCapsule.h"
 #include "..\Messages\CollisionMessage.h"
 #include "..\Messages\MessageManager.h"
+#include "..\Interfaces\IEntity.h"
+
+struct CollisionEvent
+{
+	CollisionEvent(BoundingVolume* voli, BoundingVolume* volj, CollisionManifold colM)
+	{
+		volumei = voli;
+		volumej = volj;
+		collision = colM;
+	}
+	CollisionEvent()
+	{
+
+	}
+	BoundingVolume* volumei;
+	BoundingVolume* volumej;
+	CollisionManifold collision;
+};
 
 class CollisionSystem 
 {
@@ -22,6 +40,8 @@ public:
 
 	static void AddStaticVolume(BoundingVolume* volume);
 	static void AddDynamicVolume(BoundingVolume* volume);
+
+	static void RemoveObject(IEntity* volume);
 
 	static void CheckCollisions();
 	static CollisionManifold CheckVolumes(BoundingVolume* volumea, BoundingVolume* volumeb);

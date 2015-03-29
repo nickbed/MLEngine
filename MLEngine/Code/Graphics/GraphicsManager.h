@@ -72,7 +72,7 @@ public:
 	void SetCurrentSkybox(SkyBox* skybox);
 
 	ParticleSystem* currentParticles;
-
+	ParticleSystem* currentParticles2;
 	
 
 private:

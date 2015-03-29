@@ -20,11 +20,12 @@ void ParticleSystem::Init()
 	drawBuf = 1;
 
 	//Load in the particle texture
-	particleTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>("data\\images\\fire2.png");
+	particleTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>("data\\images\\fire.png");
 	particleGPUTexture = new GPUTexture();
 	particleGPUTexture->SetTexture(particleTexture);
 	particleGPUTexture->UploadData();
 	glBindTexture(GL_TEXTURE_2D, particleGPUTexture->GetDataLocation());
+	glEnable(GL_POINT_SPRITE);
 
 	//Load in the particle shader
 	particleShader = mauvefileresource::ResourceManager::GetResource<Shader>("data\\shaders\\particles");
@@ -35,12 +36,12 @@ void ParticleSystem::Init()
 	particleShader->SendUniform1f("ParticleLifetime", 10.5f);
 	particleShader->SendUniformVec3("Accel", glm::vec3(0.0f, -0.4f, 0.0f));
 
-	InitParticleBuffers();
+	InitParticleBuffers(false);
 
-	canDraw = false;
+	canDraw = true;
 }
 
-void ParticleSystem::InitParticleBuffers()
+void ParticleSystem::InitParticleBuffers(bool test)
 {
 	particleShader->UseShader();
 	nParticles = 4000;
@@ -74,6 +75,7 @@ void ParticleSystem::InitParticleBuffers()
 	// Fill the first position buffer with zeroes
 	GLfloat *data = new GLfloat[nParticles * 3];
 	float xLength = 5.0f;
+	if (test) xLength = 10.0f;
 	float step = xLength / nParticles;
 	float currentXpos = 0.0f;
 	int isX = 0;
@@ -87,7 +89,11 @@ void ParticleSystem::InitParticleBuffers()
 		else
 		{
 			if (isX >= 2) isX = -1;
-			data[i] = 0.0f;
+			if (test)data[i] = 10.0f;
+			else
+			{
+				data[i] = 0.0f;
+			}
 		}
 		++isX;
 	}
@@ -208,16 +214,25 @@ float ParticleSystem::randFloat()
 }
 
 
-void ParticleSystem::Draw(glm::mat4 MVP)
+void ParticleSystem::Draw(glm::mat4 MVP, glm::vec3 cameraPos)
 {
 	graphicdeltaT = (float)glfwGetTime() - oldGraphicTime;
 	oldGraphicTime = (float)glfwGetTime();
 	particletime += graphicdeltaT;
 	if (!canDraw) return;
 	glBindTexture(GL_TEXTURE_2D, particleGPUTexture->GetDataLocation());
-	glPointSize(10.0f);
+
+	float dist = glm::length(glm::vec3(0.0) - cameraPos);
+	float pointSize = 0.0f;
+	if (dist > 15.0f) pointSize = 5.0f;
+	else
+	{
+		pointSize = 10.0f;
+	}
+	glPointSize(pointSize);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
+	glBlendColor(1.0, 0.0, 0.0, 1.0);
 	particleShader->UseShader();
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleUpdateSub);
 
@@ -227,7 +242,7 @@ void ParticleSystem::Draw(glm::mat4 MVP)
 	glEnable(GL_RASTERIZER_DISCARD);
 
 	glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, feedback[drawBuf]);
-
+	
 	glBeginTransformFeedback(GL_POINTS);
 	glBindVertexArray(particleArray[1 - drawBuf]);
 	glDrawArrays(GL_POINTS, 0, nParticles);
@@ -252,16 +267,4 @@ void ParticleSystem::Draw(glm::mat4 MVP)
 	//canDraw = false;
 }
 
-void ParticleSystem::Update(float dt, glm::mat4 MVP)
-{
-	if (dt == 0.0f)
-	{
-		//deltaT = 0.0f;
-		canDraw = true;
-		return;
-	}
-	canDraw = true;
-	deltaT = dt/1000;
-	//time += dt/10;
-}
 

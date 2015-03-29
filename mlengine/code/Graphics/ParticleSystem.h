@@ -13,13 +13,12 @@ public:
 
 	void Init();
 
-	void Update(float dt, glm::mat4 MVP);
-	void Draw(glm::mat4 MVP);
+	void Draw(glm::mat4 MVP, glm::vec3 cameraPos);
 	Shader* particleShader;
 	bool canDraw;
-
+	void InitParticleBuffers(bool test);
 private:
-	void InitParticleBuffers();
+
 	float randFloat();
 
 	

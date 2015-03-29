@@ -6,15 +6,22 @@ namespace mauvemessage
 	typedef std::unordered_multimap<const char*, RecieverInfo>::iterator listnerIterator;
 
 	std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* MessageManager::listnerMap = nullptr;
+	bool MessageManager::lockListnerList = false;
+	void* MessageManager::voidListenersToClear[16];
+	int MessageManager::voidListenersCount = 0;
 
 	MessageManager::MessageManager()
 	{
 		//mauveassert::Assert::HandleAssert(mauveassert::ENUM_severity::SEV_FATAL, "Cannot use default constructor with the Message Manager");
+		lockListnerList = false;
+		voidListenersCount = 0;
 	}
 
 	MessageManager::MessageManager(std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listners)
 	{
 		listnerMap = listners;
+		lockListnerList = false;
+		voidListenersCount = 0;
 	}
 
 	MessageManager::~MessageManager()
@@ -24,6 +31,7 @@ namespace mauvemessage
 
 	void MessageManager::SendListnerMessage(BaseMessage* message, const char* typeToSend)
 	{
+		lockListnerList = true;
 		listnerIterator startIt, endIt;
 		std::pair<listnerIterator, listnerIterator> keyRange = listnerMap->equal_range(typeToSend);
 
@@ -34,6 +42,16 @@ namespace mauvemessage
 		{
 			//Send our data into the void* in the function
 			(*startIt).second.listnerFunction(message);
+			if (voidListenersCount >= 1) break;
+		}
+		lockListnerList = false;
+		if (voidListenersCount > 0)
+		{
+			for (int i = 0; i < voidListenersCount; ++i)
+			{
+				ClearMessageListner(voidListenersToClear[i]);
+			}
+			voidListenersCount = 0;
 		}
 	}
 
@@ -47,6 +65,12 @@ namespace mauvemessage
 
 	void MessageManager::ClearMessageListner(void* listnerObject)
 	{
+		if (lockListnerList)
+		{
+			if (voidListenersCount >= 1) return;
+			voidListenersToClear[voidListenersCount++] = listnerObject;
+			return;
+		}
 		//TODO - fix this...can't seem to null check a void pointer?
 		//mauveassert::Assert::AssertTrue("Passing a null pointer to clear message listner", (int)listnerObject == (int)nullptr,mauveassert::ENUM_severity::SEV_FATAL);
 		bool erased = false;

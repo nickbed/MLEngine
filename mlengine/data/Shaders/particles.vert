@@ -36,7 +36,7 @@ void update() {
 
         if( age > ParticleLifetime ) {
             // The particle is past it's lifetime, recycle.
-            Position = vec3(0.0);
+            Position = StartPosition;
            Velocity = VertexInitialVelocity;
             StartTime = Time;
         } else {
