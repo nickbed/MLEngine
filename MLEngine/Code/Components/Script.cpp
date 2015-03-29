@@ -26,13 +26,15 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 	if (scriptFuncList.find(envName) != scriptFuncList.end())
 	{
 		ownFuncs = scriptFuncList[envName].funcs->ref();
-		try {
-			ownFuncs.start(owner);
-		}
-		catch (luabridge::LuaException const& e) {
-			std::cout << "Lua Exception: " << e.what() << std::endl;
-		}
-		return;
+		if (ownFuncs.reset) {
+			try{
+				ownFuncs.reset();
+				ownFuncs.start(owner);
+			}
+			catch (luabridge::LuaException const& e) {
+				mauveassert::Assert::WriteDebug(std::string("Lua Exception: ") + e.what(), mauveassert::ENUM_severity::SEV_WARNING);
+			}
+		}		
 	}
 	if (luaL_dofile(luaVM, filename.c_str()) == 0) {
 		luabridge::LuaRef table = luabridge::getGlobal(luaVM, expectedNamespace.c_str());
@@ -47,6 +49,18 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 
 			if (table["Collision"].isFunction()) {
 				wrapper.funcs->collision = table["Collision"];
+			}
+
+			if (table["Reset"].isFunction()) {
+				wrapper.funcs->reset = table["Reset"];
+				if (ownFuncs.reset) {
+					try{
+						ownFuncs.reset();
+					}
+					catch (luabridge::LuaException const& e) {
+						mauveassert::Assert::WriteDebug(std::string("Lua Exception: ") + e.what(), mauveassert::ENUM_severity::SEV_WARNING);
+					}
+				}
 			}
 
 			if (table["Start"].isFunction()) {

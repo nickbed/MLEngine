@@ -18,6 +18,12 @@
 //Proxy classes for GLM
 struct Vec3Helper
 {
+	static glm::vec3* _new(double x, double y, double z)
+	{
+		glm::vec3* v = new glm::vec3(x, y, z);
+		return v;
+	}
+
 	template <unsigned index>
 	static float get(glm::vec3 const* vec)
 	{

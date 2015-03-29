@@ -41,7 +41,7 @@ void ScriptManager::bindElements()
 
 		.beginClass<IEntity>("gameobject")
 		.addConstructor<void(*)()>()
-		.addData("transform", &IEntity::Transform)
+		//.addData("transform", &IEntity::Transform)
 		.addProperty("transform", &IEntity::getTransform, &IEntity::setTransform)
 		.addData("components", &IEntity::Components)
 		.addData("name", &IEntity::id)
@@ -108,10 +108,10 @@ void ScriptManager::bindElements()
 
 		//Libs
 		.beginClass<glm::vec3>("Vector3")
-		.addConstructor<void(*)(float, float, float)>()
-		.addProperty("x", &Vec3Helper::get<0>, &Vec3Helper::set<0>)
-		.addProperty("y", &Vec3Helper::get<1>, &Vec3Helper::set<1>)
-		.addProperty("z", &Vec3Helper::get<2>, &Vec3Helper::set<2>)
+		.addStaticFunction("New", Vec3Helper::_new)
+		.addData("x", &glm::vec3::x)
+		.addData("y", &glm::vec3::y)
+		.addData("z", &glm::vec3::z)
 		.endClass()
 
 
