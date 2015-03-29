@@ -72,6 +72,13 @@ void ScriptManager::bindElements()
 
 		.deriveClass<BoundingVolume, IComponent>("boundingvolume")
 		.addStaticFunction("New", BoundingVolumesHelper::_newBase)
+		.addData("RigidVel", &BoundingVolume::Rigid_vel)
+		.addData("RigidAngle", &BoundingVolume::Rigid_ang)
+		.addData("RigidMass", &BoundingVolume::Rigid_mass)
+		.addData("RigidInverse", &BoundingVolume::Rigid_inverse)
+		.addData("RigidDensity", &BoundingVolume::Rigid_density)
+		.addData("RigidFriction", &BoundingVolume::Rigid_friction)
+		.addData("RigidPush", &BoundingVolume::Rigid_push)
 		.endClass()
 
 		.deriveClass<BoundingSphere, BoundingVolume>("boundingsphere")
