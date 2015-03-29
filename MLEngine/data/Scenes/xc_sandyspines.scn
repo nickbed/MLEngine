@@ -62,9 +62,9 @@
 			"centerX": 0.0,
 			"centerY": 0.0,
 			"centerZ": 0.0,
-			"extentX": 90,
+			"extentX": 270,
 			"extentY": 0.1,
-			"extentZ": 90,
+			"extentZ": 270,
 			"static": true,
 			"density": 0.01
 		  }
@@ -704,7 +704,7 @@
           "posY": -0.15,
           "posZ": -21,
           "scaleX": 3,
-          "scaleY": 35,
+          "scaleY": 33,
           "scaleZ": 3,
           "rotateX": 0,
           "rotateY": 0,
@@ -723,7 +723,7 @@
 			"centerY": 0.0,
 			"centerZ": 0.0,
 			"extentX": 3,
-			"extentY": 34.5,
+			"extentY": 32.5,
 			"extentZ": 3,
 			"static": true,
 			"density": 0.01
@@ -737,7 +737,7 @@
           "posY": -0.15,
           "posZ": -19,
           "scaleX": 3,
-          "scaleY": 35,
+          "scaleY": 33,
           "scaleZ": 3,
           "rotateX": 0,
           "rotateY": 0,
@@ -756,7 +756,7 @@
 			"centerY": 0.0,
 			"centerZ": 0.0,
 			"extentX": 3,
-			"extentY": 34.5,
+			"extentY": 32.5,
 			"extentZ": 3,
 			"static": true,
 			"density": 0.01
@@ -1010,7 +1010,7 @@
 			"extentY": 1,
 			"extentZ": 1,
 			"static": false,
-			"density": 0.01
+			"density": 0.5
 		  }
         },
 		"script": {
@@ -1077,7 +1077,7 @@
       "light0": {
         "lightparams": {
           "posX": -5,
-          "posY": 10,
+          "posY": 40,
           "posZ": -10,
           "intensityR": 0.5,
           "intensityG": 0.5,
@@ -1090,7 +1090,7 @@
 	  "light1": {
         "lightparams": {
           "posX": -5,
-          "posY": 10,
+          "posY": 80,
           "posZ": -10,
           "intensityR": 0.5,
           "intensityG": 0.5,
