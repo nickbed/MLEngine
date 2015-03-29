@@ -38,10 +38,10 @@ public:
 	//Stuff for listening to messages
 	void msg_MoveToPosition(mauvemessage::BaseMessage* msg);
 
-private:
 	glm::vec3 position;
 	glm::vec3 rotation;
 	glm::vec3 scale;
+private:
 };
 
 

@@ -28,7 +28,7 @@ function Jump.Update(this, dt)
 		end
 	end
 	
-	this.transform.position = Vector3(this.transform.position.x, this.transform.position.y + Jump.yvel, this.transform.position.z)
+	this.transform.position = Vector3.New(this.transform.position.x, this.transform.position.y + Jump.yvel, this.transform.position.z)
 end
 
 function Jump.Collision(this, collision)
@@ -38,6 +38,11 @@ function Jump.Collision(this, collision)
 			Jump.yvel = 0
 			Jump.allowed = 2
 		end
+end
+
+function Jump.Reset()
+	Jump.yvel = 0
+	Jump.allowed = 2
 end
 
 return Jump

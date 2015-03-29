@@ -28,12 +28,17 @@ function Enemy.Update(this, dt)
 		then
 			zpercent = 0.025
 		end
-		this.transform.position = Vector3(this.transform.position.x - xpercent, this.transform.position.y, this.transform.position.z - zpercent)
+		this.transform.position = Vector3.New(this.transform.position.x - xpercent, this.transform.position.y, this.transform.position.z - zpercent)
 	end
 end
 
 function Enemy.Collision(this, collision)
 	
+end
+
+function Enemy.Reset()
+	Enemy.target = nil
+	Enemy.loaded = 0
 end
 
 return Enemy
