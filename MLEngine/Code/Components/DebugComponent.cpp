@@ -10,7 +10,7 @@ void DebugComponent::Init()
 	std::cout << "Debug Component has been Inited!!" << std::endl;
 }
 
-void DebugComponent::Update(float dt)
+void DebugComponent::Update(double dt)
 {
 	std::cout << "Debug Component has been updated with delta t: " << dt << std::endl;
 }

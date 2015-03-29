@@ -17,6 +17,7 @@
 #include "..\Graphics\TextRender.h"
 #include "..\Graphics\SkyBox.h"
 #include "..\Messages\MessageManager.h"
+#include "..\Graphics\ParticleSystem.h"
 #include <map>
 
 class GraphicsManager
@@ -37,6 +38,8 @@ public:
 	//Draw window, poll events and swap buffers. Returns false if window should be closing
 	bool DrawAndUpdateWindow(IEntity* *entities, int numEntities, float dt, bool poll);
 	bool DrawAndUpdateWindow(IEntity* entity, float dt, bool poll);
+
+	void PollWindow();
 
 	//Handles the window close event
 	static void WindowCloseCallback(GLFWwindow* window);
@@ -68,12 +71,15 @@ public:
 	void SetCurrentShader(Shader* shader);
 	void SetCurrentSkybox(SkyBox* skybox);
 
+	ParticleSystem* currentParticles;
+
 	
 
 private:
 
 	bool UploadShaderDataForDraw(TransformComponent* modelTransform);
 	bool UploadBoneShaderDataForDraw(TransformComponent modelTransform, TransformComponent boneTransform);
+	bool windowHasClosed;
 
 	//This class will store the current window
 	GLFWwindow* currentWindow;
@@ -88,6 +94,7 @@ private:
 	//SceneLight* currentSceneLight;
 	TextRender* textRenderer;
 	SkyBox* currentSkyBox;
+
 
 
 	SceneLight currentLights[128];

@@ -1,7 +1,7 @@
 {
 "engineconfig": {
-	"openglmaj" : 3,
-	"openglmin" : 3,
+	"openglmaj" : 4,
+	"openglmin" : 4,
 	"resX"		: 1024,
 	"resY"		: 768,
 	"antialiasing": false,

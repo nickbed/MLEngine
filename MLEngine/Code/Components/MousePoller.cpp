@@ -6,6 +6,8 @@ MousePoller::MousePoller(const char* compID, GLFWwindow* win) : IComponent(compI
 	NULLPTRCHECK(win, "ID passed to mouse poller component is null!!");
 	window = win;
 	enabled = true;
+	oldMousePosX = 0.0;
+	oldMousePosY = 0.0;
 }
 
 MousePoller::~MousePoller()
@@ -32,16 +34,21 @@ void MousePoller::Update(float dt)
 	//Could use a callback to read the mouse every time it moves, but the position will only be read once per update anyway
 	double mouseXPos = 0.0;
 	double mouseYPos = 0.0;
-	float mouseSpeed = 0.05f;
+	double mouseSpeed = 0.05f;
 
 	//We get how far the cursor has moved in the frame, then reset it.
 	glfwGetCursorPos(window, &mouseXPos, &mouseYPos);
 
-	//How much has it moved in this time period relative to the window?
-	float mouseXPosToSend = mouseSpeed * dt * (halfWindowWidth - (float)mouseXPos);
-	float mouseYPosToSend = mouseSpeed * dt * (halfWindowHeight - (float)mouseYPos);
+	double mouseXMovePos = oldMousePosX - mouseXPos;
+	double mouseYMovePos = oldMousePosY - mouseYPos;
+	oldMousePosX = mouseXPos;
+	oldMousePosY = mouseYPos;
 
-	glfwSetCursorPos(window, halfWindowWidth, halfWindowHeight);
+	//How much has it moved in this time period relative to the window?
+	double mouseXPosToSend = (double)(mouseSpeed * (double)dt * (mouseXMovePos));
+	double mouseYPosToSend = (double)(mouseSpeed * (double)dt * (mouseYMovePos));
+
+	//glfwSetCursorPos(window, halfWindowWidth, halfWindowHeight);
 
 	//Generate our mouse position message
 

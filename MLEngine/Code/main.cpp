@@ -37,24 +37,43 @@ int guardedMain()
 	EngineConfig currentConf;
 	currentConf.resX = 1024;
 	currentConf.resY = 768;
-	float sixtyFPS = (1.0f / 120.0f) * 1000;
+
+
+	float sixtyFPS = (1.0f / 60.0f);
+
+	double oldTime = 0; 
+	double oldTime2 = 0;
+	bool closed = false;
 
 	//Make our engine
 	Engine currentEngine = Engine();
 	currentConf = currentEngine.ReadConfigFile("data\\config\\EngineConfig.json");
 	currentEngine.Init(currentConf);
+	float timeToWait = 0.0;
+	float delta = 0.0f;
+	double timeTaken = 0.0;
 	while(true)
 	{
-		long timeToWait = (long)sixtyFPS - (long)(glfwGetTime() * 1000);
-		if (timeToWait <= 0)
+		if (timeTaken >= sixtyFPS)
 		{
-			float delta = (float)glfwGetTime();
+			delta = (float)(glfwGetTime() - oldTime);
+			oldTime = glfwGetTime();
+			timeTaken = 0.0;
 			if (!currentEngine.Update(delta))
 			{
+				closed = true;
 				break;
 			}
-			glfwSetTime(0.0f);
 		}
+		else
+		{
+			timeTaken += glfwGetTime() - oldTime2;
+			oldTime2 = glfwGetTime();
+		}
+		if (closed) break;
+		currentEngine.Draw();
+
+
 		//else
 		//{
 		//	std::this_thread::yield();

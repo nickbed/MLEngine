@@ -6,16 +6,16 @@ CameraEntity::~CameraEntity()
 
 void CameraEntity::Init()
 {
-	SetPosition(glm::vec3(0.0f, 1.0f, -5.0f));
-	SetLookPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	SetPosition(glm::vec3(0.0, 1.0, -5.0));
+	SetLookPosition(glm::vec3(0.0, 0.0, 0.0));
 	cameraMatrix = glm::mat4(1.0);
 	cameraFOV = 50.0f;
 	viewMatrix = glm::perspective(cameraFOV, (float)1024 / (float)768, 0.1f, 10000.0f);
 	pitch = 0.0f;
 	yaw = 0.0f;
-	upVector = glm::vec3(0.0f, 1.0f, 0.0f);
-	rightVector = glm::vec3(1.0f, 0.0f, 0.0f);
-	cameraDirection = glm::vec3(0.0f, 0.0f, 1.0f);
+	upVector = glm::vec3(0.0, 1.0, 0.0);
+	rightVector = glm::vec3(1.0, 0.0, 0.0);
+	cameraDirection = glm::vec3(0.0, 0.0, 1.0);
 	//Todo abstract this
 	Listning = false;
 }

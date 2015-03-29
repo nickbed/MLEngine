@@ -3,6 +3,7 @@
 
 Engine::Engine()
 {
+	shouldClose = false;
 }
 
 Engine::~Engine()
@@ -29,7 +30,7 @@ void Engine::Init(EngineConfig conf)
 
 	//Init graphics here
 	std::unique_ptr<GraphicsManager> graphicsMan = std::unique_ptr<GraphicsManager>(new GraphicsManager);
-	graphicsMan->Init(3,3);
+	graphicsMan->Init(conf.openglMajVersion,conf.openglMinVersion);
 	graphicsMan->CreateGraphicsWindow(currentConfig.resX, currentConfig.resY, "Mauve Engine");
 
 	inputManager = new InputSystem();
@@ -46,8 +47,14 @@ void Engine::Init(EngineConfig conf)
 	sceneManager->LoadScene(std::move(newScene));
 }
 
+void Engine::Draw()
+{
+	shouldClose = !sceneManager->DrawCurrentSceneEntities(0.0);
+}
+
 bool Engine::Update(float dt)
 {
+	if (shouldClose) return false;
 	bool result = true;
 	result &= inputManager->Update(dt);
 	result &= sceneManager->UpdateCurrentSceneEntities(dt);
@@ -83,8 +90,8 @@ EngineConfig Engine::ReadConfigFile(const char* configFile)
 {
 		//Fallback if we can't read the config
 		EngineConfig defaultConfig;
-		defaultConfig.openglMajVersion = 3;
-		defaultConfig.openglMinVersion = 3;
+		defaultConfig.openglMajVersion = 4;
+		defaultConfig.openglMinVersion = 4;
 		defaultConfig.resX = 1024;
 		defaultConfig.resY = 768;
 		defaultConfig.antiAliasing = false;

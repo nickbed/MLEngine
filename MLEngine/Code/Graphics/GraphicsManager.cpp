@@ -229,6 +229,7 @@ void GraphicsManager::RenderComponents<BoundingCapsule>(BoundingCapsule* compone
 
 void GraphicsManager::RenderText(std::string text, int x, int y, int size, IEntity* entity)
 {
+	if (windowHasClosed) return;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
 	glClearDepth(1.0f);
@@ -241,6 +242,7 @@ void GraphicsManager::RenderText(std::string text, int x, int y, int size, IEnti
 
 void GraphicsManager::RenderText(std::string text, int x, int y, int size)
 {
+	if (windowHasClosed) return;
 	textRenderer->Draw2DText(text, x, y, size);
 }
 
@@ -249,6 +251,7 @@ GraphicsManager::GraphicsManager()
 	currentWindow = nullptr;
 	windowShouldBeClosed = false;
 	textRenderer = new TextRender();
+	windowHasClosed = false;
 	
 }
 
@@ -271,8 +274,7 @@ bool GraphicsManager::Init(int GLVersionMajor, int GLVersionMinor)
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMajor);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMinor);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE); //Needed to get the bounding boxes to work
 	glfwWindowHint(GL_DOUBLEBUFFER, GL_TRUE);
 
 	
@@ -329,6 +331,9 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	currentSkyBox->InitCubeMap();
 	currentSkyBox->InitSkybox();
 
+	//Particles
+	currentParticles = new ParticleSystem();
+
 	if(!success) return false;
 	return true;
 }
@@ -341,21 +346,11 @@ void GraphicsManager::SetWindowTitle(const char* windowTitle)
 
 bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, float dt, bool poll)
 {
-	//Hook into the esc here to close the window - probably temp
-	if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE))
-	{
-		windowShouldBeClosed = true;
-	}
-
+	if (windowHasClosed) return false;
+	
 	//Close and cleanup
 	if (windowShouldBeClosed)
 	{
-		//Stop memory leaks
-		mauvegpuresource::GPUResourceManager::UnloadAllResources();
-		mauvefileresource::ResourceManager::UnloadAllResources();
-		mauvemessage::MessageManager::ClearAllListners();
-		delete textRenderer;
-		glfwDestroyWindow(currentWindow);
 		return false;
 	}
 
@@ -365,29 +360,58 @@ bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, f
 	// Less or equal depth appears to work best.
 	glDepthFunc(GL_LEQUAL);
 
-	
+	//
 
 	glfwSwapBuffers(currentWindow);
-	if (poll)
-	{
-		glfwPollEvents();
-	}
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glDepthMask(GL_FALSE);
 	RenderSkybox();
 	glDepthMask(GL_TRUE);
 	//Transparency
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//glClearColor(0.098f, 0.0f, 0.8f, 1.0f); //Background colour, should be replaced by skybox if there
 	
 	glClearDepth(1.0f);
+	
+	//currentParticles->Draw(currentCamera->GetViewProjMatrix());
+	//currentParticles->Update(0.0f, glm::mat4(0.0f));
+	currentParticles->Draw(currentCamera->GetViewProjMatrix());
+	currentShader->UseShader();
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	bool result = true;
 	for (int i = 0; i < numEntities; ++i)
 	{
 		result &= DrawAndUpdateWindow(*entities++, dt, poll);
 	}
+
+
+
 	return result;
+}
+
+void GraphicsManager::PollWindow()
+{
+	
+	glfwPollEvents();
+	//Hook into the esc here to close the window - probably temp
+	if (glfwGetKey(currentWindow, GLFW_KEY_ESCAPE))
+	{
+		windowShouldBeClosed = true;
+	}
+	//Close and cleanup
+	if (windowShouldBeClosed)
+	{
+		//Stop memory leaks
+		mauvegpuresource::GPUResourceManager::UnloadAllResources();
+		mauvefileresource::ResourceManager::UnloadAllResources();
+		mauvemessage::MessageManager::ClearAllListners();
+		glfwDestroyWindow(currentWindow);
+		delete textRenderer;
+		windowHasClosed = true;
+	}
+
 }
 
 bool GraphicsManager::DrawAndUpdateWindow(IEntity* entity, float dt, bool poll)
@@ -470,6 +494,7 @@ bool GraphicsManager::UploadShaderDataForDraw(TransformComponent* modelTransform
 	//Upload matrix to the shader
 	currentShader->SendUniformMat4("modelmatrix", modelMat);
 	currentShader->SendUniformMat4("viewprojmatrix", currentCamera->GetViewProjMatrix());
+	
 	currentShader->SendUniformMat4("viewmatrix", currentCamera->GetViewMatrix());
 	currentShader->SendUniformMat3("normalmatrix", normalMatrix);
 

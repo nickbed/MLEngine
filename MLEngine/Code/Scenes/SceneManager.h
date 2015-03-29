@@ -86,6 +86,7 @@ private:
 	bool isLoading;
 	bool showDebug;
 	bool shouldLoadLevel;
+	float lastDt;
 };
 
 #endif

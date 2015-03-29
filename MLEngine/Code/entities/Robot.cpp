@@ -21,8 +21,8 @@ bool Robot::Update(float dt)
 {
 	Components->UpdateAllComponents(dt);
 	camdir.y = 0.0f;
-	camdir.x = sinf(glm::radians(Transform->GetRotation().y )) * (-1.0f * 0.33);
-	camdir.z = cosf(glm::radians(Transform->GetRotation().y )) * (-1.0f * 0.33);
+	camdir.x = sinf(glm::radians(Transform->GetRotation().y )) * (-1.0f * 0.33f);
+	camdir.z = cosf(glm::radians(Transform->GetRotation().y )) * (-1.0f * 0.33f);
 	followPos =Transform->GetPosition();
 	followPos.x -= camdir.x * 10.0f; 
 	followPos.z -= camdir.z * 10.0f; 

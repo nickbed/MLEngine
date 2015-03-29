@@ -19,7 +19,7 @@ extern "C" {
 class IEntity;
 
 struct LuaScriptFuncs {
-	LuaScriptFuncs(lua_State* L) : 
+	LuaScriptFuncs(lua_State* L) :
 		start(L),
 		collision(L),
 		update(L),
@@ -36,13 +36,13 @@ struct LuaScriptFuncs {
 	unsigned short refCount;
 	std::string id;
 	LuaScriptFuncs& ref()
-	{ 
-		refCount++; 
-		return *this; 
+	{
+		refCount++;
+		return *this;
 	};
 	void unref()
-	{ 
-		refCount--; 
+	{
+		refCount--;
 	};
 };
 
@@ -80,7 +80,7 @@ public:
 
 private:
 	static std::map<std::string, funcWrapper> scriptFuncList;
-	
+
 	LuaScriptFuncs ownFuncs;
 
 	static lua_State* luaVM;

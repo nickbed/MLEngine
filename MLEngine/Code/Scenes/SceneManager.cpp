@@ -9,6 +9,7 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 	isLoading = false;
 	showDebug = false;
 	shouldLoadLevel = false;
+	lastDt = 0.0f;
 }
 
 SceneManager::~SceneManager()
@@ -160,7 +161,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 											{
 												//Create and load in new gpu model
 												gotGPUModel = new GPUModel();
-												gotGPUModel->SetAllData(gotModel->GetVertices(), gotModel->GetVertexCount(), gotModel->GetNormals(), gotModel->GetNormalCount(), gotModel->GetUVs(), gotModel->GetUVCount(), gotModel->GetIndicies(), gotModel->GetIndexCount());
+												gotGPUModel->SetAllData(gotModel->GetVertices(), gotModel->GetVertexCount(), gotModel->GetNormals(), gotModel->GetNormalCount(), gotModel->GetUVs(), gotModel->GetUVCount(), gotModel->GetIndexCount());
 												gotGPUModel = mauvegpuresource::GPUResourceManager::LoadResource(gotGPUModel, gotOBJPath);
 											}
 											gotComponent->SetModel(*gotGPUModel);
@@ -341,8 +342,8 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 				BasicKeyMovement* movement = new BasicKeyMovement("keyboardMovement", graphicsManager->GetCurrentWindow());
 				movement->Init();
 
-				MousePoller* mouseReader = new MousePoller("mouseMovement", graphicsManager->GetCurrentWindow());
-				mouseReader->Init();
+				//MousePoller* mouseReader = new MousePoller("mouseMovement", graphicsManager->GetCurrentWindow());
+				//mouseReader->Init();
 
 				CameraEntity* dummyCamera = new CameraEntity();
 
@@ -351,7 +352,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 				//TODO - abstract into the input manager
 				dummyCamera->Components->AddComponent("keyboardMovement", movement);
 
-				dummyCamera->Components->AddComponent("mouseMovement", mouseReader);
+				//dummyCamera->Components->AddComponent("mouseMovement", mouseReader);
 
 				if (menu)
 				{
@@ -579,6 +580,7 @@ bool SceneManager::InitCurrentScene()
 
 bool SceneManager::UpdateCurrentSceneEntities(float dt)
 {
+	lastDt = dt;
 	//iterate through vector and update all entities and their components
 	//Iterate through vector and init all entities
 	bool result = true;
@@ -609,19 +611,32 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//}
 	currentScene->currentSceneCamera->Listning = true;
 	currentScene->currentSceneCamera->Update(dt);
+	graphicsManager->currentParticles->Update(dt, currentScene->currentSceneCamera->GetViewProjMatrix());
+	graphicsManager->PollWindow();
 	if(currentScene->sceneCameras->find("dummy") != currentScene->sceneCameras->end())
 	{
 		currentScene->sceneCameras->find("dummy")->second->Update(dt);
 	}
-	result &= DrawCurrentSceneEntities(dt);
 	if(result == false) return false;
-	if(showDebug)
+	
+	if(isLoading) ReloadScene();
+	return result;
+}
+
+bool SceneManager::DrawCurrentSceneEntities(float dt)
+{
+	
+	//send entities to graphics manager to have them drawn
+	//also send camera and light info
+	
+	bool result = graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities, currentScene->numActiveEntities,lastDt, true);
+	if (showDebug)
 	{
 		//update msec
 		std::stringstream s;
-		float update = dt*1000.0f;
+		float update = lastDt*1000.0f;
 		s << "Update msec: " << update;
-		graphicsManager->RenderText(s.str().c_str(),5,720,30);
+		graphicsManager->RenderText(s.str().c_str(), 5, 720, 30);
 
 		//Scene file
 		s.str(std::string());
@@ -632,7 +647,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		s.str(std::string());
 		s << "Active Ents: " << currentScene->numActiveEntities;
 		graphicsManager->RenderText(s.str().c_str(), 5, 600, 30);
-		
+
 		//Camera pos
 		s.str(std::string());
 		s << "Cam x: " << currentScene->currentSceneCamera->GetCameraPosition().x;
@@ -664,7 +679,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		graphicsManager->RenderText(s.str().c_str(), 750, 720, 30);
 
 		int startpos = 710;
-		std::map<std::string, IEntity*>::iterator startit = currentScene->sceneEntities->begin();
+		//std::map<std::string, IEntity*>::iterator startit = currentScene->sceneEntities->begin();
 		for (auto it = currentScene->sceneEntities->begin(); it != currentScene->sceneEntities->end(); ++it)
 		{
 			s.str(std::string());
@@ -674,17 +689,7 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 			graphicsManager->DrawDebug(it->second);
 		}
 	}
-	if(isLoading) ReloadScene();
 	return result;
-}
-
-bool SceneManager::DrawCurrentSceneEntities(float dt)
-{
-	
-	//send entities to graphics manager to have them drawn
-	//also send camera and light info
-	
-	return graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities, currentScene->numActiveEntities,dt, true);
 }
 
 bool SceneManager::DestroyCurrentSceneEntities()

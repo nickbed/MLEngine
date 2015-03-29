@@ -14,7 +14,7 @@ public:
 	void Init();
 
 	//Update method
-	void Update(float dt);
+	void Update(double dt);
 
 	//We'll print any messages we receive
 	void SendMessage(mauvemessage::BaseMessage message);

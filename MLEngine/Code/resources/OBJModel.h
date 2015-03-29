@@ -37,10 +37,9 @@ public:
 	
 
 private:
-	GLfloat parsedVertices[50000];
-	GLfloat parsedUVs[50000];
-	GLfloat parsedNormals[50000];
-	GLuint parsedIndices[50000];
+	GLfloat parsedVertices[100000];
+	GLfloat parsedUVs[70000];
+	GLfloat parsedNormals[70000];
 
 	unsigned int parsedUVCount, parsedNormalCount, parsedVertCount, parsedIndexCount;
 
