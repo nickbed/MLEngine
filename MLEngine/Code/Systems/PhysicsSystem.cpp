@@ -46,9 +46,12 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 		rota *= glm::rotate(boxa->GetParentTransform()->GetRotation().z,glm::vec3(0,0,1));
 		float totalMass = boxa->Rigid_mass+boxb->Rigid_mass;
 		glm::vec4 translation(1.0);
-		glm::vec3 point = boxa->GetParentTransform()->GetPosition() + (collision.Axis * boxa->GetExtent());
-		boxa->Rigid_vel = (boxa->Rigid_mass/totalMass) * boxa->Rigid_inverse * (boxa->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
-		boxb->Rigid_vel = (boxb->Rigid_mass/totalMass) * boxb->Rigid_inverse * (boxb->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+		glm::vec3 point = boxa->GetParentTransform()->GetPosition() + (collision.Axis * collision.Sign * boxa->GetExtent());
+		if(!collision.Top) //if one box is not sitting on top of the other
+		{
+			boxa->Rigid_vel =  boxa->Rigid_inverse * (boxa->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+			boxb->Rigid_vel =  boxb->Rigid_inverse * (boxb->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+		}
 		float inertiaa = (1.f/12.f*boxa->Rigid_mass)*(pow((boxa->GetExtent().y*2),2)+pow((boxa->GetExtent().z*2),2));
 		float inertiab = (1.f/12.f*boxb->Rigid_mass)*(pow((boxb->GetExtent().y*2),2)+pow((boxb->GetExtent().z*2),2));
 		boxa->Rigid_ang = 1.f/inertiaa * glm::cross(point,boxa->GetParentTransform()->GetPosition()) * collision.Sign * glm::vec3(0,1,0);
@@ -77,9 +80,9 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 		}
 		if(!collision.Top)
 		{
-			box->Rigid_vel = box->Rigid_inverse * (box->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+			box->Rigid_vel += box->Rigid_inverse * (box->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
 			float inertia = (1.f/12.f*box->Rigid_inverse)*(pow((box->GetExtent().y*2),2)+pow((box->GetExtent().z*2),2));
-			box->Rigid_ang = 1.f/inertia * glm::cross(point,box->GetParentTransform()->GetPosition()) * -collision.Sign * glm::vec3(0,1,0);
+			box->Rigid_ang += 1.f/inertia * glm::cross(point,box->GetParentTransform()->GetPosition()) * -collision.Sign * glm::vec3(0,1,0);
 		}
 		glm::vec3 captranslate = collision.Axis*collision.Sign*collision.Penetration;
 		collision.VolumeB->GetParentTransform()->SetPosition(collision.VolumeB->GetParentTransform()->GetPosition()+captranslate);
