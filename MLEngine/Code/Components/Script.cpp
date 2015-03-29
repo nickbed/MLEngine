@@ -3,9 +3,9 @@
 #include "../Interfaces/IEntity.h"
 
 lua_State* ScriptComponent::luaVM = nullptr;
-std::map<std::string, LuaScriptFuncs> ScriptComponent::scriptFuncList;
+std::map<std::string, funcWrapper> ScriptComponent::scriptFuncList;
 
-ScriptComponent::ScriptComponent(std::string id) : IComponent(id)
+ScriptComponent::ScriptComponent(std::string id) : IComponent(id), ownFuncs(luaVM)
 {
 	this->error = -1;
 	owner = nullptr;
@@ -25,9 +25,9 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 	envName = expectedNamespace;
 	if (scriptFuncList.find(envName) != scriptFuncList.end())
 	{
-		ownFuncs = scriptFuncList[envName].ref();
+		ownFuncs = scriptFuncList[envName].funcs->ref();
 		try {
-			(*ownFuncs.startFunc)(owner);
+			ownFuncs.start(owner);
 		}
 		catch (luabridge::LuaException const& e) {
 			std::cout << "Lua Exception: " << e.what() << std::endl;
@@ -36,36 +36,32 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 	}
 	if (luaL_dofile(luaVM, filename.c_str()) == 0) {
 		luabridge::LuaRef table = luabridge::getGlobal(luaVM, expectedNamespace.c_str());
-		LuaScriptFuncs funcList;
-		funcList.id = envName;
+		funcWrapper wrapper;
+		wrapper.funcs = new LuaScriptFuncs(luaVM);
+		wrapper.funcs->id = envName;
 		if (table.isTable()) {
+			wrapper.funcs->luaDataTable = table;
 			if (table["Update"].isFunction()) {
-				funcList.updateFunc = std::make_shared<luabridge::LuaRef>(table["Update"]);
-			} else {
-				funcList.updateFunc.reset();
+				wrapper.funcs->update = table["Update"];
 			}
 
 			if (table["Collision"].isFunction()) {
-				funcList.collisionFunc = std::make_shared<luabridge::LuaRef>(table["Collision"]);
-			} else {
-				funcList.collisionFunc.reset();
+				wrapper.funcs->collision = table["Collision"];
 			}
 
 			if (table["Start"].isFunction()) {
-				funcList.startFunc = std::make_shared<luabridge::LuaRef>(table["Start"]);
+				wrapper.funcs->start = table["Start"];
 				try {
-					(*funcList.startFunc)(owner);
+					wrapper.funcs->start(owner);
 				}
 				catch (luabridge::LuaException const& e) {
 					std::cout << "Lua Exception: " << e.what() << std::endl;
 				}
-			} else {
-				funcList.startFunc.reset();
 			}
-			scriptFuncList[envName] = funcList;
-			ownFuncs = scriptFuncList[envName].ref();
+			scriptFuncList[envName] = wrapper;
+			ownFuncs = scriptFuncList[envName].funcs->ref();
 			
-			DEBUGWRITEINFO("Successfully loaded Lua Script:", filename)
+			DEBUGWRITEINFO("Successfully loaded Lua Script:", filename);
 		}
 	}
 	else {
@@ -75,12 +71,12 @@ void ScriptComponent::Load(std::string filename, std::string expectedNamespace)
 
 void ScriptComponent::Update(float dt)
 {
-	if (ownFuncs.updateFunc) {
+	if (ownFuncs.update) {
 		try{
-			(*ownFuncs.updateFunc)(owner, dt);
+			ownFuncs.update(owner, dt);
 		}
 		catch (luabridge::LuaException const& e) {
-			std::cout << "Lua Exception: " << e.what() << std::endl;
+			mauveassert::Assert::WriteDebug(std::string("Lua Exception: ") + e.what(), mauveassert::ENUM_severity::SEV_WARNING);
 		}
 	}
 }
@@ -104,12 +100,12 @@ void ScriptComponent::msg_Collision(mauvemessage::BaseMessage* msg)
 	if(m.VolumeA->GetOwnerId()==owner->id||m.VolumeB->GetOwnerId()==owner->id)
 	{
 
-		if (ownFuncs.collisionFunc) {
+		if (ownFuncs.collision) {
 			try{
-				(*ownFuncs.collisionFunc)(owner, m);
+				//(*ownFuncs.collisionFunc)(owner, m);
 			}
 			catch (luabridge::LuaException const& e) {
-				std::cout << "Lua Exception: " << e.what() << std::endl;
+				mauveassert::Assert::WriteDebug(std::string("Lua Exception: ") + e.what(), mauveassert::ENUM_severity::SEV_WARNING);
 			}
 		}
 	}

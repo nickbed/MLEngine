@@ -14,21 +14,25 @@ extern "C" {
 #include "lauxlib.h"
 }
 #include <LuaBridge/LuaBridge.h>
+#include <LuaBridge/RefCountedObject.h>
 
 class IEntity;
 
-struct LuaScriptFuncs{
-	//std::shared_ptr<luabridge::LuaRef> luaDataTable;
-	std::shared_ptr<luabridge::LuaRef> updateFunc;
-	std::shared_ptr<luabridge::LuaRef> collisionFunc;
-	std::shared_ptr<luabridge::LuaRef> startFunc;
-	unsigned short refCount;
-	std::string id;
-
-	LuaScriptFuncs(){
+struct LuaScriptFuncs {
+	LuaScriptFuncs(lua_State* L) : 
+		start(L),
+		collision(L),
+		update(L),
+		luaDataTable(L)
+	{
 		refCount = 1;
 	};
-
+	luabridge::LuaRef luaDataTable;
+	luabridge::LuaRef update;
+	luabridge::LuaRef collision;
+	luabridge::LuaRef start;
+	unsigned short refCount;
+	std::string id;
 	LuaScriptFuncs& ref()
 	{ 
 		refCount++; 
@@ -36,14 +40,13 @@ struct LuaScriptFuncs{
 	};
 	void unref()
 	{ 
-		refCount++; 
-		if (refCount == 0)
-		{
-			startFunc.reset();
-			collisionFunc.reset();
-			updateFunc.reset();
-		}
+		refCount--; 
 	};
+};
+
+struct funcWrapper{
+	LuaScriptFuncs* funcs;
+
 };
 
 //For transforming/positioning stuff
@@ -74,7 +77,7 @@ public:
 
 
 private:
-	static std::map<std::string, LuaScriptFuncs> scriptFuncList;
+	static std::map<std::string, funcWrapper> scriptFuncList;
 	
 	LuaScriptFuncs ownFuncs;
 
