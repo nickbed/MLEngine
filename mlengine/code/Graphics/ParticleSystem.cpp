@@ -20,7 +20,7 @@ void ParticleSystem::Init()
 	drawBuf = 1;
 
 	//Load in the particle texture
-	particleTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>("data\\images\\fire.png");
+	particleTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>("data\\images\\waterdrop.png");
 	particleGPUTexture = new GPUTexture();
 	particleGPUTexture->SetTexture(particleTexture);
 	particleGPUTexture->UploadData();
@@ -39,6 +39,14 @@ void ParticleSystem::Init()
 	InitParticleBuffers(false);
 
 	canDraw = true;
+
+	glm::mat4 currMat(1.0f);
+	float rotang =rand()%360;
+	currMat = glm::translate(currMat, glm::vec3(0.5f, 0.5f, 0.0f));
+	currMat = glm::rotate(currMat,rotang , glm::vec3(0.0f, 0.0f, 1.0f));
+	currMat = glm::translate(currMat, glm::vec3(-0.5f, -0.5f, 0.0f));
+	particleShader->SendUniformMat4("rotMatrix",currMat);
+
 }
 
 void ParticleSystem::InitParticleBuffers(bool test)
@@ -223,16 +231,18 @@ void ParticleSystem::Draw(glm::mat4 MVP, glm::vec3 cameraPos)
 	glBindTexture(GL_TEXTURE_2D, particleGPUTexture->GetDataLocation());
 
 	float dist = glm::length(glm::vec3(0.0) - cameraPos);
-	float pointSize = 0.0f;
-	if (dist > 15.0f) pointSize = 5.0f;
+	float pointSize = 10.0f;
+	/*if (dist > 15.0f) pointSize = 5.0f;
 	else
 	{
 		pointSize = 10.0f;
-	}
+	}*/
 	glPointSize(pointSize);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
-	glBlendColor(1.0, 0.0, 0.0, 1.0);
+	
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	//glBlendColor(1.0, 0.0, 0.0, 1.0);
 	particleShader->UseShader();
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleUpdateSub);
 
@@ -254,6 +264,8 @@ void ParticleSystem::Draw(glm::mat4 MVP, glm::vec3 cameraPos)
 
 	// Render pass
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleRenderSub);
+
+	
 
 	particleShader->SendUniformMat4("MVP", MVP);
 
