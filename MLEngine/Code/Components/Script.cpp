@@ -102,7 +102,7 @@ void ScriptComponent::msg_Collision(mauvemessage::BaseMessage* msg)
 
 		if (ownFuncs.collision) {
 			try{
-				//(*ownFuncs.collisionFunc)(owner, m);
+				ownFuncs.collision(owner, m);
 			}
 			catch (luabridge::LuaException const& e) {
 				mauveassert::Assert::WriteDebug(std::string("Lua Exception: ") + e.what(), mauveassert::ENUM_severity::SEV_WARNING);
