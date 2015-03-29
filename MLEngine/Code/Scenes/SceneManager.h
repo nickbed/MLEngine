@@ -69,6 +69,7 @@ public:
 	bool ShouldLoadLevel();
 
 	//Lua
+	static void RemoveCoin();
 	static IEntity* AddEntity(std::string id, bool isActive);
 	static void DestroyEntity(std::string id);
 	static IEntity* FindEntity(std::string id);
@@ -87,6 +88,7 @@ private:
 	bool showDebug;
 	bool shouldLoadLevel;
 	float lastDt;
+	
 };
 
 #endif

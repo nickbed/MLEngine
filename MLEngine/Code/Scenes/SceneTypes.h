@@ -38,6 +38,7 @@ struct SceneConfig
 		sceneLights = std::unique_ptr<std::map<std::string, SceneLight*>>(new std::map<std::string, SceneLight*>, std::default_delete<std::map<std::string, SceneLight*>>());
 		numActiveEntities = 0;
 		numActiveLights = 0;
+		coin =0;
 	}
 
 	~SceneConfig()
@@ -91,6 +92,7 @@ struct SceneConfig
 	//Active in the scene
 	//std::vector<IEntity*> activeEntities;
 	IEntity* activeEntities[2000];
+	int coin;
 	int numActiveEntities;
 	SceneLight activeLights[128];
 	int numActiveLights;
