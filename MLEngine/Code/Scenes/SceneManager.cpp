@@ -243,6 +243,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						{
 							entToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
 							AddMessageListner("msg_collision", entToCreate, std::bind(&ScriptComponent::msg_Collision, entToCreate->Script, std::placeholders::_1));
+							if(value2["identifier"].asString()=="Coin")
+							{
+								gotConfig->coin++;
+							}
 						}
 					}
 					//Put entity into our map
@@ -688,6 +692,11 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 			graphicsManager->DrawDebug(it->second);
 		}
 	}
+	else
+	{
+		std::string coin = "Coin: " + std::to_string(currentScene->coin);
+		graphicsManager->RenderText(coin.c_str(), 5, 720, 30);
+	}
 	return result;
 }
 
@@ -831,6 +840,10 @@ IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
 	return currentScene->sceneEntities->find(id)->second;
 }
 
+void SceneManager::RemoveCoin()
+{
+	--currentScene->coin;
+}
 void SceneManager::DestroyEntity(std::string id)
 {
 	IEntity* entToRemove = currentScene->sceneEntities->find(id)->second;

@@ -11,6 +11,7 @@ end
 
 function Coin.Collision(this, collision)
 	scene.RemoveObject(this.name)
+	scene.DeductCoin();
 end
 
 function Coin.Reset()
