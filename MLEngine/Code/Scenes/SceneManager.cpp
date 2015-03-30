@@ -604,9 +604,9 @@ bool SceneManager::InitCurrentScene()
 	graphicsManager->currentParticles = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(-1.0), glm::vec3(0.0), "data\\images\\fire.png");
 	graphicsManager->currentParticles2 = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(-1.0), glm::vec3(0.0), "data\\images\\fire.png");
 	graphicsManager->currentParticles->SetParticleSize(15.0f);
-	graphicsManager->currentParticles->SetLifetime(1.0f);
+	graphicsManager->currentParticles->SetLifetime(2.0f);
 	graphicsManager->currentParticles2->SetParticleSize(15.0f);
-	graphicsManager->currentParticles2->SetLifetime(1.0f);
+	graphicsManager->currentParticles2->SetLifetime(2.0f);
 	graphicsManager->currentParticles2->isFire = true;
 	graphicsManager->currentParticles->isFire = true;
 
@@ -881,7 +881,12 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 				}
 				
 			}
-		}else i=0;
+		}
+		else
+		{
+			i = 0;
+			graphicsManager->RenderText(nextLevel, 200, 400, 40);
+		}
 	}
 	return result;
 }
@@ -978,7 +983,17 @@ void SceneManager::msg_SetCamera(mauvemessage::BaseMessage* msg)
 
 void SceneManager::msg_ReloadScene(mauvemessage::BaseMessage* msg)
 {
-	isLoading = true;
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	if (messagePos.x > 0.0f)
+	{
+		shouldLoadLevel = true;
+		nextLevel = "data\\scenes\\menu.scn";
+	}
+	else
+	{
+		isLoading = true;
+	}
 }
 
 void SceneManager::msg_ShowDebug(mauvemessage::BaseMessage* msg)

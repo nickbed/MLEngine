@@ -119,6 +119,13 @@ void BasicKeyMovement::Update(float dt)
 	if (keyBuffer[GLFW_KEY_R])
 	{
 		//Right in X
+		SendMovementMessage(glm::vec3(0.0f, 0.0f, 0.0f), "reloadScene");
+	}
+
+	//reload scene
+	if (keyBuffer[GLFW_KEY_BACKSPACE])
+	{
+		//Right in X
 		SendMovementMessage(glm::vec3(4.0f, 4.0f, 4.0f), "reloadScene");
 	}
 
