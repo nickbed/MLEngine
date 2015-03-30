@@ -13,9 +13,9 @@ void main()
 	vec2 texCoord = (rotMatrix * vec4(gl_PointCoord, 0, 1)).xy;
     FragColor = texture(ParticleTex, texCoord);
     FragColor.a *= Transp;
-	FragColor.r *= colour;
+	FragColor.r = 1.0f;
 	FragColor.g *= colour;
-	FragColor.b = 1.f;
+	FragColor.b = 0.0f;
 	//FragColor.rgb /= vec3(Transp);
 	//FragColor.a = 1.0;
 	//FragColor = vec4(1.0,0.0,0.0,1.0);

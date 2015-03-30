@@ -118,7 +118,7 @@ void ParticleSystem::InitParticleBuffers(bool test)
 	float velocity, theta, phi;
 	for (int i = 0; i < nParticles; i++) {
 		
-		theta = glm::mix(0.0f, (float)glm::pi<float>() / 3.0f, randFloat());
+		theta = glm::mix(0.0f, (float)glm::pi<float>() / 15.f, randFloat());
 		phi = glm::mix(0.0f, (float)glm::pi<float>()*2.0f, randFloat());
 
 		v.x = sinf(theta) * cosf(phi);

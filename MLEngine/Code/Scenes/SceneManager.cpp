@@ -591,8 +591,17 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 {
 	if (currentPlayer != nullptr)
 	{
-		graphicsManager->currentParticles->SetPosition(currentPlayer->getTransform()->GetPosition());
-		graphicsManager->currentParticles2->SetPosition(currentPlayer->getTransform()->GetPosition());
+		glm::vec3 point1 = currentPlayer->getTransform()->GetPosition()-0.2f;
+		point1 -= currentPlayer->getTransform()->GetPosition();
+		static float angle = 0;
+		angle+=0.1;
+		glm::vec3 n;
+		n.x = point1.x * glm::cos(angle) - point1.z *  glm::sin(angle);
+        n.z = point1.x * glm::sin(angle) + point1.z * glm::cos(angle);
+		n.y = 1.0f;
+		point1 = n+currentPlayer->getTransform()->GetPosition();
+		graphicsManager->currentParticles->SetPosition(point1);
+		//graphicsManager->currentParticles2->SetPosition(followPos);
 	}
 	lastDt = dt;
 	//iterate through vector and update all entities and their components

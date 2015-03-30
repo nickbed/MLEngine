@@ -2740,7 +2740,7 @@
 			"centerY": 0.0,
 			"centerZ": 0.0,
 			"radius": 0.5,
-			"extent": 0.5,
+			"extent": 0.9,
 			"static": false,
 			"density": 50.0
 		  },
