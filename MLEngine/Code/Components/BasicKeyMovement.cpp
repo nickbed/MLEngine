@@ -137,6 +137,21 @@ void BasicKeyMovement::Update(float dt)
 		SendMovementMessage(glm::vec3(0.0f, 0.0f, 0.0f), "loadGame");
 	}
 
+	if (keyBuffer[GLFW_KEY_F2])
+	{
+		SendMovementMessage(glm::vec3(0.0f, 0.0f, 0.0f), "loadGame");
+	}
+
+	if (keyBuffer[GLFW_KEY_F3])
+	{
+		SendMovementMessage(glm::vec3(0.0f, 0.0f, 0.0f), "loadGame");
+	}
+
+	if (keyBuffer[GLFW_KEY_F4])
+	{
+		SendMovementMessage(glm::vec3(0.0f, 0.0f, 0.0f), "loadGame");
+	}
+
 
 	//Test message!
 	if (keyBuffer[399])

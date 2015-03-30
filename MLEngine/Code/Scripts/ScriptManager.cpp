@@ -104,6 +104,7 @@ void ScriptManager::bindElements()
 		.addStaticFunction("DeductCoin", SceneManager::RemoveCoin)
 		.addStaticFunction("RemoveObject", SceneManager::DestroyEntity)
 		.addStaticFunction("FindObject", SceneManager::FindEntity)
+		.addStaticFunction("LoadNew", SceneManager::LoadLevel)
 		.endClass()
 
 

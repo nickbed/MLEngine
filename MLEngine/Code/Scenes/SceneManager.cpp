@@ -1,6 +1,8 @@
 #include "SceneManager.h"
 
 std::unique_ptr<SceneConfig> SceneManager::currentScene;
+bool SceneManager::shouldLoadLevel;
+std::string SceneManager::nextLevel;
 
 SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph, PhysicsSystem* physics)
 {
@@ -12,6 +14,7 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph, PhysicsSystem
 	lastDt = 0.0f;
 	currentPlayer = nullptr;
 	physicsManager = physics;
+	nextLevel = "data\\scenes\\TomsWorld.scn";
 }
 
 SceneManager::~SceneManager()
@@ -35,6 +38,19 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 
 std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
 {
+	
+
+	std::string path = "data\\scenes\\loading.scn";
+	if (filePath != "data\\scenes\\loading.scn")
+	{
+		if (nextLevel != "")
+			path = nextLevel;
+		if (filePath == "data\\scenes\\menu.scn")
+		{
+			path = "data\\scenes\\menu.scn";
+		}
+	}
+
 	CollisionSystem::ClearVolumes();
 	shouldLoadLevel = false;
 	bool menu;
@@ -50,8 +66,8 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 		gotEntities = currentScene->activeEntities[0];
 	}
 	std::unique_ptr<SceneConfig> gotConfig = std::unique_ptr<SceneConfig>(new SceneConfig, std::default_delete<SceneConfig>());
-	gotConfig->filename = filePath;
-	JSONFile* gotJSON = mauvefileresource::ResourceManager::LoadResource<JSONFile>(filePath);
+	gotConfig->filename = path;
+	JSONFile* gotJSON = mauvefileresource::ResourceManager::LoadResource<JSONFile>(path);
 	bool success = true;
 	if (gotJSON == nullptr)
 	{
@@ -902,4 +918,11 @@ void SceneManager::msg_RobotPosition(mauvemessage::BaseMessage* msg)
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
 	
+}
+
+void SceneManager::LoadLevel(std::string filename)
+{
+	//shouldLoadLevel = true;
+
+	nextLevel = filename;
 }
