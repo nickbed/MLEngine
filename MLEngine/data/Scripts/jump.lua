@@ -16,13 +16,13 @@ function Jump.Update(this, dt)
 	then
 		if (Jump.allowed == 2) 
 		then
-			Jump.yvel = Jump.yvel + 1
+			Jump.yvel = Jump.yvel + 1.2
 			Jump.allowed = 1
 		elseif(Jump.allowed == 1)
 		then
 			if (Jump.yvel < 0 )
 			then
-				Jump.yvel = 1
+				Jump.yvel = 1.2
 				Jump.allowed = 0
 			end
 		end
