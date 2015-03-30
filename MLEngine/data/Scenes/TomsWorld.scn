@@ -2731,8 +2731,8 @@
           "robotmesh": {
             "id": "robotBody",
             "type": "staticmesh",
-            "OBJModel": "data\\models\\robbody.obj",
-            "TextureFile": "data\\images\\rainbow.png"
+            "OBJModel": "data\\models\\TomsWorld\\robot2.obj",
+            "TextureFile": "data\\images\\TomsWorld\\robot.png"
           },
 		  "boundingcapsule": {
 		    "type":"boundingcapsule",
@@ -2753,31 +2753,7 @@
 			"extentY": 1.0,
 			"extentZ": 0.5,
 			"static": false
-		  },
-          "robotlleg": {
-            "id": "robotLeftLeg",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\roblleg.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          },
-          "robotrleg": {
-            "id": "robotRightLeg",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\robrleg.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          },
-          "robotrarm": {
-            "id": "robotRightArm",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\robrarm.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          },
-          "robotlarm": {
-            "id": "robotLeftArm",
-            "type": "basicbone",
-            "OBJModel": "data\\models\\roblarm.obj",
-            "TextureFile": "data\\images\\rainbow.png"
-          }
+		  }
         }
       }
 	  },
