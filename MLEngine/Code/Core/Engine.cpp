@@ -37,10 +37,9 @@ void Engine::Init(EngineConfig conf)
 	inputManager->Init(graphicsMan->GetCurrentWindow());
 
 	physicsManager = new PhysicsSystem();
-	physicsManager->Init();
 
 	//Init scene manager here
-	sceneManager = new SceneManager(std::move(graphicsMan));
+	sceneManager = new SceneManager(std::move(graphicsMan),physicsManager);
 	sceneManager->InitSceneManager();
 
 	std::unique_ptr<SceneConfig> newScene = sceneManager->LoadSceneFromFile("data\\scenes\\menu.scn");
@@ -66,11 +65,10 @@ bool Engine::Update(float dt)
 			sceneManager->LoadScene(std::move(newScene));
 		    sceneManager->UpdateCurrentSceneEntities(dt);
 
-		    std::unique_ptr<SceneConfig> newScene2 = sceneManager->LoadSceneFromFile("data\\scenes\\ice.scn");
+		    std::unique_ptr<SceneConfig> newScene2 = sceneManager->LoadSceneFromFile("data\\scenes\\TomsWorld.scn");
 			sceneManager->LoadScene(std::move(newScene2));
 			loading = false;
 			timer = 0;
-			physicsManager->Init();
 	}
 	//else if(timer > 5.0f)
 	//{

@@ -34,7 +34,7 @@ end
 function Jump.Collision(this, collision)
 		if (collision.Top==true)
 		then
-			--this.transform.position = Vector3(this.transform.position.x, ypos, this.transform.position.z)
+			--this.transform.position = Vector3.New(this.transform.position.x, this.transform.position.y, this.transform.position.z)
 			Jump.yvel = 0
 			Jump.allowed = 2
 		end

@@ -87,9 +87,9 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 			box->Rigid_ang += 1.f/inertia * glm::cross(point,box->GetParentTransform()->GetPosition()) * -collision.Sign * glm::vec3(0,1,0);
 		}
 		glm::vec3 captranslate = collision.Axis*collision.Sign*collision.Penetration;
-		collision.VolumeB->GetParentTransform()->SetPosition(collision.VolumeB->GetParentTransform()->GetPosition()+captranslate);
-		//std::cout << collision.AxisBox << collision.Penetration << " " << collision.Sign;						// box axis belongs to and penetration depth
-		//std::cout << " Translation:" << captranslate.x << " " << captranslate.y << " " << captranslate.z << std::endl;		// translation
+		capsule->GetParentTransform()->SetPosition(capsule->GetParentTransform()->GetPosition()+captranslate);
+		std::cout << collision.AxisBox << collision.Penetration << " " << collision.Sign;						// box axis belongs to and penetration depth
+		std::cout << " Translation:" << captranslate.x << " " << captranslate.y << " " << captranslate.z << std::endl;		// translation
 		/*}*/
 	}
 }

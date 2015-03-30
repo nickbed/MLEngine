@@ -20,6 +20,7 @@
 #include "..\Components\StaticMesh.h"
 #include "..\Messages\BaseMessage.h"
 #include "..\Systems\CollisionSystem.h"
+#include "..\Systems\PhysicsSystem.h"
 #include "SceneTypes.h"
 #include <vector>
 #include <map>
@@ -30,7 +31,7 @@ class SceneManager
 {
 public:
 
-	SceneManager(std::unique_ptr<GraphicsManager> graph);
+	SceneManager(std::unique_ptr<GraphicsManager> graph, PhysicsSystem* physics);
 	~SceneManager();
 
 	//Load scene into engine
@@ -91,7 +92,7 @@ private:
 	bool showDebug;
 	bool shouldLoadLevel;
 	float lastDt;
-	
+	PhysicsSystem* physicsManager;	
 };
 
 #endif

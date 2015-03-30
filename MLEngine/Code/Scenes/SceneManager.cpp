@@ -2,7 +2,7 @@
 
 std::unique_ptr<SceneConfig> SceneManager::currentScene;
 
-SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
+SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph, PhysicsSystem* physics)
 {
 	NULLPTRCHECK(graph, "Null graphicsmanager ptr passed to scene manager");
 	graphicsManager = std::move(graph);
@@ -11,6 +11,7 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 	shouldLoadLevel = false;
 	lastDt = 0.0f;
 	currentPlayer = nullptr;
+	physicsManager = physics;
 }
 
 SceneManager::~SceneManager()
@@ -27,6 +28,7 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 	//Init scene after we load in
 	graphicsManager->SetWindowTitle(s.str().c_str());
 	currentPlayer = currentScene->currentPlayer;
+	physicsManager->Init();
 	isLoading = false;
 	return InitCurrentScene();
 }
