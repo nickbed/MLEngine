@@ -16,13 +16,13 @@ function Jump.Update(this, dt)
 	then
 		if (Jump.allowed == 2) 
 		then
-			Jump.yvel = Jump.yvel + 1
+			Jump.yvel = Jump.yvel + 1.2
 			Jump.allowed = 1
 		elseif(Jump.allowed == 1)
 		then
 			if (Jump.yvel < 0 )
 			then
-				Jump.yvel = 1
+				Jump.yvel = 1.2
 				Jump.allowed = 0
 			end
 		end
@@ -34,7 +34,7 @@ end
 function Jump.Collision(this, collision)
 		if (collision.Top==true)
 		then
-			--this.transform.position = Vector3(this.transform.position.x, ypos, this.transform.position.z)
+			--this.transform.position = Vector3.New(this.transform.position.x, this.transform.position.y, this.transform.position.z)
 			Jump.yvel = 0
 			Jump.allowed = 2
 		end

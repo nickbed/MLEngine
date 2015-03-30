@@ -1,8 +1,10 @@
 #include "SceneManager.h"
 
 std::unique_ptr<SceneConfig> SceneManager::currentScene;
+bool SceneManager::shouldLoadLevel;
+std::string SceneManager::nextLevel;
 
-SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
+SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph, PhysicsSystem* physics)
 {
 	NULLPTRCHECK(graph, "Null graphicsmanager ptr passed to scene manager");
 	graphicsManager = std::move(graph);
@@ -11,6 +13,8 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 	shouldLoadLevel = false;
 	lastDt = 0.0f;
 	currentPlayer = nullptr;
+	physicsManager = physics;
+	nextLevel = "data\\scenes\\TomsWorld.scn";
 }
 
 SceneManager::~SceneManager()
@@ -27,12 +31,26 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 	//Init scene after we load in
 	graphicsManager->SetWindowTitle(s.str().c_str());
 	currentPlayer = currentScene->currentPlayer;
+	physicsManager->Init();
 	isLoading = false;
 	return InitCurrentScene();
 }
 
 std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
 {
+	
+
+	std::string path = "data\\scenes\\loading.scn";
+	if (filePath != "data\\scenes\\loading.scn")
+	{
+		if (nextLevel != "")
+			path = nextLevel;
+		if (filePath == "data\\scenes\\menu.scn")
+		{
+			path = "data\\scenes\\menu.scn";
+		}
+	}
+
 	CollisionSystem::ClearVolumes();
 	shouldLoadLevel = false;
 	bool menu;
@@ -48,8 +66,8 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 		gotEntities = currentScene->activeEntities[0];
 	}
 	std::unique_ptr<SceneConfig> gotConfig = std::unique_ptr<SceneConfig>(new SceneConfig, std::default_delete<SceneConfig>());
-	gotConfig->filename = filePath;
-	JSONFile* gotJSON = mauvefileresource::ResourceManager::LoadResource<JSONFile>(filePath);
+	gotConfig->filename = path;
+	JSONFile* gotJSON = mauvefileresource::ResourceManager::LoadResource<JSONFile>(path);
 	bool success = true;
 	if (gotJSON == nullptr)
 	{
@@ -118,12 +136,12 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 								char result[100];
 								sprintf_s(result, "Loading component: \n%s", componentID.asCString());
 								graphicsManager->RenderText(result,loadingTextX,loadingTextY,loadingTextSize,gotEntities);
-								
+
 								if (componentContents["type"] == "staticmesh")
 								{
 									graphicsManager->RenderText("Loading static mesh",loadingTextX,loadingTextY,loadingTextSize,gotEntities);
 									StaticMesh* gotComponent = new StaticMesh(componentContents["id"].asString());
-									
+
 									//Load in the obj file specified
 									std::string gotOBJPath = componentContents["OBJModel"].asString();
 									char result[100];
@@ -150,7 +168,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 											gotGPUTexture = new GPUTexture();
 											gotGPUTexture->SetTexture(gotTexture);
 											gotGPUTexture = mauvegpuresource::GPUResourceManager::LoadResource<GPUTexture>(gotGPUTexture, gotTexturePath);
-											
+
 										}
 										gotComponent->SetTexture(*gotGPUTexture);
 										OBJModel* gotModel = mauvefileresource::ResourceManager::GetResource<OBJModel>(gotOBJPath);
@@ -312,7 +330,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			std::string sceneCamera = sceneData["currentcamera"].asCString();
 			bool messageHandlers = sceneData["messagehandlers"].asBool();
 			menu = sceneData["menu"].asBool();
-			
+
 			//Iterate through all active entities and put them in the vector
 			Json::Value activeEntities = sceneData["activeentities"];
 			for (unsigned int i = 0; i < activeEntities.size(); i++)
@@ -340,7 +358,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 			//Put the active camera in the scene
 			gotConfig->currentSceneCamera = gotConfig->sceneCameras->find(sceneCamera)->second;
 
-			
+
 			if (menu || messageHandlers)
 			{
 				using namespace std::placeholders;
@@ -375,7 +393,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	}
 
 	using namespace std::placeholders;
-	
+
 	//TODO - fixthis
 
 	//if(currentScene != nullptr)
@@ -407,9 +425,9 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 	AddMessageListner("robotPositionMove", this, std::bind(&SceneManager::msg_RobotPosition, this, std::placeholders::_1));
 
 	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, std::placeholders::_1));
-	
-	
-	
+
+
+
 	//bad
 	CameraEntity* camToSetup = gotConfig->sceneCameras->find("camera1")->second;
 
@@ -426,7 +444,7 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	AddMessageListner("showDebug", this, std::bind(&SceneManager::msg_ShowDebug, this, std::placeholders::_1));
 
-	
+
 	delete gotJSON;
 	return std::move(gotConfig);
 }
@@ -435,20 +453,20 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 void SceneManager::AddBoundingBox(Json::Value contents, IEntity* entToCreate)
 {
 	bool gotStatic = contents["static"].asBool();
-    glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
-    float gotExtent = contents["extent"].asFloat();
-    float gotRadius = contents["radius"].asFloat();
-    BoundingCapsule* gotComponent = new BoundingCapsule("boundingcapsule",gotCenter,gotRadius,gotExtent,gotStatic,entToCreate->id);
-    //gotComponent->SetTransform(entToCreate->Transform);
-    entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
-    if(gotStatic==true)
-    {
-            CollisionSystem::AddStaticVolume(gotComponent);
-    }
-    else
-    {
-            CollisionSystem::AddDynamicVolume(gotComponent);
-    }
+	glm::vec3 gotCenter = glm::vec3(contents["centerX"].asFloat(), contents["centerY"].asFloat(), contents["centerZ"].asFloat());
+	float gotExtent = contents["extent"].asFloat();
+	float gotRadius = contents["radius"].asFloat();
+	BoundingCapsule* gotComponent = new BoundingCapsule("boundingcapsule",gotCenter,gotRadius,gotExtent,gotStatic,entToCreate->id);
+	//gotComponent->SetTransform(entToCreate->Transform);
+	entToCreate->Components->AddComponent(contents["type"].asString(), gotComponent);
+	if(gotStatic==true)
+	{
+		CollisionSystem::AddStaticVolume(gotComponent);
+	}
+	else
+	{
+		CollisionSystem::AddDynamicVolume(gotComponent);
+	}
 }
 
 void SceneManager::AddBoundingBoxO(Json::Value contents, IEntity* entToCreate)
@@ -590,7 +608,7 @@ bool SceneManager::InitCurrentScene()
 	//Iterate through vector and init all entities
 	/*for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
-		(*it)->Init();
+	(*it)->Init();
 	}*/
 
 	return true;
@@ -639,7 +657,6 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		pointOffset = rotTranslate * pointOffset;
 		graphicsManager->currentParticles->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true);
 		graphicsManager->currentParticles2->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true);
-
 	}
 	lastDt = dt;
 	//iterate through vector and update all entities and their components
@@ -650,14 +667,14 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	auto it = currentScene->activeEntities.begin();
 	while (it != currentScene->activeEntities.end())
 	{
-		result &= (*it)->Update(dt);
-		if (entCount != currentScene->activeEntities.size())
-		{
-			it = currentScene->activeEntities.end();
-		}
-		else {
-			++it;
-		}
+	result &= (*it)->Update(dt);
+	if (entCount != currentScene->activeEntities.size())
+	{
+	it = currentScene->activeEntities.end();
+	}
+	else {
+	++it;
+	}
 	}*/
 
 	for (int i = 0; i < currentScene->numActiveEntities; ++i)
@@ -678,17 +695,17 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		currentScene->sceneCameras->find("dummy")->second->Update(dt);
 	}
 	if(result == false) return false;
-	
+
 	if(isLoading) ReloadScene();
 	return result;
 }
 
 bool SceneManager::DrawCurrentSceneEntities(float dt)
 {
-	
+
 	//send entities to graphics manager to have them drawn
 	//also send camera and light info
-	
+
 	bool result = graphicsManager->DrawAndUpdateWindow(currentScene->activeEntities, currentScene->numActiveEntities,lastDt, true);
 	if (showDebug)
 	{
@@ -751,11 +768,35 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 	}
 	else
 	{
-		if(currentScene->coin > 0)
+		static float starttime;
+		static int i=0;
+		if( currentScene->filename != "data\\scenes\\menu.scn")
 		{
-			std::string coin = "Coin: " + std::to_string(currentScene->coin);
-			graphicsManager->RenderText(coin.c_str(), 5, 720, 30);
-		}
+			
+			if(currentScene->coin > 0 )
+			{
+				std::string coin = "Coin: " + std::to_string(currentScene->coin);
+				graphicsManager->RenderText(coin.c_str(), 5, 720, 30);
+			}
+			else
+			{
+				
+				if(i==0)
+				{
+					starttime = glfwGetTime();
+					i=1;
+				}
+				float elapsedTime = glfwGetTime() - starttime ;
+				graphicsManager->RenderText("Level Completed",300,400, 60);
+				if(elapsedTime > 2.0f)
+				{
+					
+					shouldLoadLevel = true;
+					nextLevel = "data\\scenes\\menu.scn";
+				}
+				
+			}
+		}else i=0;
 	}
 	return result;
 }
@@ -879,6 +920,7 @@ void SceneManager::ReloadScene()
 {
 	std::unique_ptr<SceneConfig> scn = LoadSceneFromFile(currentScene->filename.c_str());
 	LoadScene(std::move(scn));
+	
 	isLoading = false;
 }
 bool SceneManager::ShouldLoadLevel()
@@ -937,5 +979,12 @@ void SceneManager::msg_RobotPosition(mauvemessage::BaseMessage* msg)
 {
 	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
 	glm::vec3 messagePos = (glm::vec3)*posMsg;
-	
+
+}
+
+void SceneManager::LoadLevel(std::string filename)
+{
+	//shouldLoadLevel = true;
+
+	nextLevel = filename;
 }

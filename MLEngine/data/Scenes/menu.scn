@@ -32,8 +32,8 @@
           }
         },
 		"script": {
-			  "path": "data\\Scripts\\test.lua",
-			  "identifier": "Test"
+			  "path": "data\\Scripts\\menu.lua",
+			  "identifier": "Menu"
 		}
       }
     },

@@ -83,7 +83,7 @@ void TextRender::Draw2DText(std::string text, int x, int y, int size)
 		if(charval == 'i' || charval == 'L' || charval == 'J' || charval == 'I' || charval == 'l')
 		{
 			xMin -= size/8;
-			offset += size/3;
+			offset += size/5;
 		}
 		if(charval == 'm' || charval == 'M' || charval == 'w' || charval == 'W')
 		{

@@ -79,7 +79,8 @@
          "coin.obj11",
 		 "Enemy1",
 		 "Enemy2",
-		 "Enemy3"
+		 "Enemy3",
+		 "MudBlock_Slim.obj1"
       ],
       "cameras" : {
          "camera0" : {
@@ -328,7 +329,7 @@
                   "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
+                  "extentX" : 16,
                   "extentY" : 24.65420913696289,
                   "extentZ" : 35.22314834594727,
                   "static" : true,
@@ -336,9 +337,9 @@
                }
             },
             "transform" : {
-               "posX" : -77.69999694824219,
+               "posX" : -80.3,
                "posY" : 0.800000011920929,
-               "posZ" : -93.59999847412109,
+               "posZ" : -93.6,
                "rotateX" : 0,
                "rotateY" : -48,
                "rotateZ" : 0,
@@ -592,9 +593,9 @@
                   "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
+                  "extentX" : 16.0,
                   "extentY" : 24.65420913696289,
-                  "extentZ" : 35.22314834594727,
+                  "extentZ" : 33.0,
                   "static" : true,
                   "type" : "boundingboxo"
                }
@@ -625,19 +626,19 @@
                   "centerY" : 22.93400001525879,
                   "centerZ" : -1.262401580810547,
                   "density" : 1,
-                  "extentX" : 19.50416564941406,
+                  "extentX" : 16.0,
                   "extentY" : 24.65420913696289,
-                  "extentZ" : 35.22314834594727,
+                  "extentZ" : 24,
                   "static" : true,
                   "type" : "boundingboxo"
                }
             },
             "transform" : {
-               "posX" : -107.9000015258789,
+               "posX" : -111.9000,
                "posY" : 0,
-               "posZ" : -68.70000457763672,
+               "posZ" : -71.20,
                "rotateX" : 0,
-               "rotateY" : -71.00000762939453,
+               "rotateY" : -67.0,
                "rotateZ" : 0,
                "scaleX" : 2,
                "scaleY" : 2,
@@ -1503,6 +1504,39 @@
             },
             "type" : "generalentity"
          },
+		 "MudBlock_Slim.obj1" : {
+            "components" : {
+               "MudBlock_Slim.obj1" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\MudBlock_Slim.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\GrassBlock.jpg",
+                  "id" : "MudBlock_Slim.obj1",
+                  "type" : "staticmesh"
+               },
+               "boundingboxo" : {
+                  "centerX" : -0.01100003719329834,
+                  "centerY" : 10.98174953460693,
+                  "centerZ" : -0.02099990844726563,
+                  "density" : 1,
+                  "extentX" : 4.1486496925354,
+                  "extentY" : 10.39513683319092,
+                  "extentZ" : 5.061600208282471,
+                  "static" : true,
+                  "type" : "boundingboxo"
+               }
+            },
+            "transform" : {
+               "posX" : -33.70,
+               "posY" : 0,
+               "posZ" : -59,
+               "rotateX" : 0,
+               "rotateY" : 0,
+               "rotateZ" : 0,
+               "scaleX" : 5,
+               "scaleY" : 5,
+               "scaleZ" : 5
+            },
+            "type" : "generalentity"
+         },
          "River.obj0" : {
             "components" : {
                "River.obj0" : {
@@ -1517,7 +1551,7 @@
                   "centerZ" : 0,
                   "density" : 1,
                   "extentX" : 56.95164489746094,
-                  "extentY" : 19.45733070373535,
+                  "extentY" : 35,
                   "extentZ" : 27.16287612915039,
                   "static" : true,
                   "type" : "boundingboxo"
@@ -2204,9 +2238,9 @@
 			  "identifier": "Coin"
 			},
             "transform" : {
-               "posX" : -34.40000152587891,
-               "posY" : 44.79999923706055,
-               "posZ" : -103.8000030517578,
+               "posX" : -58,
+               "posY" : 28.70,
+               "posZ" : -76.90,
                "rotateX" : 0,
                "rotateY" : -0,
                "rotateZ" : 0,
@@ -2389,11 +2423,11 @@
 			  "identifier": "Coin"
 			},
             "transform" : {
-               "posX" : -120.6000061035156,
-               "posY" : 28.80000114440918,
+               "posX" : -128.5,
+               "posY" : 21.90,
                "posZ" : -6.200000286102295,
                "rotateX" : 0,
-               "rotateY" : -0,
+               "rotateY" : -44,
                "rotateZ" : 0,
                "scaleX" : 0.5,
                "scaleY" : 0.5,
@@ -2718,7 +2752,7 @@
 		},
         "transform": {
           "posX": -20,
-          "posY": 20,
+          "posY": 80,
           "posZ": 0,
           "scaleX": 0.15,
           "scaleY": 0.15,
