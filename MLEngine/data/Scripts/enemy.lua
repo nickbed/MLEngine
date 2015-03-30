@@ -2,7 +2,7 @@
 Enemy = {}
 Enemy.target = nil
 Enemy.loaded = 0
-Enemy.speed = 5
+Enemy.speed = 15
 
 function Enemy.Start(self)
 end
@@ -16,18 +16,19 @@ function Enemy.Update(this, dt)
 	local distX = this.transform.position.x - Enemy.target.transform.position.x
 	local distZ = this.transform.position.z - Enemy.target.transform.position.z
 	
-	if (distX + distZ < 75)
+	local tX = distX
+	local tY = distZ
+	
+	if (distX < 0) then tX = distX * -1 end	--Make sure X is positive
+	if (distZ < 0) then tY = distZ * -1 end	--Make sure Z is positive
+	
+	local totalDist = tX + tY
+	
+	if (distX + distZ < 50)
 	then
-		local xpercent = (Enemy.speed*(distX / (distX + distZ))) * dt
-		local zpercent = (Enemy.speed*(distZ / (distX + distZ))) * dt
-		if (xpercent > 0.025)
-		then
-			xpercent = 0.05
-		end
-		if (zpercent > 0.025)
-		then
-			zpercent = 0.025
-		end
+		local xpercent = (Enemy.speed*(distX / totalDist)) * dt --Calculate X amount to move
+		local zpercent = (Enemy.speed*(distZ / totalDist)) * dt --Calculate Z amount to move
+
 		this.transform.position = Vector3.New(this.transform.position.x - xpercent, this.transform.position.y, this.transform.position.z - zpercent)
 	end
 end

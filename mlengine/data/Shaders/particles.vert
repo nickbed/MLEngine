@@ -14,6 +14,7 @@ out vec3 Position;   // To transform feedback
 out vec3 Velocity;   // To transform feedback
 out float StartTime; // To transform feedback
 out float Transp;    // To fragment shader
+out float colour;
 
 uniform float Time;  // Simulation time
 uniform float H;     // Elapsed time between frames
@@ -33,7 +34,6 @@ void update() {
     if( Time >= StartTime ) {
 
         float age = Time - StartTime;
-
         if( age > ParticleLifetime ) {
             // The particle is past it's lifetime, recycle.
             Position = StartPosition;
@@ -51,6 +51,7 @@ subroutine (RenderPassType)
 void render() {
     float age = Time - VertexStartTime;
     Transp = 1.0 - age / ParticleLifetime;
+	colour = -2.0 + age;// / 10;
     gl_Position = MVP * vec4(VertexPosition, 1.0);
 }
 

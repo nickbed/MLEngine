@@ -704,8 +704,11 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 	}
 	else
 	{
-		std::string coin = "Coin: " + std::to_string(currentScene->coin);
-		graphicsManager->RenderText(coin.c_str(), 5, 720, 30);
+		if(currentScene->coin > 0)
+		{
+			std::string coin = "Coin: " + std::to_string(currentScene->coin);
+			graphicsManager->RenderText(coin.c_str(), 5, 720, 30);
+		}
 	}
 	return result;
 }

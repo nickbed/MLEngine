@@ -4,7 +4,8 @@
 #include "..\resources\Shader.h"
 #include "..\resources\GPUTexture.h"
 #include "glm\gtc\constants.hpp"
-#include "glm\gtc\matrix_transform.hpp"
+#include "GLM\gtx\transform.hpp"
+
 
 class ParticleSystem
 {
