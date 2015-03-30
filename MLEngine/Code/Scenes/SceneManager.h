@@ -64,11 +64,14 @@ public:
 
 	void msg_LoadGame(mauvemessage::BaseMessage* msg);
 
+	void msg_RobotPosition(mauvemessage::BaseMessage* msg);
+
 	void ReloadScene();
 
 	bool ShouldLoadLevel();
 
 	//Lua
+	static void RemoveCoin();
 	static IEntity* AddEntity(std::string id, bool isActive);
 	static void DestroyEntity(std::string id);
 	static IEntity* FindEntity(std::string id);
@@ -83,10 +86,12 @@ private:
 
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	static std::unique_ptr<SceneConfig> currentScene;
+	IEntity* currentPlayer;
 	bool isLoading;
 	bool showDebug;
 	bool shouldLoadLevel;
 	float lastDt;
+	
 };
 
 #endif

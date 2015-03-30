@@ -252,6 +252,7 @@ GraphicsManager::GraphicsManager()
 	windowShouldBeClosed = false;
 	textRenderer = new TextRender();
 	windowHasClosed = false;
+	delayTime = 0.0f;
 	
 }
 
@@ -333,6 +334,9 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 
 	//Particles
 	currentParticles = new ParticleSystem();
+	currentParticles2 = new ParticleSystem();
+	currentParticles->InitParticleBuffers(true);
+	currentParticles2->InitParticleBuffers(false);
 
 	if(!success) return false;
 	return true;
@@ -346,6 +350,12 @@ void GraphicsManager::SetWindowTitle(const char* windowTitle)
 
 bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, float dt, bool poll)
 {
+	delayTime += dt;
+	if (delayTime > 0.5f)
+	{
+		//currentParticles->SetPosition(currentCamera->GetCameraPosition());
+		delayTime = 0.0f;
+	}
 	if (windowHasClosed) return false;
 	
 	//Close and cleanup
@@ -376,7 +386,7 @@ bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, f
 	
 	//currentParticles->Draw(currentCamera->GetViewProjMatrix());
 	//currentParticles->Update(0.0f, glm::mat4(0.0f));
-	currentParticles->Draw(currentCamera->GetViewProjMatrix());
+
 	currentShader->UseShader();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -386,8 +396,9 @@ bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, f
 		result &= DrawAndUpdateWindow(*entities++, dt, poll);
 	}
 
-
-
+	currentParticles->Draw(currentCamera->GetViewProjMatrix(), currentCamera->GetCameraPosition());
+	currentParticles2->Draw(currentCamera->GetViewProjMatrix(), currentCamera->GetCameraPosition());
+	
 	return result;
 }
 

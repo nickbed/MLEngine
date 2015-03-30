@@ -10,6 +10,7 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 	showDebug = false;
 	shouldLoadLevel = false;
 	lastDt = 0.0f;
+	currentPlayer = nullptr;
 }
 
 SceneManager::~SceneManager()
@@ -25,8 +26,9 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 
 	//Init scene after we load in
 	graphicsManager->SetWindowTitle(s.str().c_str());
-	return InitCurrentScene();
+	currentPlayer = currentScene->currentPlayer;
 	isLoading = false;
+	return InitCurrentScene();
 }
 
 std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
@@ -243,6 +245,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 						{
 							entToCreate->Script->Load(value2["path"].asString(), value2["identifier"].asString());
 							AddMessageListner("msg_collision", entToCreate, std::bind(&ScriptComponent::msg_Collision, entToCreate->Script, std::placeholders::_1));
+							if(value2["identifier"].asString()=="Coin")
+							{
+								gotConfig->coin++;
+							}
 						}
 					}
 					//Put entity into our map
@@ -392,10 +398,13 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	if(gotConfig->sceneEntities->find("robot1") != gotConfig->sceneEntities->end())
 	{
+		gotConfig->currentPlayer = (IEntity*)gotConfig->sceneEntities->find("robot1")->second;
 		AddMessageListner("mouseMovement", (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::placeholders::_1));
 	}
 
 	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::placeholders::_1));
+
+	AddMessageListner("robotPositionMove", this, std::bind(&SceneManager::msg_RobotPosition, this, std::placeholders::_1));
 
 	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, std::placeholders::_1));
 	
@@ -580,6 +589,20 @@ bool SceneManager::InitCurrentScene()
 
 bool SceneManager::UpdateCurrentSceneEntities(float dt)
 {
+	if (currentPlayer != nullptr)
+	{
+		glm::vec3 point1 = currentPlayer->getTransform()->GetPosition()-0.2f;
+		point1 -= currentPlayer->getTransform()->GetPosition();
+		static float angle = 0;
+		angle+=0.1;
+		glm::vec3 n;
+		n.x = point1.x * glm::cos(angle) - point1.z *  glm::sin(angle);
+        n.z = point1.x * glm::sin(angle) + point1.z * glm::cos(angle);
+		n.y = 1.0f;
+		point1 = n+currentPlayer->getTransform()->GetPosition();
+		graphicsManager->currentParticles->SetPosition(point1);
+		//graphicsManager->currentParticles2->SetPosition(followPos);
+	}
 	lastDt = dt;
 	//iterate through vector and update all entities and their components
 	//Iterate through vector and init all entities
@@ -611,7 +634,6 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//}
 	currentScene->currentSceneCamera->Listning = true;
 	currentScene->currentSceneCamera->Update(dt);
-	graphicsManager->currentParticles->Update(dt, currentScene->currentSceneCamera->GetViewProjMatrix());
 	graphicsManager->PollWindow();
 	if(currentScene->sceneCameras->find("dummy") != currentScene->sceneCameras->end())
 	{
@@ -687,6 +709,14 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 			graphicsManager->RenderText(s.str().c_str(), 750, startpos, 15);
 			startpos -= 10;
 			graphicsManager->DrawDebug(it->second);
+		}
+	}
+	else
+	{
+		if(currentScene->coin > 0)
+		{
+			std::string coin = "Coin: " + std::to_string(currentScene->coin);
+			graphicsManager->RenderText(coin.c_str(), 5, 720, 30);
 		}
 	}
 	return result;
@@ -832,9 +862,14 @@ IEntity*  SceneManager::AddEntity(std::string id, bool isActive)
 	return currentScene->sceneEntities->find(id)->second;
 }
 
+void SceneManager::RemoveCoin()
+{
+	--currentScene->coin;
+}
 void SceneManager::DestroyEntity(std::string id)
 {
 	IEntity* entToRemove = currentScene->sceneEntities->find(id)->second;
+	entToRemove->Destroy();
 	for (int i = 0; i < currentScene->numActiveEntities; ++i)
 	{
 		if (currentScene->activeEntities[i] == entToRemove)
@@ -859,4 +894,10 @@ IEntity* SceneManager::FindEntity(std::string id)
 	}
 	IEntity* entToFind = currentScene->sceneEntities->find(id)->second;
 	return entToFind;
+}
+void SceneManager::msg_RobotPosition(mauvemessage::BaseMessage* msg)
+{
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	
 }

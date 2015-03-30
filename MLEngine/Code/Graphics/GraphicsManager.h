@@ -72,7 +72,7 @@ public:
 	void SetCurrentSkybox(SkyBox* skybox);
 
 	ParticleSystem* currentParticles;
-
+	ParticleSystem* currentParticles2;
 	
 
 private:
@@ -80,6 +80,7 @@ private:
 	bool UploadShaderDataForDraw(TransformComponent* modelTransform);
 	bool UploadBoneShaderDataForDraw(TransformComponent modelTransform, TransformComponent boneTransform);
 	bool windowHasClosed;
+	float delayTime;
 
 	//This class will store the current window
 	GLFWwindow* currentWindow;

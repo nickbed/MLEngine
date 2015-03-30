@@ -38,6 +38,8 @@ struct SceneConfig
 		sceneLights = std::unique_ptr<std::map<std::string, SceneLight*>>(new std::map<std::string, SceneLight*>, std::default_delete<std::map<std::string, SceneLight*>>());
 		numActiveEntities = 0;
 		numActiveLights = 0;
+		coin =0;
+		currentPlayer = nullptr;
 	}
 
 	~SceneConfig()
@@ -85,17 +87,20 @@ struct SceneConfig
 		sceneEntities = std::move(s.sceneEntities);
 		sceneCameras = std::move(s.sceneCameras);
 		sceneLights = std::move(s.sceneLights);
+		currentPlayer = std::move(s.currentPlayer);
 	}
 	//END Workaround for a VCC bug -_-
 
 	//Active in the scene
 	//std::vector<IEntity*> activeEntities;
 	IEntity* activeEntities[2000];
+	int coin;
 	int numActiveEntities;
 	SceneLight activeLights[128];
 	int numActiveLights;
 	Shader* currentSceneShader;
 	CameraEntity* currentSceneCamera;
+	IEntity* currentPlayer;
 	//SceneLight* currentSceneLight;
 
 	//For storing stuff created by the JSON file

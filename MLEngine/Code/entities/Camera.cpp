@@ -172,6 +172,11 @@ const glm::mat4 CameraEntity::GetViewMatrix()
 	return viewMatrix;
 }
 
+const glm::mat4 CameraEntity::GetProjMatrix()
+{
+	return cameraMatrix;
+}
+
 const glm::mat4 CameraEntity::GetViewProjMatrix()
 {
 	return viewProjMatrix;

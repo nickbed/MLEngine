@@ -38,6 +38,9 @@ namespace mauvemessage
 
 	private:
 		static std::unordered_multimap<const char*,mauvemessage::RecieverInfo>* listnerMap;
+		static bool lockListnerList;
+		static void* voidListenersToClear[16];
+		static int voidListenersCount;
 	};
 }
 

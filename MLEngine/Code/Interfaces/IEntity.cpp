@@ -1,6 +1,7 @@
 #include "IEntity.h"
 #include "..\Messages\MessageManager.h"
 #include "..\Assert\Assert.h"
+#include "..\Systems\CollisionSystem.h"
 
 IEntity::IEntity()
 {
@@ -38,6 +39,7 @@ void IEntity::Init()
 
 void IEntity::Destroy()
 {
+	CollisionSystem::RemoveObject(this);
 	Components->DestroyAllComponents();
 	Transform->Destroy();
 	Script->Destroy();
