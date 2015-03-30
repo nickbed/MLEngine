@@ -753,15 +753,8 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 				{
 					starttime=0;
 					i=0;
-					/*std::unique_ptr<SceneConfig> newScene = LoadSceneFromFile("data\\scenes\\loading.scn");
-					LoadScene(std::move(newScene));
-					UpdateCurrentSceneEntities(dt);
-
-					 std::unique_ptr<SceneConfig> newScene2 = LoadSceneFromFile("data\\scenes\\menu.scn");
-					LoadScene(std::move(newScene2));*/
-					/*loading = false;
-					timer = 0;
-					physicsManager->Init();*/
+					shouldLoadLevel = true;
+					nextLevel = "data\\scenes\\menu.scn";
 				}
 				
 			}
