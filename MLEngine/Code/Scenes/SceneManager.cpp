@@ -562,6 +562,7 @@ bool SceneManager::InitSceneManager()
 
 bool SceneManager::InitCurrentScene()
 {
+	graphicsManager->currentParticleManager->ClearAllParticleSystems();
 	//Is anything our current scene? No entities = no scene
 	NULLPTRCHECK(currentScene, "Nullptr on current scene when trying to init");
 	if(currentScene == nullptr)
@@ -577,7 +578,15 @@ bool SceneManager::InitCurrentScene()
 	graphicsManager->SetActiveSceneLights(currentScene->numActiveLights, currentScene->activeLights);
 	graphicsManager->SetCurrentCamera(currentScene->currentSceneCamera);
 	graphicsManager->SetCurrentShader(currentScene->currentSceneShader);
+	graphicsManager->currentParticles = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(-1.0), glm::vec3(0.0), "data\\images\\fire.png");
+	graphicsManager->currentParticles2 = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(-1.0), glm::vec3(0.0), "data\\images\\fire.png");
 
+	ParticleSystem* part = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -8.9f, 0.0f), "data\\images\\waterdrop.png");
+	part->SetParticleSize(8.0f);
+	//part->SetLifetime(100.0f);
+	//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
+	part->SetPosition(glm::vec3(0.0f, 45.0f, 0.0f), true);
+	part->SetUseRandomPositionRange(true, -100.0f, -100.0f, 100.0f, 100.0f);
 	//Iterate through vector and init all entities
 	/*for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
@@ -591,17 +600,46 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 {
 	if (currentPlayer != nullptr)
 	{
-		glm::vec3 point1 = currentPlayer->getTransform()->GetPosition()-0.2f;
+		float offsetangle = glm::radians(currentPlayer->getTransform()->GetRotation().y);
+		glm::vec4 pointOffset, pointOffset2;
+		pointOffset.y = 0.0f;
+		pointOffset.z = 1.0f;
+		pointOffset.x = 1.0f;
+		pointOffset.w = 1.0f;
+
+		pointOffset2.y = 0.0f;
+		pointOffset2.z = 1.0f;
+		pointOffset2.x = 1.0f;
+		pointOffset2.w = 1.0f;
+
+		glm::mat4 rotTranslate;
+		rotTranslate *= glm::rotate(glm::degrees(offsetangle), glm::vec3(0.0, 1.0, 0.0));
+		rotTranslate *= glm::translate(glm::vec3(-0.9, -0.18, -0.8));
+		//rotTranslate = glm::translate(glm::vec3(0.1, 0.0, 0.0));
+		pointOffset = rotTranslate * pointOffset;
+
+		rotTranslate *= glm::translate(glm::vec3(-0.2, 0.0, 0.0));
+		pointOffset2 = rotTranslate * pointOffset2;
+
+		glm::vec3 point1 = currentPlayer->getTransform()->GetPosition()-0.01f;
 		point1 -= currentPlayer->getTransform()->GetPosition();
 		static float angle = 0;
 		angle+=0.1;
 		glm::vec3 n;
-		n.x = point1.x * glm::cos(angle) - point1.z *  glm::sin(angle);
-        n.z = point1.x * glm::sin(angle) + point1.z * glm::cos(angle);
-		n.y = 1.0f;
-		point1 = n+currentPlayer->getTransform()->GetPosition();
-		graphicsManager->currentParticles->SetPosition(point1);
-		//graphicsManager->currentParticles2->SetPosition(followPos);
+		n.x = (point1.x *  glm::sin(angle)) * -1.8f;
+		n.z = (point1.z * glm::cos(angle)) * -1.8f;
+		n.y = 0.55f;
+		point1 = n+currentPlayer->getTransform()->GetPosition() ;
+		graphicsManager->currentParticles->SetPosition(point1 + glm::vec3(pointOffset.x, pointOffset.y, pointOffset.z), true);
+	    graphicsManager->currentParticles2->SetPosition(point1 + glm::vec3(pointOffset2.x, pointOffset2.y, pointOffset2.z), true);
+
+		rotTranslate = glm::mat4(1.0);
+		rotTranslate *= glm::scale(glm::mat4(1.0f), glm::vec3(10.0, 1.0, 10.0));
+		rotTranslate *= glm::rotate(-25.0f, glm::vec3(0.0, 1.0, 0.0));
+		pointOffset = rotTranslate * pointOffset;
+		graphicsManager->currentParticles->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true);
+		graphicsManager->currentParticles2->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true);
+
 	}
 	lastDt = dt;
 	//iterate through vector and update all entities and their components

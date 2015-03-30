@@ -18,6 +18,7 @@
 #include "..\Graphics\SkyBox.h"
 #include "..\Messages\MessageManager.h"
 #include "..\Graphics\ParticleSystem.h"
+#include "..\Systems\ParticleManager.h"
 #include <map>
 
 class GraphicsManager
@@ -73,7 +74,7 @@ public:
 
 	ParticleSystem* currentParticles;
 	ParticleSystem* currentParticles2;
-	
+	ParticleManager* currentParticleManager;
 
 private:
 
@@ -95,6 +96,7 @@ private:
 	//SceneLight* currentSceneLight;
 	TextRender* textRenderer;
 	SkyBox* currentSkyBox;
+
 
 
 

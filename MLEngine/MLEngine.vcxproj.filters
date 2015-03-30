@@ -249,6 +249,9 @@
     <ClCompile Include="code\Graphics\ParticleSystem.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="code\Systems\ParticleManager.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\DebugComponent.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="code\Graphics\ParticleSystem.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="code\Systems\ParticleManager.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

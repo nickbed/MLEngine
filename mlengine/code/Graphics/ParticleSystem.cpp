@@ -8,7 +8,7 @@ ParticleSystem::ParticleSystem()
 
 ParticleSystem::~ParticleSystem()
 {
-
+	//delete particleGPUTexture;
 }
 
 void ParticleSystem::Init()
@@ -18,13 +18,9 @@ void ParticleSystem::Init()
 	graphicdeltaT = 0.0f;
 	oldGraphicTime = 0.0f;
 	drawBuf = 1;
+	currentLifetime = 5.0f;
+	pSize = 10.0f;
 
-	//Load in the particle texture
-	particleTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>("data\\images\\waterdrop.png");
-	particleGPUTexture = new GPUTexture();
-	particleGPUTexture->SetTexture(particleTexture);
-	particleGPUTexture->UploadData();
-	glBindTexture(GL_TEXTURE_2D, particleGPUTexture->GetDataLocation());
 	glEnable(GL_POINT_SPRITE);
 
 	//Load in the particle shader
@@ -33,28 +29,54 @@ void ParticleSystem::Init()
 	particleUpdateSub = glGetSubroutineIndex(particleShader->GetShaderID(), GL_VERTEX_SHADER, "update");
 	particleShader->UseShader();
 	//particleShader->SendUniform1i("ParticleTex", particleGPUTexture->GetDataLocation());
-	particleShader->SendUniform1f("ParticleLifetime", 1.5f);
-	particleShader->SendUniformVec3("Accel", glm::vec3(0.0f, -0.4f, 0.0f));
-
-	InitParticleBuffers(false);
-
+	particleShader->SendUniform1f("ParticleLifetime", currentLifetime);
+	
 	canDraw = true;
+	useRandomPositionRange = false;
+	randPosRangeXmin = -100;
+	randPosRangeXmax = 100;
+	randPosRangeZmin = -100;
+	randPosRangeZmax = 100;
 
-	currentParticlePosition = glm::vec3(0.0);
+	currentParticlePosition = glm::vec3(-5.0);
 
-	glm::mat4 currMat(1.0f);
-	float rotang =rand()%360;
-	currMat = glm::translate(currMat, glm::vec3(0.5f, 0.5f, 0.0f));
-	currMat = glm::rotate(currMat,rotang , glm::vec3(0.0f, 0.0f, 1.0f));
-	currMat = glm::translate(currMat, glm::vec3(-0.5f, -0.5f, 0.0f));
-	particleShader->SendUniformMat4("rotMatrix",currMat);
+	
 
 }
 
-void ParticleSystem::InitParticleBuffers(bool test)
+void ParticleSystem::SetUseRandomPositionRange(bool enable, float minX, float minZ, float maxX, float maxZ)
 {
+	useRandomPositionRange = enable;
+	randPosRangeXmin = minX;
+	randPosRangeXmax = maxX;
+	randPosRangeZmin = minZ;
+	randPosRangeZmax = maxZ;
+}
+
+void ParticleSystem::SetParticleSize(float size)
+{
+	pSize = size;
+}
+
+void ParticleSystem::LoadTexture(const char* filename)
+{
+	//Load in the particle texture
+	particleTexture = mauvefileresource::ResourceManager::GetResource<ImageTexture>(filename);
+	particleGPUTexture = new GPUTexture();
+	particleGPUTexture->SetTexture(particleTexture);
+	particleGPUTexture->UploadData();
+	glBindTexture(GL_TEXTURE_2D, particleGPUTexture->GetDataLocation());
+}
+
+void ParticleSystem::InitParticleBuffers(glm::vec3 accel, glm::vec3 position, const char* texturename)
+{
+	currentParticleAcceleration = accel;
+	currentParticlePosition = position;
+
+	LoadTexture(texturename);
+
 	particleShader->UseShader();
-	nParticles = 4000;
+	nParticles = 8000;
 
 	// Generate the buffers
 	glGenBuffers(2, posBuf);    // position buffers
@@ -82,66 +104,54 @@ void ParticleSystem::InitParticleBuffers(bool test)
 	glBindBuffer(GL_ARRAY_BUFFER, startTime[1]);
 	glBufferData(GL_ARRAY_BUFFER, nParticles * sizeof(float), NULL, GL_DYNAMIC_COPY);
 
-	// Fill the first position buffer with zeroes
 	posArray = new GLfloat[nParticles * 3];
+	accelArray = new GLfloat[nParticles * 3];
 	GLfloat *data = new GLfloat[nParticles * 3];
 	float xLength = 5.0f;
-	if (test) xLength = 10.0f;
 	float step = xLength / nParticles;
 	float currentXpos = 0.0f;
 	int isX = 0;
+	int arraypos = 0;
 	for (int i = 0; i < nParticles * 3; i++)
 	{
-		if (isX == 0)
-		{
-			posArray[i] = currentXpos;
-			currentXpos += step;
-		}
-		else
-		{
-			if (isX >= 2) isX = -1;
-			if (test)posArray[i] = 10.0f;
-			else
-			{
-				posArray[i] = 0.0f;
-			}
-		}
-		++isX;
+		posArray[i] = position[arraypos++];
+		if (arraypos > 2) arraypos = 0;
 	}
+
 	glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
 	glBindBuffer(GL_ARRAY_BUFFER, initPos);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
 
-	// Fill the first velocity buffer with random velocities
+
 	glm::vec3 v(0.0f);
 	float velocity, theta, phi;
-	for (int i = 0; i < nParticles; i++) {
-		
-		theta = glm::mix(0.0f, (float)glm::pi<float>() / 15.f, randFloat());
-		phi = glm::mix(0.0f, (float)glm::pi<float>()*2.0f, randFloat());
+	theta = glm::mix(0.0f, (float)glm::pi<float>() / 5.f, randFloat());
+	phi = glm::mix(0.0f, (float)glm::pi<float>()*4.0f, randFloat());
 
-		v.x = sinf(theta) * cosf(phi);
-		v.y = cosf(theta);
-		v.z = sinf(theta) * sinf(phi);
+	v.x = sinf(theta) * cosf(phi);
+	v.y = cosf(theta);
+	v.z = sinf(theta) * sinf(phi);
 
-		velocity = glm::mix(1.25f, 1.5f, randFloat());
-		v = glm::normalize(v) * velocity;
+	velocity = glm::mix(1.25f, 1.5f, randFloat());
+	v = glm::normalize(v) * accel;
 
-		data[3 * i] = v.x;
-		data[3 * i + 1] = -v.y;
-		data[3 * i + 2] = v.z;
+	arraypos = 0;
+	for (int i = 0; i < nParticles * 3; i++)
+	{
+		accelArray[i] = v[arraypos++];
+		if (arraypos > 2) arraypos = 0;
 	}
-	glBindBuffer(GL_ARRAY_BUFFER, velBuf[0]);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	glBindBuffer(GL_ARRAY_BUFFER, initVel);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, accelArray);
+	glBindBuffer(GL_ARRAY_BUFFER, velBuf[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, accelArray);
 
 	// Fill the first start time buffer
 	delete[] data;
 	data = new GLfloat[nParticles];
 	float time = 0.0f;
-	float rate = 0.003f;
+	float rate = 0.01f;
 	for (int i = 0; i < nParticles; i++) {
 		data[i] = time;
 		time += rate;
@@ -219,15 +229,15 @@ void ParticleSystem::InitParticleBuffers(bool test)
 	glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0);
 }
 
-void ParticleSystem::SetPosition(glm::vec3 pos)
+void ParticleSystem::SetPosition(glm::vec3 pos, bool setPosition)
 {
-	currentParticlePosition = pos;
+	//particleShader->UseShader();
+	if(setPosition) currentParticlePosition = pos;
 	 //Allocate space for all buffers
 	int size = nParticles * 3 * sizeof(GLfloat);
 
 	// Fill the first position buffer with zeroes
 	float xLength = 5.0f;
-	float step = xLength / nParticles;
 	float currentXpos = 0.0f;
 	int arraypos = 0;
 	for (int i = 0; i < nParticles * 3; i++)
@@ -237,14 +247,55 @@ void ParticleSystem::SetPosition(glm::vec3 pos)
 	}
 	//glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
 	//glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
+	//glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
+	//glBindBuffer(GL_ARRAY_BUFFER, posBuf[1]);
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
 	glBindBuffer(GL_ARRAY_BUFFER, initPos);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
 
 	// Set up particle array 0
-	glBindVertexArray(posArray[0]);
-	glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
+	//glBindVertexArray(posArray[0]);
+	//glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
 	//glVertexAttribPointer(0, 3, GL_FLOAT, FALSE, 0, NULL);
 	//glEnableVertexAttribArray(0);
+}
+
+void ParticleSystem::SetAcceleration(glm::vec3 accel, bool randomise)
+{
+	particleShader->UseShader();
+	particleShader->SendUniformVec3("Accel", accel);
+	currentParticleAcceleration = accel;
+	glm::vec3 v(0.0f);
+	if (randomise)
+	{
+		float velocity, theta, phi;
+		theta = glm::mix(0.0f, (float)glm::pi<float>() / 5.f, randFloat());
+		phi = glm::mix(0.0f, (float)glm::pi<float>()*4.0f, randFloat());
+
+		v.x = sinf(theta) * cosf(phi);
+		v.y = cosf(theta);
+		v.z = sinf(theta) * sinf(phi);
+
+		velocity = glm::mix(1.25f, 1.5f, randFloat());
+		v = glm::normalize(v) * accel;
+	}
+	else
+	{
+		v = accel;
+	}
+
+	//Allocate space for all buffers
+	int size = nParticles * 3 * sizeof(GLfloat);
+
+	int arraypos = 0;
+	for (int i = 0; i < nParticles * 3; i++)
+	{
+		accelArray[i] = v[arraypos++];
+		if (arraypos > 2) arraypos = 0;
+	}
+	glBindBuffer(GL_ARRAY_BUFFER, initVel);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, accelArray);
 }
 
 float ParticleSystem::randFloat()
@@ -252,25 +303,35 @@ float ParticleSystem::randFloat()
 	return ((float)rand() / RAND_MAX);
 }
 
-
-void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos)
+void ParticleSystem::SetLifetime(float life)
 {
-	graphicdeltaT = (float)glfwGetTime() - oldGraphicTime;
-	//SetPosition(currentParticlePosition);
-	oldGraphicTime = (float)glfwGetTime();
-	particletime += graphicdeltaT;
+	currentLifetime = life;
+}
+
+
+void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos, float dt)
+{
+	if (useRandomPositionRange)
+	{
+		glm::vec3 randomPosition(currentParticlePosition);
+		randomPosition.x = glm::mix(randPosRangeXmin, randPosRangeXmax, randFloat());
+		randomPosition.z = glm::mix(randPosRangeZmin, randPosRangeZmax, randFloat());
+		randomPosition.y = currentParticlePosition.y;
+		SetPosition(randomPosition, false);
+	}
+	particletime += dt;
 
 	if (!canDraw) return;
 	glBindTexture(GL_TEXTURE_2D, particleGPUTexture->GetDataLocation());
 
 	float dist = glm::length(glm::vec3(0.0) - cameraPos);
-	float pointSize = 10.0f;
+	float pointSize = 15.0f;
 	/*if (dist > 15.0f) pointSize = 5.0f;
 	else
 	{
 		pointSize = 10.0f;
 	}*/
-	glPointSize(pointSize);
+	glPointSize(pSize);
 	glEnable(GL_BLEND);
 	
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -278,8 +339,8 @@ void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos)
 	//glBlendColor(1.0, 0.0, 0.0, 1.0);
 	particleShader->UseShader();
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleUpdateSub);
-
-	particleShader->SendUniform1f("H", graphicdeltaT);
+	particleShader->SendUniform1f("ParticleLifetime", currentLifetime);
+	particleShader->SendUniform1f("H", dt);
 	particleShader->SendUniform1f("Time", particletime);
 
 	glEnable(GL_RASTERIZER_DISCARD);
@@ -298,6 +359,12 @@ void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos)
 	// Render pass
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleRenderSub);
 
+	glm::mat4 currMat(1.0f);
+	float rotang = rand() % 360;
+	currMat = glm::translate(currMat, glm::vec3(0.5f, 0.5f, 0.0f));
+	currMat = glm::rotate(currMat, 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	currMat = glm::translate(currMat, glm::vec3(-0.5f, -0.5f, 0.0f));
+	particleShader->SendUniformMat4("rotMatrix", currMat);
 
 	particleShader->SendUniformMat4("MVP", VP);
 

@@ -251,6 +251,7 @@ GraphicsManager::GraphicsManager()
 	currentWindow = nullptr;
 	windowShouldBeClosed = false;
 	textRenderer = new TextRender();
+	currentParticleManager = new ParticleManager();
 	windowHasClosed = false;
 	delayTime = 0.0f;
 	
@@ -259,6 +260,7 @@ GraphicsManager::GraphicsManager()
 GraphicsManager::~GraphicsManager()
 {
 	delete textRenderer;
+	delete currentParticleManager;
 	glfwTerminate();
 }
 
@@ -333,10 +335,7 @@ bool GraphicsManager::CreateGraphicsWindow(const int xSize, const int ySize, con
 	currentSkyBox->InitSkybox();
 
 	//Particles
-	currentParticles = new ParticleSystem();
-	currentParticles2 = new ParticleSystem();
-	currentParticles->InitParticleBuffers(true);
-	currentParticles2->InitParticleBuffers(false);
+
 
 	if(!success) return false;
 	return true;
@@ -396,8 +395,8 @@ bool GraphicsManager::DrawAndUpdateWindow(IEntity* *entities, int numEntities, f
 		result &= DrawAndUpdateWindow(*entities++, dt, poll);
 	}
 
-	currentParticles->Draw(currentCamera->GetViewProjMatrix(), currentCamera->GetCameraPosition());
-	currentParticles2->Draw(currentCamera->GetViewProjMatrix(), currentCamera->GetCameraPosition());
+	currentParticleManager->UpdateManager(currentCamera->GetViewProjMatrix(), currentCamera->GetCameraPosition());
+	currentParticleManager->UpdateAndRenderParticleSystems(0.0f);
 	
 	return result;
 }
