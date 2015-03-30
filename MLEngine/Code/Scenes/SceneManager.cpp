@@ -731,8 +731,11 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 	}
 	else
 	{
+		static float starttime;
+		static int i=0;
 		if( currentScene->filename != "data\\scenes\\menu.scn")
 		{
+			
 			if(currentScene->coin > 0 )
 			{
 				std::string coin = "Coin: " + std::to_string(currentScene->coin);
@@ -740,8 +743,7 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 			}
 			else
 			{
-				static float starttime;
-				static int i=0;
+				
 				if(i==0)
 				{
 					starttime = glfwGetTime();
@@ -751,14 +753,13 @@ bool SceneManager::DrawCurrentSceneEntities(float dt)
 				graphicsManager->RenderText("Level Completed",300,400, 60);
 				if(elapsedTime > 2.0f)
 				{
-					starttime=0;
-					i=0;
+					
 					shouldLoadLevel = true;
 					nextLevel = "data\\scenes\\menu.scn";
 				}
 				
 			}
-		}
+		}else i=0;
 	}
 	return result;
 }
