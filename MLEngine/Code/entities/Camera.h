@@ -36,6 +36,7 @@ public:
 	const glm::vec3 GetUpVector();
 	const glm::vec3 GetLookPosition();
 	const glm::mat4 GetViewMatrix();
+	const glm::mat4 GetProjMatrix();
 	const glm::mat4 GetViewProjMatrix();
 	const glm::mat4 GetViewProjSkyboxMatrix();
 	const float GetPitch();

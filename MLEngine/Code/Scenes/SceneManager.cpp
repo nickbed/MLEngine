@@ -10,6 +10,7 @@ SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph)
 	showDebug = false;
 	shouldLoadLevel = false;
 	lastDt = 0.0f;
+	currentPlayer = nullptr;
 }
 
 SceneManager::~SceneManager()
@@ -25,8 +26,9 @@ bool SceneManager::LoadScene(std::unique_ptr<SceneConfig> scene)
 
 	//Init scene after we load in
 	graphicsManager->SetWindowTitle(s.str().c_str());
-	return InitCurrentScene();
+	currentPlayer = currentScene->currentPlayer;
 	isLoading = false;
+	return InitCurrentScene();
 }
 
 std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePath)
@@ -396,10 +398,13 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 
 	if(gotConfig->sceneEntities->find("robot1") != gotConfig->sceneEntities->end())
 	{
+		gotConfig->currentPlayer = (IEntity*)gotConfig->sceneEntities->find("robot1")->second;
 		AddMessageListner("mouseMovement", (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::bind(&Robot::msg_SetHeadPosition, (Robot*)gotConfig->sceneEntities->find("robot1")->second, std::placeholders::_1));
 	}
 
 	AddMessageListner("robotPositionMove", (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::bind(&CameraEntity::msg_SetFollowPosition, (CameraEntity*)gotConfig->sceneCameras->find("camera1")->second, std::placeholders::_1));
+
+	AddMessageListner("robotPositionMove", this, std::bind(&SceneManager::msg_RobotPosition, this, std::placeholders::_1));
 
 	AddMessageListner("setCamera", this, std::bind(&SceneManager::msg_SetCamera, this, std::placeholders::_1));
 	
@@ -584,6 +589,11 @@ bool SceneManager::InitCurrentScene()
 
 bool SceneManager::UpdateCurrentSceneEntities(float dt)
 {
+	if (currentPlayer != nullptr)
+	{
+		graphicsManager->currentParticles->SetPosition(currentPlayer->getTransform()->GetPosition());
+		graphicsManager->currentParticles2->SetPosition(currentPlayer->getTransform()->GetPosition());
+	}
 	lastDt = dt;
 	//iterate through vector and update all entities and their components
 	//Iterate through vector and init all entities
@@ -872,4 +882,10 @@ IEntity* SceneManager::FindEntity(std::string id)
 	}
 	IEntity* entToFind = currentScene->sceneEntities->find(id)->second;
 	return entToFind;
+}
+void SceneManager::msg_RobotPosition(mauvemessage::BaseMessage* msg)
+{
+	mauvemessage::PositionMessage* posMsg = static_cast<mauvemessage::PositionMessage*>(msg);
+	glm::vec3 messagePos = (glm::vec3)*posMsg;
+	
 }

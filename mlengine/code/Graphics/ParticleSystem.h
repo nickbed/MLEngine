@@ -4,6 +4,7 @@
 #include "..\resources\Shader.h"
 #include "..\resources\GPUTexture.h"
 #include "glm\gtc\constants.hpp"
+#include "glm\gtc\matrix_transform.hpp"
 
 class ParticleSystem
 {
@@ -13,7 +14,8 @@ public:
 
 	void Init();
 
-	void Draw(glm::mat4 MVP, glm::vec3 cameraPos);
+	void Draw(glm::mat4 VP ,glm::vec3 cameraPos);
+	void SetPosition(glm::vec3 pos);
 	Shader* particleShader;
 	bool canDraw;
 	void InitParticleBuffers(bool test);
@@ -34,6 +36,8 @@ private:
 	int nParticles;
 	float angle;
 	float particletime, deltaT, graphicdeltaT, oldGraphicTime;
+	GLfloat *posArray;
+	glm::vec3 currentParticlePosition;
 };
 
 #endif

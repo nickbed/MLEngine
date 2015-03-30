@@ -64,6 +64,8 @@ public:
 
 	void msg_LoadGame(mauvemessage::BaseMessage* msg);
 
+	void msg_RobotPosition(mauvemessage::BaseMessage* msg);
+
 	void ReloadScene();
 
 	bool ShouldLoadLevel();
@@ -84,6 +86,7 @@ private:
 
 	std::unique_ptr<GraphicsManager> graphicsManager;
 	static std::unique_ptr<SceneConfig> currentScene;
+	IEntity* currentPlayer;
 	bool isLoading;
 	bool showDebug;
 	bool shouldLoadLevel;

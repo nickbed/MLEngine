@@ -33,12 +33,14 @@ void ParticleSystem::Init()
 	particleUpdateSub = glGetSubroutineIndex(particleShader->GetShaderID(), GL_VERTEX_SHADER, "update");
 	particleShader->UseShader();
 	//particleShader->SendUniform1i("ParticleTex", particleGPUTexture->GetDataLocation());
-	particleShader->SendUniform1f("ParticleLifetime", 10.5f);
+	particleShader->SendUniform1f("ParticleLifetime", 1.5f);
 	particleShader->SendUniformVec3("Accel", glm::vec3(0.0f, -0.4f, 0.0f));
 
 	InitParticleBuffers(false);
 
 	canDraw = true;
+
+	currentParticlePosition = glm::vec3(0.0);
 }
 
 void ParticleSystem::InitParticleBuffers(bool test)
@@ -73,6 +75,7 @@ void ParticleSystem::InitParticleBuffers(bool test)
 	glBufferData(GL_ARRAY_BUFFER, nParticles * sizeof(float), NULL, GL_DYNAMIC_COPY);
 
 	// Fill the first position buffer with zeroes
+	posArray = new GLfloat[nParticles * 3];
 	GLfloat *data = new GLfloat[nParticles * 3];
 	float xLength = 5.0f;
 	if (test) xLength = 10.0f;
@@ -83,31 +86,31 @@ void ParticleSystem::InitParticleBuffers(bool test)
 	{
 		if (isX == 0)
 		{
-			data[i] = currentXpos;
+			posArray[i] = currentXpos;
 			currentXpos += step;
 		}
 		else
 		{
 			if (isX >= 2) isX = -1;
-			if (test)data[i] = 10.0f;
+			if (test)posArray[i] = 10.0f;
 			else
 			{
-				data[i] = 0.0f;
+				posArray[i] = 0.0f;
 			}
 		}
 		++isX;
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
 	glBindBuffer(GL_ARRAY_BUFFER, initPos);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
 
 	// Fill the first velocity buffer with random velocities
 	glm::vec3 v(0.0f);
 	float velocity, theta, phi;
 	for (int i = 0; i < nParticles; i++) {
 		
-		theta = glm::mix(0.0f, (float)glm::pi<float>() / 6.0f, randFloat());
+		theta = glm::mix(0.0f, (float)glm::pi<float>() / 3.0f, randFloat());
 		phi = glm::mix(0.0f, (float)glm::pi<float>()*2.0f, randFloat());
 
 		v.x = sinf(theta) * cosf(phi);
@@ -118,7 +121,7 @@ void ParticleSystem::InitParticleBuffers(bool test)
 		v = glm::normalize(v) * velocity;
 
 		data[3 * i] = v.x;
-		data[3 * i + 1] = v.y;
+		data[3 * i + 1] = -v.y;
 		data[3 * i + 2] = v.z;
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, velBuf[0]);
@@ -208,17 +211,47 @@ void ParticleSystem::InitParticleBuffers(bool test)
 	glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0);
 }
 
+void ParticleSystem::SetPosition(glm::vec3 pos)
+{
+	currentParticlePosition = pos;
+	 //Allocate space for all buffers
+	int size = nParticles * 3 * sizeof(GLfloat);
+
+	// Fill the first position buffer with zeroes
+	float xLength = 5.0f;
+	float step = xLength / nParticles;
+	float currentXpos = 0.0f;
+	int arraypos = 0;
+	for (int i = 0; i < nParticles * 3; i++)
+	{
+		posArray[i] = pos[arraypos++];
+		if (arraypos > 2) arraypos = 0;
+	}
+	//glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
+	glBindBuffer(GL_ARRAY_BUFFER, initPos);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, posArray);
+
+	// Set up particle array 0
+	glBindVertexArray(posArray[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, FALSE, 0, NULL);
+	//glEnableVertexAttribArray(0);
+}
+
 float ParticleSystem::randFloat()
 {
 	return ((float)rand() / RAND_MAX);
 }
 
 
-void ParticleSystem::Draw(glm::mat4 MVP, glm::vec3 cameraPos)
+void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos)
 {
 	graphicdeltaT = (float)glfwGetTime() - oldGraphicTime;
+	//SetPosition(currentParticlePosition);
 	oldGraphicTime = (float)glfwGetTime();
 	particletime += graphicdeltaT;
+
 	if (!canDraw) return;
 	glBindTexture(GL_TEXTURE_2D, particleGPUTexture->GetDataLocation());
 
@@ -255,7 +288,7 @@ void ParticleSystem::Draw(glm::mat4 MVP, glm::vec3 cameraPos)
 	// Render pass
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleRenderSub);
 
-	particleShader->SendUniformMat4("MVP", MVP);
+	particleShader->SendUniformMat4("MVP", VP);
 
 	glBindVertexArray(particleArray[drawBuf]);
 

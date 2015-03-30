@@ -39,6 +39,7 @@ struct SceneConfig
 		numActiveEntities = 0;
 		numActiveLights = 0;
 		coin =0;
+		currentPlayer = nullptr;
 	}
 
 	~SceneConfig()
@@ -86,6 +87,7 @@ struct SceneConfig
 		sceneEntities = std::move(s.sceneEntities);
 		sceneCameras = std::move(s.sceneCameras);
 		sceneLights = std::move(s.sceneLights);
+		currentPlayer = std::move(s.currentPlayer);
 	}
 	//END Workaround for a VCC bug -_-
 
@@ -98,6 +100,7 @@ struct SceneConfig
 	int numActiveLights;
 	Shader* currentSceneShader;
 	CameraEntity* currentSceneCamera;
+	IEntity* currentPlayer;
 	//SceneLight* currentSceneLight;
 
 	//For storing stuff created by the JSON file
