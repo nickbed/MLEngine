@@ -50,7 +50,7 @@ void update() {
 subroutine (RenderPassType)
 void render() {
     float age = Time - VertexStartTime;
-    Transp = 1.0 - age / ParticleLifetime;
+    Transp = ParticleLifetime - age;
 	colour = 0.5 + age;// / 10;
     gl_Position = MVP * vec4(VertexPosition, 1.0);
 }

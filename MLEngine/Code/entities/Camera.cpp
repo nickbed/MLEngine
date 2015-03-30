@@ -120,6 +120,15 @@ void CameraEntity::msg_SetLookPosition(mauvemessage::BaseMessage* msg)
 	}
 	if(yaw > glm::radians(360.0f) || yaw < glm::radians(-360.0f)) yaw = 0.0f;
 
+	if (yaw > glm::radians(360.0f))
+	{
+		yaw = (yaw - glm::radians(360.0f));
+	}
+	else if (yaw < glm::radians(-360.0f))
+	{
+		yaw = (yaw + glm::radians(-360.0f));
+	}
+
 	glm::vec3 lookDirection(glm::cos(pitch) * glm::sin(yaw), glm::sin(pitch), glm::cos(pitch) * glm::cos(yaw));
 	cameraDirection = glm::normalize(lookDirection);
 

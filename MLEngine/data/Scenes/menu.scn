@@ -6,6 +6,7 @@
     "currentlight": "light0",
 	"messagehandlers": false,
 	"menu": true,
+	"activelights": ["light0"],
     "activeentities": [
       "ent1"
     ],
@@ -70,7 +71,7 @@
         "lightparams": {
           "posX": 0,
           "posY": 0,
-          "posZ": 0,
+          "posZ": 50,
           "intensityR": 0.5,
           "intensityG": 0.1,
           "intensityB": 0.1,

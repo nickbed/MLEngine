@@ -35,9 +35,8 @@ void ParticleManager::ClearAllParticleSystems()
 	for (auto it = ParticleSystems.begin(); it < ParticleSystems.end(); ++it)
 	{
 		delete (*it);
-		it = ParticleSystems.erase(it);
 	}
-
+	ParticleSystems.clear();
 }
 
 void ParticleManager::UpdateAndRenderParticleSystems(float graphicsdt)

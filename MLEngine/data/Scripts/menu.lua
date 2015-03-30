@@ -19,7 +19,7 @@ function Menu.Update(this, dt)
 	end
 	if (key.Pressed("v")) 
 	then
-		scene.LoadNew("data\\scenes\\cliff.scn")
+		scene.LoadNew("data\\scenes\\demolevel.scn")
 	end
 end
 

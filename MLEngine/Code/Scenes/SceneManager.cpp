@@ -3,6 +3,7 @@
 std::unique_ptr<SceneConfig> SceneManager::currentScene;
 bool SceneManager::shouldLoadLevel;
 std::string SceneManager::nextLevel;
+static ParticleSystem* part2;
 
 SceneManager::SceneManager(std::unique_ptr<GraphicsManager> graph, PhysicsSystem* physics)
 {
@@ -101,6 +102,10 @@ std::unique_ptr<SceneConfig> SceneManager::LoadSceneFromFile(const char* filePat
 					{
 						entToCreate = new GeneralEntity();
 						entToCreate->id = entID.c_str();
+						if (entID == "River.obj0")
+						{
+							gotConfig->hasWaterfall = true;
+						}
 					}
 					if (entType == "robot")
 					{
@@ -598,13 +603,88 @@ bool SceneManager::InitCurrentScene()
 	graphicsManager->SetCurrentShader(currentScene->currentSceneShader);
 	graphicsManager->currentParticles = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(-1.0), glm::vec3(0.0), "data\\images\\fire.png");
 	graphicsManager->currentParticles2 = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(-1.0), glm::vec3(0.0), "data\\images\\fire.png");
+	graphicsManager->currentParticles->SetParticleSize(15.0f);
+	graphicsManager->currentParticles->SetLifetime(1.0f);
+	graphicsManager->currentParticles2->SetParticleSize(15.0f);
+	graphicsManager->currentParticles2->SetLifetime(1.0f);
+	graphicsManager->currentParticles2->isFire = true;
+	graphicsManager->currentParticles->isFire = true;
 
+
+
+
+
+	if (currentScene->filename == "data\\scenes\\TomsWorld.scn")
+	{
+	//Waterfall
+	ParticleSystem* waterfall = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -8.9f, 0.0f), "data\\images\\waterdrop.png");
+	waterfall->SetParticleSize(8.0f);
+	//part->SetLifetime(100.0f);
+	//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
+	waterfall->SetPosition(glm::vec3(0.0f, 25.0f, 0.0f), true);
+	waterfall->SetUseRandomPositionRange(true, -34.0f, -93.0f, -15.0f, -95.0f);
+	waterfall->SetParticleSize(15.0f);
+	waterfall->SetLifetime(5.0f);
 	ParticleSystem* part = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -8.9f, 0.0f), "data\\images\\waterdrop.png");
 	part->SetParticleSize(8.0f);
 	//part->SetLifetime(100.0f);
 	//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
 	part->SetPosition(glm::vec3(0.0f, 45.0f, 0.0f), true);
-	part->SetUseRandomPositionRange(true, -100.0f, -100.0f, 100.0f, 100.0f);
+	part->SetUseRandomPositionRange(true, -150.0f, -150.0f, 150.0f, 150.0f);
+
+	}
+	else if (currentScene->filename == "data\\scenes\\xc_sandyspines.scn")
+	{
+		ParticleSystem* part = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -5.9f, 0.0f), "data\\images\\sand.png");
+		part->SetParticleSize(2.0f);
+		part->SetLifetime(8.0f);
+		//part->SetLifetime(100.0f);
+		//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
+		part->SetPosition(glm::vec3(0.0f, 45.0f, 0.0f), true);
+		part->SetUseRandomPositionRange(true, -150.0f, -150.0f, 150.0f, 150.0f);
+	}
+	else if (currentScene->filename == "data\\scenes\\ice.scn")
+	{
+		ParticleSystem* part = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -6.9f, 0.0f), "data\\images\\snow.png");
+		part->SetParticleSize(8.0f);
+		part->SetLifetime(6.0f);
+		//part->SetLifetime(100.0f);
+		//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
+		part->SetPosition(glm::vec3(0.0f, 45.0f, 0.0f), true);
+		part->SetUseRandomPositionRange(true, -50.0f, -50.0f, 50.0f, 50.0f);
+	}
+	else if (currentScene->filename == "data\\scenes\\demolevel.scn")
+	{
+		ParticleSystem* part = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -5.9f, 0.0f), "data\\images\\sand.png");
+		part->SetParticleSize(2.0f);
+		part->SetLifetime(8.0f);
+		//part->SetLifetime(100.0f);
+		//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
+		part->SetPosition(glm::vec3(0.0f, 45.0f, 0.0f), true);
+		part->SetUseRandomPositionRange(true, -150.0f, -150.0f, 150.0f, 150.0f);
+		ParticleSystem* part1 = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -6.9f, 0.0f), "data\\images\\snow.png");
+		part1->SetParticleSize(8.0f);
+		part1->SetLifetime(6.0f);
+		//part->SetLifetime(100.0f);
+		//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
+		part1->SetPosition(glm::vec3(0.0f, 45.0f, 0.0f), true);
+		part1->SetUseRandomPositionRange(true, -50.0f, -50.0f, 50.0f, 50.0f);
+		part2 = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(-20.0f, -10.0f, -30.0f), glm::vec3(8.0f, 8.9f, 8.0f), "data\\images\\waterdrop.png");
+		part2->SetParticleSize(8.0f);
+		part2->SetPosition(glm::vec3(-20.0f, 1.0f, -30.0f), true);
+		//part->SetLifetime(100.0f);
+		part2->SetAcceleration(glm::vec3(4.0f, 4.0f, 4.0f), true, 50.0f);
+	}
+	else
+	{
+		ParticleSystem* part = graphicsManager->currentParticleManager->AddNewParticleSystem(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -8.9f, 0.0f), "data\\images\\waterdrop.png");
+		part->SetParticleSize(8.0f);
+		//part->SetLifetime(100.0f);
+		//part->SetAcceleration(glm::vec3(0.0f, -5.0f, 0.0f), false);
+		part->SetPosition(glm::vec3(0.0f, 45.0f, 0.0f), true);
+		part->SetUseRandomPositionRange(true, -150.0f, -150.0f, 150.0f, 150.0f);
+	}
+
 	//Iterate through vector and init all entities
 	/*for (std::vector<IEntity*>::iterator it = currentScene->activeEntities.begin(); it != currentScene->activeEntities.end(); ++it)
 	{
@@ -655,8 +735,8 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 		rotTranslate *= glm::scale(glm::mat4(1.0f), glm::vec3(10.0, 1.0, 10.0));
 		rotTranslate *= glm::rotate(-25.0f, glm::vec3(0.0, 1.0, 0.0));
 		pointOffset = rotTranslate * pointOffset;
-		graphicsManager->currentParticles->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true);
-		graphicsManager->currentParticles2->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true);
+		graphicsManager->currentParticles->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true, 5.0f);
+		graphicsManager->currentParticles2->SetAcceleration(glm::vec3(pointOffset.x, -0.2f, pointOffset.z), true, 5.0f);
 	}
 	lastDt = dt;
 	//iterate through vector and update all entities and their components
@@ -687,6 +767,11 @@ bool SceneManager::UpdateCurrentSceneEntities(float dt)
 	//		CameraEntity* gotCamera = (*it).second;
 	//		gotCamera->Update(dt);
 	//}
+	if (currentScene->filename == "data\\scenes\\demolevel.scn")
+	{
+		part2->SetAcceleration(glm::vec3(1.0f, 1.0f, 1.0f), true, 50.0f);
+	}
+
 	currentScene->currentSceneCamera->Listning = true;
 	currentScene->currentSceneCamera->Update(dt);
 	graphicsManager->PollWindow();

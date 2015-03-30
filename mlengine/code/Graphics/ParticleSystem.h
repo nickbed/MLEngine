@@ -19,13 +19,14 @@ public:
 	void LoadTexture(const char* filename);
 
 	void SetPosition(glm::vec3 pos, bool setPosition);
-	void SetAcceleration(glm::vec3 accel, bool randomise);
+	void SetAcceleration(glm::vec3 accel, bool randomise, float randomFactor);
 	void SetLifetime(float lifetime);
 	void SetUseRandomPositionRange(bool enable, float minX, float minZ, float maxX, float maxZ);
 	void SetParticleSize(float size);
 
 	Shader* particleShader;
 	bool canDraw;
+	bool isFire;
 	void InitParticleBuffers(glm::vec3 accel, glm::vec3 position, const char* texturename);
 private:
 

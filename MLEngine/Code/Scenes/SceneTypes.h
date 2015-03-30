@@ -40,6 +40,7 @@ struct SceneConfig
 		numActiveLights = 0;
 		coin =0;
 		currentPlayer = nullptr;
+		hasWaterfall = false;
 	}
 
 	~SceneConfig()
@@ -101,6 +102,7 @@ struct SceneConfig
 	Shader* currentSceneShader;
 	CameraEntity* currentSceneCamera;
 	IEntity* currentPlayer;
+	bool hasWaterfall;
 	//SceneLight* currentSceneLight;
 
 	//For storing stuff created by the JSON file

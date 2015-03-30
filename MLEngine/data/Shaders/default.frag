@@ -22,7 +22,7 @@ layout (location=0) out vec4 FragColour;
 void main()
 {
 
-	float linearAttenuation = 0.06;
+	float linearAttenuation = 0.02;
 	vec3 intensity = vec3(0.5, 0.5, 0.5);
 	vec4 ambientLight = vec4(0.1, 0.1, 0.1, 0.0);
 	vec4 ambient = ambientLight;

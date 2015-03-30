@@ -1,7 +1,6 @@
 {
    "scene" : {
       "activeentities" : [
-         "Leon.obj",
          "crate1",
          "crate2",
          "crate3",
@@ -178,6 +177,43 @@
                "scaleX" : 1,
                "scaleY" : 1,
                "scaleZ" : 1
+            },
+            "type" : "generalentity"
+         },
+		 "coin.obj0" : {
+            "components" : {
+               "boundingboxo" : {
+                  "centerX" : 0,
+                  "centerY" : 0,
+                  "centerZ" : 0,
+                  "density" : 1,
+                  "extentX" : 0.8677774667739868,
+                  "extentY" : 0.8811249732971191,
+                  "extentZ" : 0.110152505338192,
+                  "static" : true,
+                  "type" : "boundingboxo"
+               },
+               "coin.obj0" : {
+                  "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                  "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                  "id" : "coin.obj0",
+                  "type" : "staticmesh"
+               }
+            },
+			"script": {
+			  "path": "data\\Scripts\\coin.lua",
+			  "identifier": "Coin"
+			},
+            "transform" : {
+               "posX" : -4.900000095367432,
+               "posY" : 5.5,
+               "posZ" : -0.9000000357627869,
+               "rotateX" : 0,
+               "rotateY" : -0,
+               "rotateZ" : 0,
+               "scaleX" : 0.5,
+               "scaleY" : 0.5,
+               "scaleZ" : 0.5
             },
             "type" : "generalentity"
          },

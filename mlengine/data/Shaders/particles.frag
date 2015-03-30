@@ -14,7 +14,7 @@ void main()
     FragColor = texture(ParticleTex, texCoord);
     FragColor.a *= Transp;
 	//FragColor.r = 1.0f;
-	//FragColor.g *= colour;
+	FragColor.g *= colour;
 	//FragColor.b = 0.0f;
 	//FragColor.rgb /= vec3(Transp);
 	//FragColor.a = 1.0;

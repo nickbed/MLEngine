@@ -20,6 +20,7 @@ void ParticleSystem::Init()
 	drawBuf = 1;
 	currentLifetime = 5.0f;
 	pSize = 10.0f;
+	isFire = false;
 
 	glEnable(GL_POINT_SPRITE);
 
@@ -261,17 +262,17 @@ void ParticleSystem::SetPosition(glm::vec3 pos, bool setPosition)
 	//glEnableVertexAttribArray(0);
 }
 
-void ParticleSystem::SetAcceleration(glm::vec3 accel, bool randomise)
+void ParticleSystem::SetAcceleration(glm::vec3 accel, bool randomise, float randomFactor)
 {
 	particleShader->UseShader();
-	particleShader->SendUniformVec3("Accel", accel);
-	currentParticleAcceleration = accel;
+
+
 	glm::vec3 v(0.0f);
 	if (randomise)
 	{
 		float velocity, theta, phi;
-		theta = glm::mix(0.0f, (float)glm::pi<float>() / 5.f, randFloat());
-		phi = glm::mix(0.0f, (float)glm::pi<float>()*4.0f, randFloat());
+		theta = glm::mix(0.0f, (float)glm::pi<float>() / randomFactor, randFloat());
+		phi = glm::mix(0.0f, (float)glm::pi<float>()*randomFactor, randFloat());
 
 		v.x = sinf(theta) * cosf(phi);
 		v.y = cosf(theta);
@@ -279,12 +280,13 @@ void ParticleSystem::SetAcceleration(glm::vec3 accel, bool randomise)
 
 		velocity = glm::mix(1.25f, 1.5f, randFloat());
 		v = glm::normalize(v) * accel;
+		//particleShader->SendUniformVec3("Accel", v);
 	}
 	else
 	{
 		v = accel;
 	}
-
+	currentParticleAcceleration = v;
 	//Allocate space for all buffers
 	int size = nParticles * 3 * sizeof(GLfloat);
 
@@ -334,8 +336,18 @@ void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos, float dt)
 	glPointSize(pSize);
 	glEnable(GL_BLEND);
 	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if (isFire)
+	{
+		glBlendFunc(GL_DST_COLOR, GL_SRC_ALPHA);
+	}
+	else
+	{
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
+	//glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+
 	//glBlendColor(1.0, 0.0, 0.0, 1.0);
 	particleShader->UseShader();
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleUpdateSub);
@@ -360,9 +372,9 @@ void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos, float dt)
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleRenderSub);
 
 	glm::mat4 currMat(1.0f);
-	float rotang = rand() % 360;
+	float rotang = rand() % 10;
 	currMat = glm::translate(currMat, glm::vec3(0.5f, 0.5f, 0.0f));
-	currMat = glm::rotate(currMat, 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	currMat = glm::rotate(currMat, rotang, glm::vec3(0.0f, 0.0f, 1.0f));
 	currMat = glm::translate(currMat, glm::vec3(-0.5f, -0.5f, 0.0f));
 	particleShader->SendUniformMat4("rotMatrix", currMat);
 

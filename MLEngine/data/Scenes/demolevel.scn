@@ -924,7 +924,7 @@
       "light0": {
         "lightparams": {
           "posX": -5,
-          "posY": 10,
+          "posY": 30,
           "posZ": -10,
           "intensityR": 0.5,
           "intensityG": 0.5,
