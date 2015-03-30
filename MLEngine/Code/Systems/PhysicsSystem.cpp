@@ -49,8 +49,10 @@ void PhysicsSystem::msg_HandleCollision(mauvemessage::BaseMessage* msg)
 		glm::vec3 point = boxa->GetParentTransform()->GetPosition() + (collision.Axis * collision.Sign * boxa->GetExtent());
 		if(!collision.Top) //if one box is not sitting on top of the other
 		{
-			boxa->Rigid_vel =  boxa->Rigid_inverse * (boxa->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
-			boxb->Rigid_vel =  boxb->Rigid_inverse * (boxb->GetParentTransform()->GetPosition()-point) * glm::vec3(1,0,1);
+			float vela = boxa->Rigid_vel.length();
+			float velb = boxb->Rigid_vel.length();
+			boxa->Rigid_vel =  boxa->Rigid_inverse * (boxa->GetParentTransform()->GetPosition()-point) * (1.f/vela) * glm::vec3(1,0,1);
+			boxb->Rigid_vel =  boxb->Rigid_inverse * (boxb->GetParentTransform()->GetPosition()-point) * (1.f/vela) * glm::vec3(1,0,1);
 		}
 		float inertiaa = (1.f/12.f*boxa->Rigid_mass)*(pow((boxa->GetExtent().y*2),2)+pow((boxa->GetExtent().z*2),2));
 		float inertiab = (1.f/12.f*boxb->Rigid_mass)*(pow((boxb->GetExtent().y*2),2)+pow((boxb->GetExtent().z*2),2));

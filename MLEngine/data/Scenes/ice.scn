@@ -4,28 +4,31 @@
     "sceneshader": "data\\shaders\\default",
     "currentcamera": "camera0",
     "activelights": ["light0"],
-	"messagehandlers": true,
-	"menu": false,
-	"activeentities": [
+    "messagehandlers": true,
+    "menu": false,
+    "activeentities": [
       "robot1",
-	  "snowplane",
-	  "block1",
-	  "block2",
-	  "block3",
-	  "tree1",
-	  "tree2",
-	  "wall1",
-	  "wall2",
-	  "wall3",
-	  "wall4"
+      "snowplane",
+      "block1",
+      "block2",
+      "block3",
+      "block4",
+      "tree1",
+      "tree2",
+      "wall1",
+      "wall2",
+      "wall3",
+      "wall4",
+	  "coin01",
+	  "coin02"
     ],
-	"entities":{
-	  "robot1": {
+    "entities":{
+      "robot1": {
         "type": "robot",
-		"script": {
-		  "path": "data\\Scripts\\jump.lua",
-		  "identifier": "Jump"
-		},
+        "script": {
+          "path": "data\\Scripts\\jump.lua",
+          "identifier": "Jump"
+        },
         "transform": {
           "posX": 0,
           "posY": 1,
@@ -44,16 +47,16 @@
             "OBJModel": "data\\models\\robbody.obj",
             "TextureFile": "data\\images\\rainbow.png"
           },
-		  "boundingcapsule": {
-		    "type":"boundingcapsule",
-			"centerX": 0.0,
-			"centerY": 0.0,
-			"centerZ": 0.0,
-			"radius": 0.5,
-			"extent": 0.5,
-			"static": false,
-			"density": 50.0
-		  },
+          "boundingcapsule": {
+            "type":"boundingcapsule",
+            "centerX": 0.0,
+            "centerY": 0.0,
+            "centerZ": 0.0,
+            "radius": 0.5,
+            "extent": 0.5,
+            "static": false,
+            "density": 50.0
+          },
           "robotlleg": {
             "id": "robotLeftLeg",
             "type": "basicbone",
@@ -80,7 +83,7 @@
           }
         }
       },
-	  "snowplane": {
+      "snowplane": {
         "type": "generalentity",
         "transform": {
           "posX": 0,
@@ -100,26 +103,26 @@
             "OBJModel": "data\\models\\snowplane.obj",
             "TextureFile": "data\\images\\snowplane.tga"
           },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 0.0,
-			"centerZ": 0.0,
-			"extentX": 50.0,
-			"extentY": 0.1,
-			"extentZ": 50.0,
-			"static": true,
-			"density": 0.001,
-			"friction": 0.03
-		  }
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 0.0,
+            "centerZ": 0.0,
+            "extentX": 50.0,
+            "extentY": 0.1,
+            "extentZ": 50.0,
+            "static": true,
+            "density": 0.001,
+            "friction": 0.03
+          }
         }
       },
-	   "tree1": {
+       "tree1": {
         "type": "generalentity",
         "transform": {
-          "posX": -25.8,
+          "posX": 25.8,
           "posY": 0,
-          "posZ": -5.7,
+          "posZ": -30.7,
           "scaleX": 2,
           "scaleY": 2,
           "scaleZ": 2,
@@ -133,15 +136,27 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\snowtree.obj",
             "TextureFile": "data\\images\\snowtree.tga"
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 2.0,
+            "centerZ": 0.0,
+            "extentX": 1.0,
+            "extentY": 2.0,
+            "extentZ": 1.0,
+            "static": true,
+            "density": 0.001,
+            "friction": 0.03
+          }
         }
       },
-	  "tree2": {
+      "tree2": {
         "type": "generalentity",
         "transform": {
           "posX": -24.8,
           "posY": 0,
-          "posZ": -12.7,
+          "posZ": -32.7,
           "scaleX": 2.1,
           "scaleY": 2.5,
           "scaleZ": 2.1,
@@ -155,13 +170,25 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\snowtree.obj",
             "TextureFile": "data\\images\\snowtree.tga"
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 2.0,
+            "centerZ": 0.0,
+            "extentX": 1.0,
+            "extentY": 2.0,
+            "extentZ": 1.0,
+            "static": true,
+            "density": 0.001,
+            "friction": 0.03
+          }
         }
       },
-	  "block1": {
+      "block1": {
         "type": "generalentity",
         "transform": {
-          "posX": -45.8,
+          "posX": -20.8,
           "posY": 0,
           "posZ": -5.7,
           "scaleX": 1,
@@ -177,22 +204,22 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\iceblock.obj",
             "TextureFile": "data\\images\\iceblock.tga"
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 5.0,
-			"centerZ": 0.0,
-			"extentX": 5.0,
-			"extentY": 5.0,
-			"extentZ": 5.0,
-			"static": false,
-			"density": 0.001,
-			"friction": 0.03
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 5.0,
+            "centerZ": 0.0,
+            "extentX": 5.0,
+            "extentY": 5.0,
+            "extentZ": 5.0,
+            "static": false,
+            "density": 0.001,
+            "friction": 0.03
+          }
         }
-		},
-		"block2": {
+        },
+        "block2": {
         "type": "generalentity",
         "transform": {
           "posX": -15.8,
@@ -211,22 +238,22 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\iceblock.obj",
             "TextureFile": "data\\images\\iceblock.tga"
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 10.0,
-			"centerZ": 0.0,
-			"extentX": 10.0,
-			"extentY": 10.0,
-			"extentZ": 10.0,
-			"static": false,
-			"density": 0.001,
-			"friction": 0.03
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 10.0,
+            "centerZ": 0.0,
+            "extentX": 10.0,
+            "extentY": 10.0,
+            "extentZ": 10.0,
+            "static": false,
+            "density": 0.001,
+            "friction": 0.03
+          }
         }
-		},
-		"block3": {
+        },
+        "block3": {
         "type": "generalentity",
         "transform": {
           "posX": 25.8,
@@ -245,22 +272,56 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\iceblock.obj",
             "TextureFile": "data\\images\\iceblock.tga"
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 2.5,
-			"centerZ": 0.0,
-			"extentX": 2.5,
-			"extentY": 2.5,
-			"extentZ": 2.5,
-			"static": false,
-			"density": 0.002,
-			"friction": 0.03
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 2.5,
+            "centerZ": 0.0,
+            "extentX": 2.5,
+            "extentY": 2.5,
+            "extentZ": 2.5,
+            "static": false,
+            "density": 0.002,
+            "friction": 0.03
+          }
         }
-	  },
-	  "wall1": {
+      },
+      "block4": {
+        "type": "generalentity",
+        "transform": {
+          "posX": 15.0,
+          "posY": 0,
+          "posZ": 15.0,
+          "scaleX": 1.5,
+          "scaleY": 1.5,
+          "scaleZ": 1.5,
+          "rotateX": 0,
+          "rotateY": 0,
+          "rotateZ": 0
+        },
+         "components": {
+          "iceblock": {
+            "id": "iceblock",
+            "type": "staticmesh",
+            "OBJModel": "data\\models\\iceblock.obj",
+            "TextureFile": "data\\images\\iceblock.tga"
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 7.5,
+            "centerZ": 0.0,
+            "extentX": 7.5,
+            "extentY": 7.5,
+            "extentZ": 7.5,
+            "static": false,
+            "density": 0.001,
+            "friction": 0.03
+          }
+        }
+        },
+      "wall1": {
         "type": "generalentity",
         "transform": {
           "posX": 0,
@@ -279,22 +340,22 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\iceblock.obj",
             "TextureFile": "data\\images\\iceblock.tga"
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 50.0,
-			"centerZ": 0.0,
-			"extentX": 50.0,
-			"extentY": 50.0,
-			"extentZ": 5.0,
-			"static": true,
-			"density": 0.001,
-			"friction": 0.03
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 50.0,
+            "centerZ": 0.0,
+            "extentX": 50.0,
+            "extentY": 50.0,
+            "extentZ": 5.0,
+            "static": true,
+            "density": 0.001,
+            "friction": 0.03
+          }
          }
-		},
-		"wall2": {
+        },
+        "wall2": {
         "type": "generalentity",
         "transform": {
           "posX": 0,
@@ -313,22 +374,22 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\iceblock.obj",
             "TextureFile": "data\\images\\iceblock.tga"
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 50.0,
-			"centerZ": 0.0,
-			"extentX": 50.0,
-			"extentY": 50.0,
-			"extentZ": 5.0,
-			"static": true,
-			"density": 0.001,
-			"friction": 0.03
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 50.0,
+            "centerZ": 0.0,
+            "extentX": 50.0,
+            "extentY": 50.0,
+            "extentZ": 5.0,
+            "static": true,
+            "density": 0.001,
+            "friction": 0.03
+          }
          }
-		},
-		"wall3": {
+        },
+        "wall3": {
         "type": "generalentity",
         "transform": {
           "posX": -50,
@@ -347,22 +408,22 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\iceblock.obj",
             "TextureFile": "data\\images\\iceblock.tga"
-		  },
-		  "boundingboxo": {
-		    "type":"boundingboxo",
-			"centerX": 0.0,
-			"centerY": 50.0,
-			"centerZ": 0.0,
-			"extentX": 5.0,
-			"extentY": 50.0,
-			"extentZ": 50.0,
-			"static": true,
-			"density": 0.001,
-			"friction": 0.03
-		  }
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 50.0,
+            "centerZ": 0.0,
+            "extentX": 5.0,
+            "extentY": 50.0,
+            "extentZ": 50.0,
+            "static": true,
+            "density": 0.001,
+            "friction": 0.03
+          }
          }
-		},
-		"wall4": {
+        },
+        "wall4": {
         "type": "generalentity",
         "transform": {
           "posX": 50,
@@ -381,23 +442,97 @@
             "type": "staticmesh",
             "OBJModel": "data\\models\\iceblock.obj",
             "TextureFile": "data\\images\\iceblock.tga"
-		  },
+          },
+          "boundingboxo": {
+            "type":"boundingboxo",
+            "centerX": 0.0,
+            "centerY": 50.0,
+            "centerZ": 0.0,
+            "extentX": 5.0,
+            "extentY": 50.0,
+            "extentZ": 50.0,
+            "static": true,
+            "density": 0.001,
+            "friction": 0.03
+          }
+         }
+        },
+		"coin01" : {
+          "components" : {
+             "coin.obj0" : {
+                "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                "id" : "coin.obj0",
+                "type" : "staticmesh"
+             },
 		  "boundingboxo": {
 		    "type":"boundingboxo",
 			"centerX": 0.0,
-			"centerY": 50.0,
+			"centerY": 0.0,
 			"centerZ": 0.0,
-			"extentX": 5.0,
-			"extentY": 50.0,
-			"extentZ": 50.0,
+			"extentX": 1,
+			"extentY": 1,
+			"extentZ": 1,
 			"static": true,
-			"density": 0.001,
-			"friction": 0.03
+			"density": 0.01
 		  }
-         }
-		}
-	},
-	 "cameras": {
+          },
+		"script": {
+			  "path": "data\\Scripts\\coin.lua",
+			  "identifier": "Coin"
+			},
+          "transform" : {
+             "posX" : -25,
+             "posY" : 25,
+             "posZ" : -25,
+             "rotateX" : 0,
+             "rotateY" : -0,
+             "rotateZ" : 0,
+             "scaleX" : 0.5,
+             "scaleY" : 0.5,
+             "scaleZ" : 0.5
+          },
+          "type" : "generalentity"
+      },
+	  "coin02" : {
+          "components" : {
+             "coin.obj0" : {
+                "OBJModel" : "data\\Models\\TomsWorld\\coin.obj",
+                "TextureFile" : "data\\images\\TomsWorld\\coin.jpg",
+                "id" : "coin.obj0",
+                "type" : "staticmesh"
+             },
+		  "boundingboxo": {
+		    "type":"boundingboxo",
+			"centerX": 0.0,
+			"centerY": 0.0,
+			"centerZ": 0.0,
+			"extentX": 1,
+			"extentY": 1,
+			"extentZ": 1,
+			"static": true,
+			"density": 0.01
+		  }
+          },
+		"script": {
+			  "path": "data\\Scripts\\coin.lua",
+			  "identifier": "Coin"
+			},
+          "transform" : {
+             "posX" : 25,
+             "posY" : 25,
+             "posZ" : 25,
+             "rotateX" : 0,
+             "rotateY" : -0,
+             "rotateZ" : 0,
+             "scaleX" : 0.5,
+             "scaleY" : 0.5,
+             "scaleZ" : 0.5
+          },
+          "type" : "generalentity"
+      }
+    },
+     "cameras": {
       "camera0": {
         "camerasetup": {
           "posX": 5,
@@ -422,9 +557,9 @@
           "fov": 50,
           "pitch": 0,
           "yaw": 0
-		  }
+          }
         },
-	"camera2": {
+    "camera2": {
         "camerasetup": {
           "posX": 0,
           "posY": 10,
@@ -435,9 +570,9 @@
           "fov": 120,
           "pitch": 0,
           "yaw": 0
-		  }
+          }
         },
-		"camera3": {
+        "camera3": {
         "camerasetup": {
           "posX": 0,
           "posY": 20,
@@ -451,7 +586,7 @@
         }
       }
     },
-	"lights": {
+    "lights": {
       "light0": {
         "lightparams": {
           "posX": 0,
@@ -468,3 +603,4 @@
     }
   }
 }
+
