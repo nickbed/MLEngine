@@ -75,6 +75,7 @@ public:
 	static IEntity* AddEntity(std::string id, bool isActive);
 	static void DestroyEntity(std::string id);
 	static IEntity* FindEntity(std::string id);
+	static void LoadLevel(std::string id);
 
 private:
 	void AddMessageListner(const char* typeToListen, void* entToBindTo, std::function<void(mauvemessage::BaseMessage*)> functionToBind);
@@ -89,9 +90,10 @@ private:
 	IEntity* currentPlayer;
 	bool isLoading;
 	bool showDebug;
-	bool shouldLoadLevel;
 	float lastDt;
-	
+
+	static bool shouldLoadLevel;
+	static std::string nextLevel;
 };
 
 #endif

@@ -999,7 +999,7 @@
             "id": "ent1mesh",
             "type": "staticmesh",
             "OBJModel": "data\\models\\crate.obj",
-            "TextureFile": "data\\images\\xc_sandy\\pyramid_01.tga"
+            "TextureFile": "data\\images\\xc_sandy\\enemy.tga"
           },
 		  "boundingboxo": {
 		    "type":"boundingboxo",
