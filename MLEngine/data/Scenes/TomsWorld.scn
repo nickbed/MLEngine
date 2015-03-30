@@ -2795,9 +2795,9 @@
       "lights" : {
          "Light1" : {
             "lightparams" : {
-               "intensityB" : 0.9,
-               "intensityG" : 1,
-               "intensityR" : 0.9,
+               "intensityB" : 0.5,
+               "intensityG" : 0.5,
+               "intensityR" : 0.5,
                "posX" : -30,
                "posY" : 30.79999923706055,
                "posZ" : -30.6999969482422,

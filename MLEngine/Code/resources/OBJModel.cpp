@@ -85,7 +85,7 @@ bool OBJModel::LoadFromFile(std::string filename)
 				//Parse the vertex
 				for (int i = 0; i < 3; ++i)
 				{
-					char * vertStart = strtok_s(gotLine, " ", &next_token);
+					char * vertStart = strtok_s(NULL, " ", &next_token);
 					tempNormals[currentNormalCount++] = (GLfloat)(atof(vertStart));
 				}
 			}

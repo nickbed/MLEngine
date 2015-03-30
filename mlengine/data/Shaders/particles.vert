@@ -9,24 +9,22 @@ layout (location = 2) in float VertexStartTime;
 layout (location = 3) in vec3 VertexInitialVelocity;
 layout (location = 4) in vec3 StartPosition;
 
-// Layout specifiers only available in OpenGL 4.4
-out vec3 Position;   // To transform feedback
-out vec3 Velocity;   // To transform feedback
-out float StartTime; // To transform feedback
-out float Transp;    // To fragment shader
+out vec3 Position;   
+out vec3 Velocity;  
+out float StartTime; 
+out float Transp;    
 out float colour;
 
-uniform float Time;  // Simulation time
-uniform float H;     // Elapsed time between frames
-uniform vec3 Accel;  // Particle acceleration
-uniform float ParticleLifetime;  // Particle lifespan
+uniform float Time;  
+uniform float DT;     
+uniform vec3 Accel; 
+uniform float ParticleLifetime; 
 
 uniform mat4 MVP;
 
 subroutine (RenderPassType)
 void update() {
 
-    // Update position & velocity for next frame
     Position = VertexPosition;
     Velocity = VertexVelocity;
     StartTime = VertexStartTime;
@@ -35,18 +33,18 @@ void update() {
 
         float age = Time - StartTime;
         if( age > ParticleLifetime ) {
-            // The particle is past it's lifetime, recycle.
+            // If the particle is past its lifetime reset it to its start position
             Position = StartPosition;
            Velocity = VertexInitialVelocity;
             StartTime = Time;
         } else {
-            // The particle is alive, update.
-            Position += Velocity * H;
-            Velocity += Accel * H;
+            //Update using the Euler equation
+            Position += Velocity * DT;
+            Velocity += Accel * DT;
         }
     }
 }
-//
+
 subroutine (RenderPassType)
 void render() {
     float age = Time - VertexStartTime;
@@ -57,6 +55,6 @@ void render() {
 
 void main()
 {
-    // This will call either render() or update()
+    //render or update
     RenderPass();
 }

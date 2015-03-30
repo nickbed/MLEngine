@@ -590,11 +590,11 @@
       "light0": {
         "lightparams": {
           "posX": 0,
-          "posY": 30,
+          "posY": 40,
           "posZ": 0,
-          "intensityR": 0.75,
-          "intensityG": 0.75,
-          "intensityB": 0.75,
+          "intensityR": 0.55,
+          "intensityG": 0.55,
+          "intensityB": 0.55,
           "surfaceReflectivityR_TEMP": 1,
           "surfaceReflectivityG_TEMP": 1,
           "surfaceReflectivityB_TEMP": 1

@@ -80,13 +80,12 @@ void ParticleSystem::InitParticleBuffers(glm::vec3 accel, glm::vec3 position, co
 	nParticles = 8000;
 
 	// Generate the buffers
-	glGenBuffers(2, posBuf);    // position buffers
-	glGenBuffers(2, velBuf);    // velocity buffers
-	glGenBuffers(2, startTime); // Start time buffers
-	glGenBuffers(1, &initVel);  // Initial velocity buffer (never changes, only need one)
-	glGenBuffers(1, &initPos);  // Initial velocity buffer (never changes, only need one)
+	glGenBuffers(2, posBuf);   
+	glGenBuffers(2, velBuf);   
+	glGenBuffers(2, startTime);
+	glGenBuffers(1, &initVel); 
+	glGenBuffers(1, &initPos); 
 
-	// Allocate space for all buffers
 	int size = nParticles * 3 * sizeof(GLfloat);
 	glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
 	glBufferData(GL_ARRAY_BUFFER, size, NULL, GL_DYNAMIC_COPY);
@@ -126,13 +125,13 @@ void ParticleSystem::InitParticleBuffers(glm::vec3 accel, glm::vec3 position, co
 
 
 	glm::vec3 v(0.0f);
-	float velocity, theta, phi;
-	theta = glm::mix(0.0f, (float)glm::pi<float>() / 5.f, randFloat());
-	phi = glm::mix(0.0f, (float)glm::pi<float>()*4.0f, randFloat());
+	float velocity, x, y;
+	x = glm::mix(0.0f, (float)glm::pi<float>() / 5.f, randFloat());
+	y = glm::mix(0.0f, (float)glm::pi<float>()*4.0f, randFloat());
 
-	v.x = sinf(theta) * cosf(phi);
-	v.y = cosf(theta);
-	v.z = sinf(theta) * sinf(phi);
+	v.x = glm::sin(x) * glm::cos(y);
+	v.y = glm::cos(x);
+	v.z = glm::sin(x) * glm::sin(y);
 
 	velocity = glm::mix(1.25f, 1.5f, randFloat());
 	v = glm::normalize(v) * accel;
@@ -166,7 +165,8 @@ void ParticleSystem::InitParticleBuffers(glm::vec3 accel, glm::vec3 position, co
 	// Create vertex arrays for each set of buffers
 	glGenVertexArrays(2, particleArray);
 
-	// Set up particle array 0
+	//First set of buffers
+	
 	glBindVertexArray(particleArray[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, posBuf[0]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, FALSE, 0, NULL);
@@ -188,7 +188,8 @@ void ParticleSystem::InitParticleBuffers(glm::vec3 accel, glm::vec3 position, co
 	glVertexAttribPointer(4, 3, GL_FLOAT, FALSE, 0, NULL);
 	glEnableVertexAttribArray(4);
 
-	// Set up particle array 1
+	//Second set of buffers
+
 	glBindVertexArray(particleArray[1]);
 	glBindBuffer(GL_ARRAY_BUFFER, posBuf[1]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, FALSE, 0, NULL);
@@ -212,16 +213,13 @@ void ParticleSystem::InitParticleBuffers(glm::vec3 accel, glm::vec3 position, co
 
 	glBindVertexArray(0);
 
-	// Setup the feedback objects
-	glGenTransformFeedbacks(2, feedback);
 
-	// Transform feedback 0
+	glGenTransformFeedbacks(2, feedback);
 	glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, feedback[0]);
 	glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, posBuf[0]);
 	glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, velBuf[0]);
 	glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 2, startTime[0]);
 
-	// Transform feedback 1
 	glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, feedback[1]);
 	glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, posBuf[1]);
 	glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, velBuf[1]);
@@ -352,7 +350,7 @@ void ParticleSystem::Draw(glm::mat4 VP, glm::vec3 cameraPos, float dt)
 	particleShader->UseShader();
 	glUniformSubroutinesuiv(GL_VERTEX_SHADER, 1, &particleUpdateSub);
 	particleShader->SendUniform1f("ParticleLifetime", currentLifetime);
-	particleShader->SendUniform1f("H", dt);
+	particleShader->SendUniform1f("DT", dt);
 	particleShader->SendUniform1f("Time", particletime);
 
 	glEnable(GL_RASTERIZER_DISCARD);
